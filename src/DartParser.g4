@@ -15,6 +15,7 @@ scaffoldProperty: BODY COLON widget
 
 widget: row
       | center
+      | text
       ;
 
 row: ROW LP rowProperties+ RP
@@ -34,22 +35,20 @@ column: COLUMN LP columnProperties+ RP
 columnProperties: CHILDREN COLON OA widget+ CA
                 ;
 
-customWidget: WIDGET WIDGETNAME OB variables RETURN LP tree RP CB
-            ;
+text: TEXT LP textProperties+ RP;
 
+textProperties: TEXTATRIB COLON STRING;
+
+//custom widget stuff
+customWidget: WIDGET WIDGETNAME OB variables RETURN LP tree RP CB            ;
 variables: expr*;
-
 expr: decla;
-
 tree: widget+ ;
-
 decla: type IDENTIFIER SC
      | FUNCTION LP type RP IDENTIFIER SC
      ;
-
 type: INT
-    | STRING
+    | STRINGTYPE
     | DOUBLE
     ;
-
-    //function(int) onPressed
+//
