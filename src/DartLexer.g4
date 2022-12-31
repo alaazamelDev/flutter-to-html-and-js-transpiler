@@ -21,6 +21,7 @@ APPBAR: 'AppBar';
 CONTAINER: 'Container';
 EXPANDED: 'Expanded';
 BOXDECORATION: 'BoxDecoration';
+GESTUREDETECTOR: 'GestureDetector';
 
 //keywords
 CHILDREN: 'children';
@@ -54,6 +55,7 @@ CIRCULAR: 'circular';
 TITLE: 'title';
 BOOLEAN: 'true' | 'false';
 CENTERTITLE: 'centerTitle';
+ONPRESSED: 'onPressed';
 
 WIDGETNAME: [A-Z][A-Za-z0-9_]*;
 IDENTIFIER: [a-z][A-Za-z0-9_]+;

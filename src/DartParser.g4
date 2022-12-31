@@ -88,6 +88,13 @@ expandedProperties: FLEX COLON NUM #ExpandedFlex
                   ;
 
 
+gestureDetector: GESTUREDETECTOR LP (gestureDetectorProperties (COMMA gestureDetectorProperties)*)? RP;
+
+gestureDetectorProperties: ONPRESSED COLON onPressedFunction;
+
+onPressedFunction: LP (IDENTIFIER (COMMA IDENTIFIER)*)? RP OB CB;
+
+
 //custom widget stuff
 customWidget: WIDGET WIDGETNAME OB variables RETURN LP tree RP CB            ;
 variables: expr*;
