@@ -11,6 +11,7 @@ CA: ']';
 SCAFFOLD: 'Scaffold';
 ROW: 'Row';
 CENTER: 'Center';
+COLUMN: 'Column';
 
 //keywords
 CHILDREN: 'children';

@@ -27,3 +27,9 @@ center: CENTER LP centerProperties+ RP
 
 centerProperties: CHILD COLON widget
                 ;
+
+column: COLUMN LP columnProperties+ RP
+      ;
+
+columnProperties: CHILDREN COLON OA widget+ CA
+                ;
