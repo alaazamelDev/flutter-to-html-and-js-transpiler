@@ -27,6 +27,7 @@ widget: row #RowWidget
       | container #ContainerWidget
       | expanded #ExpandedWidget
       | column #ColumnWidget
+      | gestureDetector #GestureDetectorWidget
       ;
 
 
