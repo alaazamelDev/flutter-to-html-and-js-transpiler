@@ -6,6 +6,9 @@ RP: ')';
 COLON: ':';
 OA: '[';
 CA: ']';
+OB: '{';
+CB: '}';
+SC: ';';
 
 //Widgets
 SCAFFOLD: 'Scaffold';
@@ -17,6 +20,13 @@ COLUMN: 'Column';
 CHILDREN: 'children';
 BODY: 'body';
 CHILD: 'child';
+WIDGET: 'Widget';
+INT: 'int';
+STRING: 'String';
+DOUBLE: 'double';
+RETURN: 'return';
+FUNCTION: 'function';
 
-
+WIDGETNAME: [A-Z][A-Za-z0-9_]*;
+IDENTIFIER: [A-Za-z][A-Za-z0-9_]+;
 WS: [ \t\r\n]+ -> skip;

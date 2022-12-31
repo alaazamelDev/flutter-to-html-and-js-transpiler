@@ -4,7 +4,7 @@ options {
   tokenVocab=DartLexer;
 }
 
-prog: scaffold EOF
+prog: customWidget* scaffold customWidget* EOF
     ;
 
 scaffold: SCAFFOLD LP scaffoldProperty+ RP
@@ -33,3 +33,23 @@ column: COLUMN LP columnProperties+ RP
 
 columnProperties: CHILDREN COLON OA widget+ CA
                 ;
+
+customWidget: WIDGET WIDGETNAME OB variables RETURN LP tree RP CB
+            ;
+
+variables: expr*;
+
+expr: decla;
+
+tree: widget+ ;
+
+decla: type IDENTIFIER SC
+     | FUNCTION LP type RP IDENTIFIER SC
+     ;
+
+type: INT
+    | STRING
+    | DOUBLE
+    ;
+
+    //function(int) onPressed
