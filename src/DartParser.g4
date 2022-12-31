@@ -7,14 +7,19 @@ options {
 prog: customWidget* scaffold customWidget* EOF
     ;
 
-scaffold: SCAFFOLD LP (scaffoldProperty COMMA)+ RP
+scaffold: SCAFFOLD LP (scaffoldProperty (COMMA scaffoldProperty)*)? RP
         ;
 
 scaffoldProperty: BODY COLON widget
                 | APPBARATRIB COLON appBar
                 ;
 
-appBar: APPBAR LP RP;
+
+appBar: APPBAR LP (appBarProperties (COMMA appBarProperties)*)? RP;
+
+appBarProperties: TITLE COLON STRING
+                | CENTERTITLE COLON BOOLEAN
+                ;
 
 widget: row
       | center
@@ -24,27 +29,31 @@ widget: row
       | column
       ;
 
-row: ROW LP (rowProperties COMMA)+ RP
+
+row: ROW LP (rowProperties (COMMA rowProperties)*)? RP
    ;
 
 rowProperties: CHILDREN COLON OA widget+ CA
              | MAINAXISSIZE COLON MAX
              ;
 
-center: CENTER LP (centerProperties COMMA)+ RP
+center: CENTER LP (centerProperties (COMMA centerProperties)*)? RP
       ;
 
 centerProperties: CHILD COLON widget
                 ;
 
-column: COLUMN LP (columnProperties COMMA)+ RP
+
+
+column: COLUMN LP (columnProperties (COMMA columnProperties)*)? RP
       ;
 
 columnProperties: CHILDREN COLON OA widget+ CA
                 | CROSSAXISALIGNMENT COLON STREATCH
                 ;
 
-text: TEXT LP (textProperties COMMA)+ RP;
+
+text: TEXT LP (textProperties (COMMA textProperties)*)? RP;
 
 textProperties: TEXTATRIB COLON STRING
               | FONTWEIGHT COLON BOLD
@@ -52,7 +61,8 @@ textProperties: TEXTATRIB COLON STRING
               | LETTERSPACING COLON NUM
               ;
 
-container: CONTAINER LP (containerProperties COMMA)* RP;
+
+container: CONTAINER LP (containerProperties (COMMA containerProperties)*)? RP;
 
 containerProperties: WIDTH COLON NUM
                    | HEIGHT COLON NUM
@@ -61,13 +71,15 @@ containerProperties: WIDTH COLON NUM
                    | DECORATION COLON boxDecoration
                    ;
 
-boxDecoration: BOXDECORATION LP (boxDecorationProperties COMMA)+ RP;
+
+boxDecoration: BOXDECORATION LP (boxDecorationProperties (COMMA boxDecorationProperties)*)? RP;
 
 boxDecorationProperties: COLOR COLON STRING
                        | BORDERRADIUS COLON CIRCULAR LP NUM RP
                        ;
 
-expanded: EXPANDED LP (expandedProperties COMMA)* RP;
+
+expanded: EXPANDED LP (expandedProperties (COMMA expandedProperties)*)? RP;
 
 expandedProperties: FLEX COLON NUM
                   | CHILD COLON widget

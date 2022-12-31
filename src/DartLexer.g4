@@ -51,6 +51,9 @@ DECORATION: 'decoration';
 COLOR: 'color';
 BORDERRADIUS: 'borderRadius';
 CIRCULAR: 'circular';
+TITLE: 'title';
+BOOLEAN: 'true' | 'false';
+CENTERTITLE: 'centerTitle';
 
 WIDGETNAME: [A-Z][A-Za-z0-9_]*;
 IDENTIFIER: [A-Za-z][A-Za-z0-9_]+;
