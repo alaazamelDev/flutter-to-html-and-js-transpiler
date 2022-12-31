@@ -9,7 +9,7 @@ CA: ']';
 OB: '{';
 CB: '}';
 SC: ';';
-QUTOS: '"';
+COMMA: ',';
 
 //Widgets
 SCAFFOLD: 'Scaffold';
@@ -17,6 +17,10 @@ ROW: 'Row';
 CENTER: 'Center';
 COLUMN: 'Column';
 TEXT: 'Text';
+APPBAR: 'AppBar';
+CONTAINER: 'Container';
+EXPANDED: 'Expanded';
+BOXDECORATION: 'BoxDecoration';
 
 //keywords
 CHILDREN: 'children';
@@ -29,9 +33,28 @@ DOUBLE: 'double';
 RETURN: 'return';
 FUNCTION: 'function';
 TEXTATRIB: 'text';
+APPBARATRIB: 'appBar';
+FONTWEIGHT: 'fontWeight';
+FONTSIZE: 'fontSize';
+LETTERSPACING: 'letterSpacing';
+BOLD: 'bold';
+WIDTH: 'width';
+HEIGHT: 'height';
+CONTENTALIGNMENT: 'contentAlignment';
+CENTERVALUE: 'center';
+FLEX: 'flex';
+MAINAXISSIZE: 'mainAxisSize';
+MAX: 'max';
+CROSSAXISALIGNMENT: 'crossAxisAlignment';
+STREATCH: 'streatch';
+DECORATION: 'decoration';
+COLOR: 'color';
+BORDERRADIUS: 'borderRadius';
+CIRCULAR: 'circular';
 
 WIDGETNAME: [A-Z][A-Za-z0-9_]*;
 IDENTIFIER: [A-Za-z][A-Za-z0-9_]+;
+NUM: [0-9]+;
 WS: [ \t\r\n]+ -> skip;
 
 STRING: SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING;
