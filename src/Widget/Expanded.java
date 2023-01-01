@@ -1,6 +1,7 @@
 package Widget;
 
-import Widget.dump_properties.Property;
+
+import properties.Property;
 
 import java.util.List;
 
