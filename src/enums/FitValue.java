@@ -1,6 +1,6 @@
 package enums;
 
 public enum FitValue {
-    COVER,
-    CONTAINS,
+    cover,
+    contains,
 }
