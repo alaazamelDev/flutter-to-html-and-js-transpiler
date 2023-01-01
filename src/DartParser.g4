@@ -4,7 +4,7 @@ options {
   tokenVocab=DartLexer;
 }
 
-prog: customWidget* scaffold customWidget* EOF
+prog: customWidgetDeclaration* scaffold customWidgetDeclaration* EOF
     ;
 
 scaffold: SCAFFOLD LP (scaffoldProperty (COMMA scaffoldProperty)*)? RP
@@ -31,8 +31,16 @@ widget: row #RowWidget
       | padding #PaddingWidget
       | image #ImageWidget
       | button #ButtonWidget
+      | customWidget #CreatedWidget
       ;
 
+customWidget
+    :   WIDGETNAME LP (customWidgetProperties (COMMA customWidgetProperties)*)?  RP
+    ;
+
+customWidgetProperties
+    :   IDENTIFIER COLON (NUM | STRING)
+    ;
 
 row: ROW LP (rowProperties (COMMA rowProperties)*)? RP
    ;
@@ -96,7 +104,16 @@ gestureDetector: GESTUREDETECTOR LP (gestureDetectorProperties (COMMA gestureDet
 
 gestureDetectorProperties: ONPRESSED COLON onPressedFunction;
 
-onPressedFunction: LP (IDENTIFIER (COMMA IDENTIFIER)*)? RP OB CB;
+onPressedFunction: LP (IDENTIFIER (COMMA IDENTIFIER)*)? RP OB  CB;
+
+//onPressedFunctionBody
+//    : statement*
+//    ;
+//
+//statement
+//    :   variableDeclaration
+//    |
+//    ;
 
 padding:    PADDING LP (paddingProprtey (COMMA paddingProprtey)*)? RP;
 
@@ -143,18 +160,17 @@ buttonProperties
     |   TITLE COLON STRING  #ButtonTitle
     |   BACKGROUND_COLOR COLON HEX_NUM  #ButtonBackgroundColor
     |   TITLE_COLOR COLON HEX_NUM   #ButtonTitleColor
-    // add on pressed attribure
+    |   ONPRESSED COLON onPressedFunction   #ButtonOnPressed
     ;
 
 //custom widget stuff
-customWidget: WIDGET WIDGETNAME OB variables RETURN LP tree RP CB;
-variables: expr*;
-expr: decla;
-tree: widget+ ;
-decla:
-     type IDENTIFIER SC #VariableDeclaration
-     | FUNCTION LP type RP IDENTIFIER SC #FunctionVariableDeclaration
-     ;
+customWidgetDeclaration: WIDGET WIDGETNAME OB variables RETURN LP tree RP CB;
+variables: variableDeclaration*;
+tree: widget;
+variableDeclaration
+    :   type IDENTIFIER SC #NonFunctionVariableDeclaration
+    |   FUNCTION LP type RP IDENTIFIER SC #FunctionVariableDeclaration
+    ;
 type
     : INT #Integer
     | STRINGTYPE #String

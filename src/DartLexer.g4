@@ -10,6 +10,7 @@ OB: '{';
 CB: '}';
 SC: ';';
 COMMA: ',';
+EQL: '=';
 
 //Widgets
 SCAFFOLD: 'Scaffold';
