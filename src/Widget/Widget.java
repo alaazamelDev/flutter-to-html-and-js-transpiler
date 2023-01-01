@@ -1,6 +1,5 @@
 package Widget;
 
-
 import properties.Property;
 
 import java.util.List;
