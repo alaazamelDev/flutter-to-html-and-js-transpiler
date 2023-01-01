@@ -1,14 +1,16 @@
 parser grammar DartParser;
 
+
 options {
   tokenVocab=DartLexer;
 }
 
-prog: customWidgetDeclaration* scaffold customWidgetDeclaration* EOF
+prog: customWidgetDeclaration* scaffold  EOF
     ;
-
-scaffold: SCAFFOLD LP (scaffoldProperty (COMMA scaffoldProperty)*)? RP
+// modify comma
+scaffold: SCAFFOLD LP (scaffoldProperty (COMMA scaffoldProperty )* COMMA?) ? RP
         ;
+
 
 scaffoldProperty: BODY COLON widget #ScaffoldBody
                 | APPBARATRIB COLON appBar #ScaffoldAppBar
@@ -60,17 +62,18 @@ centerProperties: CHILD COLON widget
 column: COLUMN LP (columnProperties (COMMA columnProperties)*)? RP
       ;
 
-columnProperties: CHILDREN COLON OA widget* CA #ColumnChildren
-                | CROSSAXISALIGNMENT COLON STREATCH #ColumnCrossAxisAlignment
+columnProperties: CHILDREN COLON OA (widget COMMA)* CA #ColumnChildren
+                | CROSSAXISALIGNMENT COLON STRETCH #ColumnCrossAxisAlignment
                 ;
 
 
 text: TEXT LP (textProperties (COMMA textProperties)*)? RP;
 
 textProperties:     TEXTATRIB COLON STRING #TextContent
-              |     FONTWEIGHT COLON BOLD #TextFontWeight
+              |     FONTWEIGHT COLON (BOLD | LIGHT | MEDIUM | SEMIBOLD) #TextFontWeight
               |     FONTSIZE COLON NUM #TextFontSize
               |     LETTERSPACING COLON NUM #TextLetterSpacing
+              |     TEXTALIGN COLON (CENTERVALUE | START_ATTR | END_ATTR | JUSTIFY_ATTR)    #TextTextAlign
               ;
 
 
@@ -86,10 +89,17 @@ containerProperties:    WIDTH COLON NUM #ContainerWidth
 
 boxDecoration:  BOXDECORATION LP (boxDecorationProperties (COMMA boxDecorationProperties)*)? RP;
 
-boxDecorationProperties: COLOR COLON STRING #BoxDecorationColor
-                       | BORDERRADIUS COLON CIRCULAR LP NUM RP #BoxDecorationBorderRadius
+boxDecorationProperties: COLOR COLON HEX_NUM #BoxDecorationColor
+                       | BORDERRADIUS COLON CIRCULAR LP NUM RP #BoxDecorationBorderRadiusCircular
+                       | BORDERRADIUS COLON ONLY LP (borderRadiusOnlyProperties COMMA)* RP #BoxDecorationBorderRadiusOnly
                        ;
 
+borderRadiusOnlyProperties
+    :   TOP COLON NUM
+    |   LEFT COLON NUM
+    |   RIGHT COLON NUM
+    |   BOTTOM COLON NUM
+    ;
 
 expanded:   EXPANDED LP (expandedProperties (COMMA expandedProperties)*)? RP;
 
@@ -106,15 +116,6 @@ gestureDetectorProperties: ONPRESSED COLON onPressedFunction;
 
 onPressedFunction: LP (IDENTIFIER (COMMA IDENTIFIER)*)? RP OB  CB;
 
-//onPressedFunctionBody
-//    : statement*
-//    ;
-//
-//statement
-//    :   variableDeclaration
-//    |
-//    ;
-
 padding:    PADDING LP (paddingProprtey (COMMA paddingProprtey)*)? RP;
 
 paddingProprtey
@@ -124,7 +125,7 @@ paddingProprtey
 
 edgeInsets
     :   EDGE_INSETS_ONLY LP (edgeInsetsOnlyProperties (COMMA edgeInsetsOnlyProperties)*)? RP  #EdgeInsetsOnly
-    |   EDGE_INSETS_SYMETRIC LP (edgeInsetsSymetricProperties (COMMA edgeInsetsSymetricProperties)*)? RP  #EdgeInsetsSymetric
+    |   EDGE_INSETS_SYMMETRIC LP (edgeInsetsSymetricProperties (COMMA edgeInsetsSymetricProperties)*)? RP  #EdgeInsetsSymetric
     ;
 
 edgeInsetsOnlyProperties
@@ -176,4 +177,3 @@ type
     | STRINGTYPE #String
     | DOUBLE #Double
     ;
-//
