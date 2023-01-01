@@ -1,9 +1,15 @@
 package properties;
 
 public abstract class Property {
-    final String name;
+    private final String name;
 
     protected Property(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+
+
 }
