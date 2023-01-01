@@ -10,6 +10,7 @@ OB: '{';
 CB: '}';
 SC: ';';
 COMMA: ',';
+EQL: '=';
 
 //Widgets
 SCAFFOLD: 'Scaffold';
@@ -21,6 +22,12 @@ APPBAR: 'AppBar';
 CONTAINER: 'Container';
 EXPANDED: 'Expanded';
 BOXDECORATION: 'BoxDecoration';
+PADDING: 'Padding';
+EDGE_INSETS_ONLY: 'EdgeInsetsOnly';
+EDGE_INSETS_SYMMETRIC: 'EdgeInsetsSymmetric';
+IMAGE:'Image';
+BUTTON:'Button';
+GESTUREDETECTOR: 'GestureDetector';
 
 //keywords
 CHILDREN: 'children';
@@ -46,17 +53,45 @@ FLEX: 'flex';
 MAINAXISSIZE: 'mainAxisSize';
 MAX: 'max';
 CROSSAXISALIGNMENT: 'crossAxisAlignment';
-STREATCH: 'streatch';
+STRETCH: 'stretch';
 DECORATION: 'decoration';
 COLOR: 'color';
 BORDERRADIUS: 'borderRadius';
 CIRCULAR: 'circular';
+PADDINGATTR: 'padding';
+TOP: 'top';
+LEFT: 'left';
+RIGHT: 'right';
+BOTTOM: 'bottom';
+HORIZONTAL: 'horizontal';
+VERTICAL: 'vertical';
+FIT: 'fit';
+URL: 'url';
+TITLE:'title';
+BACKGROUND_COLOR:'backgroundColor';
+TITLE_COLOR:'titleColor';
+CONTAINS:'contains';
+COVER:'cover';
+BOOLEAN: 'true' | 'false';
+CENTERTITLE: 'centerTitle';
+TEXTALIGN:'textAlign';
+ONPRESSED: 'onPressed';
+START_ATTR: 'start';
+END_ATTR: 'end';
+JUSTIFY_ATTR: 'justify';
+ONLY:'only';
+LIGHT:'light';
+SEMIBOLD:'semibold';
+MEDIUM:'medium';
 
 WIDGETNAME: [A-Z][A-Za-z0-9_]*;
-IDENTIFIER: [A-Za-z][A-Za-z0-9_]+;
+IDENTIFIER: [a-z][A-Za-z0-9_]+;
 NUM: [0-9]+;
 WS: [ \t\r\n]+ -> skip;
 
 STRING: SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING;
 fragment SINGLE_QUOTED_STRING: '\'' (~'\'')* '\'';
 fragment DOUBLE_QUOTED_STRING: '"' (~'"')* '"';
+
+HEX_NUM : '0x' HEX_DIGIT+ | '0X' HEX_DIGIT+ ;
+fragment HEX_DIGIT : 'a' .. 'f' | 'A' .. 'F' | NUM ;
