@@ -2,7 +2,9 @@ package visitors;
 
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
-import properties.Property;
+import enums.CrossAxisAlignmentValue;
+import enums.MainAxisSizeValue;
+import properties.*;
 
 public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
@@ -522,17 +524,22 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitWidthProperty(DartParser.WidthPropertyContext ctx) {
-        return super.visitWidthProperty(ctx);
+        String value = ctx.getChild(2).getText();
+
+        return new WidthProperty(Double.parseDouble(value));
     }
 
     @Override
     public Property visitHeightProperty(DartParser.HeightPropertyContext ctx) {
-        return super.visitHeightProperty(ctx);
+        String value = ctx.getChild(2).getText();
+
+        return new HeightProperty(Double.parseDouble(value));
     }
 
     @Override
     public Property visitColorProperty(DartParser.ColorPropertyContext ctx) {
-        return super.visitColorProperty(ctx);
+        String value = ctx.getChild(2).getText();
+        return new Color(value);
     }
 
     @Override
@@ -547,12 +554,14 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitMainAxisSizeProperty(DartParser.MainAxisSizePropertyContext ctx) {
-        return super.visitMainAxisSizeProperty(ctx);
+        String value = ctx.getChild(2).getText();
+        return new MainAxisSizeObjectProperty(MainAxisSizeValue.valueOf(value));
     }
 
     @Override
     public Property visitCrossAxisAlignmentProperty(DartParser.CrossAxisAlignmentPropertyContext ctx) {
-        return super.visitCrossAxisAlignmentProperty(ctx);
+        String value = ctx.getChild(2).getText();
+        return new CrossAxisAlignmentProperty(CrossAxisAlignmentValue.valueOf(value));
     }
 
     @Override

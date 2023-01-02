@@ -1,9 +1,9 @@
 package properties;
 
-public class HeightDoubleProperty extends Property {
+public class HeightProperty extends Property {
     private final double value;
 
-    protected HeightDoubleProperty(double value) {
+    public HeightProperty(double value) {
         super("height");
         this.value = value;
     }
