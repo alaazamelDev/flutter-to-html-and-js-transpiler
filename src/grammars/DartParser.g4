@@ -47,7 +47,7 @@ customWidget
     ;
 
 customWidgetProperties
-    :   IDENTIFIER COLON (NUM | STRING)
+    :   IDENTIFIER COLON (NUM | STRING | FLOAT)
     ;
 
 row
@@ -87,8 +87,8 @@ text
 
 textProperties:     TEXTATRIB COLON STRING #TextContent
               |     FONTWEIGHT COLON (BOLD | LIGHT | MEDIUM | SEMIBOLD) #TextFontWeight
-              |     FONTSIZE COLON NUM #TextFontSize
-              |     LETTERSPACING COLON NUM #TextLetterSpacing
+              |     FONTSIZE COLON (NUM|FLOAT) #TextFontSize
+              |     LETTERSPACING COLON (NUM|FLOAT) #TextLetterSpacing
               |     TEXTALIGN COLON (CENTERVALUE | START_ATTR | END_ATTR | JUSTIFY_ATTR)    #TextTextAlign
               ;
 
@@ -117,13 +117,13 @@ borderRadius
 borderRadiusCircular: BORDERRADIUSCIRCULAR LP borderRadiusCircularProperties COMMA? RP;
 borderRadiusOnly: BORDERRADIUSONLY LP (borderRadiusOnlyProperties (COMMA borderRadiusOnlyProperties)* COMMA? )? RP;
 
-borderRadiusCircularProperties: RADIUS COLON NUM;
+borderRadiusCircularProperties: RADIUS COLON (NUM|FLOAT);
 
 borderRadiusOnlyProperties
-    :   TOPRIGHT COLON NUM #BorderRadiusOnlyTopRight
-    |   TOPLEFT COLON NUM #BorderRadiusOnlyTopLeft
-    |   BOTTOMRIGHT COLON NUM #BorderRadiusOnlyBottomRight
-    |   BOTTOMLEFT COLON NUM #BorderRadiusOnlyBottomLeft
+    :   TOPRIGHT COLON (NUM|FLOAT) #BorderRadiusOnlyTopRight
+    |   TOPLEFT COLON (NUM|FLOAT) #BorderRadiusOnlyTopLeft
+    |   BOTTOMRIGHT COLON (NUM|FLOAT) #BorderRadiusOnlyBottomRight
+    |   BOTTOMLEFT COLON (NUM|FLOAT) #BorderRadiusOnlyBottomLeft
     ;
 
 expanded:   EXPANDED LP (expandedProperties (COMMA expandedProperties)* COMMA? )? RP;
@@ -152,15 +152,15 @@ edgeInsets
     ;
 
 edgeInsetsOnlyProperties
-    :   TOP COLON NUM    #EdgeInsetsOnlyTop
-    |   LEFT COLON NUM      #EdgeInsetsOnlyLeft
-    |   RIGHT COLON NUM    #EdgeInsetsOnlyRight
-    |   BOTTOM COLON NUM    #EdgeInsetsOnlyBottom
+    :   TOP COLON (NUM|FLOAT)    #EdgeInsetsOnlyTop
+    |   LEFT COLON (NUM|FLOAT)      #EdgeInsetsOnlyLeft
+    |   RIGHT COLON (NUM|FLOAT)    #EdgeInsetsOnlyRight
+    |   BOTTOM COLON (NUM|FLOAT)    #EdgeInsetsOnlyBottom
     ;
 
 edgeInsetsSymetricProperties
-    :   HORIZONTAL COLON NUM    #EdgeInsetsSymetricHorizontal
-    |   VERTICAL COLON NUM      #EdgeInsetsSymetricVertical
+    :   HORIZONTAL COLON (NUM|FLOAT)    #EdgeInsetsSymetricHorizontal
+    |   VERTICAL COLON (NUM|FLOAT)      #EdgeInsetsSymetricVertical
     ;
 
 image
@@ -230,8 +230,8 @@ variables: variableDeclaration*;
 tree: widget;
 
 // Frequency grammars
-widthProperty:  WIDTH COLON NUM;
-heightProperty: HEIGHT COLON NUM;
+widthProperty:  WIDTH COLON (NUM|FLOAT);
+heightProperty: HEIGHT COLON (NUM|FLOAT);
 colorProperty: COLOR COLON HEX_NUM;
 childProperty:  CHILD COLON widget;
 childrenProperty:   CHILDREN COLON OA (widget COMMA)* CA;
