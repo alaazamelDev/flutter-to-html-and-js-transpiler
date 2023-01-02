@@ -1,4 +1,4 @@
-package Widget;
+package widgets;
 
 import properties.Property;
 
