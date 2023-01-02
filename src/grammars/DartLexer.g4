@@ -102,7 +102,7 @@ BOTTOM: 'bottom';
 RIGHT: 'right';
 
 WIDGETNAME: [A-Z][A-Za-z0-9_]*;
-IDENTIFIER: [a-z][A-Za-z0-9_]+;
+IDENTIFIER: [a-z][A-Za-z0-9_]*;
 
 
 // Decimal Numbers
