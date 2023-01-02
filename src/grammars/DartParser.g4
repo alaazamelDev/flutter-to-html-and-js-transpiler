@@ -225,8 +225,8 @@ variableAssignment
     ;
 
 //custom widget stuff
-customWidgetDeclaration: WIDGET WIDGETNAME OB variables* RETURN LP tree RP CB;
-variables: variableDeclaration;
+customWidgetDeclaration: WIDGET WIDGETNAME OB variables RETURN LP tree RP CB;
+variables: variableDeclaration*;
 tree: widget;
 
 // Frequency grammars
