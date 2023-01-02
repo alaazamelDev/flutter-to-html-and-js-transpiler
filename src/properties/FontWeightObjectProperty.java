@@ -1,13 +1,15 @@
 package properties;
 
+import enums.FontWeightValue;
+
 public class FontWeightObjectProperty extends Property{
-    private final Object value;
-    protected FontWeightObjectProperty(Object value) {
+    private final FontWeightValue value;
+    protected FontWeightObjectProperty(FontWeightValue value) {
         super("fontWeight");
         this.value = value;
     }
 
-    public Object getValue() {
+    public FontWeightValue getValue() {
         return value;
     }
 }

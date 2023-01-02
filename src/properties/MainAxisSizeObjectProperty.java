@@ -1,14 +1,16 @@
 package properties;
 
-public class MainAxisSizeObjectProperty extends Property {
-    private final Object value;
+import enums.MainAxisSizeValue;
 
-    protected MainAxisSizeObjectProperty(Object value) {
+public class MainAxisSizeObjectProperty extends Property {
+    private final MainAxisSizeValue value;
+
+    protected MainAxisSizeObjectProperty(MainAxisSizeValue value) {
         super("mainAxisSize");
         this.value = value;
     }
 
-    public Object getValue() {
+    public MainAxisSizeValue getValue() {
         return value;
     }
 }

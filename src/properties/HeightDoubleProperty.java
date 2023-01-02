@@ -1,7 +1,5 @@
 package properties;
 
-import widgets.Widget;
-
 public class HeightDoubleProperty extends Property {
     private final double value;
 

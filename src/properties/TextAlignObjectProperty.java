@@ -1,14 +1,16 @@
 package properties;
 
-public class TextAlignObjectProperty extends Property {
-    private final Object value;
+import enums.TextAlignValue;
 
-    protected TextAlignObjectProperty(Object value) {
+public class TextAlignObjectProperty extends Property {
+    private final TextAlignValue value;
+
+    protected TextAlignObjectProperty(TextAlignValue value) {
         super("textAlign");
         this.value = value;
     }
 
-    public Object getValue() {
+    public TextAlignValue getValue() {
         return value;
     }
 }

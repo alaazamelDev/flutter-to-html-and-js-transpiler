@@ -1,14 +1,16 @@
 package properties;
 
-public class ContentAlignmentObjectProperty extends Property {
-    private final Object value;
+import enums.ContentAlignmentValue;
 
-    protected ContentAlignmentObjectProperty(Object value) {
+public class ContentAlignmentObjectProperty extends Property {
+    private final ContentAlignmentValue value;
+
+    protected ContentAlignmentObjectProperty(ContentAlignmentValue value) {
         super("contentAlignment");
         this.value = value;
     }
 
-    public Object getValue() {
+    public ContentAlignmentValue getValue() {
         return value;
     }
 }
