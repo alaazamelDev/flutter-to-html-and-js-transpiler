@@ -134,6 +134,13 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCreatedWidget(DartParser.CreatedWidgetContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code TextFieldWidget}
+	 * labeled alternative in {@link DartParser#widget}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTextFieldWidget(DartParser.TextFieldWidgetContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DartParser#customWidget}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -166,17 +173,25 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRowMainAxisSize(DartParser.RowMainAxisSizeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code RowCrossAxisAlignment}
+	 * labeled alternative in {@link DartParser#rowProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRowCrossAxisAlignment(DartParser.RowCrossAxisAlignmentContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DartParser#center}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCenter(DartParser.CenterContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#centerProperties}.
+	 * Visit a parse tree produced by the {@code CenterChild}
+	 * labeled alternative in {@link DartParser#centerProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCenterProperties(DartParser.CenterPropertiesContext ctx);
+	T visitCenterChild(DartParser.CenterChildContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#column}.
 	 * @param ctx the parse tree
@@ -190,6 +205,13 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitColumnChildren(DartParser.ColumnChildrenContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ColumnMainAxisSize}
+	 * labeled alternative in {@link DartParser#columnProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitColumnMainAxisSize(DartParser.ColumnMainAxisSizeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ColumnCrossAxisAlignment}
 	 * labeled alternative in {@link DartParser#columnProperties}.
@@ -293,25 +315,64 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBoxDecorationColor(DartParser.BoxDecorationColorContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code BoxDecorationBorderRadiusCircular}
+	 * Visit a parse tree produced by the {@code BoxDecorationBorderRadius}
 	 * labeled alternative in {@link DartParser#boxDecorationProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBoxDecorationBorderRadiusCircular(DartParser.BoxDecorationBorderRadiusCircularContext ctx);
+	T visitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code BoxDecorationBorderRadiusOnly}
-	 * labeled alternative in {@link DartParser#boxDecorationProperties}.
+	 * Visit a parse tree produced by {@link DartParser#borderRadius}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBoxDecorationBorderRadiusOnly(DartParser.BoxDecorationBorderRadiusOnlyContext ctx);
+	T visitBorderRadius(DartParser.BorderRadiusContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#borderRadiusOnlyProperties}.
+	 * Visit a parse tree produced by {@link DartParser#borderRadiusCircular}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBorderRadiusOnlyProperties(DartParser.BorderRadiusOnlyPropertiesContext ctx);
+	T visitBorderRadiusCircular(DartParser.BorderRadiusCircularContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#borderRadiusOnly}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorderRadiusOnly(DartParser.BorderRadiusOnlyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#borderRadiusCircularProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorderRadiusCircularProperties(DartParser.BorderRadiusCircularPropertiesContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BorderRadiusOnlyTopRight}
+	 * labeled alternative in {@link DartParser#borderRadiusOnlyProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorderRadiusOnlyTopRight(DartParser.BorderRadiusOnlyTopRightContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BorderRadiusOnlyTopLeft}
+	 * labeled alternative in {@link DartParser#borderRadiusOnlyProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorderRadiusOnlyTopLeft(DartParser.BorderRadiusOnlyTopLeftContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BorderRadiusOnlyBottomRight}
+	 * labeled alternative in {@link DartParser#borderRadiusOnlyProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorderRadiusOnlyBottomRight(DartParser.BorderRadiusOnlyBottomRightContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BorderRadiusOnlyBottomLeft}
+	 * labeled alternative in {@link DartParser#borderRadiusOnlyProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorderRadiusOnlyBottomLeft(DartParser.BorderRadiusOnlyBottomLeftContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#expanded}.
 	 * @param ctx the parse tree
@@ -333,20 +394,6 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpandedChild(DartParser.ExpandedChildContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExpandedWidth}
-	 * labeled alternative in {@link DartParser#expandedProperties}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpandedWidth(DartParser.ExpandedWidthContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExpandedHeight}
-	 * labeled alternative in {@link DartParser#expandedProperties}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpandedHeight(DartParser.ExpandedHeightContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link DartParser#gestureDetector}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -359,11 +406,11 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitGestureDetectorProperties(DartParser.GestureDetectorPropertiesContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#onPressedFunction}.
+	 * Visit a parse tree produced by {@link DartParser#onFunction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOnPressedFunction(DartParser.OnPressedFunctionContext ctx);
+	T visitOnFunction(DartParser.OnFunctionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#padding}.
 	 * @param ctx the parse tree
@@ -399,42 +446,42 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEdgeInsetsSymetric(DartParser.EdgeInsetsSymetricContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code edgeInsetsOnlyTop}
+	 * Visit a parse tree produced by the {@code EdgeInsetsOnlyTop}
 	 * labeled alternative in {@link DartParser#edgeInsetsOnlyProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitEdgeInsetsOnlyTop(DartParser.EdgeInsetsOnlyTopContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code edgeInsetsOnlyLeft}
+	 * Visit a parse tree produced by the {@code EdgeInsetsOnlyLeft}
 	 * labeled alternative in {@link DartParser#edgeInsetsOnlyProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitEdgeInsetsOnlyLeft(DartParser.EdgeInsetsOnlyLeftContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code edgeInsetsOnlyRight}
+	 * Visit a parse tree produced by the {@code EdgeInsetsOnlyRight}
 	 * labeled alternative in {@link DartParser#edgeInsetsOnlyProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitEdgeInsetsOnlyRight(DartParser.EdgeInsetsOnlyRightContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code edgeInsetsOnlyBottom}
+	 * Visit a parse tree produced by the {@code EdgeInsetsOnlyBottom}
 	 * labeled alternative in {@link DartParser#edgeInsetsOnlyProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitEdgeInsetsOnlyBottom(DartParser.EdgeInsetsOnlyBottomContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code edgeInsetsSymetricHorizontal}
+	 * Visit a parse tree produced by the {@code EdgeInsetsSymetricHorizontal}
 	 * labeled alternative in {@link DartParser#edgeInsetsSymetricProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitEdgeInsetsSymetricHorizontal(DartParser.EdgeInsetsSymetricHorizontalContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code edgeInsetsSymetricVertical}
+	 * Visit a parse tree produced by the {@code EdgeInsetsSymetricVertical}
 	 * labeled alternative in {@link DartParser#edgeInsetsSymetricProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -523,6 +570,88 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitButtonOnPressed(DartParser.ButtonOnPressedContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link DartParser#textField}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTextField(DartParser.TextFieldContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TextFieldValue}
+	 * labeled alternative in {@link DartParser#textFieldProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTextFieldValue(DartParser.TextFieldValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TextFieldLabel}
+	 * labeled alternative in {@link DartParser#textFieldProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTextFieldLabel(DartParser.TextFieldLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TextFieldTextColor}
+	 * labeled alternative in {@link DartParser#textFieldProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTextFieldTextColor(DartParser.TextFieldTextColorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TextFieldPadding}
+	 * labeled alternative in {@link DartParser#textFieldProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTextFieldPadding(DartParser.TextFieldPaddingContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TextFieldHint}
+	 * labeled alternative in {@link DartParser#textFieldProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTextFieldHint(DartParser.TextFieldHintContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TextFieldBorder}
+	 * labeled alternative in {@link DartParser#textFieldProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTextFieldBorder(DartParser.TextFieldBorderContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TextFieldOnChanged}
+	 * labeled alternative in {@link DartParser#textFieldProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTextFieldOnChanged(DartParser.TextFieldOnChangedContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#border}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorder(DartParser.BorderContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BorderThickness}
+	 * labeled alternative in {@link DartParser#borderProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorderThickness(DartParser.BorderThicknessContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BorderBorderRadius}
+	 * labeled alternative in {@link DartParser#borderProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorderBorderRadius(DartParser.BorderBorderRadiusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BorderColor}
+	 * labeled alternative in {@link DartParser#borderProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorderColor(DartParser.BorderColorContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DartParser#customWidgetDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -541,6 +670,20 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTree(DartParser.TreeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code VariableDeclarationStatment}
+	 * labeled alternative in {@link DartParser#statment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableDeclarationStatment(DartParser.VariableDeclarationStatmentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VariableAssignmentStatment}
+	 * labeled alternative in {@link DartParser#statment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableAssignmentStatment(DartParser.VariableAssignmentStatmentContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code NonFunctionVariableDeclaration}
 	 * labeled alternative in {@link DartParser#variableDeclaration}.
 	 * @param ctx the parse tree
@@ -555,24 +698,51 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionVariableDeclaration(DartParser.FunctionVariableDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Integer}
-	 * labeled alternative in {@link DartParser#type}.
+	 * Visit a parse tree produced by {@link DartParser#variableAssignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInteger(DartParser.IntegerContext ctx);
+	T visitVariableAssignment(DartParser.VariableAssignmentContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code String}
-	 * labeled alternative in {@link DartParser#type}.
+	 * Visit a parse tree produced by {@link DartParser#widthProperty}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitString(DartParser.StringContext ctx);
+	T visitWidthProperty(DartParser.WidthPropertyContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Double}
-	 * labeled alternative in {@link DartParser#type}.
+	 * Visit a parse tree produced by {@link DartParser#heightProperty}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDouble(DartParser.DoubleContext ctx);
+	T visitHeightProperty(DartParser.HeightPropertyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#colorProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitColorProperty(DartParser.ColorPropertyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#childProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitChildProperty(DartParser.ChildPropertyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#childrenProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitChildrenProperty(DartParser.ChildrenPropertyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#mainAxisSizeProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMainAxisSizeProperty(DartParser.MainAxisSizePropertyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#crossAxisAlignmentProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCrossAxisAlignmentProperty(DartParser.CrossAxisAlignmentPropertyContext ctx);
 }

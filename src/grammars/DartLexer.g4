@@ -31,6 +31,7 @@ GESTUREDETECTOR: 'GestureDetector';
 TEXTFIELD: 'TextField';
 BORDER: 'Border';
 BORDERRADIUSONLY: 'BorderRadiusOnly';
+BORDERRADIUSCIRCULAR:'BorderRadiusCircular';
 
 //keywords
 CHILDREN: 'children';
@@ -38,7 +39,7 @@ BODY: 'body';
 CHILD: 'child';
 WIDGET: 'Widget';
 INT: 'int';
-STRINGTYPE: 'String';
+STRINGTYPE: 'string';
 DOUBLE: 'double';
 RETURN: 'return';
 FUNCTION: 'function';
@@ -55,6 +56,7 @@ CENTERVALUE: 'center';
 FLEX: 'flex';
 MAINAXISSIZE: 'mainAxisSize';
 MAX: 'max';
+MIN: 'min';
 CROSSAXISALIGNMENT: 'crossAxisAlignment';
 STRETCH: 'stretch';
 DECORATION: 'decoration';
@@ -89,21 +91,35 @@ MEDIUM:'medium';
 VALUE: 'value';
 LABEL: 'label';
 TEXTCOLOR: 'textColor';
-CONTENTPADDING: 'contentPadding';
 HINT: 'hint';
 BORDERATRI: 'border';
-THINKNESS: 'thinkness';
+THICKNESS: 'thickness';
 RADIUS: 'radius';
 ONCHANGED: 'onChanged';
+TOP: 'top';
+LEFT: 'left';
+BOTTOM: 'bottom';
+RIGHT: 'right';
 
 WIDGETNAME: [A-Z][A-Za-z0-9_]*;
 IDENTIFIER: [a-z][A-Za-z0-9_]+;
-NUM: [0-9]+;
-WS: [ \t\r\n]+ -> skip;
 
+
+// Decimal Numbers
+FLOAT : '-'? ('0'..'9')+ '.' ('0'..'9')*;
+
+// Integer Numbers
+NUM:'-'? ('1'..'9') ('0'..'9')* | '0';
+
+
+// String
 STRING: SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING;
 fragment SINGLE_QUOTED_STRING: '\'' (~'\'')* '\'';
 fragment DOUBLE_QUOTED_STRING: '"' (~'"')* '"';
 
+// Hex Numbers
 HEX_NUM : '0x' HEX_DIGIT+ | '0X' HEX_DIGIT+ ;
 fragment HEX_DIGIT : 'a' .. 'f' | 'A' .. 'F' | NUM ;
+
+
+WS: [ \t\r\n]+ -> skip;
