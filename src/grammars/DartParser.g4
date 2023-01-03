@@ -54,6 +54,7 @@ row
     : ROW LP (rowProperties (COMMA rowProperties)* COMMA? )? RP
     ;
 
+//those already written in there own seperate visitors
 rowProperties
     :   childrenProperty #RowChildren
     |   mainAxisSizeProperty #RowMainAxisSize
@@ -64,6 +65,7 @@ center
     :   CENTER LP (centerProperties (COMMA centerProperties)* COMMA? )? RP
     ;
 
+//those already written in there own seperate visitors
 centerProperties
     :   childProperty #CenterChild
     ;

@@ -2,9 +2,15 @@ package visitors;
 
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
-import widgets.Widget;
+import properties.Property;
+import widgets.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
+
+    AntlrToProperty antlrToProperty = new AntlrToProperty();
     @Override
     public Widget visitProg(DartParser.ProgContext ctx) {
         return super.visitProg(ctx);
@@ -112,7 +118,11 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitRow(DartParser.RowContext ctx) {
-        return super.visitRow(ctx);
+        List<Property> properties = new ArrayList<>();
+        for (DartParser.RowPropertiesContext rp : ctx.rowProperties()) {
+            properties.add(antlrToProperty.visit(rp));
+        }
+        return new Row(properties);
     }
 
     @Override
@@ -132,7 +142,13 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitCenter(DartParser.CenterContext ctx) {
-        return super.visitCenter(ctx);
+        List<Property> properties = new ArrayList<>();
+
+        for(DartParser.CenterPropertiesContext cp : ctx.centerProperties()) {
+            properties.add(antlrToProperty.visit(cp));
+        }
+
+        return new Center(properties);
     }
 
     @Override
@@ -142,7 +158,11 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitColumn(DartParser.ColumnContext ctx) {
-        return super.visitColumn(ctx);
+        List<Property> properties = new ArrayList<>();
+        for (DartParser.ColumnPropertiesContext cp : ctx.columnProperties()) {
+            properties.add(antlrToProperty.visit(cp));
+        }
+        return new Column(properties);
     }
 
     @Override
@@ -162,7 +182,11 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitText(DartParser.TextContext ctx) {
-        return super.visitText(ctx);
+        List<Property> properties = new ArrayList<>();
+        for(DartParser.TextPropertiesContext tp : ctx.textProperties()) {
+            properties.add(antlrToProperty.visit(tp));
+        }
+        return new Text(properties);
     }
 
     @Override

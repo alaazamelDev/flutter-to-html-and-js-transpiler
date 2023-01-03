@@ -4,7 +4,7 @@ import enums.FontWeightValue;
 
 public class FontWeightObjectProperty extends Property{
     private final FontWeightValue value;
-    protected FontWeightObjectProperty(FontWeightValue value) {
+    public FontWeightObjectProperty(FontWeightValue value) {
         super("fontWeight");
         this.value = value;
     }

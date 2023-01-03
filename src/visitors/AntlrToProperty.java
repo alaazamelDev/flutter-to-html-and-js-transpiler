@@ -3,8 +3,11 @@ package visitors;
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
 import enums.CrossAxisAlignmentValue;
+import enums.FontWeightValue;
 import enums.MainAxisSizeValue;
+import enums.TextAlignValue;
 import properties.*;
+import widgets.Row;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -119,11 +122,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitRow(DartParser.RowContext ctx) {
-        return super.visitRow(ctx);
-    }
-
-    @Override
     public Property visitRowChildren(DartParser.RowChildrenContext ctx) {
         return super.visitRowChildren(ctx);
     }
@@ -169,33 +167,35 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitText(DartParser.TextContext ctx) {
-        return super.visitText(ctx);
-    }
-
-    @Override
     public Property visitTextContent(DartParser.TextContentContext ctx) {
-        return super.visitTextContent(ctx);
+        String value = ctx.getChild(2).getText();
+
+        return new TextContent(value);
     }
 
     @Override
     public Property visitTextFontWeight(DartParser.TextFontWeightContext ctx) {
-        return super.visitTextFontWeight(ctx);
+        String value = ctx.getChild(2).getText();
+        return new FontWeightObjectProperty(FontWeightValue.valueOf(value));
     }
 
     @Override
     public Property visitTextFontSize(DartParser.TextFontSizeContext ctx) {
-        return super.visitTextFontSize(ctx);
+        String value = ctx.getChild(2).getText();
+        return new FontSizeDoubleProperty(Double.parseDouble(value));
     }
 
     @Override
     public Property visitTextLetterSpacing(DartParser.TextLetterSpacingContext ctx) {
-        return super.visitTextLetterSpacing(ctx);
+        String value = ctx.getChild(2).getText();
+        return new LetterSpacingDoubleProperty(Double.parseDouble(value));
     }
 
     @Override
     public Property visitTextTextAlign(DartParser.TextTextAlignContext ctx) {
-        return super.visitTextTextAlign(ctx);
+        String value = ctx.getChild(2).getText();
+
+        return new TextAlignObjectProperty(TextAlignValue.valueOf(value));
     }
 
     @Override

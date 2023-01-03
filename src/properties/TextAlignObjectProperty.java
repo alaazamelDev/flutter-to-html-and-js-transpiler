@@ -5,7 +5,7 @@ import enums.TextAlignValue;
 public class TextAlignObjectProperty extends Property {
     private final TextAlignValue value;
 
-    protected TextAlignObjectProperty(TextAlignValue value) {
+    public TextAlignObjectProperty(TextAlignValue value) {
         super("textAlign");
         this.value = value;
     }
