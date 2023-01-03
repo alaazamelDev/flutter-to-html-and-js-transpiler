@@ -6,7 +6,7 @@ public class PaddingAttributeWidgetProperty extends Property {
 
     private final Widget value;
 
-    protected PaddingAttributeWidgetProperty(Widget value) {
+    public PaddingAttributeWidgetProperty(Widget value) {
         super("padding");
         this.value = value;
     }

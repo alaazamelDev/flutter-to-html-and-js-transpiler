@@ -1,14 +1,14 @@
 package properties;
 
 public class Right extends Property{
-    private final int value;
+    private final double value;
 
-    public Right(int value) {
+    public Right(double value) {
         super("right");
         this.value = value;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 }
