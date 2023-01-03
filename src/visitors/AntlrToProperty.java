@@ -1,9 +1,8 @@
 package visitors;
 
-
+import antlr.DartParser;
+import antlr.DartParserBaseVisitor;
 import enums.ContentAlignmentValue;
-import grammars.DartParser;
-import grammars.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -13,14 +12,9 @@ import properties.*;
 import properties.border_radius.*;
 import properties.container.ContainerContentAlignmentProperty;
 import properties.decoration.DecorationProperty;
-import properties.edgeInsetsOnlyProperties.Bottom;
-import properties.edgeInsetsOnlyProperties.Left;
-import properties.edgeInsetsOnlyProperties.Right;
-import properties.edgeInsetsOnlyProperties.Top;
-import properties.edgeInsetsSymetricProperties.Horizontal;
-import properties.edgeInsetsSymetricProperties.Vertical;
 import properties.expanded.ExpandedFlexProperty;
 import properties.gestureDetectorProperties.OnPressedProperty;
+import widgets.*;
 
 public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     private final AntlrObjectFactory factory;

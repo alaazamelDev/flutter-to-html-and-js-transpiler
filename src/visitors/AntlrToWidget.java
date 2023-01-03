@@ -1,15 +1,15 @@
 package visitors;
 
-import grammars.DartParser;
-import grammars.DartParserBaseVisitor;
-import interfaces.IAntlrObjectFactory;
+
+
+import antlr.DartParser;
+import antlr.DartParserBaseVisitor;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import properties.Property;
 import widgets.*;
-
+import properties.*;
 import java.util.ArrayList;
 import java.util.List;
 

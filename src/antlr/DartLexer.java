@@ -1,5 +1,5 @@
 // Generated from C:/Users/anasr/Desktop/state/compilerproject/src/grammars\DartLexer.g4 by ANTLR 4.10.1
-package grammars;
+package antlr;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

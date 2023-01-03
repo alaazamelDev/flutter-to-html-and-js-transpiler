@@ -1,15 +1,15 @@
 package properties;
 
 public class Top extends Property{
-    private final int value;
+    private final double value;
 
 
-    public Top(int value) {
+    public Top(double value) {
         super("top");
         this.value = value;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 }

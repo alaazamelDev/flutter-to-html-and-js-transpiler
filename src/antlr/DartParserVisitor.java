@@ -1,5 +1,5 @@
 // Generated from C:/Users/anasr/Desktop/state/compilerproject/src/grammars\DartParser.g4 by ANTLR 4.10.1
-package grammars;
+package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
