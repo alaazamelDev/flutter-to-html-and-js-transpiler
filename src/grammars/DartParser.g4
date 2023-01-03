@@ -236,7 +236,7 @@ colorProperty: COLOR COLON HEX_NUM;
 childProperty:  CHILD COLON widget;
 childrenProperty:   CHILDREN COLON OA (widget COMMA)* CA;
 mainAxisSizeProperty:   MAINAXISSIZE COLON (MAX | MIN);
-crossAxisAlignmentProperty: CROSSAXISALIGNMENT COLON (STRETCH | LEFT | RIGHT | CENTER);
+crossAxisAlignmentProperty: CROSSAXISALIGNMENT COLON (STRETCH | LEFT | RIGHT | CENTERVALUE);
 
 //    TextField(
 //      value:"Hello there",

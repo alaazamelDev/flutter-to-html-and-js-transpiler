@@ -2,9 +2,23 @@ package visitors;
 
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
+import interfaces.IAntlrObjectFactory;
+import properties.Property;
+import widgets.AppBar;
+import widgets.Scaffold;
 import widgets.Widget;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
+
+    IAntlrObjectFactory factory;
+
+    public AntlrToWidget(IAntlrObjectFactory factory) {
+        this.factory = factory;
+    }
+
     @Override
     public Widget visitProg(DartParser.ProgContext ctx) {
         return super.visitProg(ctx);
@@ -12,102 +26,50 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitScaffold(DartParser.ScaffoldContext ctx) {
-        return super.visitScaffold(ctx);
-    }
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
 
-    @Override
-    public Widget visitScaffoldBody(DartParser.ScaffoldBodyContext ctx) {
-        return super.visitScaffoldBody(ctx);
-    }
+        // define the list of attributes of Scaffold
+        List<Property> properties = new ArrayList<>();
 
-    @Override
-    public Widget visitScaffoldAppBar(DartParser.ScaffoldAppBarContext ctx) {
-        return super.visitScaffoldAppBar(ctx);
+        // get scaffold property context list object
+        List<DartParser.ScaffoldPropertyContext> scaffoldPropertyContextList = ctx.scaffoldProperty();
+
+        for (DartParser.ScaffoldPropertyContext scaffoldPropertyContext : scaffoldPropertyContextList) {
+            properties.add(antlrToPropertyVisitor.visit(scaffoldPropertyContext));
+        }
+        return new Scaffold(properties);
     }
 
     @Override
     public Widget visitAppBar(DartParser.AppBarContext ctx) {
-        return super.visitAppBar(ctx);
-    }
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
 
-    @Override
-    public Widget visitAppBarTitle(DartParser.AppBarTitleContext ctx) {
-        return super.visitAppBarTitle(ctx);
-    }
+        // define the list of attributes of AppBar
+        List<Property> properties = new ArrayList<>();
 
-    @Override
-    public Widget visitAppBarCenterTitle(DartParser.AppBarCenterTitleContext ctx) {
-        return super.visitAppBarCenterTitle(ctx);
-    }
-
-    @Override
-    public Widget visitRowWidget(DartParser.RowWidgetContext ctx) {
-        return super.visitRowWidget(ctx);
-    }
-
-    @Override
-    public Widget visitCenterWidget(DartParser.CenterWidgetContext ctx) {
-        return super.visitCenterWidget(ctx);
-    }
-
-    @Override
-    public Widget visitTextWidget(DartParser.TextWidgetContext ctx) {
-        return super.visitTextWidget(ctx);
-    }
-
-    @Override
-    public Widget visitContainerWidget(DartParser.ContainerWidgetContext ctx) {
-        return super.visitContainerWidget(ctx);
-    }
-
-    @Override
-    public Widget visitExpandedWidget(DartParser.ExpandedWidgetContext ctx) {
-        return super.visitExpandedWidget(ctx);
-    }
-
-    @Override
-    public Widget visitColumnWidget(DartParser.ColumnWidgetContext ctx) {
-        return super.visitColumnWidget(ctx);
-    }
-
-    @Override
-    public Widget visitGestureDetectorWidget(DartParser.GestureDetectorWidgetContext ctx) {
-        return super.visitGestureDetectorWidget(ctx);
-    }
-
-    @Override
-    public Widget visitPaddingWidget(DartParser.PaddingWidgetContext ctx) {
-        return super.visitPaddingWidget(ctx);
-    }
-
-    @Override
-    public Widget visitImageWidget(DartParser.ImageWidgetContext ctx) {
-        return super.visitImageWidget(ctx);
-    }
-
-    @Override
-    public Widget visitButtonWidget(DartParser.ButtonWidgetContext ctx) {
-        return super.visitButtonWidget(ctx);
-    }
-
-    @Override
-    public Widget visitCreatedWidget(DartParser.CreatedWidgetContext ctx) {
-        return super.visitCreatedWidget(ctx);
-    }
-
-    @Override
-    public Widget visitTextFieldWidget(DartParser.TextFieldWidgetContext ctx) {
-        return super.visitTextFieldWidget(ctx);
+        // list of all appBarProperties context objects
+        List<DartParser.AppBarPropertiesContext> appBarPropertiesContextList = ctx.appBarProperties();
+        for (DartParser.AppBarPropertiesContext appBarPropertiesContext : appBarPropertiesContextList) {
+            // parse properties
+            properties.add(antlrToPropertyVisitor.visit(appBarPropertiesContext));
+        }
+        // return a new AppBar Widget Object
+        return new AppBar(properties);
     }
 
     @Override
     public Widget visitCustomWidget(DartParser.CustomWidgetContext ctx) {
-        return super.visitCustomWidget(ctx);
-    }
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
+        String widgetIdentifier = ctx.WIDGETNAME().getSymbol().getText();
+        List<Property> widgetProperties = new ArrayList<>();
 
-    @Override
-    public Widget visitCustomWidgetProperties(DartParser.CustomWidgetPropertiesContext ctx) {
-        return super.visitCustomWidgetProperties(ctx);
+        // get context object
+        List<DartParser.CustomWidgetPropertiesContext> propertiesContextList = ctx.customWidgetProperties();
+
+        for (DartParser.CustomWidgetPropertiesContext propertiesContext : propertiesContextList) {
+            widgetProperties.add(antlrToPropertyVisitor.visit(propertiesContext));
+        }
+        return new Widget(widgetIdentifier, widgetProperties);
     }
 
     @Override
@@ -361,9 +323,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     }
 
     @Override
-    public Widget visitImage(DartParser.ImageContext ctx) {
-        return super.visitImage(ctx);
-    }
+    public Widget visitImage(DartParser.ImageContext ctx) { return super.visitImage(ctx); }
 
     @Override
     public Widget visitImageUrl(DartParser.ImageUrlContext ctx) {
@@ -573,10 +533,5 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     @Override
     public String toString() {
         return super.toString();
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
     }
 }

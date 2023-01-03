@@ -2,112 +2,86 @@ package visitors;
 
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
-import properties.Property;
+import interfaces.IAntlrObjectFactory;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
+import properties.*;
+import widgets.Widget;
 
 public class AntlrToProperty extends DartParserBaseVisitor<Property> {
-    @Override
-    public Property visitProg(DartParser.ProgContext ctx) {
-        return super.visitProg(ctx);
+
+
+    private final IAntlrObjectFactory factory;
+
+    public AntlrToProperty(IAntlrObjectFactory factory) {
+        this.factory = factory;
     }
 
-    @Override
-    public Property visitScaffold(DartParser.ScaffoldContext ctx) {
-        return super.visitScaffold(ctx);
-    }
 
     @Override
     public Property visitScaffoldBody(DartParser.ScaffoldBodyContext ctx) {
-        return super.visitScaffoldBody(ctx);
+
+        AntlrToWidget antlrToWidgetVisitor = factory.createAntlrToWidget();
+
+        // get widget context object
+        DartParser.WidgetContext widgetContext = ctx.widget();
+
+        // parse the context
+        Widget body = antlrToWidgetVisitor.visit(widgetContext);
+
+        return new BodyProperty(body);
     }
 
     @Override
     public Property visitScaffoldAppBar(DartParser.ScaffoldAppBarContext ctx) {
-        return super.visitScaffoldAppBar(ctx);
+
+        AntlrToWidget antlrToWidgetVisitor = factory.createAntlrToWidget();
+
+        // get appBar context object
+        DartParser.AppBarContext appBarContext = ctx.appBar();
+
+        // parse the context
+        Widget appBar = antlrToWidgetVisitor.visit(appBarContext);
+
+        return new AppBarProperty(appBar);
     }
 
-    @Override
-    public Property visitAppBar(DartParser.AppBarContext ctx) {
-        return super.visitAppBar(ctx);
-    }
 
     @Override
     public Property visitAppBarTitle(DartParser.AppBarTitleContext ctx) {
-        return super.visitAppBarTitle(ctx);
+        // return new TitleProperty Object
+        return new Title(ctx.STRING().getSymbol().getText());
     }
 
     @Override
     public Property visitAppBarCenterTitle(DartParser.AppBarCenterTitleContext ctx) {
-        return super.visitAppBarCenterTitle(ctx);
+        String stringValue = ctx.BOOLEAN().getSymbol().getText();
+        // return new CenterTitleProperty Object
+        return new CenterTitleProperty(Boolean.parseBoolean(stringValue));
     }
 
-    @Override
-    public Property visitRowWidget(DartParser.RowWidgetContext ctx) {
-        return super.visitRowWidget(ctx);
-    }
-
-    @Override
-    public Property visitCenterWidget(DartParser.CenterWidgetContext ctx) {
-        return super.visitCenterWidget(ctx);
-    }
-
-    @Override
-    public Property visitTextWidget(DartParser.TextWidgetContext ctx) {
-        return super.visitTextWidget(ctx);
-    }
-
-    @Override
-    public Property visitContainerWidget(DartParser.ContainerWidgetContext ctx) {
-        return super.visitContainerWidget(ctx);
-    }
-
-    @Override
-    public Property visitExpandedWidget(DartParser.ExpandedWidgetContext ctx) {
-        return super.visitExpandedWidget(ctx);
-    }
-
-    @Override
-    public Property visitColumnWidget(DartParser.ColumnWidgetContext ctx) {
-        return super.visitColumnWidget(ctx);
-    }
-
-    @Override
-    public Property visitGestureDetectorWidget(DartParser.GestureDetectorWidgetContext ctx) {
-        return super.visitGestureDetectorWidget(ctx);
-    }
-
-    @Override
-    public Property visitPaddingWidget(DartParser.PaddingWidgetContext ctx) {
-        return super.visitPaddingWidget(ctx);
-    }
-
-    @Override
-    public Property visitImageWidget(DartParser.ImageWidgetContext ctx) {
-        return super.visitImageWidget(ctx);
-    }
-
-    @Override
-    public Property visitButtonWidget(DartParser.ButtonWidgetContext ctx) {
-        return super.visitButtonWidget(ctx);
-    }
-
-    @Override
-    public Property visitCreatedWidget(DartParser.CreatedWidgetContext ctx) {
-        return super.visitCreatedWidget(ctx);
-    }
-
-    @Override
-    public Property visitTextFieldWidget(DartParser.TextFieldWidgetContext ctx) {
-        return super.visitTextFieldWidget(ctx);
-    }
-
-    @Override
-    public Property visitCustomWidget(DartParser.CustomWidgetContext ctx) {
-        return super.visitCustomWidget(ctx);
-    }
 
     @Override
     public Property visitCustomWidgetProperties(DartParser.CustomWidgetPropertiesContext ctx) {
-        return super.visitCustomWidgetProperties(ctx);
+
+        String propertyName = ctx.IDENTIFIER().getSymbol().getText();
+        Object propertyValue = new Object();
+
+        ParseTree child = ctx.getChild(2);
+        if (child instanceof TerminalNode) {
+            TerminalNode terminalNode = (TerminalNode) child;
+            Token token = terminalNode.getSymbol();
+            int tokenType = token.getType();
+            if (tokenType == DartParser.NUM) {
+                propertyValue = Integer.parseInt(token.getText());
+            } else if (tokenType == DartParser.STRING) {
+                propertyValue = token.getText();
+            } else if (tokenType == DartParser.FLOAT) {
+                propertyValue = Double.parseDouble(token.getText());
+            }
+        }
+        return new CustomWidgetProperty(propertyName,propertyValue);
     }
 
     @Override
@@ -575,8 +549,4 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return super.toString();
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
 }
