@@ -5,7 +5,7 @@ options {
   tokenVocab=DartLexer;
 }
 
-prog: statment* scaffold*  EOF
+prog: statment* scaffold?  EOF
     ;
 // modify comma
 scaffold: SCAFFOLD LP (scaffoldProperty (COMMA scaffoldProperty )* COMMA?) ? RP
