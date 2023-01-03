@@ -1,29 +1,24 @@
 package visitors;
 
+
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
-import enums.ContentAlignmentValue;
+import enums.*;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import properties.*;
 import properties.border_radius.*;
 import properties.container.ContainerContentAlignmentProperty;
+import properties.decoration.DecorationProperty;
 import properties.edgeInsetsOnlyProperties.Bottom;
 import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
 import properties.expanded.ExpandedFlexProperty;
-import properties.gestureDetectorProperties.OnPressedProperty;
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNode;
 import widgets.Widget;
-import enums.FitValue;
-import enums.CrossAxisAlignmentValue;
-import enums.FontWeightValue;
-import enums.MainAxisSizeValue;
-import enums.TextAlignValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,6 +137,12 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
+    public Property visitBorderRadiusProperty(DartParser.BorderRadiusPropertyContext ctx) {
+        String line = Integer.toString(ctx.BORDERRADIUS().getSymbol().getLine());
+        return new BorderRadiusProperty(factory.createAntlrToWidget().visit(ctx.borderRadius()),line);
+    }
+
+    @Override
     public Property visitTextLetterSpacing(DartParser.TextLetterSpacingContext ctx) {
         String value = ctx.getChild(2).getText();
         return new LetterSpacingDoubleProperty(Double.parseDouble(value));
@@ -167,8 +168,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitContainerContentAlignment(DartParser.ContainerContentAlignmentContext ctx) {
+        String line = Integer.toString(ctx.CONTENTALIGNMENT().getSymbol().getLine());
         ContentAlignmentValue contentAlignmentValue = ContentAlignmentValue.valueOf(ctx.getChild(2).toString());
-        return new ContainerContentAlignmentProperty(contentAlignmentValue);
+        return new ContainerContentAlignmentProperty(contentAlignmentValue,line);
     }
 
     @Override
@@ -182,8 +184,18 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
+    public Property visitDecorationProperty(DartParser.DecorationPropertyContext ctx) {
+        String line = Integer.toString(ctx.DECORATION().getSymbol().getLine());
+        return new DecorationProperty(factory.createAntlrToWidget().visit(ctx.boxDecoration()),line);
+    }
+    @Override
     public Property visit(ParseTree tree) {
         return super.visit(tree);
+    }
+
+    @Override
+    public Property visitBoxDecorationProperties(DartParser.BoxDecorationPropertiesContext ctx) {
+        return visit(ctx.getChild(0));
     }
 
     @Override
@@ -223,7 +235,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx) {
+    public Property visitBoxBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx) {
         return super.visitBoxDecorationBorderRadius(ctx);
     }
 
@@ -231,38 +243,39 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitBorderRadiusCircularProperties(DartParser.BorderRadiusCircularPropertiesContext ctx) {
-
-        return new BorderRadiusCircularProperty(Double.parseDouble(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.RADIUS().getSymbol().getLine());
+        return new BorderRadiusCircularProperty(Double.parseDouble(ctx.getChild(2).getText()),line);
     }
 
     @Override
     public Property visitBorderRadiusOnlyTopRight(DartParser.BorderRadiusOnlyTopRightContext ctx) {
-        return new BorderRadiusOnlyTopRightProperty(Double.parseDouble(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.TOPRIGHT().getSymbol().getLine());
+        return new BorderRadiusOnlyTopRightProperty(Double.parseDouble(ctx.getChild(2).getText()),line);
     }
 
     @Override
     public Property visitBorderRadiusOnlyTopLeft(DartParser.BorderRadiusOnlyTopLeftContext ctx) {
-        return new BorderRadiusOnlyTopLeftProperty(Double.parseDouble(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.TOPLEFT().getSymbol().getLine());
+        return new BorderRadiusOnlyTopLeftProperty(Double.parseDouble(ctx.getChild(2).getText()),line);
     }
 
     @Override
     public Property visitBorderRadiusOnlyBottomRight(DartParser.BorderRadiusOnlyBottomRightContext ctx) {
-        return new BorderRadiusOnlyBottomRightProperty(Double.parseDouble(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.BOTTOMRIGHT().getSymbol().getLine());
+        return new BorderRadiusOnlyBottomRightProperty(Double.parseDouble(ctx.getChild(2).getText()),line);
     }
 
     @Override
     public Property visitBorderRadiusOnlyBottomLeft(DartParser.BorderRadiusOnlyBottomLeftContext ctx) {
-        return new BorderRadiusOnlyBottomLeftProperty(Double.parseDouble(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.BOTTOMLEFT().getSymbol().getLine());
+        return new BorderRadiusOnlyBottomLeftProperty(Double.parseDouble(ctx.getChild(2).getText()),line);
     }
 
-    @Override
-    public Property visitExpanded(DartParser.ExpandedContext ctx) {
-        return super.visitExpanded(ctx);
-    }
 
     @Override
     public Property visitExpandedFlex(DartParser.ExpandedFlexContext ctx) {
-        return new ExpandedFlexProperty(Integer.parseInt(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.FLEX().getSymbol().getLine());
+        return new ExpandedFlexProperty(Integer.parseInt(ctx.getChild(2).getText()),line);
     }
 
     @Override

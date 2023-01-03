@@ -108,8 +108,8 @@ decorationProperty: DECORATION COLON boxDecoration; //new gabsonia
 
 boxDecoration:  BOXDECORATION LP (boxDecorationProperties (COMMA boxDecorationProperties)* COMMA? )? RP;
 
-boxDecorationProperties: colorProperty #BoxDecorationColor //TODO delete labels
-                       | borderRadiusProperty #BoxDecorationBorderRadius
+boxDecorationProperties: colorProperty
+                       | borderRadiusProperty
                        ;
 borderRadiusProperty: BORDERRADIUS COLON borderRadius;
 

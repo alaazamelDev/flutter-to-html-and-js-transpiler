@@ -1,27 +1,16 @@
 package visitors;
 
 
-
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
-import properties.Property;
-import widgets.Border;
-import widgets.Button;
-import widgets.TextField;
-import widgets.AppBar;
-import widgets.Scaffold;
-import widgets.Widget;
-import widgets.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import properties.Property;
 import widgets.*;
-import properties.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,21 +148,23 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitContainer(DartParser.ContainerContext ctx) {
+        String line = Integer.toString(ctx.CONTAINER().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         for (DartParser.ContainerPropertiesContext cp : ctx.containerProperties()) {
             properties.add(factory.createAntlrToProperty().visit(cp));
         }
-        return new Container(properties);
+        return new Container(properties,line);
     }
 
 
     @Override
     public Widget visitBoxDecoration(DartParser.BoxDecorationContext ctx) {
+        String line = Integer.toString(ctx.BOXDECORATION().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         for (DartParser.BoxDecorationPropertiesContext bdpc : ctx.boxDecorationProperties()) {
             properties.add(factory.createAntlrToProperty().visit(bdpc));
         }
-        return new BoxDecorationWidget(properties);
+        return new BoxDecorationWidget(properties,line);
     }
 
 
@@ -229,27 +220,30 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitBorderRadiusCircular(DartParser.BorderRadiusCircularContext ctx) {
+        String line = Integer.toString(ctx.BORDERRADIUSCIRCULAR().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         properties.add(factory.createAntlrToProperty().visit(ctx.borderRadiusCircularProperties()));
-        return new BorderRadiusCircular(properties);
+        return new BorderRadiusCircular(properties,line);
     }
 
     @Override
     public Widget visitBorderRadiusOnly(DartParser.BorderRadiusOnlyContext ctx) {
+        String line = Integer.toString(ctx.BORDERRADIUSONLY().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         for (DartParser.BorderRadiusOnlyPropertiesContext bdopc : ctx.borderRadiusOnlyProperties()) {
             properties.add(factory.createAntlrToProperty().visit(bdopc));
         }
-        return new BorderRadiusOnly(properties);
+        return new BorderRadiusOnly(properties,line);
     }
 
     @Override
     public Widget visitExpanded(DartParser.ExpandedContext ctx) {
+        String line = Integer.toString(ctx.EXPANDED().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         for (DartParser.ExpandedPropertiesContext epc : ctx.expandedProperties()) {
             properties.add(factory.createAntlrToProperty().visit(epc));
         }
-        return new Expanded(properties);
+        return new Expanded(properties,line);
     }
     @Override
     public Widget visitGestureDetector(DartParser.GestureDetectorContext ctx) {

@@ -100,145 +100,13 @@ public class DartParserBaseListener implements DartParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRowWidget(DartParser.RowWidgetContext ctx) { }
+	@Override public void enterWidget(DartParser.WidgetContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRowWidget(DartParser.RowWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCenterWidget(DartParser.CenterWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCenterWidget(DartParser.CenterWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTextWidget(DartParser.TextWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTextWidget(DartParser.TextWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterContainerWidget(DartParser.ContainerWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitContainerWidget(DartParser.ContainerWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExpandedWidget(DartParser.ExpandedWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExpandedWidget(DartParser.ExpandedWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterColumnWidget(DartParser.ColumnWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitColumnWidget(DartParser.ColumnWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterGestureDetectorWidget(DartParser.GestureDetectorWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitGestureDetectorWidget(DartParser.GestureDetectorWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPaddingWidget(DartParser.PaddingWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPaddingWidget(DartParser.PaddingWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterImageWidget(DartParser.ImageWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitImageWidget(DartParser.ImageWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterButtonWidget(DartParser.ButtonWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitButtonWidget(DartParser.ButtonWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCreatedWidget(DartParser.CreatedWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCreatedWidget(DartParser.CreatedWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTextFieldWidget(DartParser.TextFieldWidgetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTextFieldWidget(DartParser.TextFieldWidgetContext ctx) { }
+	@Override public void exitWidget(DartParser.WidgetContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -280,37 +148,13 @@ public class DartParserBaseListener implements DartParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRowChildren(DartParser.RowChildrenContext ctx) { }
+	@Override public void enterRowProperties(DartParser.RowPropertiesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRowChildren(DartParser.RowChildrenContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterRowMainAxisSize(DartParser.RowMainAxisSizeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRowMainAxisSize(DartParser.RowMainAxisSizeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterRowCrossAxisAlignment(DartParser.RowCrossAxisAlignmentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRowCrossAxisAlignment(DartParser.RowCrossAxisAlignmentContext ctx) { }
+	@Override public void exitRowProperties(DartParser.RowPropertiesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -352,37 +196,13 @@ public class DartParserBaseListener implements DartParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterColumnChildren(DartParser.ColumnChildrenContext ctx) { }
+	@Override public void enterColumnProperties(DartParser.ColumnPropertiesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitColumnChildren(DartParser.ColumnChildrenContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterColumnMainAxisSize(DartParser.ColumnMainAxisSizeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitColumnMainAxisSize(DartParser.ColumnMainAxisSizeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterColumnCrossAxisAlignment(DartParser.ColumnCrossAxisAlignmentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitColumnCrossAxisAlignment(DartParser.ColumnCrossAxisAlignmentContext ctx) { }
+	@Override public void exitColumnProperties(DartParser.ColumnPropertiesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -556,25 +376,13 @@ public class DartParserBaseListener implements DartParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBoxDecorationColor(DartParser.BoxDecorationColorContext ctx) { }
+	@Override public void enterBoxDecorationProperties(DartParser.BoxDecorationPropertiesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBoxDecorationColor(DartParser.BoxDecorationColorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx) { }
+	@Override public void exitBoxDecorationProperties(DartParser.BoxDecorationPropertiesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1180,25 +988,13 @@ public class DartParserBaseListener implements DartParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariableDeclarationStatment(DartParser.VariableDeclarationStatmentContext ctx) { }
+	@Override public void enterStatment(DartParser.StatmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariableDeclarationStatment(DartParser.VariableDeclarationStatmentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterVariableAssignmentStatment(DartParser.VariableAssignmentStatmentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVariableAssignmentStatment(DartParser.VariableAssignmentStatmentContext ctx) { }
+	@Override public void exitStatment(DartParser.StatmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1240,25 +1036,13 @@ public class DartParserBaseListener implements DartParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariables(DartParser.VariablesContext ctx) { }
+	@Override public void enterCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariables(DartParser.VariablesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTree(DartParser.TreeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTree(DartParser.TreeContext ctx) { }
+	@Override public void exitCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

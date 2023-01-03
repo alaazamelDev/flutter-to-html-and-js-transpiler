@@ -86,149 +86,15 @@ public interface DartParserListener extends ParseTreeListener {
 	 */
 	void exitAppBarCenterTitle(DartParser.AppBarCenterTitleContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code RowWidget}
-	 * labeled alternative in {@link DartParser#widget}.
+	 * Enter a parse tree produced by {@link DartParser#widget}.
 	 * @param ctx the parse tree
 	 */
-	void enterRowWidget(DartParser.RowWidgetContext ctx);
+	void enterWidget(DartParser.WidgetContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code RowWidget}
-	 * labeled alternative in {@link DartParser#widget}.
+	 * Exit a parse tree produced by {@link DartParser#widget}.
 	 * @param ctx the parse tree
 	 */
-	void exitRowWidget(DartParser.RowWidgetContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code CenterWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void enterCenterWidget(DartParser.CenterWidgetContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code CenterWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void exitCenterWidget(DartParser.CenterWidgetContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code TextWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void enterTextWidget(DartParser.TextWidgetContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code TextWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void exitTextWidget(DartParser.TextWidgetContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ContainerWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void enterContainerWidget(DartParser.ContainerWidgetContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ContainerWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void exitContainerWidget(DartParser.ContainerWidgetContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ExpandedWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void enterExpandedWidget(DartParser.ExpandedWidgetContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExpandedWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void exitExpandedWidget(DartParser.ExpandedWidgetContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ColumnWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void enterColumnWidget(DartParser.ColumnWidgetContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ColumnWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void exitColumnWidget(DartParser.ColumnWidgetContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code GestureDetectorWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void enterGestureDetectorWidget(DartParser.GestureDetectorWidgetContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code GestureDetectorWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void exitGestureDetectorWidget(DartParser.GestureDetectorWidgetContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code PaddingWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void enterPaddingWidget(DartParser.PaddingWidgetContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PaddingWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void exitPaddingWidget(DartParser.PaddingWidgetContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ImageWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void enterImageWidget(DartParser.ImageWidgetContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ImageWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void exitImageWidget(DartParser.ImageWidgetContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ButtonWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void enterButtonWidget(DartParser.ButtonWidgetContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ButtonWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void exitButtonWidget(DartParser.ButtonWidgetContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code CreatedWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void enterCreatedWidget(DartParser.CreatedWidgetContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code CreatedWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void exitCreatedWidget(DartParser.CreatedWidgetContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code TextFieldWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void enterTextFieldWidget(DartParser.TextFieldWidgetContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code TextFieldWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 */
-	void exitTextFieldWidget(DartParser.TextFieldWidgetContext ctx);
+	void exitWidget(DartParser.WidgetContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DartParser#customWidget}.
 	 * @param ctx the parse tree
@@ -260,41 +126,15 @@ public interface DartParserListener extends ParseTreeListener {
 	 */
 	void exitRow(DartParser.RowContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code RowChildren}
-	 * labeled alternative in {@link DartParser#rowProperties}.
+	 * Enter a parse tree produced by {@link DartParser#rowProperties}.
 	 * @param ctx the parse tree
 	 */
-	void enterRowChildren(DartParser.RowChildrenContext ctx);
+	void enterRowProperties(DartParser.RowPropertiesContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code RowChildren}
-	 * labeled alternative in {@link DartParser#rowProperties}.
+	 * Exit a parse tree produced by {@link DartParser#rowProperties}.
 	 * @param ctx the parse tree
 	 */
-	void exitRowChildren(DartParser.RowChildrenContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code RowMainAxisSize}
-	 * labeled alternative in {@link DartParser#rowProperties}.
-	 * @param ctx the parse tree
-	 */
-	void enterRowMainAxisSize(DartParser.RowMainAxisSizeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code RowMainAxisSize}
-	 * labeled alternative in {@link DartParser#rowProperties}.
-	 * @param ctx the parse tree
-	 */
-	void exitRowMainAxisSize(DartParser.RowMainAxisSizeContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code RowCrossAxisAlignment}
-	 * labeled alternative in {@link DartParser#rowProperties}.
-	 * @param ctx the parse tree
-	 */
-	void enterRowCrossAxisAlignment(DartParser.RowCrossAxisAlignmentContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code RowCrossAxisAlignment}
-	 * labeled alternative in {@link DartParser#rowProperties}.
-	 * @param ctx the parse tree
-	 */
-	void exitRowCrossAxisAlignment(DartParser.RowCrossAxisAlignmentContext ctx);
+	void exitRowProperties(DartParser.RowPropertiesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DartParser#center}.
 	 * @param ctx the parse tree
@@ -328,41 +168,15 @@ public interface DartParserListener extends ParseTreeListener {
 	 */
 	void exitColumn(DartParser.ColumnContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ColumnChildren}
-	 * labeled alternative in {@link DartParser#columnProperties}.
+	 * Enter a parse tree produced by {@link DartParser#columnProperties}.
 	 * @param ctx the parse tree
 	 */
-	void enterColumnChildren(DartParser.ColumnChildrenContext ctx);
+	void enterColumnProperties(DartParser.ColumnPropertiesContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ColumnChildren}
-	 * labeled alternative in {@link DartParser#columnProperties}.
+	 * Exit a parse tree produced by {@link DartParser#columnProperties}.
 	 * @param ctx the parse tree
 	 */
-	void exitColumnChildren(DartParser.ColumnChildrenContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ColumnMainAxisSize}
-	 * labeled alternative in {@link DartParser#columnProperties}.
-	 * @param ctx the parse tree
-	 */
-	void enterColumnMainAxisSize(DartParser.ColumnMainAxisSizeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ColumnMainAxisSize}
-	 * labeled alternative in {@link DartParser#columnProperties}.
-	 * @param ctx the parse tree
-	 */
-	void exitColumnMainAxisSize(DartParser.ColumnMainAxisSizeContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ColumnCrossAxisAlignment}
-	 * labeled alternative in {@link DartParser#columnProperties}.
-	 * @param ctx the parse tree
-	 */
-	void enterColumnCrossAxisAlignment(DartParser.ColumnCrossAxisAlignmentContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ColumnCrossAxisAlignment}
-	 * labeled alternative in {@link DartParser#columnProperties}.
-	 * @param ctx the parse tree
-	 */
-	void exitColumnCrossAxisAlignment(DartParser.ColumnCrossAxisAlignmentContext ctx);
+	void exitColumnProperties(DartParser.ColumnPropertiesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DartParser#text}.
 	 * @param ctx the parse tree
@@ -524,29 +338,15 @@ public interface DartParserListener extends ParseTreeListener {
 	 */
 	void exitBoxDecoration(DartParser.BoxDecorationContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code BoxDecorationColor}
-	 * labeled alternative in {@link DartParser#boxDecorationProperties}.
+	 * Enter a parse tree produced by {@link DartParser#boxDecorationProperties}.
 	 * @param ctx the parse tree
 	 */
-	void enterBoxDecorationColor(DartParser.BoxDecorationColorContext ctx);
+	void enterBoxDecorationProperties(DartParser.BoxDecorationPropertiesContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code BoxDecorationColor}
-	 * labeled alternative in {@link DartParser#boxDecorationProperties}.
+	 * Exit a parse tree produced by {@link DartParser#boxDecorationProperties}.
 	 * @param ctx the parse tree
 	 */
-	void exitBoxDecorationColor(DartParser.BoxDecorationColorContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code BoxDecorationBorderRadius}
-	 * labeled alternative in {@link DartParser#boxDecorationProperties}.
-	 * @param ctx the parse tree
-	 */
-	void enterBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code BoxDecorationBorderRadius}
-	 * labeled alternative in {@link DartParser#boxDecorationProperties}.
-	 * @param ctx the parse tree
-	 */
-	void exitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx);
+	void exitBoxDecorationProperties(DartParser.BoxDecorationPropertiesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DartParser#borderRadiusProperty}.
 	 * @param ctx the parse tree
@@ -1120,29 +920,15 @@ public interface DartParserListener extends ParseTreeListener {
 	 */
 	void exitBorderColor(DartParser.BorderColorContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code VariableDeclarationStatment}
-	 * labeled alternative in {@link DartParser#statment}.
+	 * Enter a parse tree produced by {@link DartParser#statment}.
 	 * @param ctx the parse tree
 	 */
-	void enterVariableDeclarationStatment(DartParser.VariableDeclarationStatmentContext ctx);
+	void enterStatment(DartParser.StatmentContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code VariableDeclarationStatment}
-	 * labeled alternative in {@link DartParser#statment}.
+	 * Exit a parse tree produced by {@link DartParser#statment}.
 	 * @param ctx the parse tree
 	 */
-	void exitVariableDeclarationStatment(DartParser.VariableDeclarationStatmentContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code VariableAssignmentStatment}
-	 * labeled alternative in {@link DartParser#statment}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariableAssignmentStatment(DartParser.VariableAssignmentStatmentContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code VariableAssignmentStatment}
-	 * labeled alternative in {@link DartParser#statment}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariableAssignmentStatment(DartParser.VariableAssignmentStatmentContext ctx);
+	void exitStatment(DartParser.StatmentContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code NonFunctionVariableDeclaration}
 	 * labeled alternative in {@link DartParser#variableDeclaration}.
@@ -1178,25 +964,15 @@ public interface DartParserListener extends ParseTreeListener {
 	 */
 	void exitVariableAssignment(DartParser.VariableAssignmentContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DartParser#variables}.
+	 * Enter a parse tree produced by {@link DartParser#customWidgetDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterVariables(DartParser.VariablesContext ctx);
+	void enterCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DartParser#variables}.
+	 * Exit a parse tree produced by {@link DartParser#customWidgetDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitVariables(DartParser.VariablesContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DartParser#tree}.
-	 * @param ctx the parse tree
-	 */
-	void enterTree(DartParser.TreeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DartParser#tree}.
-	 * @param ctx the parse tree
-	 */
-	void exitTree(DartParser.TreeContext ctx);
+	void exitCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DartParser#widthProperty}.
 	 * @param ctx the parse tree

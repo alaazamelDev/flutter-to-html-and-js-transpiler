@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from C:/Users/anasr/Desktop/state/compilerproject/src/grammars\DartParser.g4 by ANTLR 4.10.1
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -194,25 +194,29 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitContainerDecoration(DartParser.ContainerDecorationContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link DartParser#decorationProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDecorationProperty(DartParser.DecorationPropertyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DartParser#boxDecoration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBoxDecoration(DartParser.BoxDecorationContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code BoxDecorationColor}
-	 * labeled alternative in {@link DartParser#boxDecorationProperties}.
+	 * Visit a parse tree produced by {@link DartParser#boxDecorationProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBoxDecorationColor(DartParser.BoxDecorationColorContext ctx);
+	T visitBoxDecorationProperties(DartParser.BoxDecorationPropertiesContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code BoxDecorationBorderRadius}
-	 * labeled alternative in {@link DartParser#boxDecorationProperties}.
+	 * Visit a parse tree produced by {@link DartParser#borderRadiusProperty}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx);
+	T visitBorderRadiusProperty(DartParser.BorderRadiusPropertyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#borderRadius}.
 	 * @param ctx the parse tree
