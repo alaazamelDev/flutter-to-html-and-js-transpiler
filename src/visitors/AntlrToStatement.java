@@ -33,4 +33,19 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
         return new CustomWidgetDeclarationStatement(name, vars, widget);
     }
+
+    @Override
+    public Statement visitFunctionVariableDeclaration(DartParser.FunctionVariableDeclarationContext ctx) {
+        return super.visitFunctionVariableDeclaration(ctx);
+    }
+
+    @Override
+    public Statement visitNonFunctionVariableDeclaration(DartParser.NonFunctionVariableDeclarationContext ctx) {
+        return super.visitNonFunctionVariableDeclaration(ctx);
+    }
+
+    @Override
+    public Statement visitVariableAssignment(DartParser.VariableAssignmentContext ctx) {
+        return super.visitVariableAssignment(ctx);
+    }
 }
