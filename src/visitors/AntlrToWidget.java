@@ -2,9 +2,24 @@ package visitors;
 
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
+import interfaces.IAntlrObjectFactory;
+import properties.Property;
+import widgets.Border;
+import widgets.Button;
+import widgets.TextField;
 import widgets.Widget;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.DoubleAccumulator;
+
 public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
+    private final IAntlrObjectFactory factory;
+
+    public AntlrToWidget(IAntlrObjectFactory factory) {
+        this.factory = factory;
+    }
+
     @Override
     public Widget visitProg(DartParser.ProgContext ctx) {
         return super.visitProg(ctx);
@@ -87,7 +102,17 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitButtonWidget(DartParser.ButtonWidgetContext ctx) {
-        return super.visitButtonWidget(ctx);
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
+
+        List<Property> properties = new ArrayList<>();
+
+        List<DartParser.ButtonPropertiesContext> buttonPropertiesContextList = ctx.button().buttonProperties();
+
+        for (DartParser.ButtonPropertiesContext bpc : buttonPropertiesContextList) {
+            properties.add(antlrToPropertyVisitor.visit(bpc));
+        }
+        return new Button(properties);
+
     }
 
     @Override
@@ -97,7 +122,15 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitTextFieldWidget(DartParser.TextFieldWidgetContext ctx) {
-        return super.visitTextFieldWidget(ctx);
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
+
+        List<Property> properties = new ArrayList<>();
+
+        List<DartParser.TextFieldPropertiesContext> textFieldPropertiesContexts = ctx.textField().textFieldProperties();
+        for (DartParser.TextFieldPropertiesContext textFieldPropertiesContext : textFieldPropertiesContexts) {
+            properties.add(antlrToPropertyVisitor.visit(textFieldPropertiesContext));
+        }
+        return new TextField(properties);
     }
 
     @Override
@@ -462,7 +495,17 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitBorder(DartParser.BorderContext ctx) {
-        return super.visitBorder(ctx);
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
+
+        List<Property> properties = new ArrayList<>();
+
+        List<DartParser.BorderPropertiesContext> borderPropertiesContexts = ctx.borderProperties();
+
+        for (DartParser.BorderPropertiesContext borderPropertiesContext : borderPropertiesContexts) {
+            properties.add(antlrToPropertyVisitor.visit(borderPropertiesContext));
+        }
+
+        return new Border(properties);
     }
 
     @Override
@@ -575,8 +618,8 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         return super.toString();
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
+//    @Override
+//    protected void finalize() throws Throwable {
+//        super.finalize();
+//    }
 }

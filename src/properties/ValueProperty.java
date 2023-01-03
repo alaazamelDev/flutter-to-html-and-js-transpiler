@@ -1,11 +1,11 @@
 package properties;
 
-public class Title extends Property {
+public class ValueProperty extends Property {
 
     private final String value;
 
-    public Title(String value) {
-        super("title");
+    public ValueProperty(String value) {
+        super("value");
         this.value = value;
     }
 

@@ -2,9 +2,18 @@ package visitors;
 
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
-import properties.Property;
+import enums.FitValue;
+import interfaces.IAntlrObjectFactory;
+import properties.*;
 
 public class AntlrToProperty extends DartParserBaseVisitor<Property> {
+
+    private final IAntlrObjectFactory factory;
+
+    public AntlrToProperty(IAntlrObjectFactory factory) {
+        this.factory = factory;
+    }
+
     @Override
     public Property visitProg(DartParser.ProgContext ctx) {
         return super.visitProg(ctx);
@@ -367,22 +376,25 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitImageUrl(DartParser.ImageUrlContext ctx) {
-        return super.visitImageUrl(ctx);
+        String url = ctx.getChild(2).getText();
+        return new UrlProperty(url);
     }
 
     @Override
     public Property visitImageFit(DartParser.ImageFitContext ctx) {
-        return super.visitImageFit(ctx);
+        String fitValue = ctx.getChild(2).getText();
+        FitValue fitValueEnum = FitValue.valueOf(fitValue);
+        return new FitProperty(fitValueEnum);
     }
 
     @Override
     public Property visitImageWidth(DartParser.ImageWidthContext ctx) {
-        return super.visitImageWidth(ctx);
+        return visit(ctx.widthProperty());
     }
 
     @Override
     public Property visitImageHeight(DartParser.ImageHeightContext ctx) {
-        return super.visitImageHeight(ctx);
+        return visit(ctx.heightProperty());
     }
 
     @Override
@@ -392,32 +404,35 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitButtonWidth(DartParser.ButtonWidthContext ctx) {
-        return super.visitButtonWidth(ctx);
+        return visit(ctx.widthProperty());
     }
 
     @Override
     public Property visitButtonHeight(DartParser.ButtonHeightContext ctx) {
-        return super.visitButtonHeight(ctx);
+        return visit(ctx.heightProperty());
     }
 
     @Override
     public Property visitButtonTitle(DartParser.ButtonTitleContext ctx) {
-        return super.visitButtonTitle(ctx);
+        String buttonTitle = ctx.getChild(2).getText();
+        return new TitleProperty(buttonTitle);
     }
 
     @Override
     public Property visitButtonBackgroundColor(DartParser.ButtonBackgroundColorContext ctx) {
-        return super.visitButtonBackgroundColor(ctx);
+        String buttonBackgroundColor = ctx.getChild(2).getText();
+        return new BackgroundColorProperty(buttonBackgroundColor);
     }
 
     @Override
     public Property visitButtonTitleColor(DartParser.ButtonTitleColorContext ctx) {
-        return super.visitButtonTitleColor(ctx);
+        String buttonTitleColor = ctx.getChild(2).getText();
+        return new TitleColorProperty(buttonTitleColor);
     }
 
     @Override
     public Property visitButtonOnPressed(DartParser.ButtonOnPressedContext ctx) {
-        return super.visitButtonOnPressed(ctx);
+        return visit(ctx.onFunction());
     }
 
     @Override
@@ -427,37 +442,41 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitTextFieldValue(DartParser.TextFieldValueContext ctx) {
-        return super.visitTextFieldValue(ctx);
+        String textFieldValue = ctx.getChild(2).getText();
+        return new ValueProperty(textFieldValue);
     }
 
     @Override
     public Property visitTextFieldLabel(DartParser.TextFieldLabelContext ctx) {
-        return super.visitTextFieldLabel(ctx);
+        String textFieldLabel = ctx.getChild(2).getText();
+        return new LabelProperty(textFieldLabel);
     }
 
     @Override
     public Property visitTextFieldTextColor(DartParser.TextFieldTextColorContext ctx) {
-        return super.visitTextFieldTextColor(ctx);
+        String textFieldTextColor = ctx.getChild(2).getText();
+        return new TextColorProperty(textFieldTextColor);
     }
 
     @Override
     public Property visitTextFieldPadding(DartParser.TextFieldPaddingContext ctx) {
-        return super.visitTextFieldPadding(ctx);
+        return visit(ctx.edgeInsets());
     }
 
     @Override
     public Property visitTextFieldHint(DartParser.TextFieldHintContext ctx) {
-        return super.visitTextFieldHint(ctx);
+        String textFieldHint = ctx.getChild(2).getText();
+        return new HintProperty(textFieldHint);
     }
 
     @Override
     public Property visitTextFieldBorder(DartParser.TextFieldBorderContext ctx) {
-        return super.visitTextFieldBorder(ctx);
+        return visit(ctx.border());
     }
 
     @Override
     public Property visitTextFieldOnChanged(DartParser.TextFieldOnChangedContext ctx) {
-        return super.visitTextFieldOnChanged(ctx);
+        return visit(ctx.onFunction());
     }
 
     @Override
@@ -467,17 +486,18 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitBorderThickness(DartParser.BorderThicknessContext ctx) {
-        return super.visitBorderThickness(ctx);
+        String borderThickness = ctx.getChild(2).getText();
+        return new ThicknessProperty(Integer.parseInt(borderThickness));
     }
 
     @Override
     public Property visitBorderBorderRadius(DartParser.BorderBorderRadiusContext ctx) {
-        return super.visitBorderBorderRadius(ctx);
+        return visit(ctx.borderRadius());
     }
 
     @Override
     public Property visitBorderColor(DartParser.BorderColorContext ctx) {
-        return super.visitBorderColor(ctx);
+        return visit(ctx.colorProperty());
     }
 
     @Override
@@ -507,6 +527,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitNonFunctionVariableDeclaration(DartParser.NonFunctionVariableDeclarationContext ctx) {
+
         return super.visitNonFunctionVariableDeclaration(ctx);
     }
 
@@ -575,8 +596,8 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return super.toString();
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
+//    @Override
+//    protected void finalize() throws Throwable {
+//        super.finalize();
+//    }
 }
