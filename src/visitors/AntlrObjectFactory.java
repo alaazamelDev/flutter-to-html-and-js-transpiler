@@ -12,4 +12,9 @@ public class AntlrObjectFactory implements IAntlrObjectFactory {
     public AntlrToProperty createAntlrToProperty() {
         return new AntlrToProperty(this);
     }
+
+    @Override
+    public AntlrToStatement createAntlrToStatement() {
+        return new AntlrToStatement(this);
+    }
 }

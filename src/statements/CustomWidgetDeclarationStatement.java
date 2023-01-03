@@ -6,10 +6,10 @@ import java.util.List;
 
 public class CustomWidgetDeclarationStatement extends Statement {
     private final String name;
-    private final List<VariableDeclarationStatement> variableDeclarationStatements;
+    private final List<Statement> variableDeclarationStatements;
     private final Widget tree;
 
-    public CustomWidgetDeclarationStatement(String name, List<VariableDeclarationStatement> variableDeclarationStatements, Widget tree) {
+    public CustomWidgetDeclarationStatement(String name, List<Statement> variableDeclarationStatements, Widget tree) {
         this.name = name;
         this.variableDeclarationStatements = variableDeclarationStatements;
         this.tree = tree;
@@ -19,7 +19,7 @@ public class CustomWidgetDeclarationStatement extends Statement {
         return name;
     }
 
-    public List<VariableDeclarationStatement> getVariableDeclarationStatements() {
+    public List<Statement> getVariableDeclarationStatements() {
         return variableDeclarationStatements;
     }
 

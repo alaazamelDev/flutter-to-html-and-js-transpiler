@@ -24,10 +24,10 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
         String name = ctx.WIDGETNAME().getText();
 
-        List<VariableDeclarationStatement> vars = new ArrayList<>();
+        List<Statement> vars = new ArrayList<>();
 
         for(DartParser.VariableDeclarationContext vd : ctx.variableDeclaration()) {
-            vars.add((VariableDeclarationStatement) visit(vd));
+            vars.add(visit(vd));
         }
         Widget widget = antlrToWidget.visit(ctx.WIDGET());
 
