@@ -2,12 +2,12 @@ package properties;
 
 import enums.FitValue;
 
-public class Fit extends Property {
+public class FitProperty extends Property {
 
     private final FitValue value;
 
 
-    public Fit(FitValue value) {
+    public FitProperty(FitValue value) {
         super("fit");
         this.value = value;
     }

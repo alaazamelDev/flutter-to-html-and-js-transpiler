@@ -1,12 +1,11 @@
 package properties;
 
-public class Url extends Property{
+public class BackgroundColorProperty extends Property {
 
     private final String value;
 
-
-    public Url(String value) {
-        super("url");
+    public BackgroundColorProperty(String value) {
+        super("backgroundColor");
         this.value = value;
     }
 

@@ -1,11 +1,11 @@
 package properties;
 
-public class BackgroundColor extends Property {
+public class TitleProperty extends Property {
 
     private final String value;
 
-    public BackgroundColor(String value) {
-        super("backgroundColor");
+    public TitleProperty(String value) {
+        super("title");
         this.value = value;
     }
 

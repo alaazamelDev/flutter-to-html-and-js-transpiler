@@ -4,16 +4,24 @@ import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
 import properties.Property;
+import widgets.Border;
+import widgets.Button;
+import widgets.TextField;
+import interfaces.IAntlrObjectFactory;
+import properties.Property;
 import widgets.AppBar;
 import widgets.Scaffold;
 import widgets.Widget;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.DoubleAccumulator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
-
-    IAntlrObjectFactory factory;
+    private final IAntlrObjectFactory factory;
 
     public AntlrToWidget(IAntlrObjectFactory factory) {
         this.factory = factory;
@@ -55,6 +63,74 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         }
         // return a new AppBar Widget Object
         return new AppBar(properties);
+    }
+
+    @Override
+    public Widget visitTextWidget(DartParser.TextWidgetContext ctx) {
+        return super.visitTextWidget(ctx);
+    }
+
+    @Override
+    public Widget visitContainerWidget(DartParser.ContainerWidgetContext ctx) {
+        return super.visitContainerWidget(ctx);
+    }
+
+    @Override
+    public Widget visitExpandedWidget(DartParser.ExpandedWidgetContext ctx) {
+        return super.visitExpandedWidget(ctx);
+    }
+
+    @Override
+    public Widget visitColumnWidget(DartParser.ColumnWidgetContext ctx) {
+        return super.visitColumnWidget(ctx);
+    }
+
+    @Override
+    public Widget visitGestureDetectorWidget(DartParser.GestureDetectorWidgetContext ctx) {
+        return super.visitGestureDetectorWidget(ctx);
+    }
+
+    @Override
+    public Widget visitPaddingWidget(DartParser.PaddingWidgetContext ctx) {
+        return super.visitPaddingWidget(ctx);
+    }
+
+    @Override
+    public Widget visitImageWidget(DartParser.ImageWidgetContext ctx) {
+        return super.visitImageWidget(ctx);
+    }
+
+    @Override
+    public Widget visitButtonWidget(DartParser.ButtonWidgetContext ctx) {
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
+
+        List<Property> properties = new ArrayList<>();
+
+        List<DartParser.ButtonPropertiesContext> buttonPropertiesContextList = ctx.button().buttonProperties();
+
+        for (DartParser.ButtonPropertiesContext bpc : buttonPropertiesContextList) {
+            properties.add(antlrToPropertyVisitor.visit(bpc));
+        }
+        return new Button(properties);
+
+    }
+
+    @Override
+    public Widget visitCreatedWidget(DartParser.CreatedWidgetContext ctx) {
+        return super.visitCreatedWidget(ctx);
+    }
+
+    @Override
+    public Widget visitTextFieldWidget(DartParser.TextFieldWidgetContext ctx) {
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
+
+        List<Property> properties = new ArrayList<>();
+
+        List<DartParser.TextFieldPropertiesContext> textFieldPropertiesContexts = ctx.textField().textFieldProperties();
+        for (DartParser.TextFieldPropertiesContext textFieldPropertiesContext : textFieldPropertiesContexts) {
+            properties.add(antlrToPropertyVisitor.visit(textFieldPropertiesContext));
+        }
+        return new TextField(properties);
     }
 
     @Override
@@ -422,7 +498,17 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitBorder(DartParser.BorderContext ctx) {
-        return super.visitBorder(ctx);
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
+
+        List<Property> properties = new ArrayList<>();
+
+        List<DartParser.BorderPropertiesContext> borderPropertiesContexts = ctx.borderProperties();
+
+        for (DartParser.BorderPropertiesContext borderPropertiesContext : borderPropertiesContexts) {
+            properties.add(antlrToPropertyVisitor.visit(borderPropertiesContext));
+        }
+
+        return new Border(properties);
     }
 
     @Override

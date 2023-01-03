@@ -9,4 +9,3 @@ public interface IAntlrObjectFactory {
 
     AntlrToProperty createAntlrToProperty();
 }
-
