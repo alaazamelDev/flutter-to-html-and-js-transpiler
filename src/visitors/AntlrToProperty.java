@@ -97,21 +97,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitRowChildren(DartParser.RowChildrenContext ctx) {
-        return super.visitRowChildren(ctx);
-    }
-
-    @Override
-    public Property visitRowMainAxisSize(DartParser.RowMainAxisSizeContext ctx) {
-        return super.visitRowMainAxisSize(ctx);
-    }
-
-    @Override
-    public Property visitRowCrossAxisAlignment(DartParser.RowCrossAxisAlignmentContext ctx) {
-        return super.visitRowCrossAxisAlignment(ctx);
-    }
-
-    @Override
     public Property visitCenter(DartParser.CenterContext ctx) {
         return super.visitCenter(ctx);
     }
@@ -124,21 +109,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitColumn(DartParser.ColumnContext ctx) {
         return super.visitColumn(ctx);
-    }
-
-    @Override
-    public Property visitColumnChildren(DartParser.ColumnChildrenContext ctx) {
-        return super.visitColumnChildren(ctx);
-    }
-
-    @Override
-    public Property visitColumnMainAxisSize(DartParser.ColumnMainAxisSizeContext ctx) {
-        return super.visitColumnMainAxisSize(ctx);
-    }
-
-    @Override
-    public Property visitColumnCrossAxisAlignment(DartParser.ColumnCrossAxisAlignmentContext ctx) {
-        return super.visitColumnCrossAxisAlignment(ctx);
     }
 
     @Override
@@ -479,25 +449,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return super.visitCustomWidgetDeclaration(ctx);
     }
 
-    @Override
-    public Property visitVariables(DartParser.VariablesContext ctx) {
-        return super.visitVariables(ctx);
-    }
-
-    @Override
-    public Property visitTree(DartParser.TreeContext ctx) {
-        return super.visitTree(ctx);
-    }
-
-    @Override
-    public Property visitVariableDeclarationStatment(DartParser.VariableDeclarationStatmentContext ctx) {
-        return super.visitVariableDeclarationStatment(ctx);
-    }
-
-    @Override
-    public Property visitVariableAssignmentStatment(DartParser.VariableAssignmentStatmentContext ctx) {
-        return super.visitVariableAssignmentStatment(ctx);
-    }
 
     @Override
     public Property visitNonFunctionVariableDeclaration(DartParser.NonFunctionVariableDeclarationContext ctx) {
@@ -562,26 +513,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitCrossAxisAlignmentProperty(DartParser.CrossAxisAlignmentPropertyContext ctx) {
         String value = ctx.getChild(2).getText();
         return new CrossAxisAlignmentProperty(CrossAxisAlignmentValue.valueOf(value));
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 
 }

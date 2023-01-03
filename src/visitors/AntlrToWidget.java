@@ -61,74 +61,6 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     }
 
     @Override
-    public Widget visitTextWidget(DartParser.TextWidgetContext ctx) {
-        return super.visitTextWidget(ctx);
-    }
-
-    @Override
-    public Widget visitContainerWidget(DartParser.ContainerWidgetContext ctx) {
-        return super.visitContainerWidget(ctx);
-    }
-
-    @Override
-    public Widget visitExpandedWidget(DartParser.ExpandedWidgetContext ctx) {
-        return super.visitExpandedWidget(ctx);
-    }
-
-    @Override
-    public Widget visitColumnWidget(DartParser.ColumnWidgetContext ctx) {
-        return super.visitColumnWidget(ctx);
-    }
-
-    @Override
-    public Widget visitGestureDetectorWidget(DartParser.GestureDetectorWidgetContext ctx) {
-        return super.visitGestureDetectorWidget(ctx);
-    }
-
-    @Override
-    public Widget visitPaddingWidget(DartParser.PaddingWidgetContext ctx) {
-        return super.visitPaddingWidget(ctx);
-    }
-
-    @Override
-    public Widget visitImageWidget(DartParser.ImageWidgetContext ctx) {
-        return super.visitImageWidget(ctx);
-    }
-
-    @Override
-    public Widget visitButtonWidget(DartParser.ButtonWidgetContext ctx) {
-        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
-
-        List<Property> properties = new ArrayList<>();
-
-        List<DartParser.ButtonPropertiesContext> buttonPropertiesContextList = ctx.button().buttonProperties();
-
-        for (DartParser.ButtonPropertiesContext bpc : buttonPropertiesContextList) {
-            properties.add(antlrToPropertyVisitor.visit(bpc));
-        }
-        return new Button(properties);
-
-    }
-
-    @Override
-    public Widget visitCreatedWidget(DartParser.CreatedWidgetContext ctx) {
-        return super.visitCreatedWidget(ctx);
-    }
-
-    @Override
-    public Widget visitTextFieldWidget(DartParser.TextFieldWidgetContext ctx) {
-        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
-
-        List<Property> properties = new ArrayList<>();
-
-        List<DartParser.TextFieldPropertiesContext> textFieldPropertiesContexts = ctx.textField().textFieldProperties();
-        for (DartParser.TextFieldPropertiesContext textFieldPropertiesContext : textFieldPropertiesContexts) {
-            properties.add(antlrToPropertyVisitor.visit(textFieldPropertiesContext));
-        }
-        return new TextField(properties);
-    }
-
-    @Override
     public Widget visitCustomWidget(DartParser.CustomWidgetContext ctx) {
         AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
         String widgetIdentifier = ctx.WIDGETNAME().getSymbol().getText();
@@ -151,21 +83,6 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
             properties.add(antlrToProperty.visit(rp));
         }
         return new Row(properties);
-    }
-
-    @Override
-    public Widget visitRowChildren(DartParser.RowChildrenContext ctx) {
-        return super.visitRowChildren(ctx);
-    }
-
-    @Override
-    public Widget visitRowMainAxisSize(DartParser.RowMainAxisSizeContext ctx) {
-        return super.visitRowMainAxisSize(ctx);
-    }
-
-    @Override
-    public Widget visitRowCrossAxisAlignment(DartParser.RowCrossAxisAlignmentContext ctx) {
-        return super.visitRowCrossAxisAlignment(ctx);
     }
 
     @Override
@@ -193,21 +110,6 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
             properties.add(antlrToProperty.visit(cp));
         }
         return new Column(properties);
-    }
-
-    @Override
-    public Widget visitColumnChildren(DartParser.ColumnChildrenContext ctx) {
-        return super.visitColumnChildren(ctx);
-    }
-
-    @Override
-    public Widget visitColumnMainAxisSize(DartParser.ColumnMainAxisSizeContext ctx) {
-        return super.visitColumnMainAxisSize(ctx);
-    }
-
-    @Override
-    public Widget visitColumnCrossAxisAlignment(DartParser.ColumnCrossAxisAlignmentContext ctx) {
-        return super.visitColumnCrossAxisAlignment(ctx);
     }
 
     @Override
@@ -440,7 +342,16 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitButton(DartParser.ButtonContext ctx) {
-        return super.visitButton(ctx);
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
+
+        List<Property> properties = new ArrayList<>();
+
+        List<DartParser.ButtonPropertiesContext> buttonPropertiesContextList = ctx.buttonProperties();
+
+        for (DartParser.ButtonPropertiesContext bpc : buttonPropertiesContextList) {
+            properties.add(antlrToPropertyVisitor.visit(bpc));
+        }
+        return new Button(properties);
     }
 
     @Override
@@ -475,7 +386,15 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitTextField(DartParser.TextFieldContext ctx) {
-        return super.visitTextField(ctx);
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
+
+        List<Property> properties = new ArrayList<>();
+
+        List<DartParser.TextFieldPropertiesContext> textFieldPropertiesContexts = ctx.textFieldProperties();
+        for (DartParser.TextFieldPropertiesContext textFieldPropertiesContext : textFieldPropertiesContexts) {
+            properties.add(antlrToPropertyVisitor.visit(textFieldPropertiesContext));
+        }
+        return new TextField(properties);
     }
 
     @Override
@@ -549,26 +468,6 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     }
 
     @Override
-    public Widget visitVariables(DartParser.VariablesContext ctx) {
-        return super.visitVariables(ctx);
-    }
-
-    @Override
-    public Widget visitTree(DartParser.TreeContext ctx) {
-        return super.visitTree(ctx);
-    }
-
-    @Override
-    public Widget visitVariableDeclarationStatment(DartParser.VariableDeclarationStatmentContext ctx) {
-        return super.visitVariableDeclarationStatment(ctx);
-    }
-
-    @Override
-    public Widget visitVariableAssignmentStatment(DartParser.VariableAssignmentStatmentContext ctx) {
-        return super.visitVariableAssignmentStatment(ctx);
-    }
-
-    @Override
     public Widget visitNonFunctionVariableDeclaration(DartParser.NonFunctionVariableDeclarationContext ctx) {
         return super.visitNonFunctionVariableDeclaration(ctx);
     }
@@ -583,24 +482,4 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         return super.visitVariableAssignment(ctx);
     }
 
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }
