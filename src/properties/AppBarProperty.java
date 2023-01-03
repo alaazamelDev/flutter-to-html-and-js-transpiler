@@ -5,8 +5,8 @@ import widgets.Widget;
 public class AppBarProperty extends Property{
     private final Widget value;
 
-    public AppBarProperty(Widget value) {
-        super("appBar");
+    public AppBarProperty(Widget value, String lnNumber) {
+        super("appBar", lnNumber);
         this.value = value;
     }
 

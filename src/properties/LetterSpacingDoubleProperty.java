@@ -3,8 +3,8 @@ package properties;
 public class LetterSpacingDoubleProperty extends Property {
     private final double value;
 
-    public LetterSpacingDoubleProperty(double value) {
-        super("letterSpacing");
+    public LetterSpacingDoubleProperty(double value, String lnNumber) {
+        super("letterSpacing", lnNumber);
         this.value = value;
     }
 

@@ -6,8 +6,8 @@ public class CrossAxisAlignmentProperty extends Property {
     private final CrossAxisAlignmentValue value;
 
 
-    public CrossAxisAlignmentProperty(CrossAxisAlignmentValue value) {
-        super("crossAxisAlignment");
+    public CrossAxisAlignmentProperty(CrossAxisAlignmentValue value, String lnNumber) {
+        super("crossAxisAlignment", lnNumber);
         this.value = value;
     }
 

@@ -5,8 +5,8 @@ import properties.Property;
 public class BorderRadiusCircularProperty extends Property {
     private final double value;
 
-    public BorderRadiusCircularProperty(double value) {
-        super("BorderRadiusCircularProperty");
+    public BorderRadiusCircularProperty(double value, String lnNumber) {
+        super("BorderRadiusCircularProperty", lnNumber);
         this.value = value;
     }
 

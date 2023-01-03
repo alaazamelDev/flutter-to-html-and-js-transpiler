@@ -5,8 +5,8 @@ public class UrlProperty extends Property{
     private final String value;
 
 
-    public UrlProperty(String value) {
-        super("url");
+    public UrlProperty(String value, String lnNumber) {
+        super("url", lnNumber);
         this.value = value;
     }
 

@@ -3,8 +3,8 @@ package properties;
 public class TopRightIntProperty extends Property {
     private final int value;
 
-    protected TopRightIntProperty(int value) {
-        super("topRight");
+    protected TopRightIntProperty(int value, String lnNumber) {
+        super("topRight", lnNumber);
         this.value = value;
     }
 

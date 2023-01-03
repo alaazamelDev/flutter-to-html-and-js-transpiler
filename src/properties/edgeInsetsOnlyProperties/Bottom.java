@@ -6,8 +6,8 @@ public class Bottom extends Property {
     private final double value;
 
 
-    public Bottom(double value) {
-        super("bottom");
+    public Bottom(double value, String lnNumber) {
+        super("bottom", lnNumber);
         this.value = value;
     }
 
