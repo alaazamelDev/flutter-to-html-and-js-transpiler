@@ -5,7 +5,7 @@ import widgets.Widget;
 public class ChildWidgetProperty extends Property {
     private final Widget value;
 
-    protected ChildWidgetProperty(Widget value) {
+    public ChildWidgetProperty(Widget value) {
         super("child");
         this.value = value;
     }

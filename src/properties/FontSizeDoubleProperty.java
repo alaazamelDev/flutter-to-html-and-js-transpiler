@@ -3,7 +3,7 @@ package properties;
 public class FontSizeDoubleProperty extends Property {
     private final double value;
 
-    protected FontSizeDoubleProperty(double value) {
+    public FontSizeDoubleProperty(double value) {
         super("fontSize");
         this.value = value;
     }

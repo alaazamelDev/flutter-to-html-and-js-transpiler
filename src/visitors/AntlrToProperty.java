@@ -11,6 +11,17 @@ import widgets.Widget;
 import enums.FitValue;
 import interfaces.IAntlrObjectFactory;
 import properties.*;
+import enums.CrossAxisAlignmentValue;
+import enums.FontWeightValue;
+import enums.MainAxisSizeValue;
+import enums.TextAlignValue;
+import interfaces.AntlrObjectFactory;
+import properties.*;
+import widgets.Row;
+import widgets.Widget;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
@@ -92,11 +103,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitRow(DartParser.RowContext ctx) {
-        return super.visitRow(ctx);
-    }
-
-    @Override
     public Property visitRowChildren(DartParser.RowChildrenContext ctx) {
         return super.visitRowChildren(ctx);
     }
@@ -142,33 +148,35 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitText(DartParser.TextContext ctx) {
-        return super.visitText(ctx);
-    }
-
-    @Override
     public Property visitTextContent(DartParser.TextContentContext ctx) {
-        return super.visitTextContent(ctx);
+        String value = ctx.getChild(2).getText();
+
+        return new TextContent(value);
     }
 
     @Override
     public Property visitTextFontWeight(DartParser.TextFontWeightContext ctx) {
-        return super.visitTextFontWeight(ctx);
+        String value = ctx.getChild(2).getText();
+        return new FontWeightObjectProperty(FontWeightValue.valueOf(value));
     }
 
     @Override
     public Property visitTextFontSize(DartParser.TextFontSizeContext ctx) {
-        return super.visitTextFontSize(ctx);
+        String value = ctx.getChild(2).getText();
+        return new FontSizeDoubleProperty(Double.parseDouble(value));
     }
 
     @Override
     public Property visitTextLetterSpacing(DartParser.TextLetterSpacingContext ctx) {
-        return super.visitTextLetterSpacing(ctx);
+        String value = ctx.getChild(2).getText();
+        return new LetterSpacingDoubleProperty(Double.parseDouble(value));
     }
 
     @Override
     public Property visitTextTextAlign(DartParser.TextTextAlignContext ctx) {
-        return super.visitTextTextAlign(ctx);
+        String value = ctx.getChild(2).getText();
+
+        return new TextAlignObjectProperty(TextAlignValue.valueOf(value));
     }
 
     @Override
@@ -515,37 +523,51 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitWidthProperty(DartParser.WidthPropertyContext ctx) {
-        return super.visitWidthProperty(ctx);
+        String value = ctx.getChild(2).getText();
+
+        return new WidthProperty(Double.parseDouble(value));
     }
 
     @Override
     public Property visitHeightProperty(DartParser.HeightPropertyContext ctx) {
-        return super.visitHeightProperty(ctx);
+        String value = ctx.getChild(2).getText();
+
+        return new HeightProperty(Double.parseDouble(value));
     }
 
     @Override
     public Property visitColorProperty(DartParser.ColorPropertyContext ctx) {
-        return super.visitColorProperty(ctx);
+        String value = ctx.getChild(2).getText();
+        return new Color(value);
     }
 
     @Override
     public Property visitChildProperty(DartParser.ChildPropertyContext ctx) {
-        return super.visitChildProperty(ctx);
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+        Widget child = antlrToWidget.visit(ctx.getChild(2));
+        return new ChildWidgetProperty(child);
     }
 
     @Override
     public Property visitChildrenProperty(DartParser.ChildrenPropertyContext ctx) {
-        return super.visitChildrenProperty(ctx);
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+        List<Widget> widgets = new ArrayList<>();
+        for (DartParser.WidgetContext wc : ctx.widget()) {
+            widgets.add(antlrToWidget.visit(wc));
+        }
+        return new Children(widgets);
     }
 
     @Override
     public Property visitMainAxisSizeProperty(DartParser.MainAxisSizePropertyContext ctx) {
-        return super.visitMainAxisSizeProperty(ctx);
+        String value = ctx.getChild(2).getText();
+        return new MainAxisSizeObjectProperty(MainAxisSizeValue.valueOf(value));
     }
 
     @Override
     public Property visitCrossAxisAlignmentProperty(DartParser.CrossAxisAlignmentPropertyContext ctx) {
-        return super.visitCrossAxisAlignmentProperty(ctx);
+        String value = ctx.getChild(2).getText();
+        return new CrossAxisAlignmentProperty(CrossAxisAlignmentValue.valueOf(value));
     }
 
     @Override

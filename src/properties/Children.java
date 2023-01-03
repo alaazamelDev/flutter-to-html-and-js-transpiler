@@ -1,20 +1,20 @@
 package properties;
 
-import Widget.Widget;
+import widgets.Widget;
 
 import java.util.List;
 
 public class Children extends Property{
 
-    private final List<Widget> childrens;
+    private final List<Widget> children;
 
 
-    protected Children(List<Widget> childrens) {
+    public Children(List<Widget> children) {
         super("children");
-        this.childrens = childrens;
+        this.children = children;
     }
 
-    public List<Widget> getChildrens() {
-        return childrens;
+    public List<Widget> getChildren() {
+        return children;
     }
 }

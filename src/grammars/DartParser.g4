@@ -54,6 +54,7 @@ row
     : ROW LP (rowProperties (COMMA rowProperties)* COMMA? )? RP
     ;
 
+//those already written in there own seperate visitors
 rowProperties
     :   childrenProperty #RowChildren
     |   mainAxisSizeProperty #RowMainAxisSize
@@ -64,6 +65,7 @@ center
     :   CENTER LP (centerProperties (COMMA centerProperties)* COMMA? )? RP
     ;
 
+//those already written in there own seperate visitors
 centerProperties
     :   childProperty #CenterChild
     ;
@@ -234,7 +236,7 @@ widthProperty:  WIDTH COLON (NUM|FLOAT);
 heightProperty: HEIGHT COLON (NUM|FLOAT);
 colorProperty: COLOR COLON HEX_NUM;
 childProperty:  CHILD COLON widget;
-childrenProperty:   CHILDREN COLON OA (widget COMMA)* CA;
+childrenProperty:   CHILDREN COLON OA (widget (COMMA widget)* COMMA? )? CA;
 mainAxisSizeProperty:   MAINAXISSIZE COLON (MAX | MIN);
 crossAxisAlignmentProperty: CROSSAXISALIGNMENT COLON (STRETCH | LEFT | RIGHT | CENTERVALUE);
 
