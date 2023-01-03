@@ -4,7 +4,7 @@ import properties.Property;
 
 import java.util.List;
 
-public  abstract class Widget {
+public class Widget {
     private final  String identifier;
     private final List<Property> properties;
 
