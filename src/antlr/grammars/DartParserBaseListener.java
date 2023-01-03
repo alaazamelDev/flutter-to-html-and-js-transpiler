@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from C:/Users/anasr/Desktop/state/compilerproject/src/grammars\DartParser.g4 by ANTLR 4.10.1
 package grammars;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -10,7 +10,6 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-@SuppressWarnings("CheckReturnValue")
 public class DartParserBaseListener implements DartParserListener {
 	/**
 	 * {@inheritDoc}
@@ -533,6 +532,18 @@ public class DartParserBaseListener implements DartParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDecorationProperty(DartParser.DecorationPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDecorationProperty(DartParser.DecorationPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBoxDecoration(DartParser.BoxDecorationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -564,6 +575,18 @@ public class DartParserBaseListener implements DartParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBorderRadiusProperty(DartParser.BorderRadiusPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBorderRadiusProperty(DartParser.BorderRadiusPropertyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1181,18 +1204,6 @@ public class DartParserBaseListener implements DartParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCustomWidgetDeclarationStatement(DartParser.CustomWidgetDeclarationStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCustomWidgetDeclarationStatement(DartParser.CustomWidgetDeclarationStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterNonFunctionVariableDeclaration(DartParser.NonFunctionVariableDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1224,18 +1235,6 @@ public class DartParserBaseListener implements DartParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVariableAssignment(DartParser.VariableAssignmentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

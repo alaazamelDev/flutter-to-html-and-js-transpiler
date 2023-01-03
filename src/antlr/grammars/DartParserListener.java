@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from C:/Users/anasr/Desktop/state/compilerproject/src/grammars\DartParser.g4 by ANTLR 4.10.1
 package grammars;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -504,6 +504,16 @@ public interface DartParserListener extends ParseTreeListener {
 	 */
 	void exitContainerDecoration(DartParser.ContainerDecorationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link DartParser#decorationProperty}.
+	 * @param ctx the parse tree
+	 */
+	void enterDecorationProperty(DartParser.DecorationPropertyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DartParser#decorationProperty}.
+	 * @param ctx the parse tree
+	 */
+	void exitDecorationProperty(DartParser.DecorationPropertyContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link DartParser#boxDecoration}.
 	 * @param ctx the parse tree
 	 */
@@ -537,6 +547,16 @@ public interface DartParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DartParser#borderRadiusProperty}.
+	 * @param ctx the parse tree
+	 */
+	void enterBorderRadiusProperty(DartParser.BorderRadiusPropertyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DartParser#borderRadiusProperty}.
+	 * @param ctx the parse tree
+	 */
+	void exitBorderRadiusProperty(DartParser.BorderRadiusPropertyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DartParser#borderRadius}.
 	 * @param ctx the parse tree
@@ -1124,18 +1144,6 @@ public interface DartParserListener extends ParseTreeListener {
 	 */
 	void exitVariableAssignmentStatment(DartParser.VariableAssignmentStatmentContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code CustomWidgetDeclarationStatement}
-	 * labeled alternative in {@link DartParser#statment}.
-	 * @param ctx the parse tree
-	 */
-	void enterCustomWidgetDeclarationStatement(DartParser.CustomWidgetDeclarationStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code CustomWidgetDeclarationStatement}
-	 * labeled alternative in {@link DartParser#statment}.
-	 * @param ctx the parse tree
-	 */
-	void exitCustomWidgetDeclarationStatement(DartParser.CustomWidgetDeclarationStatementContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code NonFunctionVariableDeclaration}
 	 * labeled alternative in {@link DartParser#variableDeclaration}.
 	 * @param ctx the parse tree
@@ -1169,16 +1177,6 @@ public interface DartParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariableAssignment(DartParser.VariableAssignmentContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DartParser#customWidgetDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DartParser#customWidgetDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DartParser#variables}.
 	 * @param ctx the parse tree

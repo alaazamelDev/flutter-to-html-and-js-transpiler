@@ -1,8 +1,12 @@
 package visitors;
 
-import antlr.DartParser;
-import antlr.DartParserBaseVisitor;
+import grammars.DartParser;
+import grammars.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
+import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.RuleNode;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import properties.Property;
 import widgets.*;
 
