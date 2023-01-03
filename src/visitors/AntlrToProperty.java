@@ -557,6 +557,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitChildrenProperty(DartParser.ChildrenPropertyContext ctx) {
         List<Widget> widgets = new ArrayList<>();
+
         for (DartParser.WidgetContext wc : ctx.widget()) {
             widgets.add(antlrToWidget.visit(wc));
         }
