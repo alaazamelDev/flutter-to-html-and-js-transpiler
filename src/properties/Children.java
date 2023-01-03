@@ -1,6 +1,7 @@
 package properties;
 
-import Widget.Widget;
+
+import widgets.Widget;
 
 import java.util.List;
 

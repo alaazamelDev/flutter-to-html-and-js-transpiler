@@ -1,12 +1,8 @@
 package visitors;
 
-
-import grammars.DartParser;
-import grammars.DartParserBaseVisitor;
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.RuleNode;
-import org.antlr.v4.runtime.tree.TerminalNode;
+import antlr.DartParser;
+import antlr.DartParserBaseVisitor;
+import interfaces.IAntlrObjectFactory;
 import properties.Property;
 import widgets.*;
 
@@ -302,12 +298,14 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     }
     @Override
     public Widget visitGestureDetector(DartParser.GestureDetectorContext ctx) {
-        return super.visitGestureDetector(ctx);
-    }
+        AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
+        List<Property> properties=new ArrayList<>();
+        for(DartParser.GestureDetectorPropertiesContext gpc : ctx.gestureDetectorProperties()){
+            properties.add(antlrToProperty.visit(gpc));
+        }
 
-    @Override
-    public Widget visitGestureDetectorProperties(DartParser.GestureDetectorPropertiesContext ctx) {
-        return super.visitGestureDetectorProperties(ctx);
+        GestureDetector gestureDetector = new GestureDetector(properties);
+        return gestureDetector;
     }
 
     @Override
@@ -315,64 +313,48 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         return super.visitOnFunction(ctx);
     }
 
+    //done
     @Override
     public Widget visitPadding(DartParser.PaddingContext ctx) {
-        return super.visitPadding(ctx);
+        AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
+        List<Property> properties=new ArrayList<>();
+        for(DartParser.PaddingProprteyContext ppc : ctx.paddingProprtey()){
+            properties.add(antlrToProperty.visit(ppc));
+        }
+        return new Padding(properties);
     }
 
-    @Override
-    public Widget visitPaddingPadding(DartParser.PaddingPaddingContext ctx) {
-        return super.visitPaddingPadding(ctx);
-    }
-
-    @Override
-    public Widget visitPaddingChild(DartParser.PaddingChildContext ctx) {
-        return super.visitPaddingChild(ctx);
-    }
-
+    //done
     @Override
     public Widget visitEdgeInsetsOnly(DartParser.EdgeInsetsOnlyContext ctx) {
-        return super.visitEdgeInsetsOnly(ctx);
+        AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
+        List<Property> properties=new ArrayList<>();
+        for(DartParser.EdgeInsetsOnlyPropertiesContext eiopc : ctx.edgeInsetsOnlyProperties()){
+            properties.add(antlrToProperty.visit(eiopc));
+        }
+        return new EdgeInsetsOnly(properties);
     }
 
+    //done
     @Override
     public Widget visitEdgeInsetsSymetric(DartParser.EdgeInsetsSymetricContext ctx) {
-        return super.visitEdgeInsetsSymetric(ctx);
+        AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
+        List<Property> properties=new ArrayList<>();
+        for(DartParser.EdgeInsetsSymetricPropertiesContext espc : ctx.edgeInsetsSymetricProperties()){
+            properties.add(antlrToProperty.visit(espc));
+        }
+        return new EdgeInsetsSymmetric(properties);
     }
 
-    @Override
-    public Widget visitEdgeInsetsOnlyTop(DartParser.EdgeInsetsOnlyTopContext ctx) {
-        return super.visitEdgeInsetsOnlyTop(ctx);
-    }
-
-    @Override
-    public Widget visitEdgeInsetsOnlyLeft(DartParser.EdgeInsetsOnlyLeftContext ctx) {
-        return super.visitEdgeInsetsOnlyLeft(ctx);
-    }
-
-    @Override
-    public Widget visitEdgeInsetsOnlyRight(DartParser.EdgeInsetsOnlyRightContext ctx) {
-        return super.visitEdgeInsetsOnlyRight(ctx);
-    }
-
-    @Override
-    public Widget visitEdgeInsetsOnlyBottom(DartParser.EdgeInsetsOnlyBottomContext ctx) {
-        return super.visitEdgeInsetsOnlyBottom(ctx);
-    }
-
-    @Override
-    public Widget visitEdgeInsetsSymetricHorizontal(DartParser.EdgeInsetsSymetricHorizontalContext ctx) {
-        return super.visitEdgeInsetsSymetricHorizontal(ctx);
-    }
-
-    @Override
-    public Widget visitEdgeInsetsSymetricVertical(DartParser.EdgeInsetsSymetricVerticalContext ctx) {
-        return super.visitEdgeInsetsSymetricVertical(ctx);
-    }
-
+    //done
     @Override
     public Widget visitImage(DartParser.ImageContext ctx) {
-        return super.visitImage(ctx);
+        AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
+        List<Property> properties=new ArrayList<>();
+        for(DartParser.ImagePropertiesContext ipc : ctx.imageProperties()){
+            properties.add(antlrToProperty.visit(ipc));
+        }
+        return new Image(properties);
     }
 
     @Override

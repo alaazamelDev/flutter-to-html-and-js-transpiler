@@ -1,18 +1,16 @@
 package visitors;
 
-
-import enums.ContentAlignmentValue;
-import grammars.DartParser;
-import grammars.DartParserBaseVisitor;
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.RuleNode;
-import org.antlr.v4.runtime.tree.TerminalNode;
-import properties.border_radius.*;
-import properties.decoration.DecorationProperty;
-import properties.Property;
-import properties.container.ContainerContentAlignmentProperty;
-import properties.expanded.ExpandedFlexProperty;
+import antlr.DartParser;
+import antlr.DartParserBaseVisitor;
+import interfaces.IAntlrObjectFactory;
+import properties.*;
+import properties.edgeInsetsOnlyProperties.Bottom;
+import properties.edgeInsetsOnlyProperties.Left;
+import properties.edgeInsetsOnlyProperties.Right;
+import properties.edgeInsetsOnlyProperties.Top;
+import properties.edgeInsetsSymetricProperties.Horizontal;
+import properties.edgeInsetsSymetricProperties.Vertical;
+import properties.gestureDetectorProperties.OnPressedProperty;
 
 public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     private final AntlrObjectFactory factory;
@@ -335,9 +333,10 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return super.visitGestureDetector(ctx);
     }
 
+    //done
     @Override
     public Property visitGestureDetectorProperties(DartParser.GestureDetectorPropertiesContext ctx) {
-        return super.visitGestureDetectorProperties(ctx);
+        return new OnPressedProperty(visit(ctx.getChild(2)));
     }
 
     @Override
@@ -345,14 +344,12 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return super.visitOnFunction(ctx);
     }
 
-    @Override
-    public Property visitPadding(DartParser.PaddingContext ctx) {
-        return super.visitPadding(ctx);
-    }
 
+    //done
     @Override
     public Property visitPaddingPadding(DartParser.PaddingPaddingContext ctx) {
-        return super.visitPaddingPadding(ctx);
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+        return new PaddingAttributeWidgetProperty(antlrToWidget.visit(ctx.getChild(2)));
     }
 
     @Override
@@ -360,44 +357,41 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return super.visitPaddingChild(ctx);
     }
 
-    @Override
-    public Property visitEdgeInsetsOnly(DartParser.EdgeInsetsOnlyContext ctx) {
-        return super.visitEdgeInsetsOnly(ctx);
-    }
 
-    @Override
-    public Property visitEdgeInsetsSymetric(DartParser.EdgeInsetsSymetricContext ctx) {
-        return super.visitEdgeInsetsSymetric(ctx);
-    }
-
+    //done
     @Override
     public Property visitEdgeInsetsOnlyTop(DartParser.EdgeInsetsOnlyTopContext ctx) {
-        return super.visitEdgeInsetsOnlyTop(ctx);
+        return new Top(Double.parseDouble(ctx.getChild(2).getText()));
     }
 
+    //done
     @Override
     public Property visitEdgeInsetsOnlyLeft(DartParser.EdgeInsetsOnlyLeftContext ctx) {
-        return super.visitEdgeInsetsOnlyLeft(ctx);
+        return new Left(Double.parseDouble(ctx.getChild(2).getText()));
     }
 
+    //done
     @Override
     public Property visitEdgeInsetsOnlyRight(DartParser.EdgeInsetsOnlyRightContext ctx) {
-        return super.visitEdgeInsetsOnlyRight(ctx);
+        return new Right(Double.parseDouble(ctx.getChild(2).getText()));
     }
 
+    //done
     @Override
     public Property visitEdgeInsetsOnlyBottom(DartParser.EdgeInsetsOnlyBottomContext ctx) {
-        return super.visitEdgeInsetsOnlyBottom(ctx);
+        return new Bottom(Double.parseDouble(ctx.getChild(2).getText()));
     }
 
+    //done
     @Override
     public Property visitEdgeInsetsSymetricHorizontal(DartParser.EdgeInsetsSymetricHorizontalContext ctx) {
-        return super.visitEdgeInsetsSymetricHorizontal(ctx);
+        return new Horizontal(Double.parseDouble(ctx.getChild(2).getText()));
     }
 
+    //done
     @Override
     public Property visitEdgeInsetsSymetricVertical(DartParser.EdgeInsetsSymetricVerticalContext ctx) {
-        return super.visitEdgeInsetsSymetricVertical(ctx);
+        return new Vertical(Double.parseDouble(ctx.getChild(2).getText()));
     }
 
     @Override

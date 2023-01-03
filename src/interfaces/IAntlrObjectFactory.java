@@ -1,4 +1,5 @@
 package interfaces;
+
 import visitors.AntlrToProperty;
 import visitors.AntlrToWidget;
 
