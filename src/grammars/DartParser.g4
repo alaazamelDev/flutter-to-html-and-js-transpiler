@@ -99,15 +99,17 @@ containerProperties:    widthProperty #ContainerWidth
                    |    heightProperty #ContainerHeight
                    |    CONTENTALIGNMENT COLON (CENTERVALUE | LEFT | RIGHT) #ContainerContentAlignment
                    |    childProperty #ContainerChild
-                   |    DECORATION COLON boxDecoration #ContainerDecoration
+                   |    decorationProperty #ContainerDecoration
                    ;
 
+decorationProperty: DECORATION COLON boxDecoration; //new gabsonia
 
 boxDecoration:  BOXDECORATION LP (boxDecorationProperties (COMMA boxDecorationProperties)* COMMA? )? RP;
 
-boxDecorationProperties: colorProperty #BoxDecorationColor
-                       | BORDERRADIUS COLON borderRadius #BoxDecorationBorderRadius
+boxDecorationProperties: colorProperty #BoxDecorationColor //TODO delete labels
+                       | borderRadiusProperty #BoxDecorationBorderRadius
                        ;
+borderRadiusProperty: BORDERRADIUS COLON borderRadius;
 
 borderRadius
     :   borderRadiusOnly
@@ -117,9 +119,9 @@ borderRadius
 borderRadiusCircular: BORDERRADIUSCIRCULAR LP borderRadiusCircularProperties COMMA? RP;
 borderRadiusOnly: BORDERRADIUSONLY LP (borderRadiusOnlyProperties (COMMA borderRadiusOnlyProperties)* COMMA? )? RP;
 
-borderRadiusCircularProperties: RADIUS COLON (NUM|FLOAT);
+borderRadiusCircularProperties: RADIUS COLON (NUM|FLOAT); //TODO make it double only
 
-borderRadiusOnlyProperties
+borderRadiusOnlyProperties //TODO make it double only
     :   TOPRIGHT COLON (NUM|FLOAT) #BorderRadiusOnlyTopRight
     |   TOPLEFT COLON (NUM|FLOAT) #BorderRadiusOnlyTopLeft
     |   BOTTOMRIGHT COLON (NUM|FLOAT) #BorderRadiusOnlyBottomRight
@@ -211,7 +213,7 @@ borderProperties: THICKNESS COLON NUM #BorderThickness
 statment
     :   variableDeclaration     #VariableDeclarationStatment
     |   variableAssignment      #VariableAssignmentStatment
-    |   customWidgetDeclaration #CustomWidgetDeclarationStatement
+   // |   customWidgetDeclaration #CustomWidgetDeclarationStatement
     ;
 
 // statements
@@ -225,7 +227,7 @@ variableAssignment
     ;
 
 //custom widget stuff
-customWidgetDeclaration: WIDGET WIDGETNAME OB variables RETURN LP tree RP CB;
+//customWidgetDeclaration: WIDGET WIDGETNAME OB variables* RETURN LP tree RP CB;
 variables: variableDeclaration*;
 tree: widget;
 

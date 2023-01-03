@@ -1,5 +1,5 @@
-// Generated from java-escape by ANTLR 4.11.1
-package antlr;
+// Generated from C:/Users/anasr/Desktop/state/compilerproject/src/grammars\DartParser.g4 by ANTLR 4.10.1
+package grammars;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -302,6 +302,12 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitContainerDecoration(DartParser.ContainerDecorationContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link DartParser#decorationProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDecorationProperty(DartParser.DecorationPropertyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DartParser#boxDecoration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -321,6 +327,12 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#borderRadiusProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorderRadiusProperty(DartParser.BorderRadiusPropertyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#borderRadius}.
 	 * @param ctx the parse tree
@@ -652,24 +664,6 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBorderColor(DartParser.BorderColorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#customWidgetDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#variables}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVariables(DartParser.VariablesContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#tree}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTree(DartParser.TreeContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code VariableDeclarationStatment}
 	 * labeled alternative in {@link DartParser#statment}.
 	 * @param ctx the parse tree
@@ -703,6 +697,18 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariableAssignment(DartParser.VariableAssignmentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#variables}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariables(DartParser.VariablesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#tree}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTree(DartParser.TreeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#widthProperty}.
 	 * @param ctx the parse tree

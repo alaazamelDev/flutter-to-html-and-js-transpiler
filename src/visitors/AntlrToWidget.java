@@ -1,10 +1,26 @@
 package visitors;
 
-import antlr.DartParser;
-import antlr.DartParserBaseVisitor;
-import widgets.Widget;
+
+import grammars.DartParser;
+import grammars.DartParserBaseVisitor;
+import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.RuleNode;
+import org.antlr.v4.runtime.tree.TerminalNode;
+import properties.Property;
+import widgets.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
+
+    private final AntlrObjectFactory factory;
+
+    public AntlrToWidget(AntlrObjectFactory antlrObjectFactory) {
+        this.factory = antlrObjectFactory;
+    }
+
     @Override
     public Widget visitProg(DartParser.ProgContext ctx) {
         return super.visitProg(ctx);
@@ -192,37 +208,57 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitContainer(DartParser.ContainerContext ctx) {
-        return super.visitContainer(ctx);
+        List<Property> properties = new ArrayList<>();
+        for (DartParser.ContainerPropertiesContext cp : ctx.containerProperties()) {
+            properties.add(factory.createAntlrToProperty().visit(cp));
+        }
+        return new Container(properties);
     }
 
-    @Override
-    public Widget visitContainerWidth(DartParser.ContainerWidthContext ctx) {
-        return super.visitContainerWidth(ctx);
-    }
-
-    @Override
-    public Widget visitContainerHeight(DartParser.ContainerHeightContext ctx) {
-        return super.visitContainerHeight(ctx);
-    }
-
-    @Override
-    public Widget visitContainerContentAlignment(DartParser.ContainerContentAlignmentContext ctx) {
-        return super.visitContainerContentAlignment(ctx);
-    }
-
-    @Override
-    public Widget visitContainerChild(DartParser.ContainerChildContext ctx) {
-        return super.visitContainerChild(ctx);
-    }
-
-    @Override
-    public Widget visitContainerDecoration(DartParser.ContainerDecorationContext ctx) {
-        return super.visitContainerDecoration(ctx);
-    }
 
     @Override
     public Widget visitBoxDecoration(DartParser.BoxDecorationContext ctx) {
-        return super.visitBoxDecoration(ctx);
+        List<Property> properties = new ArrayList<>();
+        for (DartParser.BoxDecorationPropertiesContext bdpc : ctx.boxDecorationProperties()) {
+            properties.add(factory.createAntlrToProperty().visit(bdpc));
+        }
+        return new BoxDecorationWidget(properties);
+    }
+
+
+    @Override
+    public Widget visit(ParseTree tree) {
+        return super.visit(tree);
+    }
+
+    @Override
+    public Widget visitChildren(RuleNode node) {
+        return super.visitChildren(node);
+    }
+
+    @Override
+    public Widget visitTerminal(TerminalNode node) {
+        return super.visitTerminal(node);
+    }
+
+    @Override
+    public Widget visitErrorNode(ErrorNode node) {
+        return super.visitErrorNode(node);
+    }
+
+    @Override
+    protected Widget defaultResult() {
+        return super.defaultResult();
+    }
+
+    @Override
+    protected Widget aggregateResult(Widget aggregate, Widget nextResult) {
+        return super.aggregateResult(aggregate, nextResult);
+    }
+
+    @Override
+    protected boolean shouldVisitNextChild(RuleNode node, Widget currentResult) {
+        return super.shouldVisitNextChild(node, currentResult);
     }
 
     @Override
@@ -237,59 +273,33 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitBorderRadius(DartParser.BorderRadiusContext ctx) {
-        return super.visitBorderRadius(ctx);
+        return visit(ctx.getChild(0));
     }
 
     @Override
     public Widget visitBorderRadiusCircular(DartParser.BorderRadiusCircularContext ctx) {
-        return super.visitBorderRadiusCircular(ctx);
+        List<Property> properties = new ArrayList<>();
+        properties.add(factory.createAntlrToProperty().visit(ctx.borderRadiusCircularProperties()));
+        return new BorderRadiusCircular(properties);
     }
 
     @Override
     public Widget visitBorderRadiusOnly(DartParser.BorderRadiusOnlyContext ctx) {
-        return super.visitBorderRadiusOnly(ctx);
-    }
-
-    @Override
-    public Widget visitBorderRadiusCircularProperties(DartParser.BorderRadiusCircularPropertiesContext ctx) {
-        return super.visitBorderRadiusCircularProperties(ctx);
-    }
-
-    @Override
-    public Widget visitBorderRadiusOnlyTopRight(DartParser.BorderRadiusOnlyTopRightContext ctx) {
-        return super.visitBorderRadiusOnlyTopRight(ctx);
-    }
-
-    @Override
-    public Widget visitBorderRadiusOnlyTopLeft(DartParser.BorderRadiusOnlyTopLeftContext ctx) {
-        return super.visitBorderRadiusOnlyTopLeft(ctx);
-    }
-
-    @Override
-    public Widget visitBorderRadiusOnlyBottomRight(DartParser.BorderRadiusOnlyBottomRightContext ctx) {
-        return super.visitBorderRadiusOnlyBottomRight(ctx);
-    }
-
-    @Override
-    public Widget visitBorderRadiusOnlyBottomLeft(DartParser.BorderRadiusOnlyBottomLeftContext ctx) {
-        return super.visitBorderRadiusOnlyBottomLeft(ctx);
+        List<Property> properties = new ArrayList<>();
+        for (DartParser.BorderRadiusOnlyPropertiesContext bdopc : ctx.borderRadiusOnlyProperties()) {
+            properties.add(factory.createAntlrToProperty().visit(bdopc));
+        }
+        return new BorderRadiusOnly(properties);
     }
 
     @Override
     public Widget visitExpanded(DartParser.ExpandedContext ctx) {
-        return super.visitExpanded(ctx);
+        List<Property> properties = new ArrayList<>();
+        for (DartParser.ExpandedPropertiesContext epc : ctx.expandedProperties()) {
+            properties.add(factory.createAntlrToProperty().visit(epc));
+        }
+        return new Expanded(properties);
     }
-
-    @Override
-    public Widget visitExpandedFlex(DartParser.ExpandedFlexContext ctx) {
-        return super.visitExpandedFlex(ctx);
-    }
-
-    @Override
-    public Widget visitExpandedChild(DartParser.ExpandedChildContext ctx) {
-        return super.visitExpandedChild(ctx);
-    }
-
     @Override
     public Widget visitGestureDetector(DartParser.GestureDetectorContext ctx) {
         return super.visitGestureDetector(ctx);
@@ -480,10 +490,6 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         return super.visitBorderColor(ctx);
     }
 
-    @Override
-    public Widget visitCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx) {
-        return super.visitCustomWidgetDeclaration(ctx);
-    }
 
     @Override
     public Widget visitVariables(DartParser.VariablesContext ctx) {
@@ -575,8 +581,4 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         return super.toString();
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
 }
