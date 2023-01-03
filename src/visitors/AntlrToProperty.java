@@ -351,6 +351,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitOnFunction(DartParser.OnFunctionContext ctx) {
+        
         return super.visitOnFunction(ctx);
     }
 
@@ -404,10 +405,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return new Vertical(Double.parseDouble(ctx.getChild(2).getText()));
     }
 
-    @Override
-    public Property visitImage(DartParser.ImageContext ctx) {
-        return super.visitImage(ctx);
-    }
+
 
     @Override
     public Property visitImageUrl(DartParser.ImageUrlContext ctx) {
