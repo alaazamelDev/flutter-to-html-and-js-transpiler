@@ -28,18 +28,18 @@ appBarProperties
     ;
 
 widget
-    :   row #RowWidget
-    |   center #CenterWidget
-    |   text #TextWidget
-    |   container #ContainerWidget
-    |   expanded #ExpandedWidget
-    |   column #ColumnWidget
-    |   gestureDetector #GestureDetectorWidget
-    |   padding #PaddingWidget
-    |   image #ImageWidget
-    |   button #ButtonWidget
-    |   customWidget #CreatedWidget
-    |   textField #TextFieldWidget
+    :   row
+    |   center
+    |   text
+    |   container
+    |   expanded
+    |   column
+    |   gestureDetector
+    |   padding
+    |   image
+    |   button
+    |   customWidget
+    |   textField
     ;
 
 customWidget
@@ -56,9 +56,9 @@ row
 
 //those already written in there own seperate visitors
 rowProperties
-    :   childrenProperty #RowChildren
-    |   mainAxisSizeProperty #RowMainAxisSize
-    |   crossAxisAlignmentProperty #RowCrossAxisAlignment
+    :   childrenProperty
+    |   mainAxisSizeProperty
+    |   crossAxisAlignmentProperty
     ;
 
 center
@@ -77,9 +77,9 @@ column
     ;
 
 columnProperties
-    :   childrenProperty #ColumnChildren
-    |   mainAxisSizeProperty #ColumnMainAxisSize
-    |   crossAxisAlignmentProperty #ColumnCrossAxisAlignment
+    :   childrenProperty
+    |   mainAxisSizeProperty
+    |   crossAxisAlignmentProperty
     ;
 
 
@@ -211,9 +211,9 @@ borderProperties: THICKNESS COLON NUM #BorderThickness
 
 
 statment
-    :   variableDeclaration     #VariableDeclarationStatment
-    |   variableAssignment      #VariableAssignmentStatment
-    |   customWidgetDeclaration #CustomWidgetDeclarationStatement
+    :   variableDeclaration
+    |   variableAssignment
+    |   customWidgetDeclaration
     ;
 
 // statements
@@ -227,9 +227,9 @@ variableAssignment
     ;
 
 //custom widget stuff
-customWidgetDeclaration: WIDGET WIDGETNAME OB variables RETURN LP tree RP CB;
-variables: variableDeclaration*;
-tree: widget;
+customWidgetDeclaration
+    :   WIDGET WIDGETNAME OB variableDeclaration* RETURN LP widget RP CB
+    ;
 
 // Frequency grammars
 widthProperty:  WIDTH COLON (NUM|FLOAT);
@@ -239,22 +239,3 @@ childProperty:  CHILD COLON widget;
 childrenProperty:   CHILDREN COLON OA (widget (COMMA widget)* COMMA? )? CA;
 mainAxisSizeProperty:   MAINAXISSIZE COLON (MAX | MIN);
 crossAxisAlignmentProperty: CROSSAXISALIGNMENT COLON (STRETCH | LEFT | RIGHT | CENTERVALUE);
-
-//    TextField(
-//      value:"Hello there",
-//      label:'email',
-//      textColor: 0x000000,
-//      contentPadding: EdgeInsetsSymmetric(horizontal: 16),
-//      hint: 'enter your email',
-//      border: Border(
-//        thinkness: 1,
-//        color:0x000000,
-//        radius: BorderRadiusOnly(
-//          topRight:2,
-//          topLeft:3,
-//          bottomRight:2,
-//          bottomLeft:12,
-//        ),
-//      ),
-//      onChanged:(newValue){},
-//    )

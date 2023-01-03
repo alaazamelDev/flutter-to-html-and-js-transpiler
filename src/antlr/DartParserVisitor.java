@@ -57,89 +57,11 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAppBarCenterTitle(DartParser.AppBarCenterTitleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code RowWidget}
-	 * labeled alternative in {@link DartParser#widget}.
+	 * Visit a parse tree produced by {@link DartParser#widget}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRowWidget(DartParser.RowWidgetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code CenterWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCenterWidget(DartParser.CenterWidgetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code TextWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTextWidget(DartParser.TextWidgetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ContainerWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitContainerWidget(DartParser.ContainerWidgetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExpandedWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpandedWidget(DartParser.ExpandedWidgetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ColumnWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitColumnWidget(DartParser.ColumnWidgetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code GestureDetectorWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGestureDetectorWidget(DartParser.GestureDetectorWidgetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PaddingWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPaddingWidget(DartParser.PaddingWidgetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ImageWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitImageWidget(DartParser.ImageWidgetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ButtonWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitButtonWidget(DartParser.ButtonWidgetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code CreatedWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCreatedWidget(DartParser.CreatedWidgetContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code TextFieldWidget}
-	 * labeled alternative in {@link DartParser#widget}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTextFieldWidget(DartParser.TextFieldWidgetContext ctx);
+	T visitWidget(DartParser.WidgetContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#customWidget}.
 	 * @param ctx the parse tree
@@ -159,26 +81,11 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRow(DartParser.RowContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code RowChildren}
-	 * labeled alternative in {@link DartParser#rowProperties}.
+	 * Visit a parse tree produced by {@link DartParser#rowProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRowChildren(DartParser.RowChildrenContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code RowMainAxisSize}
-	 * labeled alternative in {@link DartParser#rowProperties}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRowMainAxisSize(DartParser.RowMainAxisSizeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code RowCrossAxisAlignment}
-	 * labeled alternative in {@link DartParser#rowProperties}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRowCrossAxisAlignment(DartParser.RowCrossAxisAlignmentContext ctx);
+	T visitRowProperties(DartParser.RowPropertiesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#center}.
 	 * @param ctx the parse tree
@@ -199,26 +106,11 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitColumn(DartParser.ColumnContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ColumnChildren}
-	 * labeled alternative in {@link DartParser#columnProperties}.
+	 * Visit a parse tree produced by {@link DartParser#columnProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitColumnChildren(DartParser.ColumnChildrenContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ColumnMainAxisSize}
-	 * labeled alternative in {@link DartParser#columnProperties}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitColumnMainAxisSize(DartParser.ColumnMainAxisSizeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ColumnCrossAxisAlignment}
-	 * labeled alternative in {@link DartParser#columnProperties}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitColumnCrossAxisAlignment(DartParser.ColumnCrossAxisAlignmentContext ctx);
+	T visitColumnProperties(DartParser.ColumnPropertiesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#text}.
 	 * @param ctx the parse tree
@@ -652,37 +544,11 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBorderColor(DartParser.BorderColorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#customWidgetDeclaration}.
+	 * Visit a parse tree produced by {@link DartParser#statment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#variables}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVariables(DartParser.VariablesContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#tree}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTree(DartParser.TreeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code VariableDeclarationStatment}
-	 * labeled alternative in {@link DartParser#statment}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVariableDeclarationStatment(DartParser.VariableDeclarationStatmentContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code VariableAssignmentStatment}
-	 * labeled alternative in {@link DartParser#statment}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVariableAssignmentStatment(DartParser.VariableAssignmentStatmentContext ctx);
+	T visitStatment(DartParser.StatmentContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code NonFunctionVariableDeclaration}
 	 * labeled alternative in {@link DartParser#variableDeclaration}.
@@ -703,6 +569,12 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariableAssignment(DartParser.VariableAssignmentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#customWidgetDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#widthProperty}.
 	 * @param ctx the parse tree
