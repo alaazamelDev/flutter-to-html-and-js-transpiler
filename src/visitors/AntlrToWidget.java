@@ -7,20 +7,10 @@ import properties.Property;
 import widgets.Border;
 import widgets.Button;
 import widgets.TextField;
-import interfaces.IAntlrObjectFactory;
-import properties.Property;
 import widgets.AppBar;
 import widgets.Scaffold;
 import widgets.Widget;
-import properties.Property;
 import widgets.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.DoubleAccumulator;
 
 import java.util.ArrayList;
 import java.util.List;
