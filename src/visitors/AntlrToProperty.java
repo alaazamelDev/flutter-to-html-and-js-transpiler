@@ -6,6 +6,7 @@ import enums.CrossAxisAlignmentValue;
 import enums.FontWeightValue;
 import enums.MainAxisSizeValue;
 import enums.TextAlignValue;
+import interfaces.AntlrObjectFactory;
 import properties.*;
 import widgets.Row;
 import widgets.Widget;
@@ -15,7 +16,12 @@ import java.util.List;
 
 public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
-    AntlrToWidget antlrToWidget = new AntlrToWidget();
+    private final AntlrObjectFactory antlrObjectFactory;
+    public AntlrToProperty (AntlrObjectFactory antlrObjectFactory) {
+        this.antlrObjectFactory = antlrObjectFactory;
+    }
+
+//    AntlrToWidget antlrToWidget = new AntlrToWidget();
     @Override
     public Property visitProg(DartParser.ProgContext ctx) {
         return super.visitProg(ctx);
@@ -550,14 +556,15 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitChildProperty(DartParser.ChildPropertyContext ctx) {
+        AntlrToWidget antlrToWidget = antlrObjectFactory.createAntlrToWidget();
         Widget child = antlrToWidget.visit(ctx.getChild(2));
         return new ChildWidgetProperty(child);
     }
 
     @Override
     public Property visitChildrenProperty(DartParser.ChildrenPropertyContext ctx) {
+        AntlrToWidget antlrToWidget = antlrObjectFactory.createAntlrToWidget();
         List<Widget> widgets = new ArrayList<>();
-
         for (DartParser.WidgetContext wc : ctx.widget()) {
             widgets.add(antlrToWidget.visit(wc));
         }

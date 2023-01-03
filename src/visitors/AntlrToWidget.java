@@ -2,6 +2,7 @@ package visitors;
 
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
+import interfaces.AntlrObjectFactory;
 import properties.Property;
 import widgets.*;
 
@@ -10,7 +11,11 @@ import java.util.List;
 
 public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
-    AntlrToProperty antlrToProperty = new AntlrToProperty();
+    private final AntlrObjectFactory antlrObjectFactory;
+
+    public AntlrToWidget(AntlrObjectFactory antlrObjectFactory) {
+        this.antlrObjectFactory = antlrObjectFactory;
+    }
     @Override
     public Widget visitProg(DartParser.ProgContext ctx) {
         return super.visitProg(ctx);
@@ -118,6 +123,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitRow(DartParser.RowContext ctx) {
+        AntlrToProperty antlrToProperty = antlrObjectFactory.createAntlrToProperty();
         List<Property> properties = new ArrayList<>();
         for (DartParser.RowPropertiesContext rp : ctx.rowProperties()) {
             properties.add(antlrToProperty.visit(rp));
@@ -142,6 +148,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitCenter(DartParser.CenterContext ctx) {
+        AntlrToProperty antlrToProperty = antlrObjectFactory.createAntlrToProperty();
         List<Property> properties = new ArrayList<>();
 
         for(DartParser.CenterPropertiesContext cp : ctx.centerProperties()) {
@@ -158,6 +165,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitColumn(DartParser.ColumnContext ctx) {
+        AntlrToProperty antlrToProperty = antlrObjectFactory.createAntlrToProperty();
         List<Property> properties = new ArrayList<>();
         for (DartParser.ColumnPropertiesContext cp : ctx.columnProperties()) {
             properties.add(antlrToProperty.visit(cp));
@@ -182,6 +190,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitText(DartParser.TextContext ctx) {
+        AntlrToProperty antlrToProperty = antlrObjectFactory.createAntlrToProperty();
         List<Property> properties = new ArrayList<>();
         for(DartParser.TextPropertiesContext tp : ctx.textProperties()) {
             properties.add(antlrToProperty.visit(tp));
@@ -544,40 +553,6 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         return super.visitVariableAssignment(ctx);
     }
 
-    @Override
-    public Widget visitWidthProperty(DartParser.WidthPropertyContext ctx) {
-        return super.visitWidthProperty(ctx);
-    }
-
-    @Override
-    public Widget visitHeightProperty(DartParser.HeightPropertyContext ctx) {
-        return super.visitHeightProperty(ctx);
-    }
-
-    @Override
-    public Widget visitColorProperty(DartParser.ColorPropertyContext ctx) {
-        return super.visitColorProperty(ctx);
-    }
-
-    @Override
-    public Widget visitChildProperty(DartParser.ChildPropertyContext ctx) {
-        return super.visitChildProperty(ctx);
-    }
-
-    @Override
-    public Widget visitChildrenProperty(DartParser.ChildrenPropertyContext ctx) {
-        return super.visitChildrenProperty(ctx);
-    }
-
-    @Override
-    public Widget visitMainAxisSizeProperty(DartParser.MainAxisSizePropertyContext ctx) {
-        return super.visitMainAxisSizeProperty(ctx);
-    }
-
-    @Override
-    public Widget visitCrossAxisAlignmentProperty(DartParser.CrossAxisAlignmentPropertyContext ctx) {
-        return super.visitCrossAxisAlignmentProperty(ctx);
-    }
 
     @Override
     public int hashCode() {
