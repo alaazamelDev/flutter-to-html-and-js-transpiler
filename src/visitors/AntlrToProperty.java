@@ -5,8 +5,14 @@ import antlr.DartParserBaseVisitor;
 import enums.CrossAxisAlignmentValue;
 import enums.MainAxisSizeValue;
 import properties.*;
+import widgets.Widget;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AntlrToProperty extends DartParserBaseVisitor<Property> {
+
+    AntlrToWidget antlrToWidget = new AntlrToWidget();
     @Override
     public Property visitProg(DartParser.ProgContext ctx) {
         return super.visitProg(ctx);
@@ -544,12 +550,17 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitChildProperty(DartParser.ChildPropertyContext ctx) {
-        return super.visitChildProperty(ctx);
+        Widget child = antlrToWidget.visit(ctx.getChild(2));
+        return new ChildWidgetProperty(child);
     }
 
     @Override
     public Property visitChildrenProperty(DartParser.ChildrenPropertyContext ctx) {
-        return super.visitChildrenProperty(ctx);
+        List<Widget> widgets = new ArrayList<>();
+        for (DartParser.WidgetContext wc : ctx.widget()) {
+            widgets.add(antlrToWidget.visit(wc));
+        }
+        return new Children(widgets);
     }
 
     @Override

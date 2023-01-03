@@ -234,7 +234,7 @@ widthProperty:  WIDTH COLON (NUM|FLOAT);
 heightProperty: HEIGHT COLON (NUM|FLOAT);
 colorProperty: COLOR COLON HEX_NUM;
 childProperty:  CHILD COLON widget;
-childrenProperty:   CHILDREN COLON OA (widget COMMA)* CA;
+childrenProperty:   CHILDREN COLON OA (widget (COMMA widget)* COMMA? )? CA;
 mainAxisSizeProperty:   MAINAXISSIZE COLON (MAX | MIN);
 crossAxisAlignmentProperty: CROSSAXISALIGNMENT COLON (STRETCH | LEFT | RIGHT | CENTERVALUE);
 
