@@ -327,6 +327,8 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitButton(DartParser.ButtonContext ctx) {
+        int lineNumber = ctx.BUTTON().getSymbol().getLine();
+
         AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
 
         List<Property> properties = new ArrayList<>();
@@ -336,7 +338,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         for (DartParser.ButtonPropertiesContext bpc : buttonPropertiesContextList) {
             properties.add(antlrToPropertyVisitor.visit(bpc));
         }
-        return new Button(properties);
+        return new Button(properties , String.valueOf(lineNumber));
     }
 
     @Override
@@ -371,6 +373,8 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitTextField(DartParser.TextFieldContext ctx) {
+        int lineNumber = ctx.TEXTFIELD().getSymbol().getLine();
+
         AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
 
         List<Property> properties = new ArrayList<>();
@@ -379,7 +383,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         for (DartParser.TextFieldPropertiesContext textFieldPropertiesContext : textFieldPropertiesContexts) {
             properties.add(antlrToPropertyVisitor.visit(textFieldPropertiesContext));
         }
-        return new TextField(properties);
+        return new TextField(properties,String.valueOf(lineNumber));
     }
 
     @Override
@@ -419,6 +423,8 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitBorder(DartParser.BorderContext ctx) {
+        int lineNumber = ctx.BORDER().getSymbol().getLine();
+
         AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty();
 
         List<Property> properties = new ArrayList<>();
@@ -429,7 +435,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
             properties.add(antlrToPropertyVisitor.visit(borderPropertiesContext));
         }
 
-        return new Border(properties);
+        return new Border(properties,String.valueOf(lineNumber));
     }
 
     @Override

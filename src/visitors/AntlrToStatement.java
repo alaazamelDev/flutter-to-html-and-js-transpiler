@@ -3,8 +3,15 @@ package visitors;
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
+import properties.Property;
 import statements.CustomWidgetDeclarationStatement;
 import statements.Statement;
+import statements.VariableAssignmentStatement;
+import statements.VariableDeclarationStatement;
+import widgets.Scaffold;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -17,6 +24,7 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
     public AntlrToStatement(IAntlrObjectFactory factory) {
         this.factory = factory;
     }
+
     @Override
     public Statement visitCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx) {
         AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
@@ -25,7 +33,7 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
         List<Statement> vars = new ArrayList<>();
 
-        for(DartParser.VariableDeclarationContext vd : ctx.variableDeclaration()) {
+        for (DartParser.VariableDeclarationContext vd : ctx.variableDeclaration()) {
             vars.add(visit(vd));
         }
         Widget widget = antlrToWidget.visit(ctx.WIDGET());
@@ -33,18 +41,53 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         return new CustomWidgetDeclarationStatement(name, vars, widget);
     }
 
+
+    @Override
+    public Statement visitStatment(DartParser.StatmentContext ctx){
+
+        return visit(ctx.getChild(0));
+    }
     @Override
     public Statement visitFunctionVariableDeclaration(DartParser.FunctionVariableDeclarationContext ctx) {
-        return super.visitFunctionVariableDeclaration(ctx);
+        int lineNumber = ctx.FUNCTION().getSymbol().getLine();
+
+        String type = ctx.getChild(2).getText();
+        String identifier = ctx.IDENTIFIER().getSymbol().getText();
+
+        return new VariableDeclarationStatement(type,identifier,String.valueOf(lineNumber));
     }
 
     @Override
     public Statement visitNonFunctionVariableDeclaration(DartParser.NonFunctionVariableDeclarationContext ctx) {
-        return super.visitNonFunctionVariableDeclaration(ctx);
+        int lineNumber = ctx.IDENTIFIER().getSymbol().getLine();
+
+        String type = ctx.getChild(0).getText();
+        String identifier = ctx.getChild(1).getText();
+
+        return new VariableDeclarationStatement(type,identifier,String.valueOf(lineNumber));
     }
 
     @Override
     public Statement visitVariableAssignment(DartParser.VariableAssignmentContext ctx) {
-        return super.visitVariableAssignment(ctx);
+        int lineNumber = ctx.IDENTIFIER().getSymbol().getLine();
+
+        String identifier = ctx.getChild(0).getText();
+
+        Object propertyValue = new Object();
+
+        ParseTree child = ctx.getChild(2);
+        if (child instanceof TerminalNode) {
+            TerminalNode terminalNode = (TerminalNode) child;
+            Token token = terminalNode.getSymbol();
+            int tokenType = token.getType();
+            if (tokenType == DartParser.NUM) {
+                propertyValue = Integer.parseInt(token.getText());
+            } else if (tokenType == DartParser.STRING) {
+                propertyValue = token.getText();
+            } else if (tokenType == DartParser.FLOAT) {
+                propertyValue = Double.parseDouble(token.getText());
+            }
+        }
+        return new VariableAssignmentStatement(identifier , propertyValue, String.valueOf(lineNumber));
     }
 }
