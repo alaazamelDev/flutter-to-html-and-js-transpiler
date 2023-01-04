@@ -19,7 +19,10 @@ import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
 import properties.expanded.ExpandedFlexProperty;
+import properties.gestureDetectorProperties.OnFunctionProperty;
 import properties.gestureDetectorProperties.OnPressedProperty;
+import statements.Statement;
+import statements.VariableAssignmentStatement;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -300,12 +303,23 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return new OnPressedProperty(visit(ctx.getChild(2)),Integer.toString(line));
     }
 
-    //not done
+    //done
     @Override
     public Property visitOnFunction(DartParser.OnFunctionContext ctx) {
         Token idToken = ctx.LP().getSymbol();
         int line = idToken.getLine();
-        return super.visitOnFunction(ctx);
+        AntlrToStatement antlrToStatement = factory.createAntlrToStatement();
+
+        List<String> identifiers = new ArrayList<>();
+        for (TerminalNode id : ctx.IDENTIFIER()) {
+                identifiers.add(id.getText());
+        }
+        List<Statement> statements = new ArrayList<>();
+        for(DartParser.StatmentContext sc : ctx.statment()){
+            statements.add(antlrToStatement.visit(sc));
+        }
+
+        return new OnFunctionProperty(identifiers,statements,Integer.toString(line));
     }
 
 
