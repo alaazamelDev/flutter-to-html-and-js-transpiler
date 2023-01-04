@@ -16,15 +16,6 @@ import widgets.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.RuleNode;
-import org.antlr.v4.runtime.tree.TerminalNode;
-import properties.Property;
-import widgets.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     private final IAntlrObjectFactory factory;
@@ -177,7 +168,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     public Widget visitBorderRadiusCircular(DartParser.BorderRadiusCircularContext ctx) {
         String line = Integer.toString(ctx.BORDERRADIUSCIRCULAR().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
-        properties.add(factory.createAntlrToProperty().visit(ctx.borderRadiusCircularProperties()));
+        properties.add(factory.createAntlrToProperty().visit(ctx.borderRadiusCircularRadius()));
         return new BorderRadiusCircular(properties,line);
     }
 
@@ -212,12 +203,6 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
             properties.add(antlrToProperty.visit(gpc));
         }
         return new GestureDetector(properties,Integer.toString(line));
-    }
-
-    //not done
-    @Override
-    public Widget visitOnFunction(DartParser.OnFunctionContext ctx) {
-        return super.visitOnFunction(ctx);
     }
 
     //done

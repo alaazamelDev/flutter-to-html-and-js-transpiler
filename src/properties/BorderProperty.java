@@ -2,13 +2,12 @@ package properties;
 
 import widgets.Widget;
 
-public class BodyProperty extends Property {
+public class BorderProperty extends Property {
 
     private final Widget value;
 
-
-    public BodyProperty(Widget value, String lnNumber) {
-        super("body", lnNumber);
+    public BorderProperty(Widget value, String lineNumber) {
+        super("border", lineNumber);
         this.value = value;
     }
 

@@ -1,4 +1,4 @@
-package ErrorLisitener;
+package error_lisitener;
 
 import org.antlr.v4.runtime.*;
 

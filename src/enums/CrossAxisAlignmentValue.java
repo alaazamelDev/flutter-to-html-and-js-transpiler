@@ -1,8 +1,8 @@
 package enums;
 
 public enum CrossAxisAlignmentValue {
-    STRETCH,
-    LEFT,
-    RIGHT,
-    CENTER
+    stretch,
+    left,
+    right,
+    center,
 }

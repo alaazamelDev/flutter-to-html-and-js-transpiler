@@ -1,4 +1,6 @@
-package properties;
+package properties.text;
+
+import properties.Property;
 
 public class TextContent extends Property {
     private final String value;

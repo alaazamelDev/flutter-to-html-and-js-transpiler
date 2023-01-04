@@ -1,4 +1,4 @@
-// Generated from C:/Users/anasr/Desktop/state/compilerproject/src/grammars\DartParser.g4 by ANTLR 4.10.1
+// Generated from java-escape by ANTLR 4.11.1
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -236,11 +236,11 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBorderRadiusOnly(DartParser.BorderRadiusOnlyContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#borderRadiusCircularProperties}.
+	 * Visit a parse tree produced by {@link DartParser#borderRadiusCircularRadius}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBorderRadiusCircularProperties(DartParser.BorderRadiusCircularPropertiesContext ctx);
+	T visitBorderRadiusCircularRadius(DartParser.BorderRadiusCircularRadiusContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code BorderRadiusOnlyTopRight}
 	 * labeled alternative in {@link DartParser#borderRadiusOnlyProperties}.
@@ -296,17 +296,12 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitGestureDetector(DartParser.GestureDetectorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#gestureDetectorProperties}.
+	 * Visit a parse tree produced by the {@code GestureDetectorOnPressed}
+	 * labeled alternative in {@link DartParser#gestureDetectorProperties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGestureDetectorProperties(DartParser.GestureDetectorPropertiesContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#onFunction}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOnFunction(DartParser.OnFunctionContext ctx);
+	T visitGestureDetectorOnPressed(DartParser.GestureDetectorOnPressedContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#padding}.
 	 * @param ctx the parse tree
@@ -621,4 +616,10 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCrossAxisAlignmentProperty(DartParser.CrossAxisAlignmentPropertyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#onPressedProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOnPressedProperty(DartParser.OnPressedPropertyContext ctx);
 }

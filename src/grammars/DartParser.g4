@@ -118,10 +118,12 @@ borderRadius
     |   borderRadiusCircular
     ;
 
-borderRadiusCircular: BORDERRADIUSCIRCULAR LP borderRadiusCircularProperties COMMA? RP;
+borderRadiusCircular: BORDERRADIUSCIRCULAR LP (borderRadiusCircularRadius COMMA?)? RP;
 borderRadiusOnly: BORDERRADIUSONLY LP (borderRadiusOnlyProperties (COMMA borderRadiusOnlyProperties)* COMMA? )? RP;
 
-borderRadiusCircularProperties: RADIUS COLON (NUM|FLOAT); //TODO make it double only
+borderRadiusCircularRadius
+    :   RADIUS COLON (NUM|FLOAT)
+    ;
 
 borderRadiusOnlyProperties //TODO make it double only
     :   TOPRIGHT COLON (NUM|FLOAT) #BorderRadiusOnlyTopRight
@@ -139,9 +141,10 @@ expandedProperties:     FLEX COLON NUM #ExpandedFlex
 
 gestureDetector: GESTUREDETECTOR LP (gestureDetectorProperties (COMMA gestureDetectorProperties)* COMMA? )? RP;
 
-gestureDetectorProperties: ONPRESSED COLON onFunction;
+gestureDetectorProperties
+    :   onPressedProperty  #GestureDetectorOnPressed
+    ;
 
-onFunction: LP (IDENTIFIER COMMA)* RP OB statment* CB;
 
 padding:    PADDING LP (paddingProprtey (COMMA paddingProprtey)* COMMA? )? RP;
 
@@ -188,7 +191,7 @@ buttonProperties
     |   TITLE COLON STRING  #ButtonTitle
     |   BACKGROUND_COLOR COLON HEX_NUM  #ButtonBackgroundColor
     |   TITLE_COLOR COLON HEX_NUM   #ButtonTitleColor
-    |   ONPRESSED COLON onFunction   #ButtonOnPressed
+    |   onPressedProperty   #ButtonOnPressed
     ;
 
 
@@ -200,7 +203,7 @@ textFieldProperties: VALUE COLON STRING #TextFieldValue
                    | PADDINGATTR COLON edgeInsets #TextFieldPadding
                    | HINT COLON STRING #TextFieldHint
                    | BORDERATRI COLON border #TextFieldBorder
-                   | ONCHANGED COLON onFunction #TextFieldOnChanged
+                   | ONCHANGED COLON LP (IDENTIFIER COMMA)* RP OB statment* CB #TextFieldOnChanged
                    ;
 border: BORDER LP (borderProperties (COMMA borderProperties)* COMMA? )? RP;
 
@@ -238,3 +241,6 @@ childProperty:  CHILD COLON widget;
 childrenProperty:   CHILDREN COLON OA (widget (COMMA widget)* COMMA? )? CA;
 mainAxisSizeProperty:   MAINAXISSIZE COLON (MAX | MIN);
 crossAxisAlignmentProperty: CROSSAXISALIGNMENT COLON (STRETCH | LEFT | RIGHT | CENTERVALUE);
+onPressedProperty
+    :   ONPRESSED COLON LP (IDENTIFIER COMMA)* RP OB statment* CB
+    ;

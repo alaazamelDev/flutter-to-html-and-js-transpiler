@@ -1,8 +1,9 @@
-package properties;
+package properties.scaffold;
 
+import properties.Property;
 import widgets.Widget;
 
-public class AppBarProperty extends Property{
+public class AppBarProperty extends Property {
     private final Widget value;
 
     public AppBarProperty(Widget value, String lnNumber) {

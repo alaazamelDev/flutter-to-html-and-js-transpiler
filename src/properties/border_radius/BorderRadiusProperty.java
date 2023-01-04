@@ -7,7 +7,7 @@ public class BorderRadiusProperty extends Property {
 private final Widget widget;
 
     public BorderRadiusProperty(Widget widget, String lnNumber) {
-        super("BorderRadiusProperty", lnNumber);
+        super("borderRadius", lnNumber);
         this.widget = widget;
     }
 

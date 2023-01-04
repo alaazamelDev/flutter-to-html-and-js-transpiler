@@ -1,9 +1,11 @@
 package properties;
 
-public class Color extends Property {
+import properties.Property;
+
+public class ColorProperty extends Property {
     private final String value;
 
-    public Color(String value, String lnNumber) {
+    public ColorProperty(String value, String lnNumber) {
         super("color", lnNumber);
         this.value = value;
     }
