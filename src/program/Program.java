@@ -1,11 +1,14 @@
+package program;
+
 import statements.Statement;
 import widgets.Scaffold;
+import widgets.Widget;
 
 import java.util.List;
 
 public class Program {
     private final List<Statement> statements;
-    private Scaffold scaffold;
+    private Widget scaffold;
 
 
     public Program(List<Statement> statements) {
@@ -17,5 +20,11 @@ public class Program {
         return statements;
     }
 
+    public Widget getScaffold() {
+        return scaffold;
+    }
 
+    public void setScaffold(Widget scaffold) {
+        this.scaffold = scaffold;
+    }
 }
