@@ -36,13 +36,15 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
         AntlrToWidget antlrToWidgetVisitor = factory.createAntlrToWidget();
 
+        String lineNumber = String.valueOf(ctx.BODY().getSymbol().getLine());
+
         // get widget context object
         DartParser.WidgetContext widgetContext = ctx.widget();
 
         // parse the context
         Widget body = antlrToWidgetVisitor.visit(widgetContext);
 
-        return new BodyProperty(body);
+        return new BodyProperty(body, lineNumber);
     }
 
     @Override
