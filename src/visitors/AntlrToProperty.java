@@ -2,8 +2,9 @@ package visitors;
 
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
-import enums.ContentAlignmentValue;
+import enums.*;
 import interfaces.IAntlrObjectFactory;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
@@ -11,21 +12,9 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import properties.*;
 import properties.border_radius.*;
 import properties.container.ContainerContentAlignmentProperty;
-import properties.decoration.DecorationProperty;
 import properties.expanded.ExpandedFlexProperty;
 import properties.gestureDetectorProperties.OnPressedProperty;
-import widgets.*;
-import interfaces.IAntlrObjectFactory;
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNode;
-import properties.*;
 import widgets.Widget;
-import enums.FitValue;
-import enums.CrossAxisAlignmentValue;
-import enums.FontWeightValue;
-import enums.MainAxisSizeValue;
-import enums.TextAlignValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,12 +95,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
                 propertyValue = Double.parseDouble(token.getText());
             }
         }
-        return new CustomWidgetProperty(propertyName,propertyValue);
-    }
-
-    @Override
-    public Property visitCenter(DartParser.CenterContext ctx) {
-        return super.visitCenter(ctx);
+        return new CustomWidgetProperty(propertyName, propertyValue);
     }
 
     @Override
@@ -159,7 +143,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitContainerWidth(DartParser.ContainerWidthContext ctx) {
-        return  visit(ctx.widthProperty());
+        return visit(ctx.widthProperty());
     }
 
     @Override
@@ -218,7 +202,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return super.shouldVisitNextChild(node, currentResult);
     }
 
-
     @Override
     public Property visitBoxDecorationColor(DartParser.BoxDecorationColorContext ctx) {
         return super.visitBoxDecorationColor(ctx);
@@ -228,7 +211,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx) {
         return super.visitBoxDecorationBorderRadius(ctx);
     }
-
 
 
     @Override
@@ -258,11 +240,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitExpanded(DartParser.ExpandedContext ctx) {
-        return super.visitExpanded(ctx);
-    }
-
-    @Override
     public Property visitExpandedFlex(DartParser.ExpandedFlexContext ctx) {
         return new ExpandedFlexProperty(Integer.parseInt(ctx.getChild(2).getText()));
     }
@@ -272,10 +249,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return visit(ctx.childProperty());
     }
 
-    @Override
-    public Property visitGestureDetector(DartParser.GestureDetectorContext ctx) {
-        return super.visitGestureDetector(ctx);
-    }
 
     //done
     @Override
@@ -338,7 +311,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitEdgeInsetsSymetricVertical(DartParser.EdgeInsetsSymetricVerticalContext ctx) {
         return new Vertical(Double.parseDouble(ctx.getChild(2).getText()));
     }
-
 
 
     @Override
@@ -466,7 +438,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitBorderColor(DartParser.BorderColorContext ctx) {
         return visit(ctx.colorProperty());
     }
-
 
 
     @Override

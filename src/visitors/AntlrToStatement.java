@@ -5,7 +5,6 @@ import antlr.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
 import statements.CustomWidgetDeclarationStatement;
 import statements.Statement;
-import statements.VariableDeclarationStatement;
 import widgets.Widget;
 
 import java.util.ArrayList;

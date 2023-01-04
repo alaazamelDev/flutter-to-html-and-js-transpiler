@@ -194,6 +194,12 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitContainerDecoration(DartParser.ContainerDecorationContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link DartParser#decorationProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDecorationProperty(DartParser.DecorationPropertyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DartParser#boxDecoration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -213,6 +219,12 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#borderRadiusProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBorderRadiusProperty(DartParser.BorderRadiusPropertyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#borderRadius}.
 	 * @param ctx the parse tree

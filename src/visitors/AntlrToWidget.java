@@ -1,7 +1,5 @@
 package visitors;
 
-
-
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
@@ -20,10 +18,6 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import widgets.*;
-import properties.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     private final IAntlrObjectFactory factory;
@@ -259,8 +253,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
             properties.add(antlrToProperty.visit(gpc));
         }
 
-        GestureDetector gestureDetector = new GestureDetector(properties);
-        return gestureDetector;
+        return new GestureDetector(properties);
     }
 
     @Override
