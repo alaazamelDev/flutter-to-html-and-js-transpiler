@@ -1,22 +1,30 @@
 package visitors;
 
+
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
 import enums.*;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import properties.*;
 import properties.border_radius.*;
 import properties.container.ContainerContentAlignmentProperty;
+import properties.decoration.DecorationProperty;
 import properties.edgeInsetsOnlyProperties.Bottom;
 import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
 import properties.expanded.ExpandedFlexProperty;
+import properties.gestureDetectorProperties.OnFunctionProperty;
 import properties.gestureDetectorProperties.OnPressedProperty;
+import statements.Statement;
+import statements.VariableAssignmentStatement;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -143,6 +151,12 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
+    public Property visitBorderRadiusProperty(DartParser.BorderRadiusPropertyContext ctx) {
+        String line = Integer.toString(ctx.BORDERRADIUS().getSymbol().getLine());
+        return new BorderRadiusProperty(factory.createAntlrToWidget().visit(ctx.borderRadius()),line);
+    }
+
+    @Override
     public Property visitTextLetterSpacing(DartParser.TextLetterSpacingContext ctx) {
         String lineNumber = String.valueOf(ctx.LETTERSPACING().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
@@ -169,8 +183,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitContainerContentAlignment(DartParser.ContainerContentAlignmentContext ctx) {
+        String line = Integer.toString(ctx.CONTENTALIGNMENT().getSymbol().getLine());
         ContentAlignmentValue contentAlignmentValue = ContentAlignmentValue.valueOf(ctx.getChild(2).toString());
-        return new ContainerContentAlignmentProperty(contentAlignmentValue);
+        return new ContainerContentAlignmentProperty(contentAlignmentValue,line);
     }
 
     @Override
@@ -181,6 +196,21 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitContainerDecoration(DartParser.ContainerDecorationContext ctx) {
         return visit(ctx.decorationProperty());
+    }
+
+    @Override
+    public Property visitDecorationProperty(DartParser.DecorationPropertyContext ctx) {
+        String line = Integer.toString(ctx.DECORATION().getSymbol().getLine());
+        return new DecorationProperty(factory.createAntlrToWidget().visit(ctx.boxDecoration()),line);
+    }
+    @Override
+    public Property visit(ParseTree tree) {
+        return super.visit(tree);
+    }
+
+    @Override
+    public Property visitBoxDecorationProperties(DartParser.BoxDecorationPropertiesContext ctx) {
+        return visit(ctx.getChild(0));
     }
 
     @Override
@@ -195,33 +225,39 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitBorderRadiusCircularProperties(DartParser.BorderRadiusCircularPropertiesContext ctx) {
-
-        return new BorderRadiusCircularProperty(Double.parseDouble(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.RADIUS().getSymbol().getLine());
+        return new BorderRadiusCircularProperty(Double.parseDouble(ctx.getChild(2).getText()),line);
     }
 
     @Override
     public Property visitBorderRadiusOnlyTopRight(DartParser.BorderRadiusOnlyTopRightContext ctx) {
-        return new BorderRadiusOnlyTopRightProperty(Double.parseDouble(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.TOPRIGHT().getSymbol().getLine());
+        return new BorderRadiusOnlyTopRightProperty(Double.parseDouble(ctx.getChild(2).getText()),line);
     }
 
     @Override
     public Property visitBorderRadiusOnlyTopLeft(DartParser.BorderRadiusOnlyTopLeftContext ctx) {
-        return new BorderRadiusOnlyTopLeftProperty(Double.parseDouble(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.TOPLEFT().getSymbol().getLine());
+        return new BorderRadiusOnlyTopLeftProperty(Double.parseDouble(ctx.getChild(2).getText()),line);
     }
 
     @Override
     public Property visitBorderRadiusOnlyBottomRight(DartParser.BorderRadiusOnlyBottomRightContext ctx) {
-        return new BorderRadiusOnlyBottomRightProperty(Double.parseDouble(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.BOTTOMRIGHT().getSymbol().getLine());
+        return new BorderRadiusOnlyBottomRightProperty(Double.parseDouble(ctx.getChild(2).getText()),line);
     }
 
     @Override
     public Property visitBorderRadiusOnlyBottomLeft(DartParser.BorderRadiusOnlyBottomLeftContext ctx) {
-        return new BorderRadiusOnlyBottomLeftProperty(Double.parseDouble(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.BOTTOMLEFT().getSymbol().getLine());
+        return new BorderRadiusOnlyBottomLeftProperty(Double.parseDouble(ctx.getChild(2).getText()),line);
     }
+
 
     @Override
     public Property visitExpandedFlex(DartParser.ExpandedFlexContext ctx) {
-        return new ExpandedFlexProperty(Integer.parseInt(ctx.getChild(2).getText()));
+        String line = Integer.toString(ctx.FLEX().getSymbol().getLine());
+        return new ExpandedFlexProperty(Integer.parseInt(ctx.getChild(2).getText()),line);
     }
 
     @Override
@@ -230,75 +266,110 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
 
+    //durra
+    @Override
+    public Property visitGestureDetector(DartParser.GestureDetectorContext ctx) {
+        return super.visitGestureDetector(ctx);
+    }
+
     //done
     @Override
     public Property visitGestureDetectorProperties(DartParser.GestureDetectorPropertiesContext ctx) {
-        return new OnPressedProperty(visit(ctx.getChild(2)));
+        Token idToken = ctx.ONPRESSED().getSymbol();
+        int line = idToken.getLine();
+        return new OnPressedProperty(visit(ctx.getChild(2)),Integer.toString(line));
     }
 
+    //done
     @Override
     public Property visitOnFunction(DartParser.OnFunctionContext ctx) {
+        Token idToken = ctx.LP().getSymbol();
+        int line = idToken.getLine();
+        AntlrToStatement antlrToStatement = factory.createAntlrToStatement();
 
-        return super.visitOnFunction(ctx);
+        List<String> identifiers = new ArrayList<>();
+        for (TerminalNode id : ctx.IDENTIFIER()) {
+                identifiers.add(id.getText());
+        }
+        List<Statement> statements = new ArrayList<>();
+        for(DartParser.StatmentContext sc : ctx.statment()){
+            statements.add(antlrToStatement.visit(sc));
+        }
+
+        return new OnFunctionProperty(identifiers,statements,Integer.toString(line));
     }
 
 
     //done
     @Override
     public Property visitPaddingPadding(DartParser.PaddingPaddingContext ctx) {
+        Token idToken = ctx.PADDINGATTR().getSymbol();
+        int line = idToken.getLine();
         AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
-        return new PaddingAttributeProperty(antlrToWidget.visit(ctx.getChild(2)));
+        return new PaddingAttributeWidgetProperty(antlrToWidget.visit(ctx.getChild(2)),Integer.toString(line));
     }
 
+    //done
     @Override
     public Property visitPaddingChild(DartParser.PaddingChildContext ctx) {
-        return super.visitPaddingChild(ctx);
+        return visit(ctx.childProperty());
     }
-
 
     //done
     @Override
     public Property visitEdgeInsetsOnlyTop(DartParser.EdgeInsetsOnlyTopContext ctx) {
-        return new Top(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.TOP().getSymbol();
+        int line = idToken.getLine();
+        return new Top(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
     //done
     @Override
     public Property visitEdgeInsetsOnlyLeft(DartParser.EdgeInsetsOnlyLeftContext ctx) {
-        return new Left(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.LEFT().getSymbol();
+        int line = idToken.getLine();
+        return new Left(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
     //done
     @Override
     public Property visitEdgeInsetsOnlyRight(DartParser.EdgeInsetsOnlyRightContext ctx) {
-        return new Right(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.RIGHT().getSymbol();
+        int line = idToken.getLine();
+        return new Right(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
     //done
     @Override
     public Property visitEdgeInsetsOnlyBottom(DartParser.EdgeInsetsOnlyBottomContext ctx) {
-        return new Bottom(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.BOTTOM().getSymbol();
+        int line = idToken.getLine();
+        return new Bottom(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
     //done
     @Override
     public Property visitEdgeInsetsSymetricHorizontal(DartParser.EdgeInsetsSymetricHorizontalContext ctx) {
-        return new Horizontal(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.HORIZONTAL().getSymbol();
+        int line = idToken.getLine();
+        return new Horizontal(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
     //done
     @Override
     public Property visitEdgeInsetsSymetricVertical(DartParser.EdgeInsetsSymetricVerticalContext ctx) {
-        return new Vertical(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.VERTICAL().getSymbol();
+        int line = idToken.getLine();
+        return new Vertical(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
 
     @Override
     public Property visitImageUrl(DartParser.ImageUrlContext ctx) {
-        int lineNumber = ctx.URL().getSymbol().getLine();
-
+        Token idToken = ctx.URL().getSymbol();
+        int line = idToken.getLine();
         String url = ctx.getChild(2).getText();
-        return new UrlProperty(url, String.valueOf(lineNumber));
+        return new UrlProperty(url,Integer.toString(line));
     }
 
     @Override
@@ -401,7 +472,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         String textFieldHint = ctx.getChild(2).getText();
         return new HintProperty(textFieldHint,String.valueOf(lineNumber));
     }
-
+    //TODO
     // Must return a BorderProperty class
     @Override
     public Property visitTextFieldBorder(DartParser.TextFieldBorderContext ctx) {

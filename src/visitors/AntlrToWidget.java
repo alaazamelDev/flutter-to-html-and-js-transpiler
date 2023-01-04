@@ -1,8 +1,25 @@
 package visitors;
 
+
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
+import org.antlr.v4.runtime.Token;
+import properties.Property;
+import widgets.Border;
+import widgets.Button;
+import widgets.TextField;
+import widgets.AppBar;
+import widgets.Scaffold;
+import widgets.Widget;
+import widgets.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.RuleNode;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import properties.Property;
 import widgets.*;
 
@@ -131,21 +148,23 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitContainer(DartParser.ContainerContext ctx) {
+        String line = Integer.toString(ctx.CONTAINER().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         for (DartParser.ContainerPropertiesContext cp : ctx.containerProperties()) {
             properties.add(factory.createAntlrToProperty().visit(cp));
         }
-        return new Container(properties);
+        return new Container(properties,line);
     }
 
 
     @Override
     public Widget visitBoxDecoration(DartParser.BoxDecorationContext ctx) {
+        String line = Integer.toString(ctx.BOXDECORATION().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         for (DartParser.BoxDecorationPropertiesContext bdpc : ctx.boxDecorationProperties()) {
             properties.add(factory.createAntlrToProperty().visit(bdpc));
         }
-        return new BoxDecorationWidget(properties);
+        return new BoxDecorationWidget(properties,line);
     }
 
 
@@ -156,83 +175,101 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
     @Override
     public Widget visitBorderRadiusCircular(DartParser.BorderRadiusCircularContext ctx) {
+        String line = Integer.toString(ctx.BORDERRADIUSCIRCULAR().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         properties.add(factory.createAntlrToProperty().visit(ctx.borderRadiusCircularProperties()));
-        return new BorderRadiusCircular(properties);
+        return new BorderRadiusCircular(properties,line);
     }
 
     @Override
     public Widget visitBorderRadiusOnly(DartParser.BorderRadiusOnlyContext ctx) {
+        String line = Integer.toString(ctx.BORDERRADIUSONLY().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         for (DartParser.BorderRadiusOnlyPropertiesContext bdopc : ctx.borderRadiusOnlyProperties()) {
             properties.add(factory.createAntlrToProperty().visit(bdopc));
         }
-        return new BorderRadiusOnly(properties);
+        return new BorderRadiusOnly(properties,line);
     }
 
     @Override
     public Widget visitExpanded(DartParser.ExpandedContext ctx) {
+        String line = Integer.toString(ctx.EXPANDED().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         for (DartParser.ExpandedPropertiesContext epc : ctx.expandedProperties()) {
             properties.add(factory.createAntlrToProperty().visit(epc));
         }
-        return new Expanded(properties);
+        return new Expanded(properties,line);
     }
 
+    //done
     @Override
     public Widget visitGestureDetector(DartParser.GestureDetectorContext ctx) {
+        Token idToken = ctx.GESTUREDETECTOR().getSymbol();
+        int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
-        List<Property> properties = new ArrayList<>();
-        for (DartParser.GestureDetectorPropertiesContext gpc : ctx.gestureDetectorProperties()) {
+        List<Property> properties=new ArrayList<>();
+        for(DartParser.GestureDetectorPropertiesContext gpc : ctx.gestureDetectorProperties()){
             properties.add(antlrToProperty.visit(gpc));
         }
-
-        return new GestureDetector(properties);
+        return new GestureDetector(properties,Integer.toString(line));
     }
 
+    //not done
+    @Override
+    public Widget visitOnFunction(DartParser.OnFunctionContext ctx) {
+        return super.visitOnFunction(ctx);
+    }
 
     //done
     @Override
     public Widget visitPadding(DartParser.PaddingContext ctx) {
+        Token idToken = ctx.PADDING().getSymbol();
+        int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
-        List<Property> properties = new ArrayList<>();
-        for (DartParser.PaddingProprteyContext ppc : ctx.paddingProprtey()) {
+        List<Property> properties=new ArrayList<>();
+        for(DartParser.PaddingProprteyContext ppc : ctx.paddingProprtey()){
             properties.add(antlrToProperty.visit(ppc));
         }
-        return new Padding(properties);
+        return new Padding(properties,Integer.toString(line));
     }
 
     //done
     @Override
     public Widget visitEdgeInsetsOnly(DartParser.EdgeInsetsOnlyContext ctx) {
+        Token idToken = ctx.EDGE_INSETS_ONLY().getSymbol();
+        int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
-        List<Property> properties = new ArrayList<>();
-        for (DartParser.EdgeInsetsOnlyPropertiesContext eiopc : ctx.edgeInsetsOnlyProperties()) {
+        List<Property> properties=new ArrayList<>();
+        for(DartParser.EdgeInsetsOnlyPropertiesContext eiopc : ctx.edgeInsetsOnlyProperties()){
             properties.add(antlrToProperty.visit(eiopc));
         }
-        return new EdgeInsetsOnly(properties);
+        return new EdgeInsetsOnly(properties,Integer.toString(line));
     }
 
     //done
     @Override
     public Widget visitEdgeInsetsSymetric(DartParser.EdgeInsetsSymetricContext ctx) {
+        Token idToken = ctx.EDGE_INSETS_SYMMETRIC().getSymbol();
+        int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
-        List<Property> properties = new ArrayList<>();
-        for (DartParser.EdgeInsetsSymetricPropertiesContext espc : ctx.edgeInsetsSymetricProperties()) {
+        List<Property> properties=new ArrayList<>();
+        for(DartParser.EdgeInsetsSymetricPropertiesContext espc : ctx.edgeInsetsSymetricProperties()){
             properties.add(antlrToProperty.visit(espc));
         }
-        return new EdgeInsetsSymmetric(properties);
+        return new EdgeInsetsSymmetric(properties,Integer.toString(line));
     }
 
     //done
     @Override
     public Widget visitImage(DartParser.ImageContext ctx) {
+        Token idToken = ctx.IMAGE().getSymbol();
+        int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
-        List<Property> properties = new ArrayList<>();
-        for (DartParser.ImagePropertiesContext ipc : ctx.imageProperties()) {
+        List<Property> properties=new ArrayList<>();
+        for(DartParser.ImagePropertiesContext ipc : ctx.imageProperties()){
             properties.add(antlrToProperty.visit(ipc));
         }
-        return new Image(properties);
+        return new Image(properties,Integer.toString(line));
     }
 
 

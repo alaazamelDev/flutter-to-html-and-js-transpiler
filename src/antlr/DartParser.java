@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from C:/Users/anasr/Desktop/state/compilerproject/src/grammars\DartParser.g4 by ANTLR 4.10.1
 package antlr;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class DartParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -148,7 +148,7 @@ public class DartParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "java-escape"; }
+	public String getGrammarFileName() { return "DartParser.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -164,7 +164,6 @@ public class DartParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ProgContext extends ParserRuleContext {
 		public TerminalNode EOF() { return getToken(DartParser.EOF, 0); }
 		public List<StatmentContext> statment() {
@@ -180,6 +179,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_prog; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterProg(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitProg(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitProg(this);
@@ -197,7 +204,7 @@ public class DartParser extends Parser {
 			setState(115);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 403726925824L) != 0 || _la==IDENTIFIER) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << WIDGET) | (1L << INT) | (1L << STRINGTYPE) | (1L << DOUBLE) | (1L << FUNCTION))) != 0) || _la==IDENTIFIER) {
 				{
 				{
 				setState(112);
@@ -233,7 +240,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ScaffoldContext extends ParserRuleContext {
 		public TerminalNode SCAFFOLD() { return getToken(DartParser.SCAFFOLD, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -252,6 +258,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_scaffold; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterScaffold(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitScaffold(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitScaffold(this);
@@ -324,7 +338,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ScaffoldPropertyContext extends ParserRuleContext {
 		public ScaffoldPropertyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -336,7 +349,6 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ScaffoldBodyContext extends ScaffoldPropertyContext {
 		public TerminalNode BODY() { return getToken(DartParser.BODY, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -345,12 +357,19 @@ public class DartParser extends Parser {
 		}
 		public ScaffoldBodyContext(ScaffoldPropertyContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterScaffoldBody(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitScaffoldBody(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitScaffoldBody(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ScaffoldAppBarContext extends ScaffoldPropertyContext {
 		public TerminalNode APPBARATRIB() { return getToken(DartParser.APPBARATRIB, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -358,6 +377,14 @@ public class DartParser extends Parser {
 			return getRuleContext(AppBarContext.class,0);
 		}
 		public ScaffoldAppBarContext(ScaffoldPropertyContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterScaffoldAppBar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitScaffoldAppBar(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitScaffoldAppBar(this);
@@ -411,7 +438,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class AppBarContext extends ParserRuleContext {
 		public TerminalNode APPBAR() { return getToken(DartParser.APPBAR, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -430,6 +456,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_appBar; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterAppBar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitAppBar(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitAppBar(this);
@@ -502,7 +536,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class AppBarPropertiesContext extends ParserRuleContext {
 		public AppBarPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -514,24 +547,38 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class AppBarTitleContext extends AppBarPropertiesContext {
 		public TerminalNode TITLE() { return getToken(DartParser.TITLE, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode STRING() { return getToken(DartParser.STRING, 0); }
 		public AppBarTitleContext(AppBarPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterAppBarTitle(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitAppBarTitle(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitAppBarTitle(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class AppBarCenterTitleContext extends AppBarPropertiesContext {
 		public TerminalNode CENTERTITLE() { return getToken(DartParser.CENTERTITLE, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode BOOLEAN() { return getToken(DartParser.BOOLEAN, 0); }
 		public AppBarCenterTitleContext(AppBarPropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterAppBarCenterTitle(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitAppBarCenterTitle(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitAppBarCenterTitle(this);
@@ -585,7 +632,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class WidgetContext extends ParserRuleContext {
 		public RowContext row() {
 			return getRuleContext(RowContext.class,0);
@@ -627,6 +673,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_widget; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterWidget(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitWidget(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitWidget(this);
@@ -740,7 +794,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class CustomWidgetContext extends ParserRuleContext {
 		public TerminalNode WIDGETNAME() { return getToken(DartParser.WIDGETNAME, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -759,6 +812,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_customWidget; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterCustomWidget(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitCustomWidget(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitCustomWidget(this);
@@ -831,7 +892,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class CustomWidgetPropertiesContext extends ParserRuleContext {
 		public TerminalNode IDENTIFIER() { return getToken(DartParser.IDENTIFIER, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -842,6 +902,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_customWidgetProperties; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterCustomWidgetProperties(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitCustomWidgetProperties(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitCustomWidgetProperties(this);
@@ -862,7 +930,7 @@ public class DartParser extends Parser {
 			match(COLON);
 			setState(206);
 			_la = _input.LA(1);
-			if ( !((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & 7L) != 0) ) {
+			if ( !(((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & ((1L << (FLOAT - 98)) | (1L << (NUM - 98)) | (1L << (STRING - 98)))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -883,7 +951,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class RowContext extends ParserRuleContext {
 		public TerminalNode ROW() { return getToken(DartParser.ROW, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -902,6 +969,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_row; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterRow(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitRow(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitRow(this);
@@ -924,7 +999,7 @@ public class DartParser extends Parser {
 			setState(221);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 10133100235325440L) != 0) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << CHILDREN) | (1L << MAINAXISSIZE) | (1L << CROSSAXISALIGNMENT))) != 0)) {
 				{
 				setState(210);
 				rowProperties();
@@ -974,7 +1049,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class RowPropertiesContext extends ParserRuleContext {
 		public ChildrenPropertyContext childrenProperty() {
 			return getRuleContext(ChildrenPropertyContext.class,0);
@@ -989,6 +1063,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_rowProperties; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterRowProperties(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitRowProperties(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitRowProperties(this);
@@ -1039,7 +1121,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class CenterContext extends ParserRuleContext {
 		public TerminalNode CENTER() { return getToken(DartParser.CENTER, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -1058,6 +1139,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_center; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterCenter(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitCenter(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitCenter(this);
@@ -1130,7 +1219,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class CenterPropertiesContext extends ParserRuleContext {
 		public CenterPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1142,12 +1230,19 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class CenterChildContext extends CenterPropertiesContext {
 		public ChildPropertyContext childProperty() {
 			return getRuleContext(ChildPropertyContext.class,0);
 		}
 		public CenterChildContext(CenterPropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterCenterChild(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitCenterChild(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitCenterChild(this);
@@ -1177,7 +1272,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnContext extends ParserRuleContext {
 		public TerminalNode COLUMN() { return getToken(DartParser.COLUMN, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -1196,6 +1290,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_column; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterColumn(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitColumn(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitColumn(this);
@@ -1218,7 +1320,7 @@ public class DartParser extends Parser {
 			setState(262);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 10133100235325440L) != 0) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << CHILDREN) | (1L << MAINAXISSIZE) | (1L << CROSSAXISALIGNMENT))) != 0)) {
 				{
 				setState(251);
 				columnProperties();
@@ -1268,7 +1370,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ColumnPropertiesContext extends ParserRuleContext {
 		public ChildrenPropertyContext childrenProperty() {
 			return getRuleContext(ChildrenPropertyContext.class,0);
@@ -1283,6 +1384,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_columnProperties; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterColumnProperties(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitColumnProperties(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitColumnProperties(this);
@@ -1333,7 +1442,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextContext extends ParserRuleContext {
 		public TerminalNode TEXT() { return getToken(DartParser.TEXT, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -1352,6 +1460,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_text; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterText(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitText(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitText(this);
@@ -1374,7 +1490,7 @@ public class DartParser extends Parser {
 			setState(284);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la - 39)) & ~0x3f) == 0 && ((1L << (_la - 39)) & 68719476765L) != 0) {
+			if (((((_la - 39)) & ~0x3f) == 0 && ((1L << (_la - 39)) & ((1L << (TEXTATRIB - 39)) | (1L << (FONTWEIGHT - 39)) | (1L << (FONTSIZE - 39)) | (1L << (LETTERSPACING - 39)) | (1L << (TEXTALIGN - 39)))) != 0)) {
 				{
 				setState(273);
 				textProperties();
@@ -1424,7 +1540,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextPropertiesContext extends ParserRuleContext {
 		public TextPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1436,7 +1551,6 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextFontSizeContext extends TextPropertiesContext {
 		public TerminalNode FONTSIZE() { return getToken(DartParser.FONTSIZE, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -1444,12 +1558,19 @@ public class DartParser extends Parser {
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public TextFontSizeContext(TextPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextFontSize(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextFontSize(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextFontSize(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextTextAlignContext extends TextPropertiesContext {
 		public TerminalNode TEXTALIGN() { return getToken(DartParser.TEXTALIGN, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -1459,12 +1580,19 @@ public class DartParser extends Parser {
 		public TerminalNode JUSTIFY_ATTR() { return getToken(DartParser.JUSTIFY_ATTR, 0); }
 		public TextTextAlignContext(TextPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextTextAlign(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextTextAlign(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextTextAlign(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextLetterSpacingContext extends TextPropertiesContext {
 		public TerminalNode LETTERSPACING() { return getToken(DartParser.LETTERSPACING, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -1472,24 +1600,38 @@ public class DartParser extends Parser {
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public TextLetterSpacingContext(TextPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextLetterSpacing(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextLetterSpacing(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextLetterSpacing(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextContentContext extends TextPropertiesContext {
 		public TerminalNode TEXTATRIB() { return getToken(DartParser.TEXTATRIB, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode STRING() { return getToken(DartParser.STRING, 0); }
 		public TextContentContext(TextPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextContent(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextContent(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextContent(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextFontWeightContext extends TextPropertiesContext {
 		public TerminalNode FONTWEIGHT() { return getToken(DartParser.FONTWEIGHT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -1498,6 +1640,14 @@ public class DartParser extends Parser {
 		public TerminalNode MEDIUM() { return getToken(DartParser.MEDIUM, 0); }
 		public TerminalNode SEMIBOLD() { return getToken(DartParser.SEMIBOLD, 0); }
 		public TextFontWeightContext(TextPropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextFontWeight(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextFontWeight(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextFontWeight(this);
@@ -1535,7 +1685,7 @@ public class DartParser extends Parser {
 				match(COLON);
 				setState(293);
 				_la = _input.LA(1);
-				if ( !((((_la - 44)) & ~0x3f) == 0 && ((1L << (_la - 44)) & 962072674305L) != 0) ) {
+				if ( !(((((_la - 44)) & ~0x3f) == 0 && ((1L << (_la - 44)) & ((1L << (BOLD - 44)) | (1L << (LIGHT - 44)) | (1L << (SEMIBOLD - 44)) | (1L << (MEDIUM - 44)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -1595,7 +1745,7 @@ public class DartParser extends Parser {
 				match(COLON);
 				setState(302);
 				_la = _input.LA(1);
-				if ( !((((_la - 48)) & ~0x3f) == 0 && ((1L << (_la - 48)) & 3758096385L) != 0) ) {
+				if ( !(((((_la - 48)) & ~0x3f) == 0 && ((1L << (_la - 48)) & ((1L << (CENTERVALUE - 48)) | (1L << (START_ATTR - 48)) | (1L << (END_ATTR - 48)) | (1L << (JUSTIFY_ATTR - 48)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -1620,7 +1770,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ContainerContext extends ParserRuleContext {
 		public TerminalNode CONTAINER() { return getToken(DartParser.CONTAINER, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -1639,6 +1788,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_container; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterContainer(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitContainer(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitContainer(this);
@@ -1661,7 +1818,7 @@ public class DartParser extends Parser {
 			setState(318);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 36275091918553088L) != 0) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << CHILD) | (1L << WIDTH) | (1L << HEIGHT) | (1L << CONTENTALIGNMENT) | (1L << DECORATION))) != 0)) {
 				{
 				setState(307);
 				containerProperties();
@@ -1711,7 +1868,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ContainerPropertiesContext extends ParserRuleContext {
 		public ContainerPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1723,19 +1879,25 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ContainerDecorationContext extends ContainerPropertiesContext {
 		public DecorationPropertyContext decorationProperty() {
 			return getRuleContext(DecorationPropertyContext.class,0);
 		}
 		public ContainerDecorationContext(ContainerPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterContainerDecoration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitContainerDecoration(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitContainerDecoration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ContainerContentAlignmentContext extends ContainerPropertiesContext {
 		public TerminalNode CONTENTALIGNMENT() { return getToken(DartParser.CONTENTALIGNMENT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -1744,41 +1906,70 @@ public class DartParser extends Parser {
 		public TerminalNode RIGHT() { return getToken(DartParser.RIGHT, 0); }
 		public ContainerContentAlignmentContext(ContainerPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterContainerContentAlignment(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitContainerContentAlignment(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitContainerContentAlignment(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ContainerWidthContext extends ContainerPropertiesContext {
 		public WidthPropertyContext widthProperty() {
 			return getRuleContext(WidthPropertyContext.class,0);
 		}
 		public ContainerWidthContext(ContainerPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterContainerWidth(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitContainerWidth(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitContainerWidth(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ContainerHeightContext extends ContainerPropertiesContext {
 		public HeightPropertyContext heightProperty() {
 			return getRuleContext(HeightPropertyContext.class,0);
 		}
 		public ContainerHeightContext(ContainerPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterContainerHeight(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitContainerHeight(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitContainerHeight(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ContainerChildContext extends ContainerPropertiesContext {
 		public ChildPropertyContext childProperty() {
 			return getRuleContext(ChildPropertyContext.class,0);
 		}
 		public ContainerChildContext(ContainerPropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterContainerChild(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitContainerChild(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitContainerChild(this);
@@ -1820,7 +2011,7 @@ public class DartParser extends Parser {
 				match(COLON);
 				setState(326);
 				_la = _input.LA(1);
-				if ( !((((_la - 48)) & ~0x3f) == 0 && ((1L << (_la - 48)) & 175921860444161L) != 0) ) {
+				if ( !(((((_la - 48)) & ~0x3f) == 0 && ((1L << (_la - 48)) & ((1L << (CENTERVALUE - 48)) | (1L << (LEFT - 48)) | (1L << (RIGHT - 48)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -1861,7 +2052,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class DecorationPropertyContext extends ParserRuleContext {
 		public TerminalNode DECORATION() { return getToken(DartParser.DECORATION, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -1872,6 +2062,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_decorationProperty; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterDecorationProperty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitDecorationProperty(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitDecorationProperty(this);
@@ -1904,7 +2102,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class BoxDecorationContext extends ParserRuleContext {
 		public TerminalNode BOXDECORATION() { return getToken(DartParser.BOXDECORATION, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -1923,6 +2120,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_boxDecoration; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBoxDecoration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBoxDecoration(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBoxDecoration(this);
@@ -1995,7 +2200,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class BoxDecorationPropertiesContext extends ParserRuleContext {
 		public ColorPropertyContext colorProperty() {
 			return getRuleContext(ColorPropertyContext.class,0);
@@ -2007,6 +2211,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_boxDecorationProperties; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBoxDecorationProperties(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBoxDecorationProperties(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBoxDecorationProperties(this);
@@ -2050,7 +2262,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderRadiusPropertyContext extends ParserRuleContext {
 		public TerminalNode BORDERRADIUS() { return getToken(DartParser.BORDERRADIUS, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -2061,6 +2272,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_borderRadiusProperty; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderRadiusProperty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderRadiusProperty(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderRadiusProperty(this);
@@ -2093,7 +2312,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderRadiusContext extends ParserRuleContext {
 		public BorderRadiusOnlyContext borderRadiusOnly() {
 			return getRuleContext(BorderRadiusOnlyContext.class,0);
@@ -2105,6 +2323,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_borderRadius; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderRadius(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderRadius(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderRadius(this);
@@ -2148,7 +2374,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderRadiusCircularContext extends ParserRuleContext {
 		public TerminalNode BORDERRADIUSCIRCULAR() { return getToken(DartParser.BORDERRADIUSCIRCULAR, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -2161,6 +2386,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_borderRadiusCircular; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderRadiusCircular(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderRadiusCircular(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderRadiusCircular(this);
@@ -2206,7 +2439,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderRadiusOnlyContext extends ParserRuleContext {
 		public TerminalNode BORDERRADIUSONLY() { return getToken(DartParser.BORDERRADIUSONLY, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -2225,6 +2457,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_borderRadiusOnly; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderRadiusOnly(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderRadiusOnly(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderRadiusOnly(this);
@@ -2247,7 +2487,7 @@ public class DartParser extends Parser {
 			setState(385);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & -1152921504606846976L) != 0) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TOPRIGHT) | (1L << TOPLEFT) | (1L << BOTTOMRIGHT) | (1L << BOTTOMLEFT))) != 0)) {
 				{
 				setState(374);
 				borderRadiusOnlyProperties();
@@ -2297,7 +2537,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderRadiusCircularPropertiesContext extends ParserRuleContext {
 		public TerminalNode RADIUS() { return getToken(DartParser.RADIUS, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -2307,6 +2546,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_borderRadiusCircularProperties; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderRadiusCircularProperties(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderRadiusCircularProperties(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderRadiusCircularProperties(this);
@@ -2348,7 +2595,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderRadiusOnlyPropertiesContext extends ParserRuleContext {
 		public BorderRadiusOnlyPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -2360,7 +2606,6 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderRadiusOnlyTopLeftContext extends BorderRadiusOnlyPropertiesContext {
 		public TerminalNode TOPLEFT() { return getToken(DartParser.TOPLEFT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -2368,12 +2613,19 @@ public class DartParser extends Parser {
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public BorderRadiusOnlyTopLeftContext(BorderRadiusOnlyPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderRadiusOnlyTopLeft(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderRadiusOnlyTopLeft(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderRadiusOnlyTopLeft(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderRadiusOnlyBottomRightContext extends BorderRadiusOnlyPropertiesContext {
 		public TerminalNode BOTTOMRIGHT() { return getToken(DartParser.BOTTOMRIGHT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -2381,12 +2633,19 @@ public class DartParser extends Parser {
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public BorderRadiusOnlyBottomRightContext(BorderRadiusOnlyPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderRadiusOnlyBottomRight(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderRadiusOnlyBottomRight(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderRadiusOnlyBottomRight(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderRadiusOnlyTopRightContext extends BorderRadiusOnlyPropertiesContext {
 		public TerminalNode TOPRIGHT() { return getToken(DartParser.TOPRIGHT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -2394,18 +2653,33 @@ public class DartParser extends Parser {
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public BorderRadiusOnlyTopRightContext(BorderRadiusOnlyPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderRadiusOnlyTopRight(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderRadiusOnlyTopRight(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderRadiusOnlyTopRight(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderRadiusOnlyBottomLeftContext extends BorderRadiusOnlyPropertiesContext {
 		public TerminalNode BOTTOMLEFT() { return getToken(DartParser.BOTTOMLEFT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode NUM() { return getToken(DartParser.NUM, 0); }
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public BorderRadiusOnlyBottomLeftContext(BorderRadiusOnlyPropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderRadiusOnlyBottomLeft(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderRadiusOnlyBottomLeft(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderRadiusOnlyBottomLeft(this);
@@ -2516,7 +2790,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ExpandedContext extends ParserRuleContext {
 		public TerminalNode EXPANDED() { return getToken(DartParser.EXPANDED, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -2535,6 +2808,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expanded; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterExpanded(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitExpanded(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitExpanded(this);
@@ -2607,7 +2888,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ExpandedPropertiesContext extends ParserRuleContext {
 		public ExpandedPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -2619,24 +2899,38 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ExpandedFlexContext extends ExpandedPropertiesContext {
 		public TerminalNode FLEX() { return getToken(DartParser.FLEX, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode NUM() { return getToken(DartParser.NUM, 0); }
 		public ExpandedFlexContext(ExpandedPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterExpandedFlex(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitExpandedFlex(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitExpandedFlex(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ExpandedChildContext extends ExpandedPropertiesContext {
 		public ChildPropertyContext childProperty() {
 			return getRuleContext(ChildPropertyContext.class,0);
 		}
 		public ExpandedChildContext(ExpandedPropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterExpandedChild(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitExpandedChild(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitExpandedChild(this);
@@ -2686,7 +2980,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class GestureDetectorContext extends ParserRuleContext {
 		public TerminalNode GESTUREDETECTOR() { return getToken(DartParser.GESTUREDETECTOR, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -2705,6 +2998,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_gestureDetector; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterGestureDetector(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitGestureDetector(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitGestureDetector(this);
@@ -2777,7 +3078,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class GestureDetectorPropertiesContext extends ParserRuleContext {
 		public TerminalNode ONPRESSED() { return getToken(DartParser.ONPRESSED, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -2788,6 +3088,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_gestureDetectorProperties; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterGestureDetectorProperties(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitGestureDetectorProperties(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitGestureDetectorProperties(this);
@@ -2820,7 +3128,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class OnFunctionContext extends ParserRuleContext {
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
 		public TerminalNode RP() { return getToken(DartParser.RP, 0); }
@@ -2844,6 +3151,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_onFunction; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterOnFunction(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitOnFunction(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitOnFunction(this);
@@ -2883,7 +3198,7 @@ public class DartParser extends Parser {
 			setState(464);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 403726925824L) != 0 || _la==IDENTIFIER) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << WIDGET) | (1L << INT) | (1L << STRINGTYPE) | (1L << DOUBLE) | (1L << FUNCTION))) != 0) || _la==IDENTIFIER) {
 				{
 				{
 				setState(461);
@@ -2909,7 +3224,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class PaddingContext extends ParserRuleContext {
 		public TerminalNode PADDING() { return getToken(DartParser.PADDING, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -2928,6 +3242,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_padding; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterPadding(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitPadding(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitPadding(this);
@@ -3000,7 +3322,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class PaddingProprteyContext extends ParserRuleContext {
 		public PaddingProprteyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3012,7 +3333,6 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class PaddingPaddingContext extends PaddingProprteyContext {
 		public TerminalNode PADDINGATTR() { return getToken(DartParser.PADDINGATTR, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -3021,17 +3341,32 @@ public class DartParser extends Parser {
 		}
 		public PaddingPaddingContext(PaddingProprteyContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterPaddingPadding(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitPaddingPadding(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitPaddingPadding(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class PaddingChildContext extends PaddingProprteyContext {
 		public ChildPropertyContext childProperty() {
 			return getRuleContext(ChildPropertyContext.class,0);
 		}
 		public PaddingChildContext(PaddingProprteyContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterPaddingChild(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitPaddingChild(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitPaddingChild(this);
@@ -3081,7 +3416,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class EdgeInsetsContext extends ParserRuleContext {
 		public EdgeInsetsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3093,7 +3427,6 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class EdgeInsetsOnlyContext extends EdgeInsetsContext {
 		public TerminalNode EDGE_INSETS_ONLY() { return getToken(DartParser.EDGE_INSETS_ONLY, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -3110,12 +3443,19 @@ public class DartParser extends Parser {
 		}
 		public EdgeInsetsOnlyContext(EdgeInsetsContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterEdgeInsetsOnly(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitEdgeInsetsOnly(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitEdgeInsetsOnly(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class EdgeInsetsSymetricContext extends EdgeInsetsContext {
 		public TerminalNode EDGE_INSETS_SYMMETRIC() { return getToken(DartParser.EDGE_INSETS_SYMMETRIC, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -3131,6 +3471,14 @@ public class DartParser extends Parser {
 			return getToken(DartParser.COMMA, i);
 		}
 		public EdgeInsetsSymetricContext(EdgeInsetsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterEdgeInsetsSymetric(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitEdgeInsetsSymetric(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitEdgeInsetsSymetric(this);
@@ -3158,7 +3506,7 @@ public class DartParser extends Parser {
 				setState(505);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la - 92)) & ~0x3f) == 0 && ((1L << (_la - 92)) & 15L) != 0) {
+				if (((((_la - 92)) & ~0x3f) == 0 && ((1L << (_la - 92)) & ((1L << (TOP - 92)) | (1L << (LEFT - 92)) | (1L << (BOTTOM - 92)) | (1L << (RIGHT - 92)))) != 0)) {
 					{
 					setState(494);
 					edgeInsetsOnlyProperties();
@@ -3262,7 +3610,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class EdgeInsetsOnlyPropertiesContext extends ParserRuleContext {
 		public EdgeInsetsOnlyPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3274,7 +3621,6 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class EdgeInsetsOnlyRightContext extends EdgeInsetsOnlyPropertiesContext {
 		public TerminalNode RIGHT() { return getToken(DartParser.RIGHT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -3282,12 +3628,19 @@ public class DartParser extends Parser {
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public EdgeInsetsOnlyRightContext(EdgeInsetsOnlyPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterEdgeInsetsOnlyRight(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitEdgeInsetsOnlyRight(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitEdgeInsetsOnlyRight(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class EdgeInsetsOnlyBottomContext extends EdgeInsetsOnlyPropertiesContext {
 		public TerminalNode BOTTOM() { return getToken(DartParser.BOTTOM, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -3295,12 +3648,19 @@ public class DartParser extends Parser {
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public EdgeInsetsOnlyBottomContext(EdgeInsetsOnlyPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterEdgeInsetsOnlyBottom(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitEdgeInsetsOnlyBottom(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitEdgeInsetsOnlyBottom(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class EdgeInsetsOnlyTopContext extends EdgeInsetsOnlyPropertiesContext {
 		public TerminalNode TOP() { return getToken(DartParser.TOP, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -3308,18 +3668,33 @@ public class DartParser extends Parser {
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public EdgeInsetsOnlyTopContext(EdgeInsetsOnlyPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterEdgeInsetsOnlyTop(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitEdgeInsetsOnlyTop(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitEdgeInsetsOnlyTop(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class EdgeInsetsOnlyLeftContext extends EdgeInsetsOnlyPropertiesContext {
 		public TerminalNode LEFT() { return getToken(DartParser.LEFT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode NUM() { return getToken(DartParser.NUM, 0); }
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public EdgeInsetsOnlyLeftContext(EdgeInsetsOnlyPropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterEdgeInsetsOnlyLeft(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitEdgeInsetsOnlyLeft(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitEdgeInsetsOnlyLeft(this);
@@ -3430,7 +3805,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class EdgeInsetsSymetricPropertiesContext extends ParserRuleContext {
 		public EdgeInsetsSymetricPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3442,7 +3816,6 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class EdgeInsetsSymetricHorizontalContext extends EdgeInsetsSymetricPropertiesContext {
 		public TerminalNode HORIZONTAL() { return getToken(DartParser.HORIZONTAL, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -3450,18 +3823,33 @@ public class DartParser extends Parser {
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public EdgeInsetsSymetricHorizontalContext(EdgeInsetsSymetricPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterEdgeInsetsSymetricHorizontal(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitEdgeInsetsSymetricHorizontal(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitEdgeInsetsSymetricHorizontal(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class EdgeInsetsSymetricVerticalContext extends EdgeInsetsSymetricPropertiesContext {
 		public TerminalNode VERTICAL() { return getToken(DartParser.VERTICAL, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode NUM() { return getToken(DartParser.NUM, 0); }
 		public TerminalNode FLOAT() { return getToken(DartParser.FLOAT, 0); }
 		public EdgeInsetsSymetricVerticalContext(EdgeInsetsSymetricPropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterEdgeInsetsSymetricVertical(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitEdgeInsetsSymetricVertical(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitEdgeInsetsSymetricVertical(this);
@@ -3532,7 +3920,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ImageContext extends ParserRuleContext {
 		public TerminalNode IMAGE() { return getToken(DartParser.IMAGE, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -3551,6 +3938,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_image; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterImage(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitImage(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitImage(this);
@@ -3573,7 +3968,7 @@ public class DartParser extends Parser {
 			setState(561);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la - 45)) & ~0x3f) == 0 && ((1L << (_la - 45)) & 6291459L) != 0) {
+			if (((((_la - 45)) & ~0x3f) == 0 && ((1L << (_la - 45)) & ((1L << (WIDTH - 45)) | (1L << (HEIGHT - 45)) | (1L << (FIT - 45)) | (1L << (URL - 45)))) != 0)) {
 				{
 				setState(550);
 				imageProperties();
@@ -3623,7 +4018,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ImagePropertiesContext extends ParserRuleContext {
 		public ImagePropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3635,49 +4029,77 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ImageHeightContext extends ImagePropertiesContext {
 		public HeightPropertyContext heightProperty() {
 			return getRuleContext(HeightPropertyContext.class,0);
 		}
 		public ImageHeightContext(ImagePropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterImageHeight(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitImageHeight(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitImageHeight(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ImageWidthContext extends ImagePropertiesContext {
 		public WidthPropertyContext widthProperty() {
 			return getRuleContext(WidthPropertyContext.class,0);
 		}
 		public ImageWidthContext(ImagePropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterImageWidth(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitImageWidth(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitImageWidth(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ImageUrlContext extends ImagePropertiesContext {
 		public TerminalNode URL() { return getToken(DartParser.URL, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode STRING() { return getToken(DartParser.STRING, 0); }
 		public ImageUrlContext(ImagePropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterImageUrl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitImageUrl(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitImageUrl(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ImageFitContext extends ImagePropertiesContext {
 		public TerminalNode FIT() { return getToken(DartParser.FIT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode COVER() { return getToken(DartParser.COVER, 0); }
 		public TerminalNode CONTAINS() { return getToken(DartParser.CONTAINS, 0); }
 		public ImageFitContext(ImagePropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterImageFit(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitImageFit(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitImageFit(this);
@@ -3756,7 +4178,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ButtonContext extends ParserRuleContext {
 		public TerminalNode BUTTON() { return getToken(DartParser.BUTTON, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -3775,6 +4196,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_button; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterButton(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitButton(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitButton(this);
@@ -3797,7 +4226,7 @@ public class DartParser extends Parser {
 			setState(588);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la - 45)) & ~0x3f) == 0 && ((1L << (_la - 45)) & 2206203907L) != 0) {
+			if (((((_la - 45)) & ~0x3f) == 0 && ((1L << (_la - 45)) & ((1L << (WIDTH - 45)) | (1L << (HEIGHT - 45)) | (1L << (TITLE - 45)) | (1L << (BACKGROUND_COLOR - 45)) | (1L << (TITLE_COLOR - 45)) | (1L << (ONPRESSED - 45)))) != 0)) {
 				{
 				setState(577);
 				buttonProperties();
@@ -3847,7 +4276,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ButtonPropertiesContext extends ParserRuleContext {
 		public ButtonPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3859,43 +4287,63 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ButtonHeightContext extends ButtonPropertiesContext {
 		public HeightPropertyContext heightProperty() {
 			return getRuleContext(HeightPropertyContext.class,0);
 		}
 		public ButtonHeightContext(ButtonPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterButtonHeight(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitButtonHeight(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitButtonHeight(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ButtonWidthContext extends ButtonPropertiesContext {
 		public WidthPropertyContext widthProperty() {
 			return getRuleContext(WidthPropertyContext.class,0);
 		}
 		public ButtonWidthContext(ButtonPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterButtonWidth(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitButtonWidth(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitButtonWidth(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ButtonTitleColorContext extends ButtonPropertiesContext {
 		public TerminalNode TITLE_COLOR() { return getToken(DartParser.TITLE_COLOR, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode HEX_NUM() { return getToken(DartParser.HEX_NUM, 0); }
 		public ButtonTitleColorContext(ButtonPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterButtonTitleColor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitButtonTitleColor(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitButtonTitleColor(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ButtonOnPressedContext extends ButtonPropertiesContext {
 		public TerminalNode ONPRESSED() { return getToken(DartParser.ONPRESSED, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -3904,29 +4352,51 @@ public class DartParser extends Parser {
 		}
 		public ButtonOnPressedContext(ButtonPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterButtonOnPressed(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitButtonOnPressed(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitButtonOnPressed(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ButtonBackgroundColorContext extends ButtonPropertiesContext {
 		public TerminalNode BACKGROUND_COLOR() { return getToken(DartParser.BACKGROUND_COLOR, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode HEX_NUM() { return getToken(DartParser.HEX_NUM, 0); }
 		public ButtonBackgroundColorContext(ButtonPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterButtonBackgroundColor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitButtonBackgroundColor(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitButtonBackgroundColor(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ButtonTitleContext extends ButtonPropertiesContext {
 		public TerminalNode TITLE() { return getToken(DartParser.TITLE, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode STRING() { return getToken(DartParser.STRING, 0); }
 		public ButtonTitleContext(ButtonPropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterButtonTitle(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitButtonTitle(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitButtonTitle(this);
@@ -4020,7 +4490,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextFieldContext extends ParserRuleContext {
 		public TerminalNode TEXTFIELD() { return getToken(DartParser.TEXTFIELD, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -4039,6 +4508,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_textField; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextField(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextField(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextField(this);
@@ -4061,7 +4538,7 @@ public class DartParser extends Parser {
 			setState(621);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 5335154689L) != 0) {
+			if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & ((1L << (PADDINGATTR - 59)) | (1L << (VALUE - 59)) | (1L << (LABEL - 59)) | (1L << (TEXTCOLOR - 59)) | (1L << (HINT - 59)) | (1L << (BORDERATRI - 59)) | (1L << (ONCHANGED - 59)))) != 0)) {
 				{
 				setState(610);
 				textFieldProperties();
@@ -4111,7 +4588,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextFieldPropertiesContext extends ParserRuleContext {
 		public TextFieldPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -4123,31 +4599,44 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextFieldHintContext extends TextFieldPropertiesContext {
 		public TerminalNode HINT() { return getToken(DartParser.HINT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode STRING() { return getToken(DartParser.STRING, 0); }
 		public TextFieldHintContext(TextFieldPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextFieldHint(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextFieldHint(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextFieldHint(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextFieldTextColorContext extends TextFieldPropertiesContext {
 		public TerminalNode TEXTCOLOR() { return getToken(DartParser.TEXTCOLOR, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode HEX_NUM() { return getToken(DartParser.HEX_NUM, 0); }
 		public TextFieldTextColorContext(TextFieldPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextFieldTextColor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextFieldTextColor(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextFieldTextColor(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextFieldBorderContext extends TextFieldPropertiesContext {
 		public TerminalNode BORDERATRI() { return getToken(DartParser.BORDERATRI, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -4156,36 +4645,57 @@ public class DartParser extends Parser {
 		}
 		public TextFieldBorderContext(TextFieldPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextFieldBorder(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextFieldBorder(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextFieldBorder(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextFieldLabelContext extends TextFieldPropertiesContext {
 		public TerminalNode LABEL() { return getToken(DartParser.LABEL, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode STRING() { return getToken(DartParser.STRING, 0); }
 		public TextFieldLabelContext(TextFieldPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextFieldLabel(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextFieldLabel(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextFieldLabel(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextFieldValueContext extends TextFieldPropertiesContext {
 		public TerminalNode VALUE() { return getToken(DartParser.VALUE, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode STRING() { return getToken(DartParser.STRING, 0); }
 		public TextFieldValueContext(TextFieldPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextFieldValue(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextFieldValue(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextFieldValue(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextFieldPaddingContext extends TextFieldPropertiesContext {
 		public TerminalNode PADDINGATTR() { return getToken(DartParser.PADDINGATTR, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -4194,12 +4704,19 @@ public class DartParser extends Parser {
 		}
 		public TextFieldPaddingContext(TextFieldPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextFieldPadding(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextFieldPadding(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextFieldPadding(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class TextFieldOnChangedContext extends TextFieldPropertiesContext {
 		public TerminalNode ONCHANGED() { return getToken(DartParser.ONCHANGED, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -4207,6 +4724,14 @@ public class DartParser extends Parser {
 			return getRuleContext(OnFunctionContext.class,0);
 		}
 		public TextFieldOnChangedContext(TextFieldPropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterTextFieldOnChanged(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitTextFieldOnChanged(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitTextFieldOnChanged(this);
@@ -4320,7 +4845,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderContext extends ParserRuleContext {
 		public TerminalNode BORDER() { return getToken(DartParser.BORDER, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -4339,6 +4863,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_border; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorder(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorder(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorder(this);
@@ -4361,7 +4893,7 @@ public class DartParser extends Parser {
 			setState(661);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la - 56)) & ~0x3f) == 0 && ((1L << (_la - 56)) & 8589934595L) != 0) {
+			if (((((_la - 56)) & ~0x3f) == 0 && ((1L << (_la - 56)) & ((1L << (COLOR - 56)) | (1L << (BORDERRADIUS - 56)) | (1L << (THICKNESS - 56)))) != 0)) {
 				{
 				setState(650);
 				borderProperties();
@@ -4411,7 +4943,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderPropertiesContext extends ParserRuleContext {
 		public BorderPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -4423,19 +4954,25 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderThicknessContext extends BorderPropertiesContext {
 		public TerminalNode THICKNESS() { return getToken(DartParser.THICKNESS, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
 		public TerminalNode NUM() { return getToken(DartParser.NUM, 0); }
 		public BorderThicknessContext(BorderPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderThickness(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderThickness(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderThickness(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderBorderRadiusContext extends BorderPropertiesContext {
 		public TerminalNode BORDERRADIUS() { return getToken(DartParser.BORDERRADIUS, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -4444,17 +4981,32 @@ public class DartParser extends Parser {
 		}
 		public BorderBorderRadiusContext(BorderPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderBorderRadius(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderBorderRadius(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderBorderRadius(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class BorderColorContext extends BorderPropertiesContext {
 		public ColorPropertyContext colorProperty() {
 			return getRuleContext(ColorPropertyContext.class,0);
 		}
 		public BorderColorContext(BorderPropertiesContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterBorderColor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitBorderColor(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBorderColor(this);
@@ -4516,7 +5068,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class StatmentContext extends ParserRuleContext {
 		public VariableDeclarationContext variableDeclaration() {
 			return getRuleContext(VariableDeclarationContext.class,0);
@@ -4531,6 +5082,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_statment; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterStatment(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitStatment(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitStatment(this);
@@ -4584,7 +5143,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class VariableDeclarationContext extends ParserRuleContext {
 		public VariableDeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -4596,7 +5154,6 @@ public class DartParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class NonFunctionVariableDeclarationContext extends VariableDeclarationContext {
 		public TerminalNode IDENTIFIER() { return getToken(DartParser.IDENTIFIER, 0); }
 		public TerminalNode SC() { return getToken(DartParser.SC, 0); }
@@ -4605,12 +5162,19 @@ public class DartParser extends Parser {
 		public TerminalNode STRINGTYPE() { return getToken(DartParser.STRINGTYPE, 0); }
 		public NonFunctionVariableDeclarationContext(VariableDeclarationContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterNonFunctionVariableDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitNonFunctionVariableDeclaration(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitNonFunctionVariableDeclaration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class FunctionVariableDeclarationContext extends VariableDeclarationContext {
 		public TerminalNode FUNCTION() { return getToken(DartParser.FUNCTION, 0); }
 		public TerminalNode LP() { return getToken(DartParser.LP, 0); }
@@ -4635,6 +5199,14 @@ public class DartParser extends Parser {
 		}
 		public FunctionVariableDeclarationContext(VariableDeclarationContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterFunctionVariableDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitFunctionVariableDeclaration(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitFunctionVariableDeclaration(this);
 			else return visitor.visitChildren(this);
@@ -4657,7 +5229,7 @@ public class DartParser extends Parser {
 				{
 				setState(679);
 				_la = _input.LA(1);
-				if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 120259084288L) != 0) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT) | (1L << STRINGTYPE) | (1L << DOUBLE))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -4682,12 +5254,12 @@ public class DartParser extends Parser {
 				setState(688);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (((_la) & ~0x3f) == 0 && ((1L << _la) & 120259084288L) != 0) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT) | (1L << STRINGTYPE) | (1L << DOUBLE))) != 0)) {
 					{
 					{
 					setState(684);
 					_la = _input.LA(1);
-					if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 120259084288L) != 0) ) {
+					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT) | (1L << STRINGTYPE) | (1L << DOUBLE))) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					else {
@@ -4726,7 +5298,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class VariableAssignmentContext extends ParserRuleContext {
 		public TerminalNode IDENTIFIER() { return getToken(DartParser.IDENTIFIER, 0); }
 		public TerminalNode EQL() { return getToken(DartParser.EQL, 0); }
@@ -4738,6 +5309,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_variableAssignment; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterVariableAssignment(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitVariableAssignment(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitVariableAssignment(this);
@@ -4758,7 +5337,7 @@ public class DartParser extends Parser {
 			match(EQL);
 			setState(698);
 			_la = _input.LA(1);
-			if ( !((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & 7L) != 0) ) {
+			if ( !(((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & ((1L << (FLOAT - 98)) | (1L << (NUM - 98)) | (1L << (STRING - 98)))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -4781,7 +5360,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class CustomWidgetDeclarationContext extends ParserRuleContext {
 		public TerminalNode WIDGET() { return getToken(DartParser.WIDGET, 0); }
 		public TerminalNode WIDGETNAME() { return getToken(DartParser.WIDGETNAME, 0); }
@@ -4803,6 +5381,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_customWidgetDeclaration; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterCustomWidgetDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitCustomWidgetDeclaration(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitCustomWidgetDeclaration(this);
@@ -4826,7 +5412,7 @@ public class DartParser extends Parser {
 			setState(707);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 395136991232L) != 0) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT) | (1L << STRINGTYPE) | (1L << DOUBLE) | (1L << FUNCTION))) != 0)) {
 				{
 				{
 				setState(704);
@@ -4860,7 +5446,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class WidthPropertyContext extends ParserRuleContext {
 		public TerminalNode WIDTH() { return getToken(DartParser.WIDTH, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -4870,6 +5455,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_widthProperty; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterWidthProperty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitWidthProperty(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitWidthProperty(this);
@@ -4911,7 +5504,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class HeightPropertyContext extends ParserRuleContext {
 		public TerminalNode HEIGHT() { return getToken(DartParser.HEIGHT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -4921,6 +5513,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_heightProperty; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterHeightProperty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitHeightProperty(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitHeightProperty(this);
@@ -4962,7 +5562,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ColorPropertyContext extends ParserRuleContext {
 		public TerminalNode COLOR() { return getToken(DartParser.COLOR, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -4971,6 +5570,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_colorProperty; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterColorProperty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitColorProperty(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitColorProperty(this);
@@ -5003,7 +5610,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ChildPropertyContext extends ParserRuleContext {
 		public TerminalNode CHILD() { return getToken(DartParser.CHILD, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -5014,6 +5620,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_childProperty; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterChildProperty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitChildProperty(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitChildProperty(this);
@@ -5046,7 +5660,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class ChildrenPropertyContext extends ParserRuleContext {
 		public TerminalNode CHILDREN() { return getToken(DartParser.CHILDREN, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -5066,6 +5679,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_childrenProperty; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterChildrenProperty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitChildrenProperty(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitChildrenProperty(this);
@@ -5090,7 +5711,7 @@ public class DartParser extends Parser {
 			setState(746);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 127332352L) != 0 || _la==WIDGETNAME) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ROW) | (1L << CENTER) | (1L << COLUMN) | (1L << TEXT) | (1L << CONTAINER) | (1L << EXPANDED) | (1L << PADDING) | (1L << IMAGE) | (1L << BUTTON) | (1L << GESTUREDETECTOR) | (1L << TEXTFIELD))) != 0) || _la==WIDGETNAME) {
 				{
 				setState(735);
 				widget();
@@ -5140,7 +5761,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class MainAxisSizePropertyContext extends ParserRuleContext {
 		public TerminalNode MAINAXISSIZE() { return getToken(DartParser.MAINAXISSIZE, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -5150,6 +5770,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_mainAxisSizeProperty; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterMainAxisSizeProperty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitMainAxisSizeProperty(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitMainAxisSizeProperty(this);
@@ -5191,7 +5819,6 @@ public class DartParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
 	public static class CrossAxisAlignmentPropertyContext extends ParserRuleContext {
 		public TerminalNode CROSSAXISALIGNMENT() { return getToken(DartParser.CROSSAXISALIGNMENT, 0); }
 		public TerminalNode COLON() { return getToken(DartParser.COLON, 0); }
@@ -5203,6 +5830,14 @@ public class DartParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_crossAxisAlignmentProperty; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).enterCrossAxisAlignmentProperty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DartParserListener ) ((DartParserListener)listener).exitCrossAxisAlignmentProperty(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitCrossAxisAlignmentProperty(this);
@@ -5223,7 +5858,7 @@ public class DartParser extends Parser {
 			match(COLON);
 			setState(756);
 			_la = _input.LA(1);
-			if ( !((((_la - 48)) & ~0x3f) == 0 && ((1L << (_la - 48)) & 175921860444225L) != 0) ) {
+			if ( !(((((_la - 48)) & ~0x3f) == 0 && ((1L << (_la - 48)) & ((1L << (CENTERVALUE - 48)) | (1L << (STRETCH - 48)) | (1L << (LEFT - 48)) | (1L << (RIGHT - 48)))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {

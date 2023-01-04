@@ -21,6 +21,12 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
     private final IAntlrObjectFactory factory;
 
+    //><
+    @Override
+    public Statement visitStatment(DartParser.StatmentContext ctx) {
+        return visit(ctx.getChild(0));
+    }
+
     public AntlrToStatement(IAntlrObjectFactory factory) {
         this.factory = factory;
     }

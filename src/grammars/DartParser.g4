@@ -147,7 +147,7 @@ padding:    PADDING LP (paddingProprtey (COMMA paddingProprtey)* COMMA? )? RP;
 
 paddingProprtey
     :   PADDINGATTR COLON edgeInsets  #PaddingPadding
-    |   childProperty  #PaddingChild
+    |   childProperty  #PaddingChild //delete label ?
     ;
 
 edgeInsets
