@@ -5,6 +5,7 @@ import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
 import enums.*;
 import interfaces.IAntlrObjectFactory;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
@@ -18,6 +19,7 @@ import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
 import properties.expanded.ExpandedFlexProperty;
+import properties.gestureDetectorProperties.OnPressedProperty;
 import widgets.Widget;
 
 import java.util.ArrayList;
