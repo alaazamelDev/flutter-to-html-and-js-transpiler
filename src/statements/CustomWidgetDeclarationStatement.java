@@ -9,7 +9,8 @@ public class CustomWidgetDeclarationStatement extends Statement {
     private final List<Statement> variableDeclarationStatements;
     private final Widget tree;
 
-    public CustomWidgetDeclarationStatement(String name, List<Statement> variableDeclarationStatements, Widget tree) {
+    public CustomWidgetDeclarationStatement(String name, List<Statement> variableDeclarationStatements, Widget tree, String lnNumber) {
+        super(lnNumber);
         this.name = name;
         this.variableDeclarationStatements = variableDeclarationStatements;
         this.tree = tree;

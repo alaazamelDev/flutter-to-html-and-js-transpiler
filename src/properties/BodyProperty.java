@@ -7,8 +7,8 @@ public class BodyProperty extends Property {
     private final Widget value;
 
 
-    public BodyProperty(Widget value) {
-        super("body");
+    public BodyProperty(Widget value, String lnNumber) {
+        super("body", lnNumber);
         this.value = value;
     }
 

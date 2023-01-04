@@ -5,7 +5,7 @@ import properties.Property;
 import java.util.List;
 
 public class Border extends Widget {
-    public Border(List<Property> properties) {
-        super("Border", properties);
+    public Border(List<Property> properties, String lnNumber) {
+        super("Border", properties, lnNumber);
     }
 }

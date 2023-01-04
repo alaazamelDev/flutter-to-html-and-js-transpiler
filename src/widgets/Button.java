@@ -5,7 +5,7 @@ import properties.Property;
 import java.util.List;
 
 public class Button extends Widget {
-    public Button(List<Property> properties) {
-        super("Button", properties);
+    public Button(List<Property> properties, String lnNumber) {
+        super("Button", properties, lnNumber);
     }
 }

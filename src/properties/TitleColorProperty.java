@@ -4,8 +4,8 @@ public class TitleColorProperty extends Property {
 
     private final String value;
 
-    public TitleColorProperty(String value) {
-        super("titleColor");
+    public TitleColorProperty(String value, String lnNumber) {
+        super("titleColor", lnNumber);
         this.value = value;
     }
 

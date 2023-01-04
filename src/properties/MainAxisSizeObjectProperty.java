@@ -5,8 +5,8 @@ import enums.MainAxisSizeValue;
 public class MainAxisSizeObjectProperty extends Property {
     private final MainAxisSizeValue value;
 
-    public MainAxisSizeObjectProperty(MainAxisSizeValue value) {
-        super("mainAxisSize");
+    public MainAxisSizeObjectProperty(MainAxisSizeValue value, String lnNumber) {
+        super("mainAxisSize", lnNumber);
         this.value = value;
     }
 

@@ -4,8 +4,8 @@ public class TextColorProperty extends Property {
 
     private final String value;
 
-    public TextColorProperty(String value) {
-        super("textColor");
+    public TextColorProperty(String value, String lnNumber) {
+        super("textColor", lnNumber);
         this.value = value;
     }
 

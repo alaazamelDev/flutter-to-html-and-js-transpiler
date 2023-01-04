@@ -3,8 +3,8 @@ package properties;
 public class TextContent extends Property {
     private final String value;
 
-    public TextContent(String value) {
-        super("text");
+    public TextContent(String value, String lnNumber) {
+        super("text", lnNumber);
         this.value = value;
     }
 

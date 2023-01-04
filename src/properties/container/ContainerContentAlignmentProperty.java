@@ -6,8 +6,8 @@ import properties.Property;
 public class ContainerContentAlignmentProperty extends Property {
     private final ContentAlignmentValue contentAlignmentValue;
 
-    public ContainerContentAlignmentProperty(ContentAlignmentValue contentAlignmentValue) {
-        super("ContainerContentAlignmentProperty");
+    public ContainerContentAlignmentProperty(ContentAlignmentValue contentAlignmentValue, String lnNumber) {
+        super("ContainerContentAlignmentProperty", lnNumber);
         this.contentAlignmentValue = contentAlignmentValue;
     }
 

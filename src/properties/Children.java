@@ -10,8 +10,8 @@ public class Children extends Property{
     private final List<Widget> children;
 
 
-    public Children(List<Widget> children) {
-        super("children");
+    public Children(List<Widget> children, String lnNumber) {
+        super("children", lnNumber);
         this.children = children;
     }
 

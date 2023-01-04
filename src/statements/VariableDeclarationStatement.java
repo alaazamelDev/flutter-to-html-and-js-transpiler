@@ -4,7 +4,8 @@ public class VariableDeclarationStatement extends Statement {
     private final String type;
     private final String name;
 
-    public VariableDeclarationStatement(String type, String name) {
+    public VariableDeclarationStatement(String type, String name, String lnNumber) {
+        super(lnNumber);
         this.type = type;
         this.name = name;
     }

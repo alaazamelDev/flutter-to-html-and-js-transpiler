@@ -4,8 +4,8 @@ public class Horizontal extends Property {
 
     private final double value;
 
-    public Horizontal(double value) {
-        super("horizontal");
+    public Horizontal(double value, String lnNumber) {
+        super("horizontal", lnNumber);
         this.value = value;
     }
 

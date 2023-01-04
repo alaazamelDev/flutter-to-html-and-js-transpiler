@@ -5,8 +5,8 @@ import properties.Property;
 public class BorderRadiusOnlyTopRightProperty extends Property {
     private final double value;
 
-    public BorderRadiusOnlyTopRightProperty(double value) {
-        super("BorderRadiusOnlyTopRight");
+    public BorderRadiusOnlyTopRightProperty(double value, String lnNumber) {
+        super("BorderRadiusOnlyTopRight", lnNumber);
         this.value = value;
     }
 

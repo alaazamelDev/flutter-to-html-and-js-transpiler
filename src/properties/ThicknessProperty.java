@@ -4,8 +4,8 @@ public class ThicknessProperty extends Property {
 
     private final int value;
 
-    public ThicknessProperty(int value) {
-        super("thickness");
+    public ThicknessProperty(int value, String lnNumber) {
+        super("thickness", lnNumber);
         this.value = value;
     }
 

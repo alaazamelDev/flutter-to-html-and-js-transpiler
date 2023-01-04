@@ -3,8 +3,8 @@ package properties;
 public class WidthProperty extends Property {
     private final double value;
 
-    public WidthProperty(double value) {
-        super("width");
+    public WidthProperty(double value, String lnNumber) {
+        super("width", lnNumber);
         this.value = value;
     }
 
