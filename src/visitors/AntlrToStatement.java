@@ -6,12 +6,10 @@ import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import properties.Property;
 import statements.CustomWidgetDeclarationStatement;
 import statements.Statement;
 import statements.VariableAssignmentStatement;
 import statements.VariableDeclarationStatement;
-import widgets.Scaffold;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -20,12 +18,6 @@ import java.util.List;
 public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
     private final IAntlrObjectFactory factory;
-
-    //><
-    @Override
-    public Statement visitStatment(DartParser.StatmentContext ctx) {
-        return visit(ctx.getChild(0));
-    }
 
     public AntlrToStatement(IAntlrObjectFactory factory) {
         this.factory = factory;

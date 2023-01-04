@@ -1,8 +1,8 @@
 package App;
 
-import error_lisitener.MyErrorLisitener;
 import antlr.DartLexer;
 import antlr.DartParser;
+import error_lisitener.MyErrorLisitener;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -17,7 +17,7 @@ import java.io.IOException;
 public class CompilerApp {
 
     public static void main(String[] args) {
-        String fileName = args[0];
+        String fileName = "test2.txt";
         DartParser parser = getParser(fileName);
 
         ParseTree antlrAST = parser.prog();
@@ -29,7 +29,7 @@ public class CompilerApp {
         } else {
             //visitor
             AntlrToProgram antlrToProgram = new AntlrToProgram(antlrObjectFactory);
-            Program prog = antlrToProgram.visit(antlrAST);
+            Program program = antlrToProgram.visit(antlrAST);
 
 //            if(antlrToProgram.semanticError.isEmpty()){
 //                // no semantic errors

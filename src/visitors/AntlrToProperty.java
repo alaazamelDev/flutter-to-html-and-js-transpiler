@@ -213,10 +213,10 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return super.visit(tree);
     }
 
-    @Override
-    public Property visitChildren(RuleNode node) {
-        return super.visitChildren(node);
-    }
+//    @Override
+//    public Property visitChildren(RuleNode node) {
+//        return super.visitChildren(node);
+//    }
 
     @Override
     public Property visitBoxDecorationProperties(DartParser.BoxDecorationPropertiesContext ctx) {
