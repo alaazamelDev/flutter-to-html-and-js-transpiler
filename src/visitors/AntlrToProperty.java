@@ -17,6 +17,8 @@ import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
 import properties.expanded.ExpandedFlexProperty;
 import properties.gestureDetectorProperties.OnPressedProperty;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -247,7 +249,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitPaddingPadding(DartParser.PaddingPaddingContext ctx) {
         AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
-        return new PaddingAttributeWidgetProperty(antlrToWidget.visit(ctx.getChild(2)));
+        return new PaddingAttributeProperty(antlrToWidget.visit(ctx.getChild(2)));
     }
 
     @Override
@@ -295,15 +297,18 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitImageUrl(DartParser.ImageUrlContext ctx) {
+        int lineNumber = ctx.URL().getSymbol().getLine();
+
         String url = ctx.getChild(2).getText();
-        return new UrlProperty(url);
+        return new UrlProperty(url, String.valueOf(lineNumber));
     }
 
     @Override
     public Property visitImageFit(DartParser.ImageFitContext ctx) {
+        int lineNumber = ctx.FIT().getSymbol().getLine();
         String fitValue = ctx.getChild(2).getText();
         FitValue fitValueEnum = FitValue.valueOf(fitValue);
-        return new FitProperty(fitValueEnum);
+        return new FitProperty(fitValueEnum, String.valueOf(lineNumber));
     }
 
     @Override
@@ -328,77 +333,112 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitButtonTitle(DartParser.ButtonTitleContext ctx) {
+        int lineNumber = ctx.TITLE().getSymbol().getLine();
+
         String buttonTitle = ctx.getChild(2).getText();
-        return new TitleProperty(buttonTitle);
+        return new TitleProperty(buttonTitle, String.valueOf(lineNumber));
     }
 
     @Override
     public Property visitButtonBackgroundColor(DartParser.ButtonBackgroundColorContext ctx) {
+        int lineNumber = ctx.BACKGROUND_COLOR().getSymbol().getLine();
+
         String buttonBackgroundColor = ctx.getChild(2).getText();
-        return new BackgroundColorProperty(buttonBackgroundColor);
+        return new BackgroundColorProperty(buttonBackgroundColor,String.valueOf(lineNumber));
     }
 
     @Override
     public Property visitButtonTitleColor(DartParser.ButtonTitleColorContext ctx) {
+        int lineNumber = ctx.TITLE_COLOR().getSymbol().getLine();
+
         String buttonTitleColor = ctx.getChild(2).getText();
-        return new TitleColorProperty(buttonTitleColor);
+        return new TitleColorProperty(buttonTitleColor,String.valueOf(lineNumber));
     }
 
     @Override
     public Property visitButtonOnPressed(DartParser.ButtonOnPressedContext ctx) {
-        return visit(ctx.onFunction());
+        int lineNumber = ctx.ONPRESSED().getSymbol().getLine();
+
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+
+        return new OnPressedProperty(antlrToWidget.visit(ctx.onFunction()),String.valueOf(lineNumber));
     }
 
     @Override
     public Property visitTextFieldValue(DartParser.TextFieldValueContext ctx) {
+        int lineNumber = ctx.VALUE().getSymbol().getLine();
+
         String textFieldValue = ctx.getChild(2).getText();
-        return new ValueProperty(textFieldValue);
+        return new ValueProperty(textFieldValue,String.valueOf(lineNumber));
     }
 
     @Override
     public Property visitTextFieldLabel(DartParser.TextFieldLabelContext ctx) {
+        int lineNumber = ctx.LABEL().getSymbol().getLine();
+
         String textFieldLabel = ctx.getChild(2).getText();
-        return new LabelProperty(textFieldLabel);
+        return new LabelProperty(textFieldLabel,String.valueOf(lineNumber));
     }
 
     @Override
     public Property visitTextFieldTextColor(DartParser.TextFieldTextColorContext ctx) {
+        int lineNumber = ctx.TEXTCOLOR().getSymbol().getLine();
         String textFieldTextColor = ctx.getChild(2).getText();
-        return new TextColorProperty(textFieldTextColor);
+        return new TextColorProperty(textFieldTextColor,String.valueOf(lineNumber));
     }
 
     @Override
     public Property visitTextFieldPadding(DartParser.TextFieldPaddingContext ctx) {
-        return visit(ctx.edgeInsets());
+        int lineNumber = ctx.PADDINGATTR().getSymbol().getLine();
+
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+
+        return new PaddingAttributeProperty(antlrToWidget.visit(ctx.edgeInsets()),String.valueOf(lineNumber));
     }
 
     @Override
     public Property visitTextFieldHint(DartParser.TextFieldHintContext ctx) {
+        int lineNumber = ctx.HINT().getSymbol().getLine();
+
         String textFieldHint = ctx.getChild(2).getText();
-        return new HintProperty(textFieldHint);
+        return new HintProperty(textFieldHint,String.valueOf(lineNumber));
     }
 
     // Must return a BorderProperty class
     @Override
     public Property visitTextFieldBorder(DartParser.TextFieldBorderContext ctx) {
-        return visit(ctx.border());
+        int lineNumber = ctx.BORDERATRI().getSymbol().getLine();
+
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+
+        return new BorderRadiusProperty(antlrToWidget.visit(ctx.border()),String.valueOf(lineNumber));
     }
 
     @Override
     public Property visitTextFieldOnChanged(DartParser.TextFieldOnChangedContext ctx) {
-        return visit(ctx.onFunction());
+        int lineNumber = ctx.ONCHANGED().getSymbol().getLine();
+
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+
+        //TODO : import the class OnChangedProperty
+        return new (antlrToWidget.visit(ctx.onFunction()),String.valueOf(lineNumber));
     }
 
     @Override
     public Property visitBorderThickness(DartParser.BorderThicknessContext ctx) {
+        int lineNumber = ctx.THICKNESS().getSymbol().getLine();
+
         String borderThickness = ctx.getChild(2).getText();
-        return new ThicknessProperty(Integer.parseInt(borderThickness));
+        return new ThicknessProperty(Integer.parseInt(borderThickness),String.valueOf(lineNumber));
     }
 
     // Must return a BorderRadiusProperty class
     @Override
     public Property visitBorderBorderRadius(DartParser.BorderBorderRadiusContext ctx) {
-        return visit(ctx.borderRadius());
+        int lineNumber = ctx.BORDERRADIUS().getSymbol().getLine();
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+
+        return new BorderRadiusProperty(antlrToWidget.visit(ctx.borderRadius()),String.valueOf(lineNumber));
     }
 
     @Override

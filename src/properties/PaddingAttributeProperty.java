@@ -2,11 +2,11 @@ package properties;
 
 import widgets.Widget;
 
-public class PaddingAttributeWidgetProperty extends Property {
+public class PaddingAttributeProperty extends Property {
 
     private final Widget value;
 
-    public PaddingAttributeWidgetProperty(Widget value, String lnNumber) {
+    public PaddingAttributeProperty(Widget value, String lnNumber) {
         super("padding", lnNumber);
         this.value = value;
     }
