@@ -1997,37 +1997,19 @@ public class DartParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class BoxDecorationPropertiesContext extends ParserRuleContext {
+		public ColorPropertyContext colorProperty() {
+			return getRuleContext(ColorPropertyContext.class,0);
+		}
+		public BorderRadiusPropertyContext borderRadiusProperty() {
+			return getRuleContext(BorderRadiusPropertyContext.class,0);
+		}
 		public BoxDecorationPropertiesContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_boxDecorationProperties; }
-	 
-		public BoxDecorationPropertiesContext() { }
-		public void copyFrom(BoxDecorationPropertiesContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class BoxDecorationBorderRadiusContext extends BoxDecorationPropertiesContext {
-		public BorderRadiusPropertyContext borderRadiusProperty() {
-			return getRuleContext(BorderRadiusPropertyContext.class,0);
-		}
-		public BoxDecorationBorderRadiusContext(BoxDecorationPropertiesContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBoxDecorationBorderRadius(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class BoxDecorationColorContext extends BoxDecorationPropertiesContext {
-		public ColorPropertyContext colorProperty() {
-			return getRuleContext(ColorPropertyContext.class,0);
-		}
-		public BoxDecorationColorContext(BoxDecorationPropertiesContext ctx) { copyFrom(ctx); }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBoxDecorationColor(this);
+			if ( visitor instanceof DartParserVisitor ) return ((DartParserVisitor<? extends T>)visitor).visitBoxDecorationProperties(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2040,7 +2022,6 @@ public class DartParser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case COLOR:
-				_localctx = new BoxDecorationColorContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(352);
@@ -2048,7 +2029,6 @@ public class DartParser extends Parser {
 				}
 				break;
 			case BORDERRADIUS:
-				_localctx = new BoxDecorationBorderRadiusContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(353);

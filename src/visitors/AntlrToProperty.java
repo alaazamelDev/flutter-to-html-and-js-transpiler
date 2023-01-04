@@ -50,33 +50,41 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
         AntlrToWidget antlrToWidgetVisitor = factory.createAntlrToWidget();
 
+        // get the line number of this node
+        int lineNumber = ctx.APPBARATRIB().getSymbol().getLine();
+
         // get appBar context object
         DartParser.AppBarContext appBarContext = ctx.appBar();
 
         // parse the context
         Widget appBar = antlrToWidgetVisitor.visit(appBarContext);
 
-        return new AppBarProperty(appBar);
+        return new AppBarProperty(appBar, String.valueOf(lineNumber));
     }
 
 
     @Override
     public Property visitAppBarTitle(DartParser.AppBarTitleContext ctx) {
+
+        String lineNumber = String.valueOf(ctx.TITLE().getSymbol().getLine());
+        String content = ctx.STRING().getSymbol().getText();
         // return new TitleProperty Object
-        return new TitleProperty(ctx.STRING().getSymbol().getText());
+        return new TitleProperty(content, lineNumber);
     }
 
     @Override
     public Property visitAppBarCenterTitle(DartParser.AppBarCenterTitleContext ctx) {
-        String stringValue = ctx.BOOLEAN().getSymbol().getText();
+        String lineNumber = String.valueOf(ctx.CENTERTITLE().getSymbol().getLine());
+        boolean value = Boolean.parseBoolean(ctx.BOOLEAN().getSymbol().getText());
         // return new CenterTitleProperty Object
-        return new CenterTitleProperty(Boolean.parseBoolean(stringValue));
+        return new CenterTitleProperty(value, lineNumber);
     }
 
 
     @Override
     public Property visitCustomWidgetProperties(DartParser.CustomWidgetPropertiesContext ctx) {
 
+        String lineNumber = String.valueOf(ctx.IDENTIFIER().getSymbol().getLine());
         String propertyName = ctx.IDENTIFIER().getSymbol().getText();
         Object propertyValue = new Object();
 
@@ -93,7 +101,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
                 propertyValue = Double.parseDouble(token.getText());
             }
         }
-        return new CustomWidgetProperty(propertyName, propertyValue);
+        return new CustomWidgetProperty(propertyName, propertyValue, lineNumber);
     }
 
     @Override
@@ -113,34 +121,37 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitTextContent(DartParser.TextContentContext ctx) {
+        String lineNumber = String.valueOf(ctx.TEXTATRIB().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
-
-        return new TextContent(value);
+        return new TextContent(value, lineNumber);
     }
 
     @Override
     public Property visitTextFontWeight(DartParser.TextFontWeightContext ctx) {
+        String lineNumber = String.valueOf(ctx.FONTWEIGHT().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
-        return new FontWeightObjectProperty(FontWeightValue.valueOf(value));
+        return new FontWeightObjectProperty(FontWeightValue.valueOf(value), lineNumber);
     }
 
     @Override
     public Property visitTextFontSize(DartParser.TextFontSizeContext ctx) {
+        String lineNumber = String.valueOf(ctx.FONTSIZE().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
-        return new FontSizeDoubleProperty(Double.parseDouble(value));
+        return new FontSizeDoubleProperty(Double.parseDouble(value), lineNumber);
     }
 
     @Override
     public Property visitTextLetterSpacing(DartParser.TextLetterSpacingContext ctx) {
+        String lineNumber = String.valueOf(ctx.LETTERSPACING().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
-        return new LetterSpacingDoubleProperty(Double.parseDouble(value));
+        return new LetterSpacingDoubleProperty(Double.parseDouble(value), lineNumber);
     }
 
     @Override
     public Property visitTextTextAlign(DartParser.TextTextAlignContext ctx) {
+        String lineNumber = String.valueOf(ctx.TEXTALIGN().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
-
-        return new TextAlignObjectProperty(TextAlignValue.valueOf(value));
+        return new TextAlignObjectProperty(TextAlignValue.valueOf(value), lineNumber);
     }
 
 
@@ -176,13 +187,8 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitBoxDecorationColor(DartParser.BoxDecorationColorContext ctx) {
-        return super.visitBoxDecorationColor(ctx);
-    }
-
-    @Override
-    public Property visitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx) {
-        return super.visitBoxDecorationBorderRadius(ctx);
+    public Property visitBoxDecorationProperties(DartParser.BoxDecorationPropertiesContext ctx) {
+        return visit(ctx.getChild(0));
     }
 
     @Override

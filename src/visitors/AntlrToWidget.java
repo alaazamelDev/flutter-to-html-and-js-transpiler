@@ -82,43 +82,50 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     @Override
     public Widget visitRow(DartParser.RowContext ctx) {
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
+
+        String lineNumber = String.valueOf(ctx.ROW().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         for (DartParser.RowPropertiesContext rp : ctx.rowProperties()) {
             properties.add(antlrToProperty.visit(rp));
         }
-        return new Row(properties);
+        return new Row(properties, lineNumber);
     }
 
     @Override
     public Widget visitCenter(DartParser.CenterContext ctx) {
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
+
+        String lineNumber = String.valueOf(ctx.CENTER().getSymbol().getLine());
+
         List<Property> properties = new ArrayList<>();
 
         for (DartParser.CenterPropertiesContext cp : ctx.centerProperties()) {
             properties.add(antlrToProperty.visit(cp));
         }
 
-        return new Center(properties);
+        return new Center(properties, lineNumber);
     }
 
     @Override
     public Widget visitColumn(DartParser.ColumnContext ctx) {
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
+        String lineNumber = String.valueOf(ctx.COLUMN().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         for (DartParser.ColumnPropertiesContext cp : ctx.columnProperties()) {
             properties.add(antlrToProperty.visit(cp));
         }
-        return new Column(properties);
+        return new Column(properties, lineNumber);
     }
 
     @Override
     public Widget visitText(DartParser.TextContext ctx) {
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
+        String lineNumber = String.valueOf(ctx.TEXT().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
         for (DartParser.TextPropertiesContext tp : ctx.textProperties()) {
             properties.add(antlrToProperty.visit(tp));
         }
-        return new Text(properties);
+        return new Text(properties, lineNumber);
     }
 
 
