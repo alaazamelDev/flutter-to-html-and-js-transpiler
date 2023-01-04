@@ -4,6 +4,18 @@ package visitors;
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
+import org.antlr.v4.runtime.Token;
+import properties.Property;
+import widgets.Border;
+import widgets.Button;
+import widgets.TextField;
+import widgets.AppBar;
+import widgets.Scaffold;
+import widgets.Widget;
+import widgets.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
@@ -245,18 +257,21 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         }
         return new Expanded(properties,line);
     }
+
+    //done
     @Override
     public Widget visitGestureDetector(DartParser.GestureDetectorContext ctx) {
+        Token idToken = ctx.GESTUREDETECTOR().getSymbol();
+        int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
         List<Property> properties=new ArrayList<>();
         for(DartParser.GestureDetectorPropertiesContext gpc : ctx.gestureDetectorProperties()){
             properties.add(antlrToProperty.visit(gpc));
         }
-
-        GestureDetector gestureDetector = new GestureDetector(properties);
-        return gestureDetector;
+        return new GestureDetector(properties,Integer.toString(line));
     }
 
+    //not done
     @Override
     public Widget visitOnFunction(DartParser.OnFunctionContext ctx) {
         return super.visitOnFunction(ctx);
@@ -265,45 +280,53 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     //done
     @Override
     public Widget visitPadding(DartParser.PaddingContext ctx) {
+        Token idToken = ctx.PADDING().getSymbol();
+        int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
         List<Property> properties=new ArrayList<>();
         for(DartParser.PaddingProprteyContext ppc : ctx.paddingProprtey()){
             properties.add(antlrToProperty.visit(ppc));
         }
-        return new Padding(properties);
+        return new Padding(properties,Integer.toString(line));
     }
 
     //done
     @Override
     public Widget visitEdgeInsetsOnly(DartParser.EdgeInsetsOnlyContext ctx) {
+        Token idToken = ctx.EDGE_INSETS_ONLY().getSymbol();
+        int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
         List<Property> properties=new ArrayList<>();
         for(DartParser.EdgeInsetsOnlyPropertiesContext eiopc : ctx.edgeInsetsOnlyProperties()){
             properties.add(antlrToProperty.visit(eiopc));
         }
-        return new EdgeInsetsOnly(properties);
+        return new EdgeInsetsOnly(properties,Integer.toString(line));
     }
 
     //done
     @Override
     public Widget visitEdgeInsetsSymetric(DartParser.EdgeInsetsSymetricContext ctx) {
+        Token idToken = ctx.EDGE_INSETS_SYMMETRIC().getSymbol();
+        int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
         List<Property> properties=new ArrayList<>();
         for(DartParser.EdgeInsetsSymetricPropertiesContext espc : ctx.edgeInsetsSymetricProperties()){
             properties.add(antlrToProperty.visit(espc));
         }
-        return new EdgeInsetsSymmetric(properties);
+        return new EdgeInsetsSymmetric(properties,Integer.toString(line));
     }
 
     //done
     @Override
     public Widget visitImage(DartParser.ImageContext ctx) {
+        Token idToken = ctx.IMAGE().getSymbol();
+        int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty();
         List<Property> properties=new ArrayList<>();
         for(DartParser.ImagePropertiesContext ipc : ctx.imageProperties()){
             properties.add(antlrToProperty.visit(ipc));
         }
-        return new Image(properties);
+        return new Image(properties,Integer.toString(line));
     }
 
     @Override

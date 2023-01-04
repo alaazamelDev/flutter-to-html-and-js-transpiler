@@ -283,6 +283,8 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return visit(ctx.childProperty());
     }
 
+
+    //durra
     @Override
     public Property visitGestureDetector(DartParser.GestureDetectorContext ctx) {
         return super.visitGestureDetector(ctx);
@@ -291,12 +293,16 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     //done
     @Override
     public Property visitGestureDetectorProperties(DartParser.GestureDetectorPropertiesContext ctx) {
-        return new OnPressedProperty(visit(ctx.getChild(2)));
+        Token idToken = ctx.ONPRESSED().getSymbol();
+        int line = idToken.getLine();
+        return new OnPressedProperty(visit(ctx.getChild(2)),Integer.toString(line));
     }
 
+    //not done
     @Override
     public Property visitOnFunction(DartParser.OnFunctionContext ctx) {
-
+        Token idToken = ctx.LP().getSymbol();
+        int line = idToken.getLine();
         return super.visitOnFunction(ctx);
     }
 
@@ -304,65 +310,83 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     //done
     @Override
     public Property visitPaddingPadding(DartParser.PaddingPaddingContext ctx) {
+        Token idToken = ctx.PADDINGATTR().getSymbol();
+        int line = idToken.getLine();
         AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
-        return new PaddingAttributeWidgetProperty(antlrToWidget.visit(ctx.getChild(2)));
+        return new PaddingAttributeWidgetProperty(antlrToWidget.visit(ctx.getChild(2)),Integer.toString(line));
     }
 
+    //done
     @Override
     public Property visitPaddingChild(DartParser.PaddingChildContext ctx) {
-        return super.visitPaddingChild(ctx);
+        return visit(ctx.childProperty());
     }
-
 
     //done
     @Override
     public Property visitEdgeInsetsOnlyTop(DartParser.EdgeInsetsOnlyTopContext ctx) {
-        return new Top(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.TOP().getSymbol();
+        int line = idToken.getLine();
+        return new Top(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
     //done
     @Override
     public Property visitEdgeInsetsOnlyLeft(DartParser.EdgeInsetsOnlyLeftContext ctx) {
-        return new Left(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.LEFT().getSymbol();
+        int line = idToken.getLine();
+        return new Left(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
     //done
     @Override
     public Property visitEdgeInsetsOnlyRight(DartParser.EdgeInsetsOnlyRightContext ctx) {
-        return new Right(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.RIGHT().getSymbol();
+        int line = idToken.getLine();
+        return new Right(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
     //done
     @Override
     public Property visitEdgeInsetsOnlyBottom(DartParser.EdgeInsetsOnlyBottomContext ctx) {
-        return new Bottom(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.BOTTOM().getSymbol();
+        int line = idToken.getLine();
+        return new Bottom(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
     //done
     @Override
     public Property visitEdgeInsetsSymetricHorizontal(DartParser.EdgeInsetsSymetricHorizontalContext ctx) {
-        return new Horizontal(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.HORIZONTAL().getSymbol();
+        int line = idToken.getLine();
+        return new Horizontal(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
     //done
     @Override
     public Property visitEdgeInsetsSymetricVertical(DartParser.EdgeInsetsSymetricVerticalContext ctx) {
-        return new Vertical(Double.parseDouble(ctx.getChild(2).getText()));
+        Token idToken = ctx.VERTICAL().getSymbol();
+        int line = idToken.getLine();
+        return new Vertical(Double.parseDouble(ctx.getChild(2).getText()),Integer.toString(line));
     }
 
 
 
     @Override
     public Property visitImageUrl(DartParser.ImageUrlContext ctx) {
+        Token idToken = ctx.URL().getSymbol();
+        int line = idToken.getLine();
         String url = ctx.getChild(2).getText();
-        return new UrlProperty(url);
+        return new UrlProperty(url,Integer.toString(line));
     }
 
     @Override
     public Property visitImageFit(DartParser.ImageFitContext ctx) {
+        Token idToken = ctx.FIT().getSymbol();
+        int line = idToken.getLine();
         String fitValue = ctx.getChild(2).getText();
         FitValue fitValueEnum = FitValue.valueOf(fitValue);
-        return new FitProperty(fitValueEnum);
+        return new FitProperty(fitValueEnum,Integer.toString(line));
     }
 
     @Override

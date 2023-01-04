@@ -141,13 +141,13 @@ gestureDetector: GESTUREDETECTOR LP (gestureDetectorProperties (COMMA gestureDet
 
 gestureDetectorProperties: ONPRESSED COLON onFunction;
 
-        onFunction: LP (IDENTIFIER COMMA)* RP OB statment* CB;
+onFunction: LP (IDENTIFIER COMMA)* RP OB statment* CB;
 
 padding:    PADDING LP (paddingProprtey (COMMA paddingProprtey)* COMMA? )? RP;
 
 paddingProprtey
     :   PADDINGATTR COLON edgeInsets  #PaddingPadding
-    |   childProperty  #PaddingChild
+    |   childProperty  #PaddingChild //delete label ?
     ;
 
 edgeInsets
