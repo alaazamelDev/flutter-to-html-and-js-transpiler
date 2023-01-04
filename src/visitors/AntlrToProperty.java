@@ -5,8 +5,9 @@ import antlr.DartParserBaseVisitor;
 import enums.*;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import properties.*;
 import properties.border_radius.*;
 import properties.container.ContainerContentAlignmentProperty;
@@ -16,9 +17,6 @@ import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
 import properties.expanded.ExpandedFlexProperty;
 import properties.gestureDetectorProperties.OnPressedProperty;
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNode;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -30,11 +28,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     public AntlrToProperty(IAntlrObjectFactory factory) {
         this.factory = factory;
-    }
-
-    @Override
-    public Property visitProg(DartParser.ProgContext ctx) {
-        return super.visitProg(ctx);
     }
 
 
@@ -104,13 +97,18 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitCenterChild(DartParser.CenterChildContext ctx) {
-        return super.visitCenterChild(ctx);
+    public Property visitRowProperties(DartParser.RowPropertiesContext ctx) {
+        return visit(ctx.getChild(0));
     }
 
     @Override
-    public Property visitColumn(DartParser.ColumnContext ctx) {
-        return super.visitColumn(ctx);
+    public Property visitCenterChild(DartParser.CenterChildContext ctx) {
+        return visit(ctx.childProperty());
+    }
+
+    @Override
+    public Property visitColumnProperties(DartParser.ColumnPropertiesContext ctx) {
+        return visit(ctx.getChild(0));
     }
 
     @Override
@@ -173,38 +171,8 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visit(ParseTree tree) {
-        return super.visit(tree);
-    }
-
-    @Override
     public Property visitChildren(RuleNode node) {
         return super.visitChildren(node);
-    }
-
-    @Override
-    public Property visitTerminal(TerminalNode node) {
-        return super.visitTerminal(node);
-    }
-
-    @Override
-    public Property visitErrorNode(ErrorNode node) {
-        return super.visitErrorNode(node);
-    }
-
-    @Override
-    protected Property defaultResult() {
-        return super.defaultResult();
-    }
-
-    @Override
-    protected Property aggregateResult(Property aggregate, Property nextResult) {
-        return super.aggregateResult(aggregate, nextResult);
-    }
-
-    @Override
-    protected boolean shouldVisitNextChild(RuleNode node, Property currentResult) {
-        return super.shouldVisitNextChild(node, currentResult);
     }
 
     @Override
@@ -216,7 +184,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitBoxDecorationBorderRadius(DartParser.BoxDecorationBorderRadiusContext ctx) {
         return super.visitBoxDecorationBorderRadius(ctx);
     }
-
 
     @Override
     public Property visitBorderRadiusCircularProperties(DartParser.BorderRadiusCircularPropertiesContext ctx) {
@@ -342,11 +309,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitButton(DartParser.ButtonContext ctx) {
-        return super.visitButton(ctx);
-    }
-
-    @Override
     public Property visitButtonWidth(DartParser.ButtonWidthContext ctx) {
         return visit(ctx.widthProperty());
     }
@@ -380,11 +342,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitTextField(DartParser.TextFieldContext ctx) {
-        return super.visitTextField(ctx);
-    }
-
-    @Override
     public Property visitTextFieldValue(DartParser.TextFieldValueContext ctx) {
         String textFieldValue = ctx.getChild(2).getText();
         return new ValueProperty(textFieldValue);
@@ -413,6 +370,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return new HintProperty(textFieldHint);
     }
 
+    // Must return a BorderProperty class
     @Override
     public Property visitTextFieldBorder(DartParser.TextFieldBorderContext ctx) {
         return visit(ctx.border());
@@ -424,16 +382,12 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     }
 
     @Override
-    public Property visitBorder(DartParser.BorderContext ctx) {
-        return super.visitBorder(ctx);
-    }
-
-    @Override
     public Property visitBorderThickness(DartParser.BorderThicknessContext ctx) {
         String borderThickness = ctx.getChild(2).getText();
         return new ThicknessProperty(Integer.parseInt(borderThickness));
     }
 
+    // Must return a BorderRadiusProperty class
     @Override
     public Property visitBorderBorderRadius(DartParser.BorderBorderRadiusContext ctx) {
         return visit(ctx.borderRadius());
@@ -442,23 +396,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitBorderColor(DartParser.BorderColorContext ctx) {
         return visit(ctx.colorProperty());
-    }
-
-
-    @Override
-    public Property visitNonFunctionVariableDeclaration(DartParser.NonFunctionVariableDeclarationContext ctx) {
-
-        return super.visitNonFunctionVariableDeclaration(ctx);
-    }
-
-    @Override
-    public Property visitFunctionVariableDeclaration(DartParser.FunctionVariableDeclarationContext ctx) {
-        return super.visitFunctionVariableDeclaration(ctx);
-    }
-
-    @Override
-    public Property visitVariableAssignment(DartParser.VariableAssignmentContext ctx) {
-        return super.visitVariableAssignment(ctx);
     }
 
     @Override

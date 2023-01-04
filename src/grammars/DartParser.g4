@@ -141,7 +141,7 @@ gestureDetector: GESTUREDETECTOR LP (gestureDetectorProperties (COMMA gestureDet
 
 gestureDetectorProperties: ONPRESSED COLON onFunction;
 
-        onFunction: LP (IDENTIFIER COMMA)* RP OB statment* CB;
+onFunction: LP (IDENTIFIER COMMA)* RP OB statment* CB;
 
 padding:    PADDING LP (paddingProprtey (COMMA paddingProprtey)* COMMA? )? RP;
 
@@ -208,9 +208,6 @@ borderProperties: THICKNESS COLON NUM #BorderThickness
                 | BORDERRADIUS COLON borderRadius   #BorderBorderRadius
                 | colorProperty #BorderColor
                 ;
-
-
-
 
 statment
     :   variableDeclaration
