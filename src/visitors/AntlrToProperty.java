@@ -17,8 +17,6 @@ import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
 import properties.expanded.ExpandedFlexProperty;
 import properties.gestureDetectorProperties.OnPressedProperty;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNode;
 import widgets.Widget;
 
 import java.util.ArrayList;

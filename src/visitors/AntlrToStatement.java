@@ -75,7 +75,7 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
         String identifier = ctx.getChild(0).getText();
 
-        Object propertyValue = new Object();
+        Object variableValue = new Object();
 
         ParseTree child = ctx.getChild(2);
         if (child instanceof TerminalNode) {
@@ -83,13 +83,13 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
             Token token = terminalNode.getSymbol();
             int tokenType = token.getType();
             if (tokenType == DartParser.NUM) {
-                propertyValue = Integer.parseInt(token.getText());
+                variableValue = Integer.parseInt(token.getText());
             } else if (tokenType == DartParser.STRING) {
-                propertyValue = token.getText();
+                variableValue = token.getText();
             } else if (tokenType == DartParser.FLOAT) {
-                propertyValue = Double.parseDouble(token.getText());
+                variableValue = Double.parseDouble(token.getText());
             }
         }
-        return new VariableAssignmentStatement(identifier , propertyValue, String.valueOf(lineNumber));
+        return new VariableAssignmentStatement(identifier , variableValue, String.valueOf(lineNumber));
     }
 }
