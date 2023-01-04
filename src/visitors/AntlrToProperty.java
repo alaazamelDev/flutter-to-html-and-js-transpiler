@@ -407,50 +407,57 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitWidthProperty(DartParser.WidthPropertyContext ctx) {
         String value = ctx.getChild(2).getText();
+        String lnNumber = String.valueOf(ctx.WIDTH().getSymbol().getLine());
 
-        return new WidthProperty(Double.parseDouble(value));
+        return new WidthProperty(Double.parseDouble(value), lnNumber);
     }
 
     @Override
     public Property visitHeightProperty(DartParser.HeightPropertyContext ctx) {
         String value = ctx.getChild(2).getText();
+        String lnNumber = String.valueOf(ctx.HEIGHT().getSymbol().getLine());
 
-        return new HeightProperty(Double.parseDouble(value));
+        return new HeightProperty(Double.parseDouble(value), lnNumber);
     }
 
     @Override
     public Property visitColorProperty(DartParser.ColorPropertyContext ctx) {
         String value = ctx.getChild(2).getText();
-        return new Color(value);
+        String lnNumber = String.valueOf(ctx.COLOR().getSymbol().getLine());
+        return new Color(value, lnNumber);
     }
 
     @Override
     public Property visitChildProperty(DartParser.ChildPropertyContext ctx) {
         AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
         Widget child = antlrToWidget.visit(ctx.getChild(2));
-        return new ChildWidgetProperty(child);
+        String lnNumber = String.valueOf(ctx.CHILD().getSymbol().getLine());
+        return new ChildWidgetProperty(child, lnNumber);
     }
 
     @Override
     public Property visitChildrenProperty(DartParser.ChildrenPropertyContext ctx) {
         AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
         List<Widget> widgets = new ArrayList<>();
+        String lnNumber = String.valueOf(ctx.CHILDREN().getSymbol().getLine());
         for (DartParser.WidgetContext wc : ctx.widget()) {
             widgets.add(antlrToWidget.visit(wc));
         }
-        return new Children(widgets);
+        return new Children(widgets, lnNumber);
     }
 
     @Override
     public Property visitMainAxisSizeProperty(DartParser.MainAxisSizePropertyContext ctx) {
         String value = ctx.getChild(2).getText();
-        return new MainAxisSizeObjectProperty(MainAxisSizeValue.valueOf(value));
+        String lnNumber = String.valueOf(ctx.MAINAXISSIZE().getSymbol().getLine());
+        return new MainAxisSizeObjectProperty(MainAxisSizeValue.valueOf(value), lnNumber);
     }
 
     @Override
     public Property visitCrossAxisAlignmentProperty(DartParser.CrossAxisAlignmentPropertyContext ctx) {
         String value = ctx.getChild(2).getText();
-        return new CrossAxisAlignmentProperty(CrossAxisAlignmentValue.valueOf(value));
+        String lnNumber = String.valueOf(ctx.CROSSAXISALIGNMENT().getSymbol().getLine());
+        return new CrossAxisAlignmentProperty(CrossAxisAlignmentValue.valueOf(value), lnNumber);
     }
 
 }
