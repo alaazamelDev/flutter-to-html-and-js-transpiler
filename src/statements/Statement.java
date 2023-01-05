@@ -1,6 +1,8 @@
 package statements;
 
-public abstract class Statement {
+import visitors.Visitable;
+
+public abstract class Statement implements Visitable {
     private final String lnNumber;
 
     public Statement(String lnNumber) {

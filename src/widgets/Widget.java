@@ -1,10 +1,11 @@
 package widgets;
 
 import properties.Property;
+import visitors.Visitable;
 
 import java.util.List;
 
-public class Widget {
+public abstract class Widget implements Visitable {
     private final  String identifier;
     private final List<Property> properties;
 

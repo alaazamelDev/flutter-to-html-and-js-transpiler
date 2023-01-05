@@ -1,6 +1,8 @@
 package properties;
 
-public abstract class Property {
+import visitors.Visitable;
+
+public abstract class Property implements Visitable {
     private final String name;
 
     private final String lnNumber;
