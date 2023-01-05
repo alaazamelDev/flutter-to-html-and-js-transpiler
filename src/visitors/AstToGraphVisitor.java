@@ -1,5 +1,6 @@
 package visitors;
 
+import program.Program;
 import properties.*;
 import properties.border_radius.BorderRadiusProperty;
 import properties.border_radius.border_radius_circular.RadiusProperty;
@@ -20,6 +21,11 @@ import properties.text.TextContent;
 import widgets.*;
 
 public class AstToGraphVisitor implements Visitor<String> {
+
+    @Override
+    public String visit(Program program) {
+        return null;
+    }
 
     @Override
     public String visit(AppBar appBar) {

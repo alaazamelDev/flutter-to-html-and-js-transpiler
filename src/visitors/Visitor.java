@@ -1,5 +1,6 @@
 package visitors;
 
+import program.Program;
 import properties.*;
 import properties.border_radius.BorderRadiusProperty;
 import properties.border_radius.border_radius_circular.RadiusProperty;
@@ -20,6 +21,8 @@ import properties.text.TextContent;
 import widgets.*;
 
 public interface Visitor<T> {
+
+    public T visit(Program program);
     public T visit(AppBar appBar);
 
     public T visit(Border border);
