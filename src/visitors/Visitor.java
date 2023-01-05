@@ -18,6 +18,9 @@ import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
 import properties.text.TextContent;
+import statements.CustomWidgetDeclarationStatement;
+import statements.VariableAssignmentStatement;
+import statements.VariableDeclarationStatement;
 import widgets.*;
 
 public interface Visitor<T> {
@@ -161,6 +164,12 @@ public interface Visitor<T> {
     public T visit(BodyProperty bodyProperty);
 
     public T visit(TextContent textContent);
+
+    public T visit(CustomWidgetDeclarationStatement customWidgetDeclarationStatement);
+
+    public T visit(VariableAssignmentStatement variableAssignmentStatement);
+
+    public T visit(VariableDeclarationStatement variableDeclarationStatement);
 
 
 

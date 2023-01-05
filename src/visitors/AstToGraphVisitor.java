@@ -18,6 +18,9 @@ import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
 import properties.text.TextContent;
+import statements.CustomWidgetDeclarationStatement;
+import statements.VariableAssignmentStatement;
+import statements.VariableDeclarationStatement;
 import widgets.*;
 
 public class AstToGraphVisitor implements Visitor<String> {
@@ -374,6 +377,21 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(TextContent textContent) {
+        return null;
+    }
+
+    @Override
+    public String visit(CustomWidgetDeclarationStatement customWidgetDeclarationStatement) {
+        return null;
+    }
+
+    @Override
+    public String visit(VariableAssignmentStatement variableAssignmentStatement) {
+        return null;
+    }
+
+    @Override
+    public String visit(VariableDeclarationStatement variableDeclarationStatement) {
         return null;
     }
 }
