@@ -5,7 +5,7 @@ import properties.Property;
 import java.util.List;
 
 public class CustomWidget extends Widget {
-    public CustomWidget(List<Property> properties, String lnNumber) {
-        super("CustomWidget", properties, lnNumber);
+    public CustomWidget(String identifier, List<Property> properties, String lnNumber) {
+        super(identifier, properties, lnNumber);
     }
 }

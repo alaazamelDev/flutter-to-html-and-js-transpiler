@@ -79,7 +79,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         for (DartParser.CustomWidgetPropertiesContext propertiesContext : propertiesContextList) {
             widgetProperties.add(antlrToPropertyVisitor.visit(propertiesContext));
         }
-        return new Widget(widgetIdentifier, widgetProperties, String.valueOf(lineNumber));
+        return new CustomWidget(widgetIdentifier, widgetProperties, String.valueOf(lineNumber));
     }
 
     @Override
