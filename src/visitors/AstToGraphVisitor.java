@@ -1,9 +1,10 @@
 package visitors;
 
+import data_types.Function;
 import program.Program;
 import properties.*;
 import properties.border_radius.BorderRadiusProperty;
-import properties.border_radius.border_radius_circular.RadiusProperty;
+import properties.border_radius.border_radius_circular.borderRadiusCircularRadiusProperty;
 import properties.border_radius.border_radius_only.BottomLeftProperty;
 import properties.border_radius.border_radius_only.BottomRightProperty;
 import properties.border_radius.border_radius_only.TopLeftProperty;
@@ -14,6 +15,8 @@ import properties.edgeInsetsOnlyProperties.Bottom;
 import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
+import properties.edgeInsetsSymetricProperties.Horizontal;
+import properties.edgeInsetsSymetricProperties.Vertical;
 import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
@@ -63,17 +66,35 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(BorderRadiusCircular borderRadiusCircular) {
-        return null;
+        String vertex = UTIL.widgetToString(++UTIL.ID, borderRadiusCircular.getIdentifier(), borderRadiusCircular.getProperties().size(), borderRadiusCircular.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        for (Property property : borderRadiusCircular.getProperties()) {
+            String child = property.accept(this);
+            UTIL.g.addEdge(vertex, child);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(BorderRadiusOnly borderRadiusOnly) {
-        return null;
+        String vertex = UTIL.widgetToString(++UTIL.ID, borderRadiusOnly.getIdentifier(), borderRadiusOnly.getProperties().size(), borderRadiusOnly.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        for (Property property : borderRadiusOnly.getProperties()) {
+            String child = property.accept(this);
+            UTIL.g.addEdge(vertex, child);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(BoxDecorationWidget boxDecorationWidget) {
-        return null;
+        String vertex = UTIL.widgetToString(++UTIL.ID, boxDecorationWidget.getIdentifier(), boxDecorationWidget.getProperties().size(), boxDecorationWidget.getLnNumber());
+        g.addVertex(vertex);
+        for (Property property : boxDecorationWidget.getProperties()) {
+            String child = property.accept(this);
+            g.addEdge(vertex, child);
+        }
+        return vertex;
     }
 
     @Override
@@ -106,7 +127,13 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(Container container) {
-        return null;
+        String vertex = UTIL.widgetToString(++UTIL.ID, container.getIdentifier(), container.getProperties().size(), container.getLnNumber());
+        g.addVertex(vertex);
+        for (Property property : container.getProperties()) {
+            String child = property.accept(this);
+            g.addEdge(vertex, child);
+        }
+        return vertex;
     }
 
     @Override
@@ -116,32 +143,77 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(EdgeInsetsOnly edgeInsetsOnly) {
-        return null;
+        UTIL.ID++;
+        String vertex =UTIL.widgetToString(UTIL.ID,edgeInsetsOnly.getIdentifier(),edgeInsetsOnly.getProperties().size(),
+                edgeInsetsOnly.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        for(Property property : edgeInsetsOnly.getProperties()){
+            String child = property.accept(this);
+            UTIL.g.addEdge(vertex,child);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(EdgeInsetsSymmetric edgeInsetsSymmetric) {
-        return null;
+        UTIL.ID++;
+        String vertex =UTIL.widgetToString(UTIL.ID,edgeInsetsSymmetric.getIdentifier(),edgeInsetsSymmetric.getProperties().size(),
+                edgeInsetsSymmetric.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        for(Property property : edgeInsetsSymmetric.getProperties()){
+            String child = property.accept(this);
+            UTIL.g.addEdge(vertex,child);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(Expanded expanded) {
-        return null;
+        String vertex = UTIL.widgetToString(++UTIL.ID, expanded.getIdentifier(), expanded.getProperties().size(), expanded.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        for (Property property : expanded.getProperties()) {
+            String child = property.accept(this);
+            UTIL.g.addEdge(vertex, child);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(GestureDetector gestureDetector) {
-        return null;
+        UTIL.ID++;
+        String vertex =UTIL.widgetToString(UTIL.ID,gestureDetector.getIdentifier(),gestureDetector.getProperties().size(),
+                gestureDetector.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        for(Property property : gestureDetector.getProperties()){
+            String child = property.accept(this);
+            UTIL.g.addEdge(vertex,child);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(Image image) {
-        return null;
+        UTIL.ID++;
+        String vertex =UTIL.widgetToString(UTIL.ID,image.getIdentifier(),image.getProperties().size(),
+                image.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        for(Property property : image.getProperties()){
+            String child = property.accept(this);
+            UTIL.g.addEdge(vertex,child);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(Padding padding) {
-        return null;
+        UTIL.ID++;
+        String vertex =UTIL.widgetToString(UTIL.ID,padding.getIdentifier(),padding.getProperties().size(),padding.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        for(Property property : padding.getProperties()){
+            String child = property.accept(this);
+            UTIL.g.addEdge(vertex,child);
+        }
+        return vertex;
     }
 
     @Override
@@ -210,17 +282,37 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(Children children) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, children.getName(),
+                                                null, children.getChildren().size(), children.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        for (Widget widget : children.getChildren()) {
+            String childVertex = widget.accept(this);
+            UTIL.g.addEdge(vertex, childVertex);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(ChildWidgetProperty childWidgetProperty) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, childWidgetProperty.getName(),
+                                                null, 1, childWidgetProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        String childVertex = childWidgetProperty.getValue().accept(this);
+        UTIL.g.addEdge(vertex, childVertex);
+
+        return vertex;
     }
 
     @Override
     public String visit(ColorProperty colorProperty) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, colorProperty.getName(),
+                        colorProperty.getValue(), 0, colorProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
@@ -230,7 +322,12 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(CrossAxisAlignmentProperty crossAxisAlignmentProperty) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, crossAxisAlignmentProperty.getName(),
+                String.valueOf(crossAxisAlignmentProperty.getValue()), 0, crossAxisAlignmentProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
@@ -261,17 +358,36 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(FontSizeDoubleProperty fontSizeDoubleProperty) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, fontSizeDoubleProperty.getName(),
+                String.valueOf(fontSizeDoubleProperty.getValue()), 0,
+                fontSizeDoubleProperty.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
     public String visit(FontWeightObjectProperty fontWeightObjectProperty) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, fontWeightObjectProperty.getName(),
+                                            String.valueOf(fontWeightObjectProperty.getValue()), 0,
+                                            fontWeightObjectProperty.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
     public String visit(HeightProperty heightProperty) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, heightProperty.getName(),
+                        String.valueOf(heightProperty.getValue()), 0, heightProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
@@ -287,7 +403,11 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(Horizontal horizontal) {
-        return null;
+        UTIL.ID++;
+        String vertex =UTIL.propertyToString(UTIL.ID,horizontal.getName(),Double.toString(horizontal.getValue()),0,
+                horizontal.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
@@ -303,12 +423,24 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(LetterSpacingDoubleProperty letterSpacingDoubleProperty) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, letterSpacingDoubleProperty.getName(),
+                String.valueOf(letterSpacingDoubleProperty.getValue()), 0,
+                letterSpacingDoubleProperty.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
     public String visit(MainAxisSizeObjectProperty mainAxisSizeObjectProperty) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, mainAxisSizeObjectProperty.getName(),
+                String.valueOf(mainAxisSizeObjectProperty.getValue()), 0, mainAxisSizeObjectProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
@@ -335,27 +467,47 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(OnPressedProperty onPressedProperty) {
-        return null;
-    }
-
-    @Override
-    public String visit(PaddingAttributeProperty paddingAttributeProperty) {
         UTIL.ID++;
-
-        String vertex = UTIL.propertyToString(UTIL.ID, paddingAttributeProperty.getName(), null, 1, paddingAttributeProperty.getLnNumber());
-
+        String vertex = UTIL.propertyToString(UTIL.ID, onPressedProperty.getName(), null,
+                                                onPressedProperty.getValue().getIdentifiers().size() +
+                                                        onPressedProperty.getValue().getStatements().size(),
+                                                        onPressedProperty.getLnNumber());
         UTIL.g.addVertex(vertex);
-
-        String childVertex = paddingAttributeProperty.getValue().accept(this);
-
-        UTIL.g.addEdge(vertex, childVertex);
+        for (String i : onPressedProperty.getValue().getIdentifiers()) {
+            UTIL.ID++;
+            String j = "ID: " + UTIL.ID + "\n" + "Identifier: " + i + "\n" + "lnNum: " + onPressedProperty.getLnNumber();
+            UTIL.g.addVertex(j);
+            UTIL.g.addEdge(vertex, j);
+        }
+        for (Statement statement : onPressedProperty.getValue().getStatements()) {
+            String statementVertex = statement.accept(this);
+            UTIL.g.addEdge(vertex, statementVertex);
+        }
 
         return vertex;
     }
 
     @Override
+    public String visit(PaddingAttributeProperty paddingAttributeProperty) {
+        UTIL.ID++;
+        String vertex =UTIL.propertyToString(UTIL.ID,paddingAttributeProperty.getName(),null,1,
+                paddingAttributeProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        String child =paddingAttributeProperty.getValue().accept(this);
+        UTIL.g.addEdge(vertex,child);
+        return vertex;
+    }
+
+    @Override
     public String visit(TextAlignObjectProperty textAlignObjectProperty) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, textAlignObjectProperty.getName(),
+                String.valueOf(textAlignObjectProperty.getValue()), 0,
+                textAlignObjectProperty.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
@@ -436,77 +588,140 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(Vertical vertical) {
-        return null;
+        UTIL.ID++;
+        String vertex =UTIL.propertyToString(UTIL.ID,vertical.getName(),Double.toString(vertical.getValue()),0,
+                vertical.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
     public String visit(WidthProperty widthProperty) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, widthProperty.getName(),
+                        String.valueOf(widthProperty.getValue()), 0, widthProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
-    public String visit(RadiusProperty radiusProperty) {
-        return null;
+    public String visit(borderRadiusCircularRadiusProperty borderRadiusCircularRadiusProperty) {
+        String vertex = UTIL.propertyToString(++UTIL.ID, borderRadiusCircularRadiusProperty.getName(),
+                String.valueOf(borderRadiusCircularRadiusProperty.getValue()),
+                0, borderRadiusCircularRadiusProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
     public String visit(BottomLeftProperty bottomLeftProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(++UTIL.ID, bottomLeftProperty.getName(),
+                String.valueOf(bottomLeftProperty.getValue()),
+                0, bottomLeftProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
     public String visit(BottomRightProperty bottomRightProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(++UTIL.ID, bottomRightProperty.getName(),
+                String.valueOf(bottomRightProperty.getValue()),
+                0, bottomRightProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
     public String visit(TopLeftProperty topLeftProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(++UTIL.ID, topLeftProperty.getName(),
+                String.valueOf(topLeftProperty.getValue()),
+                0, topLeftProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
     public String visit(TopRightProperty topRightProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(++UTIL.ID, topRightProperty.getName(),
+                String.valueOf(topRightProperty.getValue()),
+                0, topRightProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
     public String visit(BorderRadiusProperty borderRadiusProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(++UTIL.ID, borderRadiusProperty.getName(),
+                null,
+                1, borderRadiusProperty.getLnNumber());
+        g.addVertex(vertex);
+        String child = borderRadiusProperty.getWidget().accept(this);
+        g.addEdge(vertex, child);
+        return vertex;
     }
 
     @Override
     public String visit(ContainerContentAlignmentProperty containerContentAlignmentProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(++UTIL.ID, containerContentAlignmentProperty.getName(),
+                String.valueOf(containerContentAlignmentProperty.getContentAlignmentValue()),
+                0, containerContentAlignmentProperty.getLnNumber());
+        g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
     public String visit(DecorationProperty decorationProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(++UTIL.ID, decorationProperty.getName(), null, 1, decorationProperty.getLnNumber());
+        g.addVertex(vertex);
+        String child = decorationProperty.getWidget().accept(this);
+        g.addEdge(vertex, child);
+        return vertex;
     }
 
     @Override
     public String visit(Left left) {
-        return null;
+        UTIL.ID++;
+        String vertex =UTIL.propertyToString(UTIL.ID,left.getName(),Double.toString(left.getValue()),0,
+                left.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
     public String visit(Right right) {
-        return null;
+        UTIL.ID++;
+        String vertex =UTIL.propertyToString(UTIL.ID,right.getName(),Double.toString(right.getValue()),0,
+                right.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
     public String visit(Bottom bottom) {
-        return null;
+        UTIL.ID++;
+        String vertex =UTIL.propertyToString(UTIL.ID,bottom.getName(),Double.toString(bottom.getValue()),0,
+                bottom.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
     public String visit(Top top) {
-        return null;
+        UTIL.ID++;
+        String vertex =UTIL.propertyToString(UTIL.ID,top.getName(),Double.toString(top.getValue()),0,
+                top.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
     public String visit(ExpandedFlexProperty expandedFlexProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(++UTIL.ID, expandedFlexProperty.getName(),
+                String.valueOf(expandedFlexProperty.getValue()),
+                0, expandedFlexProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
@@ -521,12 +736,29 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(TextContent textContent) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, textContent.getName(), textContent.getValue(),
+                                        0, textContent.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
     public String visit(CustomWidgetDeclarationStatement customWidgetDeclarationStatement) {
-        return null;
+        UTIL.ID++;
+        String vertex = UTIL.widgetToString(UTIL.ID, customWidgetDeclarationStatement.getName(),
+                customWidgetDeclarationStatement.getVariableDeclarationStatements().size() + 1, customWidgetDeclarationStatement.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        for (Statement s : customWidgetDeclarationStatement.getVariableDeclarationStatements()) {
+            String childVertex = s.accept(this);
+            UTIL.g.addEdge(vertex, childVertex);
+        }
+        String widgetVertex = customWidgetDeclarationStatement.getTree().accept(this);
+        UTIL.g.addEdge(vertex, widgetVertex);
+
+        return vertex;
     }
 
     @Override

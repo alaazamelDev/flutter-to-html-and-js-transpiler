@@ -3,7 +3,7 @@ package visitors;
 import program.Program;
 import properties.*;
 import properties.border_radius.BorderRadiusProperty;
-import properties.border_radius.border_radius_circular.RadiusProperty;
+import properties.border_radius.border_radius_circular.borderRadiusCircularRadiusProperty;
 import properties.border_radius.border_radius_only.BottomLeftProperty;
 import properties.border_radius.border_radius_only.BottomRightProperty;
 import properties.border_radius.border_radius_only.TopLeftProperty;
@@ -14,6 +14,8 @@ import properties.edgeInsetsOnlyProperties.Bottom;
 import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
+import properties.edgeInsetsSymetricProperties.Horizontal;
+import properties.edgeInsetsSymetricProperties.Vertical;
 import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
@@ -134,7 +136,7 @@ public interface Visitor<T> {
 
     public T visit(WidthProperty widthProperty);
 
-    public T visit(RadiusProperty radiusProperty);
+    public T visit(borderRadiusCircularRadiusProperty borderRadiusCircularRadiusProperty);
     public T visit(BottomLeftProperty bottomLeftProperty);
 
     public T visit(BottomRightProperty bottomRightProperty);
@@ -170,7 +172,4 @@ public interface Visitor<T> {
     public T visit(VariableAssignmentStatement variableAssignmentStatement);
 
     public T visit(VariableDeclarationStatement variableDeclarationStatement);
-
-
-
 }

@@ -168,7 +168,7 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     public Widget visitBorderRadiusCircular(DartParser.BorderRadiusCircularContext ctx) {
         String line = Integer.toString(ctx.BORDERRADIUSCIRCULAR().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
-        properties.add(factory.createAntlrToProperty().visit(ctx.borderRadiusCircularRadius()));
+        properties.add(factory.createAntlrToProperty().visit(ctx.borderRadiusCircularRadiusProperty()));
         return new BorderRadiusCircular(properties,line);
     }
 

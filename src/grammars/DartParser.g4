@@ -118,10 +118,10 @@ borderRadius
     |   borderRadiusCircular
     ;
 
-borderRadiusCircular: BORDERRADIUSCIRCULAR LP (borderRadiusCircularRadius COMMA?)? RP;
+borderRadiusCircular: BORDERRADIUSCIRCULAR LP (borderRadiusCircularRadiusProperty COMMA?)? RP;
 borderRadiusOnly: BORDERRADIUSONLY LP (borderRadiusOnlyProperties (COMMA borderRadiusOnlyProperties)* COMMA? )? RP;
 
-borderRadiusCircularRadius
+borderRadiusCircularRadiusProperty
     :   RADIUS COLON (NUM|FLOAT)
     ;
 
@@ -208,7 +208,7 @@ textFieldProperties: VALUE COLON STRING #TextFieldValue
 border: BORDER LP (borderProperties (COMMA borderProperties)* COMMA? )? RP;
 
 borderProperties: THICKNESS COLON NUM #BorderThickness
-                | BORDERRADIUS COLON borderRadius   #BorderBorderRadius
+                | borderRadiusProperty   #BorderBorderRadius
                 | colorProperty #BorderColor
                 ;
 

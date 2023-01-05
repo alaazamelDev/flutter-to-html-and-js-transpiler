@@ -16,10 +16,10 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/Desktop/jgrapht-core-1.5.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../antlr-4.11.1-complete.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,55 +28,41 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/Desktop/jgrapht-demo-1.5.1.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/antlr-4.11.1-complete.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jgrapht.ext1" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/Desktop/jgrapht-ext-1.5.1.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-opt-1.5.1.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-unimi-dsi-1.5.1.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-io-1.5.1.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-guava-1.5.1.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-ext-1.5.1.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-demo-1.5.1.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-core-1.5.1.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/Desktop/jgrapht-guava-1.5.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/Desktop/jgrapht-opt-1.5.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/Desktop/jgrapht-io-1.5.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/Desktop/jgrapht-unimi-dsi-1.5.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-core/src/main/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-core/src/test/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-demo/src/main/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-demo/src/test/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-ext/src/main/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-ext/src/test/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-guava/src/main/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-guava/src/test/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-io/src/main/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-io/src/test/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-opt/src/main/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-opt/src/test/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-unimi-dsi/src/main/java" />
+          <root url="jar://$USER_HOME$/Desktop/jgrapht-1.5.1.zip!/jgrapht-1.5.1/source/jgrapht-unimi-dsi/src/test/java" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>

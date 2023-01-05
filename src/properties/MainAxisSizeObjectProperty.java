@@ -1,6 +1,7 @@
 package properties;
 
 import enums.MainAxisSizeValue;
+import visitors.Visitor;
 
 public class MainAxisSizeObjectProperty extends Property {
     private final MainAxisSizeValue value;
@@ -12,5 +13,10 @@ public class MainAxisSizeObjectProperty extends Property {
 
     public MainAxisSizeValue getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }
