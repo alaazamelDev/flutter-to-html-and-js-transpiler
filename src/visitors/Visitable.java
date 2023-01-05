@@ -2,5 +2,5 @@ package visitors;
 
 public interface Visitable {
 
-    public void accept(Visitor visitor);
+    <T> T accept(Visitor<T> visitor);
 }
