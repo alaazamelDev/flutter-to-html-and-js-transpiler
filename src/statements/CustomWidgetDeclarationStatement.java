@@ -1,5 +1,6 @@
 package statements;
 
+import visitors.Visitor;
 import widgets.Widget;
 
 import java.util.List;
@@ -26,5 +27,10 @@ public class CustomWidgetDeclarationStatement extends Statement {
 
     public Widget getTree() {
         return tree;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

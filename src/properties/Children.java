@@ -1,6 +1,7 @@
 package properties;
 
 
+import visitors.Visitor;
 import widgets.Widget;
 
 import java.util.List;
@@ -17,5 +18,10 @@ public class Children extends Property{
 
     public List<Widget> getChildren() {
         return children;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

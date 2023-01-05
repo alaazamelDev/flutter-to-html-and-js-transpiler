@@ -1,5 +1,7 @@
 package properties;
 
+import visitors.Visitor;
+
 public class WidthProperty extends Property {
     private final double value;
 
@@ -10,5 +12,10 @@ public class WidthProperty extends Property {
 
     public double getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

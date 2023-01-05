@@ -170,7 +170,4 @@ public interface Visitor<T> {
     public T visit(VariableAssignmentStatement variableAssignmentStatement);
 
     public T visit(VariableDeclarationStatement variableDeclarationStatement);
-
-
-
 }
