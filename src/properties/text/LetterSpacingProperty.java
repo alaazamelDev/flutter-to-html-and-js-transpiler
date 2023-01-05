@@ -3,15 +3,15 @@ package properties.text;
 import properties.Property;
 import visitors.Visitor;
 
-public class TextContent extends Property {
-    private final String value;
+public class LetterSpacingProperty extends Property {
+    private final double value;
 
-    public TextContent(String value, String lnNumber) {
-        super("text", lnNumber);
+    public LetterSpacingProperty(double value, String lnNumber) {
+        super("letterSpacing", lnNumber);
         this.value = value;
     }
 
-    public String getValue() {
+    public double getValue() {
         return value;
     }
 

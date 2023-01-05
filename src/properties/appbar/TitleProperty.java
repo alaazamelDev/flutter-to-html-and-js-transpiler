@@ -1,13 +1,14 @@
-package properties.text;
+package properties.appbar;
 
 import properties.Property;
 import visitors.Visitor;
 
-public class TextContent extends Property {
+public class TitleProperty extends Property {
+
     private final String value;
 
-    public TextContent(String value, String lnNumber) {
-        super("text", lnNumber);
+    public TitleProperty(String value, String lnNumber) {
+        super("title", lnNumber);
         this.value = value;
     }
 

@@ -8,9 +8,10 @@ import enums.*;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import properties.*;
+import properties.appbar.CenterTitleProperty;
+import properties.appbar.TitleProperty;
 import properties.border_radius.*;
 import properties.border_radius.border_radius_circular.RadiusProperty;
 import properties.border_radius.border_radius_only.BottomLeftProperty;
@@ -23,11 +24,13 @@ import properties.edgeInsetsOnlyProperties.Bottom;
 import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
+import properties.edgeInsetsSymetricProperties.Horizontal;
+import properties.edgeInsetsSymetricProperties.Vertical;
 import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
 import properties.ColorProperty;
-import properties.text.TextContent;
+import properties.text.*;
 import statements.Statement;
 import widgets.Widget;
 
@@ -144,14 +147,14 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitTextFontWeight(DartParser.TextFontWeightContext ctx) {
         String lineNumber = String.valueOf(ctx.FONTWEIGHT().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
-        return new FontWeightObjectProperty(FontWeightValue.valueOf(value), lineNumber);
+        return new FontWeightProperty(FontWeightValue.valueOf(value), lineNumber);
     }
 
     @Override
     public Property visitTextFontSize(DartParser.TextFontSizeContext ctx) {
         String lineNumber = String.valueOf(ctx.FONTSIZE().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
-        return new FontSizeDoubleProperty(Double.parseDouble(value), lineNumber);
+        return new FontSizeProperty(Double.parseDouble(value), lineNumber);
     }
 
     @Override
@@ -164,14 +167,14 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitTextLetterSpacing(DartParser.TextLetterSpacingContext ctx) {
         String lineNumber = String.valueOf(ctx.LETTERSPACING().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
-        return new LetterSpacingDoubleProperty(Double.parseDouble(value), lineNumber);
+        return new LetterSpacingProperty(Double.parseDouble(value), lineNumber);
     }
 
     @Override
     public Property visitTextTextAlign(DartParser.TextTextAlignContext ctx) {
         String lineNumber = String.valueOf(ctx.TEXTALIGN().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
-        return new TextAlignObjectProperty(TextAlignValue.valueOf(value), lineNumber);
+        return new TextAlignProperty(TextAlignValue.valueOf(value), lineNumber);
     }
 
 

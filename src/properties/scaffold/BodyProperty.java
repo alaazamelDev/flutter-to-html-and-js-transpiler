@@ -1,6 +1,7 @@
 package properties.scaffold;
 
 import properties.Property;
+import visitors.Visitor;
 import widgets.Widget;
 
 public class BodyProperty extends Property {
@@ -15,5 +16,10 @@ public class BodyProperty extends Property {
 
     public Widget getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

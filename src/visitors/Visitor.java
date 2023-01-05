@@ -2,6 +2,8 @@ package visitors;
 
 import program.Program;
 import properties.*;
+import properties.appbar.CenterTitleProperty;
+import properties.appbar.TitleProperty;
 import properties.border_radius.BorderRadiusProperty;
 import properties.border_radius.border_radius_circular.RadiusProperty;
 import properties.border_radius.border_radius_only.BottomLeftProperty;
@@ -14,10 +16,12 @@ import properties.edgeInsetsOnlyProperties.Bottom;
 import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
+import properties.edgeInsetsSymetricProperties.Horizontal;
+import properties.edgeInsetsSymetricProperties.Vertical;
 import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
-import properties.text.TextContent;
+import properties.text.*;
 import statements.CustomWidgetDeclarationStatement;
 import statements.VariableAssignmentStatement;
 import statements.VariableDeclarationStatement;
@@ -90,9 +94,9 @@ public interface Visitor<T> {
 
     public T visit(Flex flex);
 
-    public T visit(FontSizeDoubleProperty fontSizeDoubleProperty);
+    public T visit(FontSizeProperty fontSizeProperty);
 
-    public T visit(FontWeightObjectProperty fontWeightObjectProperty);
+    public T visit(FontWeightProperty fontWeightProperty);
 
     public T visit(HeightProperty heightProperty);
 
@@ -102,7 +106,7 @@ public interface Visitor<T> {
 
     public T visit(LabelProperty labelProperty);
 
-    public T visit(LetterSpacingDoubleProperty letterSpacingDoubleProperty);
+    public T visit(LetterSpacingProperty letterSpacingProperty);
 
     public T visit(MainAxisSizeObjectProperty mainAxisSizeObjectProperty);
 
@@ -112,7 +116,7 @@ public interface Visitor<T> {
 
     public T visit(PaddingAttributeProperty paddingAttributeProperty);
 
-    public T visit(TextAlignObjectProperty textAlignObjectProperty);
+    public T visit(TextAlignProperty textAlignProperty);
 
     public T visit(TextColorProperty textColorProperty);
 

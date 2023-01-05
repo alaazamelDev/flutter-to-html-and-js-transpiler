@@ -1,6 +1,7 @@
 package properties.edgeInsetsSymetricProperties;
 
 import properties.Property;
+import visitors.Visitor;
 
 public class Vertical extends Property {
 
@@ -14,5 +15,10 @@ public class Vertical extends Property {
 
     public double getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

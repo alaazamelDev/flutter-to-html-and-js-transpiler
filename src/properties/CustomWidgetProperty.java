@@ -1,5 +1,7 @@
 package properties;
 
+import visitors.Visitor;
+
 public class CustomWidgetProperty extends Property {
     private final Object value;
 
@@ -10,5 +12,10 @@ public class CustomWidgetProperty extends Property {
 
     public Object getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

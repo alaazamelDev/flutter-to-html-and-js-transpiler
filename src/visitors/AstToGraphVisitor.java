@@ -2,6 +2,8 @@ package visitors;
 
 import program.Program;
 import properties.*;
+import properties.appbar.CenterTitleProperty;
+import properties.appbar.TitleProperty;
 import properties.border_radius.BorderRadiusProperty;
 import properties.border_radius.border_radius_circular.RadiusProperty;
 import properties.border_radius.border_radius_only.BottomLeftProperty;
@@ -14,25 +16,72 @@ import properties.edgeInsetsOnlyProperties.Bottom;
 import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
+import properties.edgeInsetsSymetricProperties.Horizontal;
+import properties.edgeInsetsSymetricProperties.Vertical;
 import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
-import properties.text.TextContent;
+import properties.text.*;
 import statements.CustomWidgetDeclarationStatement;
+import statements.Statement;
 import statements.VariableAssignmentStatement;
 import statements.VariableDeclarationStatement;
+import utils.UTIL;
 import widgets.*;
+
+import java.util.List;
+
+import static utils.UTIL.ID;
+import static utils.UTIL.g;
 
 public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(Program program) {
-        return null;
+
+        // build the vertex
+        String vertex = "ID: " + ++ID + "\n" +
+                "NODE: Program" + "\n" +
+                "CHILD_COUNT: " + (program.getStatements().size() + (program.getScaffold() == null ? 0 : 1));
+
+        // add the vertex to the graph
+        g.addVertex(vertex);
+
+        // get the list of statements
+        List<Statement> children = program.getStatements();
+        for (Statement statement : children) {
+            String childVertex = statement.accept(this);
+            g.addEdge(vertex, childVertex);
+        }
+
+        // add the scaffold as the last child
+        Widget rootWidget = program.getScaffold();
+        if (rootWidget != null) {
+            String stringScaffold = rootWidget.accept(this);
+            g.addEdge(vertex, stringScaffold);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(AppBar appBar) {
-        return null;
+
+        String vertex = UTIL.widgetToString(
+                ++ID,
+                appBar.getIdentifier(),
+                appBar.getProperties().size(),
+                appBar.getLnNumber()
+        );
+
+        // add the vertex to the graph
+        g.addVertex(vertex);
+
+        List<Property> children = appBar.getProperties();
+        for (Property child : children) {
+            String childVertex = child.accept(this);
+            g.addEdge(vertex, childVertex);
+        }
+        return vertex;
     }
 
     @Override
@@ -62,12 +111,43 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(Center center) {
-        return null;
+        String vertex = UTIL.widgetToString(
+                ++ID,
+                center.getIdentifier(),
+                center.getProperties().size(),
+                center.getLnNumber()
+        );
+
+        // add vertex to graph
+        g.addVertex(vertex);
+
+        List<Property> children = center.getProperties();
+        for (Property child : children) {
+            String childVertex = child.accept(this);
+            g.addEdge(vertex, childVertex);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(Column column) {
-        return null;
+        String vertex = UTIL.widgetToString(
+                ++ID,
+                column.getIdentifier(),
+                column.getProperties().size(),
+                column.getLnNumber()
+        );
+
+
+        // add the vertex to the graph
+        g.addVertex(vertex);
+
+        List<Property> children = column.getProperties();
+        for (Property child : children) {
+            String childVertex = child.accept(this);
+            g.addEdge(vertex, childVertex);
+        }
+        return vertex;
     }
 
     @Override
@@ -77,7 +157,23 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(CustomWidget customWidget) {
-        return null;
+        String vertex = UTIL.widgetToString(
+                ++ID,
+                customWidget.getIdentifier(),
+                customWidget.getProperties().size(),
+                customWidget.getLnNumber()
+        );
+
+
+        // add the vertex to the graph
+        g.addVertex(vertex);
+
+        List<Property> children = customWidget.getProperties();
+        for (Property child : children) {
+            String childVertex = child.accept(this);
+            g.addEdge(vertex, childVertex);
+        }
+        return vertex;
     }
 
     @Override
@@ -112,17 +208,64 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(Row row) {
-        return null;
+        String vertex = UTIL.widgetToString(
+                ++ID,
+                row.getIdentifier(),
+                row.getProperties().size(),
+                row.getLnNumber()
+        );
+
+
+        // add the vertex to the graph
+        g.addVertex(vertex);
+
+        List<Property> children = row.getProperties();
+        for (Property child : children) {
+            String childVertex = child.accept(this);
+            g.addEdge(vertex, childVertex);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(Scaffold scaffold) {
-        return null;
+        String vertex = UTIL.widgetToString(
+                ++ID,
+                scaffold.getIdentifier(),
+                scaffold.getProperties().size(),
+                scaffold.getLnNumber()
+        );
+
+
+        // add the vertex to the graph
+        g.addVertex(vertex);
+
+        List<Property> children = scaffold.getProperties();
+        for (Property child : children) {
+            String childVertex = child.accept(this);
+            g.addEdge(vertex, childVertex);
+        }
+        return vertex;
     }
 
     @Override
     public String visit(Text text) {
-        return null;
+        String vertex = UTIL.widgetToString(
+                ++ID,
+                text.getIdentifier(),
+                text.getProperties().size(),
+                text.getLnNumber()
+        );
+
+        // add vertex to graph
+        g.addVertex(vertex);
+
+        List<Property> children = text.getProperties();
+        for (Property child : children) {
+            String childVertex = child.accept(this);
+            g.addEdge(vertex, childVertex);
+        }
+        return vertex;
     }
 
     @Override
@@ -142,7 +285,17 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(CenterTitleProperty centerTitleProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(
+                ++ID,
+                centerTitleProperty.getName(),
+                String.valueOf(centerTitleProperty.getValue()),
+                0,
+                centerTitleProperty.getLnNumber()
+        );
+
+        // add the vertex to the graph
+        g.addVertex(vertex);
+        return vertex;
     }
 
     @Override
@@ -172,7 +325,18 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(CustomWidgetProperty customWidgetProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(
+                ++ID,
+                customWidgetProperty.getName(),
+                String.valueOf(customWidgetProperty.getValue()),
+                0,
+                customWidgetProperty.getLnNumber()
+        );
+
+        // add the vertex to the graph
+        g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
@@ -191,12 +355,12 @@ public class AstToGraphVisitor implements Visitor<String> {
     }
 
     @Override
-    public String visit(FontSizeDoubleProperty fontSizeDoubleProperty) {
+    public String visit(FontSizeProperty fontSizeProperty) {
         return null;
     }
 
     @Override
-    public String visit(FontWeightObjectProperty fontWeightObjectProperty) {
+    public String visit(FontWeightProperty fontWeightProperty) {
         return null;
     }
 
@@ -221,7 +385,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     }
 
     @Override
-    public String visit(LetterSpacingDoubleProperty letterSpacingDoubleProperty) {
+    public String visit(LetterSpacingProperty letterSpacingProperty) {
         return null;
     }
 
@@ -246,7 +410,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     }
 
     @Override
-    public String visit(TextAlignObjectProperty textAlignObjectProperty) {
+    public String visit(TextAlignProperty textAlignProperty) {
         return null;
     }
 
@@ -267,7 +431,18 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(TitleProperty titleProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(
+                ++ID,
+                titleProperty.getName(),
+                titleProperty.getValue(),
+                0,
+                titleProperty.getLnNumber()
+        );
+
+        // add the vertex to the graph
+        g.addVertex(vertex);
+
+        return vertex;
     }
 
     @Override
@@ -367,12 +542,42 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(AppBarProperty appBarProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(
+                ++ID,
+                appBarProperty.getName(),
+                null,
+                1,
+                appBarProperty.getLnNumber()
+        );
+
+        // add the vertex to the graph
+        g.addVertex(vertex);
+
+        Widget propertyValue = appBarProperty.getValue();
+        String childVertex = propertyValue.accept(this);
+        g.addEdge(vertex, childVertex);
+
+        return vertex;
     }
 
     @Override
     public String visit(BodyProperty bodyProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(
+                ++ID,
+                bodyProperty.getName(),
+                null,
+                1,
+                bodyProperty.getLnNumber()
+        );
+
+        // add the vertex to the graph
+        g.addVertex(vertex);
+
+        Widget propertyValue = bodyProperty.getValue();
+        String childVertex = propertyValue.accept(this);
+        g.addEdge(vertex, childVertex);
+
+        return vertex;
     }
 
     @Override

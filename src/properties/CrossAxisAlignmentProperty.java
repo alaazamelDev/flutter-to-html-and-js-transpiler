@@ -1,6 +1,7 @@
 package properties;
 
 import enums.CrossAxisAlignmentValue;
+import visitors.Visitor;
 
 public class CrossAxisAlignmentProperty extends Property {
     private final CrossAxisAlignmentValue value;
@@ -13,5 +14,10 @@ public class CrossAxisAlignmentProperty extends Property {
 
     public CrossAxisAlignmentValue getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }
