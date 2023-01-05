@@ -1,5 +1,7 @@
 package properties;
 
+import visitors.Visitor;
+
 public class TopRightIntProperty extends Property {
     private final int value;
 
@@ -10,5 +12,10 @@ public class TopRightIntProperty extends Property {
 
     public int getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

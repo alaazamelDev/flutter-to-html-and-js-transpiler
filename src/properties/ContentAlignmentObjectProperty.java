@@ -1,6 +1,7 @@
 package properties;
 
 import enums.ContentAlignmentValue;
+import visitors.Visitor;
 
 public class ContentAlignmentObjectProperty extends Property {
     private final ContentAlignmentValue value;
@@ -12,5 +13,10 @@ public class ContentAlignmentObjectProperty extends Property {
 
     public ContentAlignmentValue getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }
