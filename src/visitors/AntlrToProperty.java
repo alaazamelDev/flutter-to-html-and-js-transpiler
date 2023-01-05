@@ -8,7 +8,6 @@ import enums.*;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import properties.*;
 import properties.border_radius.*;
@@ -23,6 +22,8 @@ import properties.edgeInsetsOnlyProperties.Bottom;
 import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
+import properties.edgeInsetsSymetricProperties.Horizontal;
+import properties.edgeInsetsSymetricProperties.Vertical;
 import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
@@ -269,12 +270,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return visit(ctx.childProperty());
     }
 
-
-    //durra
-    @Override
-    public Property visitGestureDetector(DartParser.GestureDetectorContext ctx) {
-        return super.visitGestureDetector(ctx);
-    }
 
     //done
     @Override

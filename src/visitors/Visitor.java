@@ -14,6 +14,8 @@ import properties.edgeInsetsOnlyProperties.Bottom;
 import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
+import properties.edgeInsetsSymetricProperties.Horizontal;
+import properties.edgeInsetsSymetricProperties.Vertical;
 import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
