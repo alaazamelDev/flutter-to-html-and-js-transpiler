@@ -1,6 +1,7 @@
 package properties;
 
 import enums.FontWeightValue;
+import visitors.Visitor;
 
 public class FontWeightObjectProperty extends Property{
     private final FontWeightValue value;
@@ -11,5 +12,10 @@ public class FontWeightObjectProperty extends Property{
 
     public FontWeightValue getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }
