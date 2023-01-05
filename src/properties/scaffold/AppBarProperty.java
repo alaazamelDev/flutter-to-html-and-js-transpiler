@@ -1,6 +1,7 @@
 package properties.scaffold;
 
 import properties.Property;
+import visitors.Visitor;
 import widgets.Widget;
 
 public class AppBarProperty extends Property {
@@ -13,5 +14,10 @@ public class AppBarProperty extends Property {
 
     public Widget getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

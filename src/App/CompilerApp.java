@@ -23,7 +23,7 @@ public class CompilerApp {
         ParseTree antlrAST = parser.prog();
         IAntlrObjectFactory antlrObjectFactory = new AntlrObjectFactory();
 
-        //check if there any syntax error
+        //check if there is any syntax error
         if (MyErrorLisitener.hasErorr) {
 
         } else {
@@ -31,15 +31,7 @@ public class CompilerApp {
             AntlrToProgram antlrToProgram = new AntlrToProgram(antlrObjectFactory);
             Program program = antlrToProgram.visit(antlrAST);
 
-//            if(antlrToProgram.semanticError.isEmpty()){
-//                // no semantic errors
-//            }
-//            else{
-//                //there are semantic errors
-//                for(String err :antlrToProgram.semanticError){
-//                    System.err.println(err);
-//                }
-//            }
+
         }
     }
 

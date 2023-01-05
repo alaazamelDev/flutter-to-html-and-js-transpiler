@@ -6,7 +6,7 @@ import widgets.Widget;
 
 import java.util.List;
 
-public class Children extends Property{
+public class Children extends Property {
 
     private final List<Widget> children;
 

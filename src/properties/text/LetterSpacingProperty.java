@@ -1,14 +1,13 @@
-package properties.edgeInsetsSymetricProperties;
+package properties.text;
 
 import properties.Property;
 import visitors.Visitor;
 
-public class Horizontal extends Property {
-
+public class LetterSpacingProperty extends Property {
     private final double value;
 
-    public Horizontal(double value, String lnNumber) {
-        super("horizontal", lnNumber);
+    public LetterSpacingProperty(double value, String lnNumber) {
+        super("letterSpacing", lnNumber);
         this.value = value;
     }
 

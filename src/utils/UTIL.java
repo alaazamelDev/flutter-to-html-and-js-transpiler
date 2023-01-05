@@ -10,8 +10,8 @@ public class UTIL {
     public static String widgetToString(int ID, String name, int childCnt, String lnNum) {
         return "ID: " + ID + "\n" +
                 name + " Widget " + "\n" +
-                "childCnt: " + childCnt +
-                "lnNum: " + lnNum;
+                "CHILD_COUNT: " + childCnt +
+                "LINE: " + lnNum ;
     }
 
     public static String propertyToString(int ID, String name, String value, int childCnt, String lnNum) {
