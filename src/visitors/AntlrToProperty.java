@@ -8,11 +8,10 @@ import enums.*;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import properties.*;
 import properties.border_radius.*;
-import properties.border_radius.border_radius_circular.RadiusProperty;
+import properties.border_radius.border_radius_circular.borderRadiusCircularRadiusProperty;
 import properties.border_radius.border_radius_only.BottomLeftProperty;
 import properties.border_radius.border_radius_only.BottomRightProperty;
 import properties.border_radius.border_radius_only.TopLeftProperty;
@@ -225,12 +224,10 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
 
     @Override
-    public Property visitBorderRadiusCircularRadius(DartParser.BorderRadiusCircularRadiusContext ctx) {
-
+    public Property visitBorderRadiusCircularRadiusProperty(DartParser.BorderRadiusCircularRadiusPropertyContext ctx) {
         String lineNumber = String.valueOf(ctx.RADIUS().getSymbol().getLine());
         double radius = Double.parseDouble(ctx.getChild(2).getText());
-
-        return new RadiusProperty(radius, lineNumber);
+        return new borderRadiusCircularRadiusProperty(radius, lineNumber);
     }
 
     @Override
@@ -495,10 +492,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitBorderBorderRadius(DartParser.BorderBorderRadiusContext ctx) {
-        int lineNumber = ctx.BORDERRADIUS().getSymbol().getLine();
-        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
-
-        return new BorderRadiusProperty(antlrToWidget.visit(ctx.borderRadius()), String.valueOf(lineNumber));
+        return visit(ctx.getChild(0));
     }
 
     @Override
