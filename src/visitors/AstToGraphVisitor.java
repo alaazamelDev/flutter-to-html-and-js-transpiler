@@ -1,6 +1,5 @@
 package visitors;
 
-import data_types.Function;
 import program.Program;
 import properties.*;
 import properties.appbar.CenterTitleProperty;
@@ -35,7 +34,6 @@ import java.util.List;
 import static utils.UTIL.ID;
 import static utils.UTIL.g;
 
-import javax.swing.text.Utilities;
 
 import java.util.List;
 
@@ -134,10 +132,10 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(BoxDecorationWidget boxDecorationWidget) {
         String vertex = UTIL.widgetToString(++UTIL.ID, boxDecorationWidget.getIdentifier(), boxDecorationWidget.getProperties().size(), boxDecorationWidget.getLnNumber());
-        g.addVertex(vertex);
+        UTIL.g.addVertex(vertex);
         for (Property property : boxDecorationWidget.getProperties()) {
             String child = property.accept(this);
-            g.addEdge(vertex, child);
+            UTIL.g.addEdge(vertex, child);
         }
         return vertex;
     }
@@ -204,10 +202,10 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(Container container) {
         String vertex = UTIL.widgetToString(++UTIL.ID, container.getIdentifier(), container.getProperties().size(), container.getLnNumber());
-        g.addVertex(vertex);
+        UTIL.g.addVertex(vertex);
         for (Property property : container.getProperties()) {
             String child = property.accept(this);
-            g.addEdge(vertex, child);
+            UTIL.g.addEdge(vertex, child);
         }
         return vertex;
     }
@@ -481,19 +479,9 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(CustomWidgetProperty customWidgetProperty) {
-        String vertex = UTIL.propertyToString(
-                ++ID,
-                customWidgetProperty.getName(),
-                String.valueOf(customWidgetProperty.getValue()),
-                0,
-                customWidgetProperty.getLnNumber()
-        );
-
-        // add the vertex to the graph
-        g.addVertex(vertex);
-
-        return vertex;
+        return null;
     }
+
 
     @Override
     public String visit(DecorationWidgetProperty decorationWidgetProperty) {
@@ -519,9 +507,9 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(FontSizeProperty fontSizeProperty) {
         UTIL.ID++;
-        String vertex = UTIL.propertyToString(UTIL.ID, fontSizeDoubleProperty.getName(),
-                String.valueOf(fontSizeDoubleProperty.getValue()), 0,
-                fontSizeDoubleProperty.getLnNumber());
+        String vertex = UTIL.propertyToString(UTIL.ID, fontSizeProperty.getName(),
+                String.valueOf(fontSizeProperty.getValue()), 0,
+                fontSizeProperty.getLnNumber());
 
         UTIL.g.addVertex(vertex);
 
@@ -531,9 +519,9 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(FontWeightProperty fontWeightProperty) {
         UTIL.ID++;
-        String vertex = UTIL.propertyToString(UTIL.ID, fontWeightObjectProperty.getName(),
-                                            String.valueOf(fontWeightObjectProperty.getValue()), 0,
-                                            fontWeightObjectProperty.getLnNumber());
+        String vertex = UTIL.propertyToString(UTIL.ID, fontWeightProperty.getName(),
+                                            String.valueOf(fontWeightProperty.getValue()), 0,
+                fontWeightProperty.getLnNumber());
 
         UTIL.g.addVertex(vertex);
 
@@ -584,9 +572,9 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(LetterSpacingProperty letterSpacingProperty) {
         UTIL.ID++;
-        String vertex = UTIL.propertyToString(UTIL.ID, letterSpacingDoubleProperty.getName(),
-                String.valueOf(letterSpacingDoubleProperty.getValue()), 0,
-                letterSpacingDoubleProperty.getLnNumber());
+        String vertex = UTIL.propertyToString(UTIL.ID, letterSpacingProperty.getName(),
+                String.valueOf(letterSpacingProperty.getValue()), 0,
+                letterSpacingProperty.getLnNumber());
 
         UTIL.g.addVertex(vertex);
 
@@ -661,9 +649,9 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(TextAlignProperty textAlignProperty) {
         UTIL.ID++;
-        String vertex = UTIL.propertyToString(UTIL.ID, textAlignObjectProperty.getName(),
-                String.valueOf(textAlignObjectProperty.getValue()), 0,
-                textAlignObjectProperty.getLnNumber());
+        String vertex = UTIL.propertyToString(UTIL.ID, textAlignProperty.getName(),
+                String.valueOf(textAlignProperty.getValue()), 0,
+                textAlignProperty.getLnNumber());
 
         UTIL.g.addVertex(vertex);
 
@@ -820,9 +808,9 @@ public class AstToGraphVisitor implements Visitor<String> {
         String vertex = UTIL.propertyToString(++UTIL.ID, borderRadiusProperty.getName(),
                 null,
                 1, borderRadiusProperty.getLnNumber());
-        g.addVertex(vertex);
+        UTIL.g.addVertex(vertex);
         String child = borderRadiusProperty.getWidget().accept(this);
-        g.addEdge(vertex, child);
+        UTIL.g.addEdge(vertex, child);
         return vertex;
     }
 
@@ -831,16 +819,16 @@ public class AstToGraphVisitor implements Visitor<String> {
         String vertex = UTIL.propertyToString(++UTIL.ID, containerContentAlignmentProperty.getName(),
                 String.valueOf(containerContentAlignmentProperty.getContentAlignmentValue()),
                 0, containerContentAlignmentProperty.getLnNumber());
-        g.addVertex(vertex);
+        UTIL.g.addVertex(vertex);
         return vertex;
     }
 
     @Override
     public String visit(DecorationProperty decorationProperty) {
         String vertex = UTIL.propertyToString(++UTIL.ID, decorationProperty.getName(), null, 1, decorationProperty.getLnNumber());
-        g.addVertex(vertex);
+        UTIL.g.addVertex(vertex);
         String child = decorationProperty.getWidget().accept(this);
-        g.addEdge(vertex, child);
+        UTIL.g.addEdge(vertex, child);
         return vertex;
     }
 

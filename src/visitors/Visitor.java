@@ -2,6 +2,8 @@ package visitors;
 
 import program.Program;
 import properties.*;
+import properties.BackgroundColorProperty;
+import properties.BorderProperty;
 import properties.appbar.CenterTitleProperty;
 import properties.appbar.TitleProperty;
 import properties.border_radius.BorderRadiusProperty;
