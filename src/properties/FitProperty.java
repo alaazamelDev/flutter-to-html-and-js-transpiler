@@ -1,6 +1,7 @@
 package properties;
 
 import enums.FitValue;
+import visitors.Visitor;
 
 public class FitProperty extends Property {
 
@@ -14,5 +15,10 @@ public class FitProperty extends Property {
 
     public FitValue getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

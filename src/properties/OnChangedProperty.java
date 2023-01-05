@@ -1,6 +1,7 @@
 package properties;
 
 import data_types.Function;
+import visitors.Visitor;
 
 public class OnChangedProperty extends Property {
 
@@ -13,5 +14,10 @@ public class OnChangedProperty extends Property {
 
     public Function getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

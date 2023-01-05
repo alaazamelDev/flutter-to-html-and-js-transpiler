@@ -1,5 +1,7 @@
 package statements;
 
+import visitors.Visitor;
+
 public class VariableAssignmentStatement extends Statement {
     private final String name;
     private final Object value;
@@ -16,5 +18,9 @@ public class VariableAssignmentStatement extends Statement {
 
     public Object getValue() {
         return value;
+    }
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

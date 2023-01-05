@@ -1,5 +1,6 @@
 package properties;
 
+import visitors.Visitor;
 import widgets.Widget;
 
 public class BorderProperty extends Property {
@@ -13,5 +14,10 @@ public class BorderProperty extends Property {
 
     public Widget getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }
