@@ -22,6 +22,8 @@ import properties.edgeInsetsOnlyProperties.Bottom;
 import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
+import properties.edgeInsetsSymetricProperties.Horizontal;
+import properties.edgeInsetsSymetricProperties.Vertical;
 import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
@@ -266,12 +268,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return visit(ctx.childProperty());
     }
 
-
-    //durra
-    @Override
-    public Property visitGestureDetector(DartParser.GestureDetectorContext ctx) {
-        return super.visitGestureDetector(ctx);
-    }
 
     //done
     @Override

@@ -1,6 +1,7 @@
 package properties.edgeInsetsOnlyProperties;
 
 import properties.Property;
+import visitors.Visitor;
 
 public class Left extends Property {
     private final double value;
@@ -12,5 +13,9 @@ public class Left extends Property {
 
     public double getValue() {
         return value;
+    }
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }
