@@ -7,21 +7,18 @@ public class UTIL {
     public static int ID=1;
     public static DefaultUndirectedGraph<String, DefaultEdge> g = new DefaultUndirectedGraph<String, DefaultEdge>(DefaultEdge.class);
 
-    public static String widgetToString(int ID, String name, int childCnt) {
+    public static String widgetToString(int ID, String name, int childCnt, String lnNum) {
         return  "ID: " + ID + "\n" +
                 name + " Widget " + "\n" +
-                "childCnt: " + childCnt;
+                "childCnt: " + childCnt +
+                "lnNum: " + lnNum ;
     }
 
-    public static String propertyToString(int ID, String name, String value, int childCnt) {
-        if (childCnt > 0) {
-            return  "ID: " + ID + "\n" +
-                    name + " Property " + "\n" +
-                    "value: " + value + "\n" +
-                    "childCnt: " + childCnt;
-        }
+    public static String propertyToString(int ID, String name, String value, int childCnt, String lnNum) {
         return  "ID: " + ID + "\n" +
                 name + " Property " + "\n" +
-                "value: " + value;
+                ((value != null) ? "value: " + value + "\n" : "") +
+                ((childCnt > 0) ? "childCnt: " + childCnt : "") +
+                "lnNum: " + lnNum ;
     }
 }

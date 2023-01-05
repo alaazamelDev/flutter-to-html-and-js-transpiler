@@ -236,11 +236,11 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBorderRadiusOnly(DartParser.BorderRadiusOnlyContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#borderRadiusCircularRadius}.
+	 * Visit a parse tree produced by {@link DartParser#borderRadiusCircularRadiusProperty}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBorderRadiusCircularRadius(DartParser.BorderRadiusCircularRadiusContext ctx);
+	T visitBorderRadiusCircularRadiusProperty(DartParser.BorderRadiusCircularRadiusPropertyContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code BorderRadiusOnlyTopRight}
 	 * labeled alternative in {@link DartParser#borderRadiusOnlyProperties}.
