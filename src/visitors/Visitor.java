@@ -13,156 +13,155 @@ import properties.edgeInsetsOnlyProperties.Bottom;
 import properties.edgeInsetsOnlyProperties.Left;
 import properties.edgeInsetsOnlyProperties.Right;
 import properties.edgeInsetsOnlyProperties.Top;
+import properties.edgeInsetsSymetricProperties.Horizontal;
+import properties.edgeInsetsSymetricProperties.Vertical;
 import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
 import properties.text.TextContent;
 import widgets.*;
 
-public interface Visitor {
-    public void visit(AppBar appBar, String parent);
+public interface Visitor<T> {
+    public T visit(AppBar appBar);
 
-    public void visit(Border border, String parent);
+    public T visit(Border border);
 
-    public void visit(BorderRadiusCircular borderRadiusCircular, String parent);
+    public T visit(BorderRadiusCircular borderRadiusCircular);
 
-    public void visit(BorderRadiusOnly borderRadiusOnly, String parent);
+    public T visit(BorderRadiusOnly borderRadiusOnly);
 
-    public void visit(BoxDecorationWidget boxDecorationWidget, String parent);
+    public T visit(BoxDecorationWidget boxDecorationWidget);
 
-    public void visit(Button button, String parent);
+    public T visit(Button button);
 
-    public void visit(Center center, String parent);
+    public T visit(Center center);
 
-    public void visit(Column column, String parent);
+    public T visit(Column column);
 
-    public void visit(Container container, String parent);
+    public T visit(Container container);
 
-    public void visit(CustomWidget customWidget, String parent);
+    public T visit(CustomWidget customWidget);
 
-    public void visit(EdgeInsetsOnly edgeInsetsOnly, String parent);
+    public T visit(EdgeInsetsOnly edgeInsetsOnly);
 
-    public void visit(EdgeInsetsSymmetric edgeInsetsSymmetric, String parent);
+    public T visit(EdgeInsetsSymmetric edgeInsetsSymmetric);
 
-    public void visit(Expanded expanded, String parent);
+    public T visit(Expanded expanded);
 
-    public void visit(GestureDetector gestureDetector, String parent);
+    public T visit(GestureDetector gestureDetector);
 
-    public void visit(Image image, String parent);
+    public T visit(Image image);
 
-    public void visit(Padding padding, String parent);
+    public T visit(Padding padding);
 
-    public void visit(Row row, String parent);
+    public T visit(Row row);
 
-    public void visit(Scaffold scaffold, String parent);
+    public T visit(Scaffold scaffold);
 
-    public void visit(Text text, String parent);
+    public T visit(Text text);
 
-    public void visit(TextField textField, String parent);
+    public T visit(TextField textField);
 
-    public void visit(BackgroundColorProperty backgroundColorProperty, String parent);
+    public T visit(BackgroundColorProperty backgroundColorProperty);
 
-    public void visit(BorderProperty borderProperty, String parent);
+    public T visit(BorderProperty borderProperty);
 
-    public void visit(CenterTitleProperty centerTitleProperty, String parent);
+    public T visit(CenterTitleProperty centerTitleProperty);
 
-    public void visit(Children children, String parent);
+    public T visit(Children children);
 
-    public void visit(ChildWidgetProperty childWidgetProperty, String parent);
+    public T visit(ChildWidgetProperty childWidgetProperty);
 
-    public void visit(ColorProperty colorProperty, String parent);
+    public T visit(ColorProperty colorProperty);
 
-    public void visit(ContentAlignmentObjectProperty contentAlignmentObjectProperty, String parent);
+    public T visit(ContentAlignmentObjectProperty contentAlignmentObjectProperty);
 
-    public void visit(CrossAxisAlignmentProperty crossAxisAlignmentProperty, String parent);
+    public T visit(CrossAxisAlignmentProperty crossAxisAlignmentProperty);
 
-    public void visit(CustomWidgetProperty customWidgetProperty, String parent);
+    public T visit(CustomWidgetProperty customWidgetProperty);
 
-    public void visit(DecorationWidgetProperty decorationWidgetProperty, String parent);
+    public T visit(DecorationWidgetProperty decorationWidgetProperty);
 
-    public void visit(FitProperty fitProperty, String parent);
+    public T visit(FitProperty fitProperty);
 
-    public void visit(Flex flex, String parent);
+    public T visit(Flex flex);
 
-    public void visit(FontSizeDoubleProperty fontSizeDoubleProperty, String parent);
+    public T visit(FontSizeDoubleProperty fontSizeDoubleProperty);
 
-    public void visit(FontWeightObjectProperty fontWeightObjectProperty, String parent);
+    public T visit(FontWeightObjectProperty fontWeightObjectProperty);
 
-    public void visit(HeightProperty heightProperty, String parent);
+    public T visit(HeightProperty heightProperty);
 
-    public void visit(HintProperty hintProperty, String parent);
+    public T visit(HintProperty hintProperty);
 
-    public void visit(Horizontal horizontal, String parent);
+    public T visit(Horizontal horizontal);
 
-    public void visit(LabelProperty labelProperty, String parent);
+    public T visit(LabelProperty labelProperty);
 
-    public void visit(LetterSpacingDoubleProperty letterSpacingDoubleProperty, String parent);
+    public T visit(LetterSpacingDoubleProperty letterSpacingDoubleProperty);
 
-    public void visit(MainAxisSizeObjectProperty mainAxisSizeObjectProperty, String parent);
+    public T visit(MainAxisSizeObjectProperty mainAxisSizeObjectProperty);
 
-    public void visit(OnChangedProperty onChangedProperty, String parent);
+    public T visit(OnChangedProperty onChangedProperty);
 
-    public void visit(OnPressedProperty onPressedProperty, String parent);
+    public T visit(OnPressedProperty onPressedProperty);
 
-    public void visit(PaddingAttributeProperty paddingAttributeProperty, String parent);
+    public T visit(PaddingAttributeProperty paddingAttributeProperty);
 
-    public void visit(TextAlignObjectProperty textAlignObjectProperty, String parent);
+    public T visit(TextAlignObjectProperty textAlignObjectProperty);
 
-    public void visit(TextColorProperty textColorProperty, String parent);
+    public T visit(TextColorProperty textColorProperty);
 
-    public void visit(ThicknessProperty thicknessProperty, String parent);
+    public T visit(ThicknessProperty thicknessProperty);
 
-    public void visit(TitleColorProperty titleColorProperty, String parent);
+    public T visit(TitleColorProperty titleColorProperty);
 
-    public void visit(TitleProperty titleProperty, String parent);
+    public T visit(TitleProperty titleProperty);
 
-    public void visit(TopLeftIntProperty topLeftIntProperty, String parent);
+    public T visit(TopLeftIntProperty topLeftIntProperty);
 
-    public void visit(TopRightIntProperty topRightIntProperty, String parent);
+    public T visit(TopRightIntProperty topRightIntProperty);
 
-    public void visit(UrlProperty urlProperty, String parent);
+    public T visit(UrlProperty urlProperty);
 
-    public void visit(ValueProperty valueProperty, String parent);
+    public T visit(ValueProperty valueProperty);
 
-    public void visit(Vertical vertical, String parent);
+    public T visit(Vertical vertical);
 
-    public void visit(WidthProperty widthProperty, String parent);
+    public T visit(WidthProperty widthProperty);
 
-    public void visit(RadiusProperty radiusProperty, String parent);
+    public T visit(RadiusProperty radiusProperty);
 ////////////////////////////////////////////////////////////////////////////////
-    public void visit(BottomLeftProperty bottomLeftProperty, String parent);
+    public T visit(BottomLeftProperty bottomLeftProperty);
 
-    public void visit(BottomRightProperty bottomRightProperty, String parent);
+    public T visit(BottomRightProperty bottomRightProperty);
 
-    public void visit(TopLeftProperty topLeftProperty, String parent);
+    public T visit(TopLeftProperty topLeftProperty);
 
-    public void visit(TopRightProperty topRightProperty, String parent);
+    public T visit(TopRightProperty topRightProperty);
 
-    public void visit(BorderRadiusProperty borderRadiusProperty, String parent);
+    public T visit(BorderRadiusProperty borderRadiusProperty);
 
-    public void visit(ContainerContentAlignmentProperty containerContentAlignmentProperty, String parent);
+    public T visit(ContainerContentAlignmentProperty containerContentAlignmentProperty);
 
-    public void visit(DecorationProperty decorationProperty, String parent);
+    public T visit(DecorationProperty decorationProperty);
 
-    public void visit(Left left, String parent);
+    public T visit(Left left);
 
-    public void visit(Right right, String parent);
+    public T visit(Right right);
 
-    public void visit(Bottom bottom, String parent);
+    public T visit(Bottom bottom);
 
-    public void visit(Top top, String parent);
+    public T visit(Top top);
 
-    //inside edgeInsetsSyme
-//    public void visit(Horizontal horizontal, String parent);
-//    public  void visit (Vertical vertical, String parent);
 
-    public void visit(ExpandedFlexProperty expandedFlexProperty, String parent);
+    public T visit(ExpandedFlexProperty expandedFlexProperty);
 
-    public void visit(AppBarProperty appBarProperty, String parent);
+    public T visit(AppBarProperty appBarProperty);
 
-    public void visit(BodyProperty bodyProperty, String parent);
+    public T visit(BodyProperty bodyProperty);
 
-    public void visit(TextContent textContent, String parent);
+    public T visit(TextContent textContent);
 
 
 
