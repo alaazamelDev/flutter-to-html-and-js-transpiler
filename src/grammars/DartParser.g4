@@ -5,7 +5,7 @@ options {
   tokenVocab=DartLexer;
 }
 
-prog: statment* scaffold*  EOF
+prog: statment* scaffold?  EOF
     ;
 // modify comma
 scaffold: SCAFFOLD LP (scaffoldProperty (COMMA scaffoldProperty )* COMMA?) ? RP
@@ -28,18 +28,18 @@ appBarProperties
     ;
 
 widget
-    :   row #RowWidget
-    |   center #CenterWidget
-    |   text #TextWidget
-    |   container #ContainerWidget
-    |   expanded #ExpandedWidget
-    |   column #ColumnWidget
-    |   gestureDetector #GestureDetectorWidget
-    |   padding #PaddingWidget
-    |   image #ImageWidget
-    |   button #ButtonWidget
-    |   customWidget #CreatedWidget
-    |   textField #TextFieldWidget
+    :   row
+    |   center
+    |   text
+    |   container
+    |   expanded
+    |   column
+    |   gestureDetector
+    |   padding
+    |   image
+    |   button
+    |   customWidget
+    |   textField
     ;
 
 customWidget
@@ -54,16 +54,18 @@ row
     : ROW LP (rowProperties (COMMA rowProperties)* COMMA? )? RP
     ;
 
+//those already written in there own seperate visitors
 rowProperties
-    :   childrenProperty #RowChildren
-    |   mainAxisSizeProperty #RowMainAxisSize
-    |   crossAxisAlignmentProperty #RowCrossAxisAlignment
+    :   childrenProperty
+    |   mainAxisSizeProperty
+    |   crossAxisAlignmentProperty
     ;
 
 center
     :   CENTER LP (centerProperties (COMMA centerProperties)* COMMA? )? RP
     ;
 
+//those already written in there own seperate visitors
 centerProperties
     :   childProperty #CenterChild
     ;
@@ -75,9 +77,9 @@ column
     ;
 
 columnProperties
-    :   childrenProperty #ColumnChildren
-    |   mainAxisSizeProperty #ColumnMainAxisSize
-    |   crossAxisAlignmentProperty #ColumnCrossAxisAlignment
+    :   childrenProperty
+    |   mainAxisSizeProperty
+    |   crossAxisAlignmentProperty
     ;
 
 
@@ -99,27 +101,31 @@ containerProperties:    widthProperty #ContainerWidth
                    |    heightProperty #ContainerHeight
                    |    CONTENTALIGNMENT COLON (CENTERVALUE | LEFT | RIGHT) #ContainerContentAlignment
                    |    childProperty #ContainerChild
-                   |    DECORATION COLON boxDecoration #ContainerDecoration
+                   |    decorationProperty #ContainerDecoration
                    ;
 
+decorationProperty: DECORATION COLON boxDecoration; //new gabsonia
 
 boxDecoration:  BOXDECORATION LP (boxDecorationProperties (COMMA boxDecorationProperties)* COMMA? )? RP;
 
-boxDecorationProperties: colorProperty #BoxDecorationColor
-                       | BORDERRADIUS COLON borderRadius #BoxDecorationBorderRadius
+boxDecorationProperties: colorProperty
+                       | borderRadiusProperty
                        ;
+borderRadiusProperty: BORDERRADIUS COLON borderRadius;
 
 borderRadius
     :   borderRadiusOnly
     |   borderRadiusCircular
     ;
 
-borderRadiusCircular: BORDERRADIUSCIRCULAR LP borderRadiusCircularProperties COMMA? RP;
+borderRadiusCircular: BORDERRADIUSCIRCULAR LP (borderRadiusCircularRadiusProperty COMMA?)? RP;
 borderRadiusOnly: BORDERRADIUSONLY LP (borderRadiusOnlyProperties (COMMA borderRadiusOnlyProperties)* COMMA? )? RP;
 
-borderRadiusCircularProperties: RADIUS COLON (NUM|FLOAT);
+borderRadiusCircularRadiusProperty
+    :   RADIUS COLON (NUM|FLOAT)
+    ;
 
-borderRadiusOnlyProperties
+borderRadiusOnlyProperties //TODO make it double only
     :   TOPRIGHT COLON (NUM|FLOAT) #BorderRadiusOnlyTopRight
     |   TOPLEFT COLON (NUM|FLOAT) #BorderRadiusOnlyTopLeft
     |   BOTTOMRIGHT COLON (NUM|FLOAT) #BorderRadiusOnlyBottomRight
@@ -135,15 +141,16 @@ expandedProperties:     FLEX COLON NUM #ExpandedFlex
 
 gestureDetector: GESTUREDETECTOR LP (gestureDetectorProperties (COMMA gestureDetectorProperties)* COMMA? )? RP;
 
-gestureDetectorProperties: ONPRESSED COLON onFunction;
+gestureDetectorProperties
+    :   onPressedProperty  #GestureDetectorOnPressed
+    ;
 
-onFunction: LP (IDENTIFIER COMMA)* RP OB statment* CB;
 
 padding:    PADDING LP (paddingProprtey (COMMA paddingProprtey)* COMMA? )? RP;
 
 paddingProprtey
     :   PADDINGATTR COLON edgeInsets  #PaddingPadding
-    |   childProperty  #PaddingChild
+    |   childProperty  #PaddingChild //delete label ?
     ;
 
 edgeInsets
@@ -184,7 +191,7 @@ buttonProperties
     |   TITLE COLON STRING  #ButtonTitle
     |   BACKGROUND_COLOR COLON HEX_NUM  #ButtonBackgroundColor
     |   TITLE_COLOR COLON HEX_NUM   #ButtonTitleColor
-    |   ONPRESSED COLON onFunction   #ButtonOnPressed
+    |   onPressedProperty   #ButtonOnPressed
     ;
 
 
@@ -196,22 +203,19 @@ textFieldProperties: VALUE COLON STRING #TextFieldValue
                    | PADDINGATTR COLON edgeInsets #TextFieldPadding
                    | HINT COLON STRING #TextFieldHint
                    | BORDERATRI COLON border #TextFieldBorder
-                   | ONCHANGED COLON onFunction #TextFieldOnChanged
+                   | ONCHANGED COLON LP (IDENTIFIER COMMA)* RP OB statment* CB #TextFieldOnChanged
                    ;
 border: BORDER LP (borderProperties (COMMA borderProperties)* COMMA? )? RP;
 
 borderProperties: THICKNESS COLON NUM #BorderThickness
-                | BORDERRADIUS COLON borderRadius   #BorderBorderRadius
+                | borderRadiusProperty   #BorderBorderRadius
                 | colorProperty #BorderColor
                 ;
 
-
-
-
 statment
-    :   variableDeclaration     #VariableDeclarationStatment
-    |   variableAssignment      #VariableAssignmentStatment
-    |   customWidgetDeclaration #CustomWidgetDeclarationStatement
+    :   variableDeclaration
+    |   variableAssignment
+    |   customWidgetDeclaration
     ;
 
 // statements
@@ -225,34 +229,18 @@ variableAssignment
     ;
 
 //custom widget stuff
-customWidgetDeclaration: WIDGET WIDGETNAME OB variables RETURN LP tree RP CB;
-variables: variableDeclaration*;
-tree: widget;
+customWidgetDeclaration
+    :   WIDGET WIDGETNAME OB variableDeclaration* RETURN LP widget RP CB
+    ;
 
 // Frequency grammars
 widthProperty:  WIDTH COLON (NUM|FLOAT);
 heightProperty: HEIGHT COLON (NUM|FLOAT);
 colorProperty: COLOR COLON HEX_NUM;
 childProperty:  CHILD COLON widget;
-childrenProperty:   CHILDREN COLON OA (widget COMMA)* CA;
+childrenProperty:   CHILDREN COLON OA (widget (COMMA widget)* COMMA? )? CA;
 mainAxisSizeProperty:   MAINAXISSIZE COLON (MAX | MIN);
-crossAxisAlignmentProperty: CROSSAXISALIGNMENT COLON (STRETCH | LEFT | RIGHT | CENTER);
-
-//    TextField(
-//      value:"Hello there",
-//      label:'email',
-//      textColor: 0x000000,
-//      contentPadding: EdgeInsetsSymmetric(horizontal: 16),
-//      hint: 'enter your email',
-//      border: Border(
-//        thinkness: 1,
-//        color:0x000000,
-//        radius: BorderRadiusOnly(
-//          topRight:2,
-//          topLeft:3,
-//          bottomRight:2,
-//          bottomLeft:12,
-//        ),
-//      ),
-//      onChanged:(newValue){},
-//    )
+crossAxisAlignmentProperty: CROSSAXISALIGNMENT COLON (STRETCH | LEFT | RIGHT | CENTERVALUE);
+onPressedProperty
+    :   ONPRESSED COLON LP (IDENTIFIER COMMA)* RP OB statment* CB
+    ;
