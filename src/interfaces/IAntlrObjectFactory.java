@@ -3,6 +3,7 @@ package interfaces;
 import visitors.AntlrToProperty;
 import visitors.AntlrToStatement;
 import visitors.AntlrToWidget;
+import visitors.SymbolTableVisitorAst;
 
 public interface IAntlrObjectFactory {
 
@@ -11,4 +12,6 @@ public interface IAntlrObjectFactory {
     AntlrToProperty createAntlrToProperty();
 
     AntlrToStatement createAntlrToStatement();
+
+    SymbolTableVisitorAst createSymbolTableVisitor();
 }

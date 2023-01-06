@@ -9,8 +9,8 @@ public class SymbolTable {
     private static SymbolTable instance;
 
     private SymbolTable() {
-        scopes = new Stack<HashMap<String, Symbol>>();
-        scopes.push(new HashMap<String, Symbol>());
+        scopes = new Stack<>();
+        scopes.push(new HashMap<>());
     }
 
 

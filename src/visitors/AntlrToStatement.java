@@ -10,6 +10,7 @@ import statements.CustomWidgetDeclarationStatement;
 import statements.Statement;
 import statements.VariableAssignmentStatement;
 import statements.VariableDeclarationStatement;
+import widgets.CustomWidget;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -39,15 +40,25 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
         Widget widget = antlrToWidget.visit(ctx.widget());
 
-        return new CustomWidgetDeclarationStatement(name, vars, widget, lnNumber);
+        // get access to symbol table visitor
+        SymbolTableVisitorAst symbolTableVisitorAst = factory.createSymbolTableVisitor();
+
+        CustomWidgetDeclarationStatement customWidget =
+                new CustomWidgetDeclarationStatement(name, vars, widget, lnNumber);
+
+        // TODO: Handle semantic errors
+        // register the widget in the symbol table
+        customWidget.accept(symbolTableVisitorAst);
+
+        return customWidget;
     }
 
 
     @Override
-    public Statement visitStatment(DartParser.StatmentContext ctx){
-
+    public Statement visitStatment(DartParser.StatmentContext ctx) {
         return visit(ctx.getChild(0));
     }
+
     @Override
     public Statement visitFunctionVariableDeclaration(DartParser.FunctionVariableDeclarationContext ctx) {
         int lineNumber = ctx.FUNCTION().getSymbol().getLine();
@@ -55,7 +66,7 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         String type = ctx.getChild(2).getText();
         String identifier = ctx.IDENTIFIER().getSymbol().getText();
 
-        return new VariableDeclarationStatement(type,identifier,String.valueOf(lineNumber));
+        return new VariableDeclarationStatement(type, identifier, String.valueOf(lineNumber));
     }
 
     @Override
@@ -65,7 +76,17 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         String type = ctx.getChild(0).getText();
         String identifier = ctx.getChild(1).getText();
 
-        return new VariableDeclarationStatement(type,identifier,String.valueOf(lineNumber));
+        // get access to symbol table visitor
+        SymbolTableVisitorAst symbolTableVisitorAst = factory.createSymbolTableVisitor();
+
+        VariableDeclarationStatement varDeclaration =
+                new VariableDeclarationStatement(type, identifier, String.valueOf(lineNumber));
+
+        // TODO: Handle semantic errors
+        // register the widget in the symbol table
+        varDeclaration.accept(symbolTableVisitorAst);
+
+        return varDeclaration;
     }
 
     @Override
@@ -77,8 +98,7 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         Object variableValue = new Object();
 
         ParseTree child = ctx.getChild(2);
-        if (child instanceof TerminalNode) {
-            TerminalNode terminalNode = (TerminalNode) child;
+        if (child instanceof TerminalNode terminalNode) {
             Token token = terminalNode.getSymbol();
             int tokenType = token.getType();
             if (tokenType == DartParser.NUM) {
@@ -89,6 +109,17 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
                 variableValue = Double.parseDouble(token.getText());
             }
         }
-        return new VariableAssignmentStatement(identifier , variableValue, String.valueOf(lineNumber));
+
+        // get access to symbol table visitor
+        SymbolTableVisitorAst symbolTableVisitorAst = factory.createSymbolTableVisitor();
+
+        VariableAssignmentStatement varAssignment =
+                new VariableAssignmentStatement(identifier, variableValue, String.valueOf(lineNumber));
+
+        // TODO: Handle semantic errors
+        // register the widget in the symbol table
+        varAssignment.accept(symbolTableVisitorAst);
+
+        return varAssignment;
     }
 }

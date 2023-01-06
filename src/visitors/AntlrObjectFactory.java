@@ -17,4 +17,9 @@ public class AntlrObjectFactory implements IAntlrObjectFactory {
     public AntlrToStatement createAntlrToStatement() {
         return new AntlrToStatement(this);
     }
+
+    @Override
+    public SymbolTableVisitorAst createSymbolTableVisitor() {
+        return new SymbolTableVisitorAst();
+    }
 }
