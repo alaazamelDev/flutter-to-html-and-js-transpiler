@@ -29,4 +29,8 @@ public class UTIL {
                 ((type != null) ? "type: " + type + "\n" : "") +
                 "line: " + lnNum;
     }
+
+    public static String semanticAlreadyDeclaredProperty(int line, int column, String propertyName) {
+        return "Property " + propertyName + " Already Declared " + line + ":" + column;
+    }
 }

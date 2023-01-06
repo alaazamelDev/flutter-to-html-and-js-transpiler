@@ -6,6 +6,7 @@ import antlr.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import properties.Property;
+import utils.UTIL;
 import widgets.Border;
 import widgets.Button;
 import widgets.TextField;
@@ -14,8 +15,11 @@ import widgets.Scaffold;
 import widgets.Widget;
 import widgets.*;
 
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     private final IAntlrObjectFactory factory;
@@ -178,9 +182,20 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     public Widget visitBorderRadiusOnly(DartParser.BorderRadiusOnlyContext ctx) {
         String line = Integer.toString(ctx.BORDERRADIUSONLY().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
+        Set<String> set = new HashSet<>();
+
         for (DartParser.BorderRadiusOnlyPropertiesContext bdopc : ctx.borderRadiusOnlyProperties()) {
-            properties.add(factory.createAntlrToProperty(semanticError).visit(bdopc));
+            Property property = factory.createAntlrToProperty(semanticError).visit(bdopc);
+            properties.add(property);
+            if(set.contains(property.getClass().toString())){
+                int column =bdopc.getStart().getCharPositionInLine();
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column,property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
         }
+
         return new BorderRadiusOnly(properties,line);
     }
 
@@ -188,8 +203,18 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     public Widget visitExpanded(DartParser.ExpandedContext ctx) {
         String line = Integer.toString(ctx.EXPANDED().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
+        Set<String> set = new HashSet<>();
+
         for (DartParser.ExpandedPropertiesContext epc : ctx.expandedProperties()) {
+            Property property =factory.createAntlrToProperty(semanticError).visit(epc);
             properties.add(factory.createAntlrToProperty(semanticError).visit(epc));
+            if(set.contains(property.getClass().toString())){
+                int column =epc.getStart().getCharPositionInLine();
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column,property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
         }
         return new Expanded(properties,line);
     }
@@ -201,8 +226,18 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty(semanticError);
         List<Property> properties=new ArrayList<>();
+        Set<String> set = new HashSet<>();
+
         for(DartParser.GestureDetectorPropertiesContext gpc : ctx.gestureDetectorProperties()){
-            properties.add(antlrToProperty.visit(gpc));
+            Property property = antlrToProperty.visit(gpc);
+            properties.add(property);
+            if(set.contains(property.getClass().toString())){
+                int column =gpc.getStart().getCharPositionInLine();
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column,property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
         }
         return new GestureDetector(properties,Integer.toString(line));
     }
@@ -214,8 +249,18 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty(semanticError);
         List<Property> properties=new ArrayList<>();
+        Set<String> set = new HashSet<>();
+
         for(DartParser.PaddingProprteyContext ppc : ctx.paddingProprtey()){
-            properties.add(antlrToProperty.visit(ppc));
+            Property property =antlrToProperty.visit(ppc);
+            properties.add(property);
+            if(set.contains(property.getClass().toString())){
+                int column =ppc.getStart().getCharPositionInLine()+1;
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column,property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
         }
         return new Padding(properties,Integer.toString(line));
     }
@@ -227,8 +272,18 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty(semanticError);
         List<Property> properties=new ArrayList<>();
+        Set<String> set = new HashSet<>();
+
         for(DartParser.EdgeInsetsOnlyPropertiesContext eiopc : ctx.edgeInsetsOnlyProperties()){
-            properties.add(antlrToProperty.visit(eiopc));
+            Property property =antlrToProperty.visit(eiopc);
+            properties.add(property);
+            if(set.contains(property.getClass().toString())){
+                int column =eiopc.getStart().getCharPositionInLine()+1;
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column,property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
         }
         return new EdgeInsetsOnly(properties,Integer.toString(line));
     }
@@ -240,8 +295,18 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty(semanticError);
         List<Property> properties=new ArrayList<>();
+        Set<String> set = new HashSet<>();
+
         for(DartParser.EdgeInsetsSymetricPropertiesContext espc : ctx.edgeInsetsSymetricProperties()){
-            properties.add(antlrToProperty.visit(espc));
+            Property property =antlrToProperty.visit(espc);
+            properties.add(property);
+            if(set.contains(property.getClass().toString())){
+                int column =espc.getStart().getCharPositionInLine()+1;
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column,property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
         }
         return new EdgeInsetsSymmetric(properties,Integer.toString(line));
     }
@@ -253,8 +318,18 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         int line = idToken.getLine();
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty(semanticError);
         List<Property> properties=new ArrayList<>();
+        Set<String> set = new HashSet<>();
+
         for(DartParser.ImagePropertiesContext ipc : ctx.imageProperties()){
-            properties.add(antlrToProperty.visit(ipc));
+            Property property = antlrToProperty.visit(ipc);
+            properties.add(property);
+            if(set.contains(property.getClass().toString())){
+                int column =ipc.getStart().getCharPositionInLine()+1;
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column,property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
         }
         return new Image(properties,Integer.toString(line));
     }
@@ -269,9 +344,18 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         List<Property> properties = new ArrayList<>();
 
         List<DartParser.ButtonPropertiesContext> buttonPropertiesContextList = ctx.buttonProperties();
+        Set<String> set = new HashSet<>();
 
         for (DartParser.ButtonPropertiesContext bpc : buttonPropertiesContextList) {
-            properties.add(antlrToPropertyVisitor.visit(bpc));
+            Property property =antlrToPropertyVisitor.visit(bpc);
+            properties.add(property);
+            if(set.contains(property.getClass().toString())){
+                int column =bpc.getStart().getCharPositionInLine()+1;
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column,property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
         }
         return new Button(properties , String.valueOf(lineNumber));
     }
@@ -285,8 +369,18 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         List<Property> properties = new ArrayList<>();
 
         List<DartParser.TextFieldPropertiesContext> textFieldPropertiesContexts = ctx.textFieldProperties();
+        Set<String> set = new HashSet<>();
+
         for (DartParser.TextFieldPropertiesContext textFieldPropertiesContext : textFieldPropertiesContexts) {
-            properties.add(antlrToPropertyVisitor.visit(textFieldPropertiesContext));
+            Property property=antlrToPropertyVisitor.visit(textFieldPropertiesContext);
+            properties.add(property);
+            if(set.contains(property.getClass().toString())){
+                int column =textFieldPropertiesContext.getStart().getCharPositionInLine()+1;
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column,property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
         }
         return new TextField(properties,String.valueOf(lineNumber));
     }
@@ -300,9 +394,18 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         List<Property> properties = new ArrayList<>();
 
         List<DartParser.BorderPropertiesContext> borderPropertiesContexts = ctx.borderProperties();
+        Set<String> set = new HashSet<>();
 
         for (DartParser.BorderPropertiesContext borderPropertiesContext : borderPropertiesContexts) {
-            properties.add(antlrToPropertyVisitor.visit(borderPropertiesContext));
+            Property property=antlrToPropertyVisitor.visit(borderPropertiesContext);
+            properties.add(property);
+            if(set.contains(property.getClass().toString())){
+                int column =borderPropertiesContext.getStart().getCharPositionInLine()+1;
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column,property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
         }
 
         return new Border(properties,String.valueOf(lineNumber));
