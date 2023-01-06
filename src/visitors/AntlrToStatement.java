@@ -58,7 +58,6 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
     @Override
     public Statement visitStatment(DartParser.StatmentContext ctx){
-
         return visit(ctx.getChild(0));
     }
     @Override

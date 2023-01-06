@@ -1,3 +1,16 @@
+
+Widget Scaffold {
+   int id;
+   double price;
+   string productTitle;
+
+return (
+Container(
+child: Text(text:"")
+)
+)
+}
+
 Scaffold(
   appBar:AppBar(
     title:'Example',
@@ -19,10 +32,6 @@ Scaffold(
             color: 0xfeaa,
             borderRadius: BorderRadiusCircular(radius:10),
           ),
-          decoration: BoxDecoration(
-                      color: 0xfeaa,
-                      borderRadius: BorderRadiusCircular(radius:10),
-                    ),
           child: Text(
             text:'Container',
             textAlign: center,
