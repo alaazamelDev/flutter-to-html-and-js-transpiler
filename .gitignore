@@ -2,3 +2,5 @@ gen/
 src/gen/
 .idea/
 out/
+*.iml
+!Compiler Project.iml
