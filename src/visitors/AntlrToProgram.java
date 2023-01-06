@@ -50,10 +50,13 @@ public class AntlrToProgram extends DartParserBaseVisitor<Program> {
             else varIds.add(varId);
         }
 
-        Widget widget = antlrToWidget.visit(ctx.scaffold());
+
 
         Program program = new Program(statements);
-        program.setScaffold(widget);
+        if(ctx.scaffold()!=null) {
+            Widget widget = antlrToWidget.visit(ctx.scaffold());
+            program.setScaffold(widget);
+        }
 
         return program;
     }

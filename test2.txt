@@ -1,6 +1,6 @@
-
-Widget Scaffold {
+Widget ProductCard {
    int id;
+   double price;
    double price;
    string productTitle;
 
@@ -10,34 +10,3 @@ child: Text(text:"")
 )
 )
 }
-
-Scaffold(
-  appBar:AppBar(
-    title:'Example',
-    centerTitle: true,
-  ),
-  body: Center(
-    child: Column(
-      crossAxisAlignment: stretch,
-      mainAxisSize: min,
-      children: [
-        Text(
-          text:'Hello, world!',
-          fontWeight: bold,
-          fontSize: 24,
-          letterSpacing: 1.5,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: 0xfeaa,
-            borderRadius: BorderRadiusCircular(radius:10),
-          ),
-          child: Text(
-            text:'Container',
-            textAlign: center,
-          ),
-        ),
-      ],
-    ),
-  ),
-)
