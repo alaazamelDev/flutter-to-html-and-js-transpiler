@@ -88,9 +88,9 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         CustomWidget customWidget =
                 new CustomWidget(widgetIdentifier, widgetProperties, String.valueOf(lineNumber));
 
-        // TODO: Handle semantic errors
+        // TODO: Handle semantic errors, if error.isEmpty() -> there is no error, else the error is inside the string
         // register the widget in the symbol table
-        customWidget.accept(symbolTableVisitorAst);
+        String error = customWidget.accept(symbolTableVisitorAst);
 
         return customWidget;
     }

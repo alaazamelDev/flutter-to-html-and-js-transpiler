@@ -14,6 +14,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultEdge;
 import program.Program;
+import utils.SymbolTable;
 import utils.UTIL;
 import visitors.AntlrObjectFactory;
 import visitors.AntlrToProgram;
@@ -45,6 +46,8 @@ public class CompilerApp {
 
             AstToGraphVisitor graphVisitor = new AstToGraphVisitor();
             program.accept(graphVisitor);
+
+//            SymbolTable instance = SymbolTable.getInstance();
 
             JGraphXAdapter<String, DefaultEdge> graphAdapter = new JGraphXAdapter<>(UTIL.g);
             graphAdapter.getEdgeToCellMap().forEach((edge, cell) -> cell.setValue(null));

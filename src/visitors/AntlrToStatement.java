@@ -46,9 +46,9 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         CustomWidgetDeclarationStatement customWidget =
                 new CustomWidgetDeclarationStatement(name, vars, widget, lnNumber);
 
-        // TODO: Handle semantic errors
+        // TODO: Handle semantic errors, if error.isEmpty() -> there is no error, else the error is inside the string
         // register the widget in the symbol table
-        customWidget.accept(symbolTableVisitorAst);
+        String error = customWidget.accept(symbolTableVisitorAst);
 
         return customWidget;
     }
@@ -82,9 +82,9 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         VariableDeclarationStatement varDeclaration =
                 new VariableDeclarationStatement(type, identifier, String.valueOf(lineNumber));
 
-        // TODO: Handle semantic errors
+        // TODO: Handle semantic errors, if error.isEmpty() -> there is no error, else the error is inside the string
         // register the widget in the symbol table
-        varDeclaration.accept(symbolTableVisitorAst);
+        String error = varDeclaration.accept(symbolTableVisitorAst);
 
         return varDeclaration;
     }
@@ -116,9 +116,9 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         VariableAssignmentStatement varAssignment =
                 new VariableAssignmentStatement(identifier, variableValue, String.valueOf(lineNumber));
 
-        // TODO: Handle semantic errors
+        // TODO: Handle semantic errors, if error.isEmpty() -> there is no error, else the error is inside the string
         // register the widget in the symbol table
-        varAssignment.accept(symbolTableVisitorAst);
+        String error = varAssignment.accept(symbolTableVisitorAst);
 
         return varAssignment;
     }

@@ -10,21 +10,22 @@ import utils.Symbol;
 import utils.SymbolTable;
 import widgets.CustomWidget;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class SymbolTableVisitorAst extends AstBaseVisitor<Void> {
+public class SymbolTableVisitorAst extends AstBaseVisitor<String> {
 
     @Override
-    public Void visit(CustomWidgetDeclarationStatement customWidgetDeclarationStatement) {
+    public String visit(CustomWidgetDeclarationStatement customWidgetDeclarationStatement) {
         SymbolTable instance = SymbolTable.getInstance();
         instance.put(customWidgetDeclarationStatement.getName(),
                 new Symbol("Widget", customWidgetDeclarationStatement));
 
-        return super.visit(customWidgetDeclarationStatement);
+        return "";
     }
 
     @Override
-    public Void visit(CustomWidget customWidget) {
+    public String visit(CustomWidget customWidget) {
 
         // get access to the symbol table
         SymbolTable instance = SymbolTable.getInstance();
@@ -33,7 +34,7 @@ public class SymbolTableVisitorAst extends AstBaseVisitor<Void> {
         Symbol widgetSignature = instance.get(customWidget.getIdentifier());
         if (widgetSignature == null) {
             // semantic error, widget is not declared
-            return super.visit(customWidget);
+            return customWidget.getIdentifier() + " was not declared";
         }
 
         CustomWidgetDeclarationStatement widgetDeclaration =
@@ -47,11 +48,12 @@ public class SymbolTableVisitorAst extends AstBaseVisitor<Void> {
 
         // list of passed arguments
         List<Property> properties = customWidget.getProperties();
+        String error = "";
 
         for (Property prop : properties) {
 
             String propName = prop.getName();
-            argumentsDeclaration.forEach((statement) -> {
+            for (Statement statement : argumentsDeclaration) {
                 if (statement instanceof VariableDeclarationStatement) {
 
                     // add the var to the symbol table
@@ -62,25 +64,44 @@ public class SymbolTableVisitorAst extends AstBaseVisitor<Void> {
                         );
                         instance.put(prop.getName(), newEntry);
                     } else {
-                        // TODO: (semantic error) you are using an argument which is not declared.
+                        if (error.isEmpty()) {
+                            error += propName + " is not a property for this widget";
+                        }
+                        else {
+                            error += " ," + prop + " is not a property for this widget";
+                        }
                     }
 
                 }
-            });
+            }
         }
 
         instance.exitScope();
 
-        return super.visit(customWidget);
+        return error;
     }
 
     @Override
-    public Void visit(VariableAssignmentStatement variableAssignmentStatement) {
-        return super.visit(variableAssignmentStatement);
+    public String visit(VariableAssignmentStatement variableAssignmentStatement) {
+        SymbolTable instance = SymbolTable.getInstance();
+        if (instance.get(variableAssignmentStatement.getName()) == null) {
+            return variableAssignmentStatement.getName() + " was not declared";
+        } else {
+            Symbol variableDeclarationSymbol = instance.get(variableAssignmentStatement.getName());
+            variableDeclarationSymbol.setValue(variableAssignmentStatement.getValue());
+        }
+        return "";
     }
 
     @Override
-    public Void visit(VariableDeclarationStatement variableDeclarationStatement) {
-        return super.visit(variableDeclarationStatement);
+    public String visit(VariableDeclarationStatement variableDeclarationStatement) {
+        SymbolTable instance = SymbolTable.getInstance();
+        if (instance.get(variableDeclarationStatement.getName()) != null) {
+            return variableDeclarationStatement.getName() + " was already declared";
+        } else {
+            Symbol variableDeclarationSymbol = new Symbol(variableDeclarationStatement.getType(), null);
+            instance.put(variableDeclarationStatement.getName(), variableDeclarationSymbol);
+        }
+        return "";
     }
 }
