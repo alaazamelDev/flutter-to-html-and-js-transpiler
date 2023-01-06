@@ -18,14 +18,15 @@ import java.util.List;
 public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
     private final IAntlrObjectFactory factory;
-
-    public AntlrToStatement(IAntlrObjectFactory factory) {
+    private List<String> semanticError;
+    public AntlrToStatement(IAntlrObjectFactory factory,List<String> semanticError) {
         this.factory = factory;
+        this.semanticError=semanticError;
     }
 
     @Override
     public Statement visitCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx) {
-        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
 
         String name = ctx.WIDGETNAME().getText();
 

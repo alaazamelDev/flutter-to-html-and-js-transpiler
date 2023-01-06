@@ -4,11 +4,13 @@ import visitors.AntlrToProperty;
 import visitors.AntlrToStatement;
 import visitors.AntlrToWidget;
 
+import java.util.List;
+
 public interface IAntlrObjectFactory {
 
-    AntlrToWidget createAntlrToWidget();
+    AntlrToWidget createAntlrToWidget(List<String> semanticError);
 
-    AntlrToProperty createAntlrToProperty();
+    AntlrToProperty createAntlrToProperty(List<String> semanticError);
 
-    AntlrToStatement createAntlrToStatement();
+    AntlrToStatement createAntlrToStatement(List<String> semanticError);
 }

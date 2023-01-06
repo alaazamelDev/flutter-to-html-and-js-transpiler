@@ -13,14 +13,16 @@ import java.util.List;
 public class AntlrToProgram extends DartParserBaseVisitor<Program> {
 
     private final IAntlrObjectFactory factory;
+    private List<String> semanticError ;
 
     public AntlrToProgram(IAntlrObjectFactory factory) {
         this.factory = factory;
+        semanticError = new ArrayList<>();
     }
     @Override
     public Program visitProg(DartParser.ProgContext ctx) {
-        AntlrToStatement antlrToStatement = factory.createAntlrToStatement();
-        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+        AntlrToStatement antlrToStatement = factory.createAntlrToStatement(semanticError);
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
 
         List<Statement> statements = new ArrayList<>();
         for (DartParser.StatmentContext sc : ctx.statment()) {
