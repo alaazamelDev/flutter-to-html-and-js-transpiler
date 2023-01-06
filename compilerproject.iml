@@ -7,6 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" exported="" name="jgrapht-ext-1.5.1" level="project" />
+    <orderEntry type="library" exported="" name="jgrapht-core-1.5.1" level="project" />
+    <orderEntry type="library" exported="" name="antlr-4.11.1-complete" level="project" />
+    <orderEntry type="library" exported="" name="jgraphx-4.1.0" level="project" />
+    <orderEntry type="library" exported="" name="jheaps-0.13" level="project" />
   </component>
 </module>
