@@ -36,7 +36,6 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         for (DartParser.VariableDeclarationContext vd : ctx.variableDeclaration()) {
             vars.add(visit(vd));
         }
-        System.out.println("inside antlr");
 
         Widget widget = antlrToWidget.visit(ctx.widget());
 
