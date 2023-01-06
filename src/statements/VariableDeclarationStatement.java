@@ -1,5 +1,7 @@
 package statements;
 
+import visitors.Visitor;
+
 public class VariableDeclarationStatement extends Statement {
     private final String type;
     private final String name;
@@ -18,4 +20,8 @@ public class VariableDeclarationStatement extends Statement {
         return name;
     }
 
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
+    }
 }

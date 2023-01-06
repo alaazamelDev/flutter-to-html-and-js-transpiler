@@ -1,5 +1,7 @@
 package properties;
 
+import visitors.Visitor;
+
 public class LabelProperty extends Property {
 
     private final String value;
@@ -11,5 +13,10 @@ public class LabelProperty extends Property {
 
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> visitor) {
+        return visitor.visit(this);
     }
 }
