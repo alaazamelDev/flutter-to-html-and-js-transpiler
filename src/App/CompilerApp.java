@@ -35,12 +35,13 @@ public class CompilerApp {
         IAntlrObjectFactory antlrObjectFactory = new AntlrObjectFactory();
 
         //check if there is any syntax error
+        AntlrToProgram antlrToProgram = null;
         if (MyErrorLisitener.hasErorr) {
 
 
         } else {
             //visitor
-            AntlrToProgram antlrToProgram = new AntlrToProgram(antlrObjectFactory);
+            antlrToProgram = new AntlrToProgram(antlrObjectFactory);
             Program program = antlrToProgram.visit(antlrAST);
 
             AstToGraphVisitor graphVisitor = new AstToGraphVisitor();
@@ -62,7 +63,13 @@ public class CompilerApp {
             );
             imgFile = new File("src/graph.png");
             ImageIO.write(image, "PNG", imgFile);
+        }
+        if (antlrToProgram.getSemanticError().isEmpty()) {
 
+        } else {
+            for (String semantic : antlrToProgram.getSemanticError()) {
+                System.out.println(semantic);
+            }
         }
     }
 

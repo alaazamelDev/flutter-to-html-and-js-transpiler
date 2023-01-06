@@ -34,4 +34,8 @@ public class UTIL {
     public static String semanticAlreadyDeclaredProperty(int line, int column, String propertyName) {
         return "Property " + propertyName + " Already Declared " + line + ":" + column;
     }
+
+    public static String semanticAlreadyDeclaredIdentifier(int line, int column, String id) {
+        return "Property " + id + " Already Declared " + line + ":" + column;
+    }
 }

@@ -110,12 +110,12 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
             Property property = antlrToPropertyVisitor.visit(propertiesContext);
             widgetProperties.add(property);
 
-            if (set.contains(property.getClass().toString())) semanticError.add(UTIL.semanticAlreadyDeclaredProperty(
+            if (set.contains(propertiesContext.IDENTIFIER().toString())) semanticError.add(UTIL.semanticAlreadyDeclaredProperty(
                     propertiesContext.getStart().getLine(),
                     propertiesContext.getStart().getCharPositionInLine() + 1,
                     property.getName()
             ));
-            else set.add(property.getClass().toString());
+            else set.add(propertiesContext.IDENTIFIER().toString());
 
         }
         return new CustomWidget(widgetIdentifier, widgetProperties, String.valueOf(lineNumber));
