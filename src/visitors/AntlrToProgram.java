@@ -36,4 +36,8 @@ public class AntlrToProgram extends DartParserBaseVisitor<Program> {
 
         return program;
     }
+
+    public List<String> getSemanticError() {
+        return semanticError;
+    }
 }

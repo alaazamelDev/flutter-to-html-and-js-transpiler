@@ -43,8 +43,19 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         // get scaffold property context list object
         List<DartParser.ScaffoldPropertyContext> scaffoldPropertyContextList = ctx.scaffoldProperty();
 
+        Set<String> set = new HashSet<>();
+
         for (DartParser.ScaffoldPropertyContext scaffoldPropertyContext : scaffoldPropertyContextList) {
-            properties.add(antlrToPropertyVisitor.visit(scaffoldPropertyContext));
+            Property property = antlrToPropertyVisitor.visit(scaffoldPropertyContext);
+            properties.add(property);
+
+            if (set.contains(property.getClass().toString())) semanticError.add(UTIL.semanticAlreadyDeclaredProperty(
+                    scaffoldPropertyContext.getStart().getLine(),
+                    scaffoldPropertyContext.getStart().getCharPositionInLine() + 1,
+                    property.getName()
+            ));
+            else set.add(property.getClass().toString());
+
         }
         return new Scaffold(properties, String.valueOf(lineNumber));
     }
@@ -61,14 +72,25 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
         // list of all appBarProperties context objects
         List<DartParser.AppBarPropertiesContext> appBarPropertiesContextList = ctx.appBarProperties();
+
+        Set<String> set = new HashSet<>();
         for (DartParser.AppBarPropertiesContext appBarPropertiesContext : appBarPropertiesContextList) {
+            Property property = antlrToPropertyVisitor.visit(appBarPropertiesContext);
             // parse properties
-            properties.add(antlrToPropertyVisitor.visit(appBarPropertiesContext));
+            properties.add(property);
+
+            if (set.contains(property.getClass().toString())) semanticError.add(UTIL.semanticAlreadyDeclaredProperty(
+                    appBarPropertiesContext.getStart().getLine(),
+                    appBarPropertiesContext.getStart().getCharPositionInLine() + 1,
+                    property.getName()
+            ));
+            else set.add(property.getClass().toString());
         }
         // return a new AppBar Widget Object
         return new AppBar(properties, String.valueOf(lineNumber));
     }
 
+    //TODO semantics
     @Override
     public Widget visitCustomWidget(DartParser.CustomWidgetContext ctx) {
         AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty(semanticError);
@@ -82,8 +104,19 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         // get context object
         List<DartParser.CustomWidgetPropertiesContext> propertiesContextList = ctx.customWidgetProperties();
 
+        Set<String> set = new HashSet<>();
+
         for (DartParser.CustomWidgetPropertiesContext propertiesContext : propertiesContextList) {
-            widgetProperties.add(antlrToPropertyVisitor.visit(propertiesContext));
+            Property property = antlrToPropertyVisitor.visit(propertiesContext);
+            widgetProperties.add(property);
+
+            if (set.contains(property.getClass().toString())) semanticError.add(UTIL.semanticAlreadyDeclaredProperty(
+                    propertiesContext.getStart().getLine(),
+                    propertiesContext.getStart().getCharPositionInLine() + 1,
+                    property.getName()
+            ));
+            else set.add(property.getClass().toString());
+
         }
         return new CustomWidget(widgetIdentifier, widgetProperties, String.valueOf(lineNumber));
     }
@@ -99,8 +132,19 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
         String lineNumber = String.valueOf(ctx.ROW().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
+
+        Set<String> set = new HashSet<>();
+
         for (DartParser.RowPropertiesContext rp : ctx.rowProperties()) {
-            properties.add(antlrToProperty.visit(rp));
+            Property property = antlrToProperty.visit(rp);
+            properties.add(property);
+
+            if (set.contains(property.getClass().toString())) semanticError.add(UTIL.semanticAlreadyDeclaredProperty(
+                    rp.getStart().getLine(),
+                    rp.getStart().getCharPositionInLine() + 1,
+                    property.getName()
+            ));
+            else set.add(property.getClass().toString());
         }
         return new Row(properties, lineNumber);
     }
@@ -113,8 +157,18 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
         List<Property> properties = new ArrayList<>();
 
+        Set<String> set = new HashSet<>();
+
         for (DartParser.CenterPropertiesContext cp : ctx.centerProperties()) {
-            properties.add(antlrToProperty.visit(cp));
+            Property property= antlrToProperty.visit(cp);
+            properties.add(property);
+
+            if (set.contains(property.getClass().toString())) semanticError.add(UTIL.semanticAlreadyDeclaredProperty(
+                    cp.getStart().getLine(),
+                    cp.getStart().getCharPositionInLine() + 1,
+                    property.getName()
+            ));
+            else set.add(property.getClass().toString());
         }
 
         return new Center(properties, lineNumber);
@@ -125,8 +179,19 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty(semanticError);
         String lineNumber = String.valueOf(ctx.COLUMN().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
+
+        Set<String> set = new HashSet<>();
+
         for (DartParser.ColumnPropertiesContext cp : ctx.columnProperties()) {
-            properties.add(antlrToProperty.visit(cp));
+            Property property = antlrToProperty.visit(cp);
+            properties.add(property);
+
+            if (set.contains(property.getClass().toString())) semanticError.add(UTIL.semanticAlreadyDeclaredProperty(
+                    cp.getStart().getLine(),
+                    cp.getStart().getCharPositionInLine() + 1,
+                    property.getName()
+            ));
+            else set.add(property.getClass().toString());
         }
         return new Column(properties, lineNumber);
     }
@@ -136,8 +201,19 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         AntlrToProperty antlrToProperty = factory.createAntlrToProperty(semanticError);
         String lineNumber = String.valueOf(ctx.TEXT().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
+
+        Set<String> set = new HashSet<>();
+
         for (DartParser.TextPropertiesContext tp : ctx.textProperties()) {
-            properties.add(antlrToProperty.visit(tp));
+            Property property = antlrToProperty.visit(tp);
+            properties.add(property);
+
+            if (set.contains(property.getClass().toString())) semanticError.add(UTIL.semanticAlreadyDeclaredProperty(
+                    tp.getStart().getLine(),
+                    tp.getStart().getCharPositionInLine() + 1,
+                    property.getName()
+            ));
+            else set.add(property.getClass().toString());
         }
         return new Text(properties, lineNumber);
     }
@@ -147,10 +223,21 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     public Widget visitContainer(DartParser.ContainerContext ctx) {
         String line = Integer.toString(ctx.CONTAINER().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
+
+        Set<String> set = new HashSet<>();
+
         for (DartParser.ContainerPropertiesContext cp : ctx.containerProperties()) {
-            properties.add(factory.createAntlrToProperty(semanticError).visit(cp));
+            Property property = factory.createAntlrToProperty(semanticError).visit(cp);
+            properties.add(property);
+
+            if (set.contains(property.getClass().toString())) semanticError.add(UTIL.semanticAlreadyDeclaredProperty(
+                    cp.getStart().getLine(),
+                    cp.getStart().getCharPositionInLine() + 1,
+                    property.getName()
+            ));
+            else set.add(property.getClass().toString());
         }
-        return new Container(properties,line);
+        return new Container(properties, line);
     }
 
 
@@ -158,10 +245,21 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
     public Widget visitBoxDecoration(DartParser.BoxDecorationContext ctx) {
         String line = Integer.toString(ctx.BOXDECORATION().getSymbol().getLine());
         List<Property> properties = new ArrayList<>();
+
+        Set<String> set = new HashSet<>();
+
         for (DartParser.BoxDecorationPropertiesContext bdpc : ctx.boxDecorationProperties()) {
-            properties.add(factory.createAntlrToProperty(semanticError).visit(bdpc));
+            Property property =factory.createAntlrToProperty(semanticError).visit(bdpc);
+            properties.add(property);
+
+            if (set.contains(property.getClass().toString())) semanticError.add(UTIL.semanticAlreadyDeclaredProperty(
+                    bdpc.getStart().getLine(),
+                    bdpc.getStart().getCharPositionInLine() + 1,
+                    property.getName()
+            ));
+            else set.add(property.getClass().toString());
         }
-        return new BoxDecorationWidget(properties,line);
+        return new BoxDecorationWidget(properties, line);
     }
 
 
