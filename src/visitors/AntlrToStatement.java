@@ -10,10 +10,13 @@ import statements.CustomWidgetDeclarationStatement;
 import statements.Statement;
 import statements.VariableAssignmentStatement;
 import statements.VariableDeclarationStatement;
+import utils.UTIL;
 import widgets.Widget;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
@@ -33,16 +36,25 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         String lnNumber = String.valueOf(ctx.WIDGET().getSymbol().getLine());
 
         List<Statement> vars = new ArrayList<>();
+        Set<String> set = new HashSet<>();
 
         for (DartParser.VariableDeclarationContext vd : ctx.variableDeclaration()) {
-            vars.add(visit(vd));
+            Statement statement = visit(vd);
+            vars.add(statement);
+
+            if (set.contains(((VariableDeclarationStatement) statement).getName())) {
+                semanticError.add(UTIL.semanticAlreadyDeclaredIdentifier(vd.getStart().getLine(),
+                        vd.getStart().getCharPositionInLine() + 1,
+                        ((VariableDeclarationStatement) statement).getName()));
+            }
+            else
+                set.add(((VariableDeclarationStatement) statement).getName());
         }
 
         Widget widget = antlrToWidget.visit(ctx.widget());
 
         return new CustomWidgetDeclarationStatement(name, vars, widget, lnNumber);
     }
-
 
     @Override
     public Statement visitStatment(DartParser.StatmentContext ctx){
