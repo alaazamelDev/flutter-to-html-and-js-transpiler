@@ -29,7 +29,7 @@ import java.io.IOException;
 public class CompilerApp {
 
     public static void main(String[] args) throws IOException {
-        String fileName = "tests/dump.txt";
+        String fileName = "tests/test2.txt";
         DartParser parser = getParser(fileName);
 
         ParseTree antlrAST = parser.prog();

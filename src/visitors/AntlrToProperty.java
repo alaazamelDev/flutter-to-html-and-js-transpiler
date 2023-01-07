@@ -156,7 +156,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             Symbol symbol = instance.get(var);
 
             if (symbol == null) {
-                semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.TEXTATRIB().getSymbol().getLine()
+                semanticError.add(UTIL.semanticAlreadyDeclaredIdentifier(ctx.TEXTATRIB().getSymbol().getLine()
                         , ctx.TEXTATRIB().getSymbol().getCharPositionInLine() + 1, var));
                 return new TextContent("value", lineNumber);
             }
