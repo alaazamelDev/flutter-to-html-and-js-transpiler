@@ -37,8 +37,11 @@ import utils.SymbolTable;
 import utils.UTIL;
 import widgets.Widget;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.String.valueOf;
 
 public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
@@ -56,7 +59,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
         AntlrToWidget antlrToWidgetVisitor = factory.createAntlrToWidget(semanticError);
 
-        String lineNumber = String.valueOf(ctx.BODY().getSymbol().getLine());
+        String lineNumber = valueOf(ctx.BODY().getSymbol().getLine());
 
         // get widget context object
         DartParser.WidgetContext widgetContext = ctx.widget();
@@ -81,14 +84,14 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         // parse the context
         Widget appBar = antlrToWidgetVisitor.visit(appBarContext);
 
-        return new AppBarProperty(appBar, String.valueOf(lineNumber));
+        return new AppBarProperty(appBar, valueOf(lineNumber));
     }
 
 
     @Override
     public Property visitAppBarTitle(DartParser.AppBarTitleContext ctx) {
 
-        String lineNumber = String.valueOf(ctx.TITLE().getSymbol().getLine());
+        String lineNumber = valueOf(ctx.TITLE().getSymbol().getLine());
         String content = ctx.STRING().getSymbol().getText();
         // return new TitleProperty Object
         return new TitleProperty(content, lineNumber);
@@ -96,7 +99,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitAppBarCenterTitle(DartParser.AppBarCenterTitleContext ctx) {
-        String lineNumber = String.valueOf(ctx.CENTERTITLE().getSymbol().getLine());
+        String lineNumber = valueOf(ctx.CENTERTITLE().getSymbol().getLine());
         boolean value = Boolean.parseBoolean(ctx.BOOLEAN().getSymbol().getText());
         // return new CenterTitleProperty Object
         return new CenterTitleProperty(value, lineNumber);
@@ -106,7 +109,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitCustomWidgetProperties(DartParser.CustomWidgetPropertiesContext ctx) {
 
-        String lineNumber = String.valueOf(ctx.IDENTIFIER().getSymbol().getLine());
+        String lineNumber = valueOf(ctx.IDENTIFIER().getSymbol().getLine());
         String propertyName = ctx.IDENTIFIER().getSymbol().getText();
         Object propertyValue = new Object();
 
@@ -178,14 +181,14 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitTextFontWeight(DartParser.TextFontWeightContext ctx) {
-        String lineNumber = String.valueOf(ctx.FONTWEIGHT().getSymbol().getLine());
+        String lineNumber = valueOf(ctx.FONTWEIGHT().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
         return new FontWeightProperty(FontWeightValue.valueOf(value), lineNumber);
     }
 
     @Override
     public Property visitTextFontSize(DartParser.TextFontSizeContext ctx) {
-        String lineNumber = String.valueOf(ctx.FONTSIZE().getSymbol().getLine());
+        String lineNumber = valueOf(ctx.FONTSIZE().getSymbol().getLine());
         if (ctx.IDENTIFIER() != null) {
             //get the symbol table
             SymbolTable instance = SymbolTable.getInstance();
@@ -207,8 +210,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             if (type.equals("int")) {
                 Integer value = (Integer) symbol.getValue();
                 return new FontSizeProperty(value, lineNumber);
-            }
-            else if (type.equals("double")) {
+            } else if (type.equals("double")) {
                 Double value = (Double) symbol.getValue();
                 return new FontSizeProperty(value, lineNumber);
              }
@@ -282,7 +284,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitTextTextAlign(DartParser.TextTextAlignContext ctx) {
-        String lineNumber = String.valueOf(ctx.TEXTALIGN().getSymbol().getLine());
+        String lineNumber = valueOf(ctx.TEXTALIGN().getSymbol().getLine());
         String value = ctx.getChild(2).getText();
         return new TextAlignProperty(TextAlignValue.valueOf(value), lineNumber);
     }
@@ -709,7 +711,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         int lineNumber = ctx.FIT().getSymbol().getLine();
         String fitValue = ctx.getChild(2).getText();
         FitValue fitValueEnum = FitValue.valueOf(fitValue);
-        return new FitProperty(fitValueEnum, String.valueOf(lineNumber));
+        return new FitProperty(fitValueEnum, valueOf(lineNumber));
     }
 
     @Override
@@ -766,7 +768,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         }
 
         String buttonTitle = ctx.getChild(2).getText();
-        return new TitleProperty(buttonTitle, String.valueOf(lineNumber));
+        return new TitleProperty(buttonTitle, valueOf(lineNumber));
     }
 
     @Override
@@ -774,7 +776,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         int lineNumber = ctx.BACKGROUND_COLOR().getSymbol().getLine();
 
         String buttonBackgroundColor = ctx.getChild(2).getText();
-        return new BackgroundColorProperty(buttonBackgroundColor, String.valueOf(lineNumber));
+        return new BackgroundColorProperty(buttonBackgroundColor, valueOf(lineNumber));
     }
 
     @Override
@@ -782,7 +784,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         int lineNumber = ctx.TITLE_COLOR().getSymbol().getLine();
 
         String buttonTitleColor = ctx.getChild(2).getText();
-        return new TitleColorProperty(buttonTitleColor, String.valueOf(lineNumber));
+        return new TitleColorProperty(buttonTitleColor, valueOf(lineNumber));
     }
 
     @Override
@@ -797,25 +799,106 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitTextFieldValue(DartParser.TextFieldValueContext ctx) {
-        int lineNumber = ctx.VALUE().getSymbol().getLine();
 
+        String lineNumber = valueOf(ctx.VALUE().getSymbol().getLine());
+
+        String columnNumber = String.valueOf(ctx.VALUE().getSymbol().getCharPositionInLine() + 1);
+
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            if (!instance.contains(var)) {
+                //type mismatch
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        var
+                ));
+                return new ValueProperty("", lineNumber);
+            }
+            //search for the var in the st
+            Symbol symbol = instance.get(var);
+
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("String")) {
+                String value = valueOf(symbol.getValue());
+                return new ValueProperty(value, lineNumber);
+            } else {
+                //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        "String",
+                        type
+                ));
+                return new ValueProperty("", lineNumber);
+            }
+        }
         String textFieldValue = ctx.getChild(2).getText();
-        return new ValueProperty(textFieldValue, String.valueOf(lineNumber));
+        return new ValueProperty(textFieldValue, valueOf(lineNumber));
     }
 
     @Override
     public Property visitTextFieldLabel(DartParser.TextFieldLabelContext ctx) {
-        int lineNumber = ctx.LABEL().getSymbol().getLine();
+
+
+        String lineNumber = valueOf(ctx.LABEL().getSymbol().getLine());
+
+        String columnNumber = String.valueOf(ctx.LABEL().getSymbol().getCharPositionInLine() + 1);
+
+
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            //TODO if the symbol is null there is a semantic error, the var wasn't declared
+            //search for the var in the st
+            Symbol symbol = instance.get(var);
+
+            if (!instance.contains(var)) {
+                //type mismatch
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        var
+                ));
+                return new LabelProperty("", lineNumber);
+            }
+
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("String")) {
+                String value = valueOf(symbol.getValue());
+                return new LabelProperty(value, lineNumber);
+            } else {
+                //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        "String",
+                        type
+                ));
+                return new LabelProperty("", lineNumber);
+            }
+        }
 
         String textFieldLabel = ctx.getChild(2).getText();
-        return new LabelProperty(textFieldLabel, String.valueOf(lineNumber));
+        return new LabelProperty(textFieldLabel, lineNumber);
     }
 
     @Override
     public Property visitTextFieldTextColor(DartParser.TextFieldTextColorContext ctx) {
         int lineNumber = ctx.TEXTCOLOR().getSymbol().getLine();
         String textFieldTextColor = ctx.getChild(2).getText();
-        return new TextColorProperty(textFieldTextColor, String.valueOf(lineNumber));
+        return new TextColorProperty(textFieldTextColor, valueOf(lineNumber));
     }
 
     @Override
@@ -824,15 +907,56 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
         AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
 
-        return new PaddingAttributeProperty(antlrToWidget.visit(ctx.edgeInsets()), String.valueOf(lineNumber));
+        return new PaddingAttributeProperty(antlrToWidget.visit(ctx.edgeInsets()), valueOf(lineNumber));
     }
 
     @Override
     public Property visitTextFieldHint(DartParser.TextFieldHintContext ctx) {
-        int lineNumber = ctx.HINT().getSymbol().getLine();
+        String lineNumber = valueOf(ctx.HINT().getSymbol().getLine());
+
+        String columnNumber = String.valueOf(ctx.HINT().getSymbol().getCharPositionInLine() + 1);
+
+
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            //TODO if the symbol is null there is a semantic error, the var wasn't declared
+            //search for the var in the st
+            Symbol symbol = instance.get(var);
+
+            if (!instance.contains(var)) {
+                //type mismatch
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        var
+                ));
+                return new HintProperty("", lineNumber);
+            }
+
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("String")) {
+                String value = valueOf(symbol.getValue());
+                return new HintProperty(value, valueOf(lineNumber));
+            } else {
+                //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        "String",
+                        type
+                ));
+                return new HintProperty("", lineNumber);
+            }
+        }
 
         String textFieldHint = ctx.getChild(2).getText();
-        return new HintProperty(textFieldHint, String.valueOf(lineNumber));
+        return new HintProperty(textFieldHint, valueOf(lineNumber));
     }
 
     @Override
@@ -841,7 +965,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
         AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
 
-        return new BorderProperty(antlrToWidget.visit(ctx.border()), String.valueOf(lineNumber));
+        return new BorderProperty(antlrToWidget.visit(ctx.border()), valueOf(lineNumber));
     }
 
     @Override
@@ -867,15 +991,56 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
         anonymousFunction = new Function(functionBody, functionArguments);
 
-        return new OnChangedProperty(anonymousFunction, String.valueOf(lineNumber));
+        return new OnChangedProperty(anonymousFunction, valueOf(lineNumber));
     }
 
     @Override
     public Property visitBorderThickness(DartParser.BorderThicknessContext ctx) {
-        int lineNumber = ctx.THICKNESS().getSymbol().getLine();
 
-        String borderThickness = ctx.getChild(2).getText();
-        return new ThicknessProperty(Integer.parseInt(borderThickness), String.valueOf(lineNumber));
+        String lineNumber = valueOf(ctx.THICKNESS().getSymbol().getLine());
+
+        String columnNumber = String.valueOf(ctx.THICKNESS().getSymbol().getCharPositionInLine() + 1);
+
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            if (!instance.contains(var)) {
+                //type mismatch
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        var
+                ));
+                return new ThicknessProperty(-1, lineNumber);
+            }
+
+            //search for the var in the st
+            Symbol symbol = instance.get(var);
+
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("int")) {
+                Integer value = (Integer) symbol.getValue();
+                return new ThicknessProperty(value, valueOf(lineNumber));
+            } else {
+                //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        "int",
+                        type
+                ));
+                return new ThicknessProperty(-1, lineNumber);
+            }
+        }
+
+
+        String value = ctx.getChild(2).getText();
+        return new ThicknessProperty(Integer.parseInt(value), lineNumber);
     }
 
     @Override
@@ -927,7 +1092,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitHeightProperty(DartParser.HeightPropertyContext ctx) {
         String value = ctx.getChild(2).getText();
-        String lnNumber = String.valueOf(ctx.HEIGHT().getSymbol().getLine());
+        String lnNumber = valueOf(ctx.HEIGHT().getSymbol().getLine());
 
         if (ctx.IDENTIFIER() != null) {
             //get the symbol table
@@ -964,7 +1129,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitColorProperty(DartParser.ColorPropertyContext ctx) {
         String value = ctx.getChild(2).getText();
-        String lnNumber = String.valueOf(ctx.COLOR().getSymbol().getLine());
+        String lnNumber = valueOf(ctx.COLOR().getSymbol().getLine());
         return new ColorProperty(value, lnNumber);
     }
 
@@ -972,7 +1137,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitChildProperty(DartParser.ChildPropertyContext ctx) {
         AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
         Widget child = antlrToWidget.visit(ctx.getChild(2));
-        String lnNumber = String.valueOf(ctx.CHILD().getSymbol().getLine());
+        String lnNumber = valueOf(ctx.CHILD().getSymbol().getLine());
         return new ChildWidgetProperty(child, lnNumber);
     }
 
@@ -980,7 +1145,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitChildrenProperty(DartParser.ChildrenPropertyContext ctx) {
         AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
         List<Widget> widgets = new ArrayList<>();
-        String lnNumber = String.valueOf(ctx.CHILDREN().getSymbol().getLine());
+        String lnNumber = valueOf(ctx.CHILDREN().getSymbol().getLine());
         for (DartParser.WidgetContext wc : ctx.widget()) {
             widgets.add(antlrToWidget.visit(wc));
         }
@@ -990,14 +1155,14 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitMainAxisSizeProperty(DartParser.MainAxisSizePropertyContext ctx) {
         String value = ctx.getChild(2).getText();
-        String lnNumber = String.valueOf(ctx.MAINAXISSIZE().getSymbol().getLine());
+        String lnNumber = valueOf(ctx.MAINAXISSIZE().getSymbol().getLine());
         return new MainAxisSizeObjectProperty(MainAxisSizeValue.valueOf(value), lnNumber);
     }
 
     @Override
     public Property visitCrossAxisAlignmentProperty(DartParser.CrossAxisAlignmentPropertyContext ctx) {
         String value = ctx.getChild(2).getText();
-        String lnNumber = String.valueOf(ctx.CROSSAXISALIGNMENT().getSymbol().getLine());
+        String lnNumber = valueOf(ctx.CROSSAXISALIGNMENT().getSymbol().getLine());
         return new CrossAxisAlignmentProperty(CrossAxisAlignmentValue.valueOf(value), lnNumber);
     }
 
@@ -1025,6 +1190,6 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
         anonymousFunction = new Function(functionBody, functionArguments);
 
-        return new OnPressedProperty(anonymousFunction, String.valueOf(lineNumber));
+        return new OnPressedProperty(anonymousFunction, valueOf(lineNumber));
     }
 }
