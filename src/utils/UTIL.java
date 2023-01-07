@@ -60,21 +60,6 @@ public class UTIL {
         return false;
     }
 
-    public static String semanticUndeclaredIdentifier(int line, int column, String identifier) {
-        return "Identifier " + identifier + " not declared " + line + ":" + column;
-    }
 
-    public static String semanticTypeMismatch(int line, int column, String expected, String found) {
-        return "type mismatch " + "expected: " + expected + " found:" + found + " " + line + ":" + column;
-    }
-
-
-    public static String semanticUndeclaredIdentifier(int line, int column, String identifier) {
-        return "Identifier " + identifier + " not declared " + line + ":" + column;
-    }
-
-    public static String semanticTypeMismatch(int line, int column, String expected, String found) {
-        return "type mismatch " + "expected: " + expected + " found:" + found + " " + line +":" + column;
-    }
 
 }
