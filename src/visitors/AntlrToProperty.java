@@ -40,16 +40,18 @@ import java.util.List;
 public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     private final IAntlrObjectFactory factory;
+    List<String> semanticError;
 
-    public AntlrToProperty(IAntlrObjectFactory factory) {
+    public AntlrToProperty(IAntlrObjectFactory factory,List<String> semanticError) {
         this.factory = factory;
+        this.semanticError=semanticError;
     }
 
 
     @Override
     public Property visitScaffoldBody(DartParser.ScaffoldBodyContext ctx) {
 
-        AntlrToWidget antlrToWidgetVisitor = factory.createAntlrToWidget();
+        AntlrToWidget antlrToWidgetVisitor = factory.createAntlrToWidget(semanticError);
 
         String lineNumber = String.valueOf(ctx.BODY().getSymbol().getLine());
 
@@ -65,7 +67,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitScaffoldAppBar(DartParser.ScaffoldAppBarContext ctx) {
 
-        AntlrToWidget antlrToWidgetVisitor = factory.createAntlrToWidget();
+        AntlrToWidget antlrToWidgetVisitor = factory.createAntlrToWidget(semanticError);
 
         // get the line number of this node
         int lineNumber = ctx.APPBARATRIB().getSymbol().getLine();
@@ -160,7 +162,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitBorderRadiusProperty(DartParser.BorderRadiusPropertyContext ctx) {
         String line = Integer.toString(ctx.BORDERRADIUS().getSymbol().getLine());
-        return new BorderRadiusProperty(factory.createAntlrToWidget().visit(ctx.borderRadius()), line);
+        return new BorderRadiusProperty(factory.createAntlrToWidget(semanticError).visit(ctx.borderRadius()), line);
     }
 
     @Override
@@ -208,7 +210,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitDecorationProperty(DartParser.DecorationPropertyContext ctx) {
         String line = Integer.toString(ctx.DECORATION().getSymbol().getLine());
-        return new DecorationProperty(factory.createAntlrToWidget().visit(ctx.boxDecoration()), line);
+        return new DecorationProperty(factory.createAntlrToWidget(semanticError).visit(ctx.boxDecoration()), line);
     }
 
     @Override
@@ -276,7 +278,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitPaddingPadding(DartParser.PaddingPaddingContext ctx) {
         Token idToken = ctx.PADDINGATTR().getSymbol();
         int line = idToken.getLine();
-        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
         return new PaddingAttributeProperty(antlrToWidget.visit(ctx.getChild(2)), Integer.toString(line));
     }
 
@@ -432,7 +434,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitTextFieldPadding(DartParser.TextFieldPaddingContext ctx) {
         int lineNumber = ctx.PADDINGATTR().getSymbol().getLine();
 
-        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
 
         return new PaddingAttributeProperty(antlrToWidget.visit(ctx.edgeInsets()), String.valueOf(lineNumber));
     }
@@ -449,7 +451,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitTextFieldBorder(DartParser.TextFieldBorderContext ctx) {
         int lineNumber = ctx.BORDERATRI().getSymbol().getLine();
 
-        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
 
         return new BorderProperty(antlrToWidget.visit(ctx.border()), String.valueOf(lineNumber));
     }
@@ -457,7 +459,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitTextFieldOnChanged(DartParser.TextFieldOnChangedContext ctx) {
         int lineNumber = ctx.ONCHANGED().getSymbol().getLine();
-        AntlrToStatement antlrToStatement = factory.createAntlrToStatement();
+        AntlrToStatement antlrToStatement = factory.createAntlrToStatement(semanticError);
 
         // Function value
         Function anonymousFunction;
@@ -523,7 +525,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitChildProperty(DartParser.ChildPropertyContext ctx) {
-        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
         Widget child = antlrToWidget.visit(ctx.getChild(2));
         String lnNumber = String.valueOf(ctx.CHILD().getSymbol().getLine());
         return new ChildWidgetProperty(child, lnNumber);
@@ -531,7 +533,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitChildrenProperty(DartParser.ChildrenPropertyContext ctx) {
-        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
         List<Widget> widgets = new ArrayList<>();
         String lnNumber = String.valueOf(ctx.CHILDREN().getSymbol().getLine());
         for (DartParser.WidgetContext wc : ctx.widget()) {
@@ -558,7 +560,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitOnPressedProperty(DartParser.OnPressedPropertyContext ctx) {
         int lineNumber = ctx.ONPRESSED().getSymbol().getLine();
 
-        AntlrToStatement antlrToStatement = factory.createAntlrToStatement();
+        AntlrToStatement antlrToStatement = factory.createAntlrToStatement(semanticError);
 
         // Function value
         Function anonymousFunction;

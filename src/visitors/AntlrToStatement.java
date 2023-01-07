@@ -11,31 +11,45 @@ import statements.Statement;
 import statements.VariableAssignmentStatement;
 import statements.VariableDeclarationStatement;
 import widgets.CustomWidget;
+import utils.UTIL;
 import widgets.Widget;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
     private final IAntlrObjectFactory factory;
-
-    public AntlrToStatement(IAntlrObjectFactory factory) {
+    private List<String> semanticError;
+    public AntlrToStatement(IAntlrObjectFactory factory,List<String> semanticError) {
         this.factory = factory;
+        this.semanticError=semanticError;
     }
 
     @Override
     public Statement visitCustomWidgetDeclaration(DartParser.CustomWidgetDeclarationContext ctx) {
-        AntlrToWidget antlrToWidget = factory.createAntlrToWidget();
+        AntlrToWidget antlrToWidget = factory.createAntlrToWidget(semanticError);
 
         String name = ctx.WIDGETNAME().getText();
 
         String lnNumber = String.valueOf(ctx.WIDGET().getSymbol().getLine());
 
         List<Statement> vars = new ArrayList<>();
+        Set<String> set = new HashSet<>();
 
         for (DartParser.VariableDeclarationContext vd : ctx.variableDeclaration()) {
-            vars.add(visit(vd));
+            Statement statement = visit(vd);
+            vars.add(statement);
+
+            if (set.contains(((VariableDeclarationStatement) statement).getName())) {
+                semanticError.add(UTIL.semanticAlreadyDeclaredIdentifier(vd.getStart().getLine(),
+                        vd.getStart().getCharPositionInLine() + 1,
+                        ((VariableDeclarationStatement) statement).getName()));
+            }
+            else
+                set.add(((VariableDeclarationStatement) statement).getName());
         }
 
         Widget widget = antlrToWidget.visit(ctx.widget());
@@ -53,9 +67,8 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         return customWidget;
     }
 
-
     @Override
-    public Statement visitStatment(DartParser.StatmentContext ctx) {
+    public Statement visitStatment(DartParser.StatmentContext ctx){
         return visit(ctx.getChild(0));
     }
 
@@ -98,7 +111,8 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         Object variableValue = new Object();
 
         ParseTree child = ctx.getChild(2);
-        if (child instanceof TerminalNode terminalNode) {
+        if (child instanceof TerminalNode) {
+            TerminalNode terminalNode = (TerminalNode) child;
             Token token = terminalNode.getSymbol();
             int tokenType = token.getType();
             if (tokenType == DartParser.NUM) {

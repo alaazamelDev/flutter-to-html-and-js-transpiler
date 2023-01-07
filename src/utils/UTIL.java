@@ -1,5 +1,6 @@
 package utils;
 
+
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
 
@@ -29,4 +30,24 @@ public class UTIL {
                 ((type != null) ? "type: " + type + "\n" : "") +
                 "line: " + lnNum;
     }
+
+    public static String semanticAlreadyDeclaredProperty(int line, int column, String propertyName) {
+        return "Property " + propertyName + " Already Declared " + line + ":" + column;
+    }
+
+    public static String semanticAlreadyDeclaredIdentifier(int line, int column, String id) {
+        return "Identifier " + id + " Already Declared " + line + ":" + column;
+    }
+    public static String semanticReservedWidgetIdentifier(int line, int column, String Widget) {
+        return "Widget name " + Widget + " Is Already Reserved " + line + ":" + column;
+    }
+
+    public static <E extends Enum<E>> boolean isInEnum(String value, Class<E> enumClass) {
+        for (E e : enumClass.getEnumConstants()) {
+            if(e.name().equals(value)) { return true; }
+        }
+        return false;
+    }
+
+
 }
