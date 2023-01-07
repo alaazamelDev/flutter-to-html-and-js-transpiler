@@ -1,3 +1,5 @@
+int a;
+b=1;
 Widget ProductCard {
    int id;
    double price;

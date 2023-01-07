@@ -48,7 +48,7 @@ public class CompilerApp {
             AstToGraphVisitor graphVisitor = new AstToGraphVisitor();
             program.accept(graphVisitor);
 
-//            SymbolTable instance = SymbolTable.getInstance();
+            SymbolTable instance = SymbolTable.getInstance();
 
             JGraphXAdapter<String, DefaultEdge> graphAdapter = new JGraphXAdapter<>(UTIL.g);
             graphAdapter.getEdgeToCellMap().forEach((edge, cell) -> cell.setValue(null));
