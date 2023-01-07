@@ -10,14 +10,10 @@ import statements.CustomWidgetDeclarationStatement;
 import statements.Statement;
 import statements.VariableAssignmentStatement;
 import statements.VariableDeclarationStatement;
-import widgets.CustomWidget;
-import utils.UTIL;
 import widgets.Widget;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 

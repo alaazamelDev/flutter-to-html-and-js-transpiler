@@ -6,7 +6,6 @@ import antlr.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import properties.Property;
-import statements.VariableDeclarationStatement;
 import utils.UTIL;
 import widgets.Border;
 import widgets.Button;
@@ -16,7 +15,6 @@ import widgets.Scaffold;
 import widgets.Widget;
 import widgets.*;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

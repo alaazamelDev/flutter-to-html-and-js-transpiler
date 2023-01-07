@@ -1,14 +1,45 @@
-int a;
-int a;
 Widget ProductCard {
-   int id;
-   double price;
-   double price;
-   string productTitle;
+  string id;
+  string name;
+  string imageUrl;
+  string description;
+  function(int,) callback;
 
-return (
-Container(
-child: Text(text:"")
-)
-)
+  return (
+     Column(
+          crossAxisAlignment:center,
+          children:[
+            Text(text: ""),
+            Image(url: ""),
+            Text(text: ""),
+          ],
+        )
+      )
 }
+
+Scaffold(
+  appBar: AppBar(
+    title: 'Products Screen',
+    centerTitle: true
+  ),
+  body: Row(
+    children:[
+      Center(
+        child: ProductCard(
+          name: "Headset",
+          imageUrl: "https://www.google.com",
+          description: "a black beats headset",
+        ),
+      ),
+      Column(
+        children:[
+            ProductCard(
+            name: "Watch",
+            imageUrl: "https://www.google.com",
+            description: "a great looking hand watch",
+          )
+        ],
+      ),
+    ],
+  ),
+)

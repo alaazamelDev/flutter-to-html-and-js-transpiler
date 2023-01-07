@@ -32,6 +32,8 @@ import properties.scaffold.BodyProperty;
 import properties.ColorProperty;
 import properties.text.*;
 import statements.Statement;
+import utils.Symbol;
+import utils.SymbolTable;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -155,6 +157,32 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitTextFontSize(DartParser.TextFontSizeContext ctx) {
         String lineNumber = String.valueOf(ctx.FONTSIZE().getSymbol().getLine());
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            //TODO if the symbol is null there is a semantic error, the var wasn't declared
+            //search for the var in the st
+            Symbol symbol = instance.get(var);
+
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("int")) {
+                Integer value = (Integer) symbol.getValue();
+                return new FontSizeProperty(value, lineNumber);
+            }
+            else if (type.equals("double")) {
+                Double value = (Double) symbol.getValue();
+                return new FontSizeProperty(value, lineNumber);
+             }
+            else {
+                //type mismatch
+            }
+        }
+
         String value = ctx.getChild(2).getText();
         return new FontSizeProperty(Double.parseDouble(value), lineNumber);
     }
