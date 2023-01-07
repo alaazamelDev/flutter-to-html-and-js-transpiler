@@ -10,7 +10,6 @@ import utils.Symbol;
 import utils.SymbolTable;
 import widgets.CustomWidget;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SymbolTableVisitorAst extends AstBaseVisitor<String> {
@@ -48,7 +47,7 @@ public class SymbolTableVisitorAst extends AstBaseVisitor<String> {
 
         // list of passed arguments
         List<Property> properties = customWidget.getProperties();
-        String error = "";
+        StringBuilder error = new StringBuilder();
 
         for (Property prop : properties) {
 
@@ -64,11 +63,11 @@ public class SymbolTableVisitorAst extends AstBaseVisitor<String> {
                         );
                         instance.put(prop.getName(), newEntry);
                     } else {
-                        if (error.isEmpty()) {
-                            error += propName + " is not a property for this widget";
+                        if (error.length() == 0) {
+                            error.append(propName).append(" is not a property for this widget");
                         }
                         else {
-                            error += " ," + prop + " is not a property for this widget";
+                            error.append(" ,").append(prop).append(" is not a property for this widget");
                         }
                     }
 
@@ -78,13 +77,13 @@ public class SymbolTableVisitorAst extends AstBaseVisitor<String> {
 
         instance.exitScope();
 
-        return error;
+        return error.toString();
     }
 
     @Override
     public String visit(VariableAssignmentStatement variableAssignmentStatement) {
         SymbolTable instance = SymbolTable.getInstance();
-        if (instance.get(variableAssignmentStatement.getName()) == null) {
+        if (!instance.contains(variableAssignmentStatement.getName())) {
             return variableAssignmentStatement.getName() + " was not declared";
         } else {
             Symbol variableDeclarationSymbol = instance.get(variableAssignmentStatement.getName());
@@ -96,7 +95,7 @@ public class SymbolTableVisitorAst extends AstBaseVisitor<String> {
     @Override
     public String visit(VariableDeclarationStatement variableDeclarationStatement) {
         SymbolTable instance = SymbolTable.getInstance();
-        if (instance.get(variableDeclarationStatement.getName()) != null) {
+        if (instance.contains(variableDeclarationStatement.getName())) {
             return variableDeclarationStatement.getName() + " was already declared";
         } else {
             Symbol variableDeclarationSymbol = new Symbol(variableDeclarationStatement.getType(), null);
