@@ -67,7 +67,7 @@ public class SymbolTableVisitorAst extends AstBaseVisitor<String> {
                             error.append(propName).append(" is not a property for this widget");
                         }
                         else {
-                            error.append(" ,").append(prop).append(" is not a property for this widget");
+                            error.append(" ,").append(propName).append(" is not a property for this widget");
                         }
                     }
 
