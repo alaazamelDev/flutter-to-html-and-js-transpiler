@@ -34,6 +34,7 @@ import properties.text.*;
 import statements.Statement;
 import utils.Symbol;
 import utils.SymbolTable;
+import utils.UTIL;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -143,6 +144,34 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitTextContent(DartParser.TextContentContext ctx) {
         String lineNumber = String.valueOf(ctx.TEXTATRIB().getSymbol().getLine());
+
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            Symbol symbol = instance.get(var);
+
+            if (symbol == null) {
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.TEXTATRIB().getSymbol().getLine()
+                        , ctx.TEXTATRIB().getSymbol().getCharPositionInLine() + 1, var));
+                return new TextContent("value", lineNumber);
+            }
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("string")) {
+                String value = (String) symbol.getValue();
+                return new TextContent(value, lineNumber);
+            }
+            else {
+                semanticError.add(UTIL.semanticTypeMismatch(ctx.TEXTATRIB().getSymbol().getLine(),
+                        ctx.TEXTATRIB().getSymbol().getCharPositionInLine() + 1, "string", type));
+                return new TextContent("value", lineNumber);
+            }
+        }
+
         String value = ctx.getChild(2).getText();
         return new TextContent(value, lineNumber);
     }
@@ -163,9 +192,14 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             //get the var name from the parse tree
             String var = ctx.IDENTIFIER().getText();
 
-            //TODO if the symbol is null there is a semantic error, the var wasn't declared
             //search for the var in the st
             Symbol symbol = instance.get(var);
+
+            if (symbol == null) {
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.FONTSIZE().getSymbol().getLine()
+                        , ctx.FONTSIZE().getSymbol().getCharPositionInLine() + 1, var));
+                return new FontSizeProperty(1, lineNumber);
+            }
 
             //get the type
             String type = symbol.getType();
@@ -179,7 +213,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
                 return new FontSizeProperty(value, lineNumber);
              }
             else {
-                //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(ctx.FONTSIZE().getSymbol().getLine(),
+                        ctx.FONTSIZE().getSymbol().getCharPositionInLine() + 1, "int,double", type));
+                return new FontSizeProperty(1, lineNumber);
             }
         }
 
@@ -196,6 +232,50 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitTextLetterSpacing(DartParser.TextLetterSpacingContext ctx) {
         String lineNumber = String.valueOf(ctx.LETTERSPACING().getSymbol().getLine());
+
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            //TODO if the symbol is null there is a semantic error, the var wasn't declared
+            //search for the var in the st
+            Symbol symbol = instance.get(var);
+
+            if (symbol == null) {
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.LETTERSPACING().getSymbol().getLine()
+                        , ctx.LETTERSPACING().getSymbol().getCharPositionInLine() + 1, var));
+                return new LetterSpacingProperty(1, lineNumber);
+            }
+
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("int")) {
+                Integer value = (Integer) symbol.getValue();
+                return new LetterSpacingProperty(value, lineNumber);
+            }
+            else if (type.equals("double")) {
+                if (symbol.getValue() instanceof Integer) {
+                    int a = (int) symbol.getValue();
+                    double value = (double) a;
+                    System.out.println(value);
+                    return new LetterSpacingProperty(value, lineNumber);
+                }
+                else if (symbol.getValue() instanceof Double){
+                    Double value = (Double) symbol.getValue();
+                    System.out.println(value);
+                    return new LetterSpacingProperty(value, lineNumber);
+                }
+            }
+            else {
+                semanticError.add(UTIL.semanticTypeMismatch(ctx.LETTERSPACING().getSymbol().getLine(),
+                        ctx.LETTERSPACING().getSymbol().getCharPositionInLine() + 1, "int,double", type));
+                return new LetterSpacingProperty(1, lineNumber);
+            }
+        }
+
         String value = ctx.getChild(2).getText();
         return new LetterSpacingProperty(Double.parseDouble(value), lineNumber);
     }
