@@ -23,7 +23,7 @@ appBar
     ;
 
 appBarProperties
-    :   TITLE COLON STRING #AppBarTitle
+    :   TITLE COLON (STRING|IDENTIFIER) #AppBarTitle //var
     |   CENTERTITLE COLON BOOLEAN #AppBarCenterTitle
     ;
 
@@ -47,7 +47,7 @@ customWidget
     ;
 
 customWidgetProperties
-    :   IDENTIFIER COLON (NUM | STRING | FLOAT)
+    :   IDENTIFIER COLON (NUM | STRING | FLOAT) //var
     ;
 
 row
@@ -87,10 +87,10 @@ text
     :   TEXT LP (textProperties (COMMA textProperties)* COMMA? )? RP
     ;
 
-textProperties:     TEXTATRIB COLON STRING #TextContent
+textProperties:     TEXTATRIB COLON (STRING|IDENTIFIER) #TextContent //var
               |     FONTWEIGHT COLON (BOLD | LIGHT | MEDIUM | SEMIBOLD) #TextFontWeight
-              |     FONTSIZE COLON (NUM|FLOAT) #TextFontSize
-              |     LETTERSPACING COLON (NUM|FLOAT) #TextLetterSpacing
+              |     FONTSIZE COLON (NUM|FLOAT|IDENTIFIER) #TextFontSize //var
+              |     LETTERSPACING COLON (NUM|FLOAT|IDENTIFIER) #TextLetterSpacing //var
               |     TEXTALIGN COLON (CENTERVALUE | START_ATTR | END_ATTR | JUSTIFY_ATTR)    #TextTextAlign
               ;
 
@@ -122,19 +122,19 @@ borderRadiusCircular: BORDERRADIUSCIRCULAR LP (borderRadiusCircularRadiusPropert
 borderRadiusOnly: BORDERRADIUSONLY LP (borderRadiusOnlyProperties (COMMA borderRadiusOnlyProperties)* COMMA? )? RP;
 
 borderRadiusCircularRadiusProperty
-    :   RADIUS COLON (NUM|FLOAT)
+    :   RADIUS COLON (NUM|FLOAT|IDENTIFIER) //var
     ;
 
 borderRadiusOnlyProperties //TODO make it double only
-    :   TOPRIGHT COLON (NUM|FLOAT) #BorderRadiusOnlyTopRight
-    |   TOPLEFT COLON (NUM|FLOAT) #BorderRadiusOnlyTopLeft
-    |   BOTTOMRIGHT COLON (NUM|FLOAT) #BorderRadiusOnlyBottomRight
-    |   BOTTOMLEFT COLON (NUM|FLOAT) #BorderRadiusOnlyBottomLeft
+    :   TOPRIGHT COLON (NUM|IDENTIFIER) #BorderRadiusOnlyTopRight //var
+    |   TOPLEFT COLON (NUM|IDENTIFIER) #BorderRadiusOnlyTopLeft //var
+    |   BOTTOMRIGHT COLON (NUM|IDENTIFIER) #BorderRadiusOnlyBottomRight //var
+    |   BOTTOMLEFT COLON (NUM|IDENTIFIER) #BorderRadiusOnlyBottomLeft //var
     ;
 
 expanded:   EXPANDED LP (expandedProperties (COMMA expandedProperties)* COMMA? )? RP;
 
-expandedProperties:     FLEX COLON NUM #ExpandedFlex
+expandedProperties:     FLEX COLON (NUM|IDENTIFIER) #ExpandedFlex //var
                   |     childProperty #ExpandedChild
                   ;
 
@@ -159,15 +159,15 @@ edgeInsets
     ;
 
 edgeInsetsOnlyProperties
-    :   TOP COLON (NUM|FLOAT)    #EdgeInsetsOnlyTop
-    |   LEFT COLON (NUM|FLOAT)      #EdgeInsetsOnlyLeft
-    |   RIGHT COLON (NUM|FLOAT)    #EdgeInsetsOnlyRight
-    |   BOTTOM COLON (NUM|FLOAT)    #EdgeInsetsOnlyBottom
+    :   TOP COLON (NUM|FLOAT|IDENTIFIER)    #EdgeInsetsOnlyTop //var
+    |   LEFT COLON (NUM|FLOAT|IDENTIFIER)      #EdgeInsetsOnlyLeft //var
+    |   RIGHT COLON (NUM|FLOAT|IDENTIFIER)    #EdgeInsetsOnlyRight //var
+    |   BOTTOM COLON (NUM|FLOAT|IDENTIFIER)    #EdgeInsetsOnlyBottom //var
     ;
 
 edgeInsetsSymetricProperties
-    :   HORIZONTAL COLON (NUM|FLOAT)    #EdgeInsetsSymetricHorizontal
-    |   VERTICAL COLON (NUM|FLOAT)      #EdgeInsetsSymetricVertical
+    :   HORIZONTAL COLON (NUM|FLOAT|IDENTIFIER)   #EdgeInsetsSymetricHorizontal //var
+    |   VERTICAL COLON (NUM|FLOAT|IDENTIFIER)     #EdgeInsetsSymetricVertical //var
     ;
 
 image
@@ -175,7 +175,7 @@ image
     ;
 
 imageProperties
-    :   URL COLON STRING    #ImageUrl
+    :   URL COLON (STRING|IDENTIFIER)    #ImageUrl //var
     |   FIT COLON (COVER | CONTAINS)  #ImageFit
     |   widthProperty     #ImageWidth
     |   heightProperty    #ImageHeight
@@ -188,7 +188,7 @@ button
 buttonProperties
     :   widthProperty  #ButtonWidth
     |   heightProperty  #ButtonHeight
-    |   TITLE COLON STRING  #ButtonTitle
+    |   TITLE COLON (STRING|IDENTIFIER)  #ButtonTitle //var
     |   BACKGROUND_COLOR COLON HEX_NUM  #ButtonBackgroundColor
     |   TITLE_COLOR COLON HEX_NUM   #ButtonTitleColor
     |   onPressedProperty   #ButtonOnPressed
@@ -197,17 +197,17 @@ buttonProperties
 
 textField: TEXTFIELD LP (textFieldProperties (COMMA textFieldProperties)* COMMA? )? RP;
 
-textFieldProperties: VALUE COLON STRING #TextFieldValue
-                   | LABEL COLON STRING #TextFieldLabel
+textFieldProperties: VALUE COLON (STRING|IDENTIFIER) #TextFieldValue //var
+                   | LABEL COLON (STRING|IDENTIFIER) #TextFieldLabel //var
                    | TEXTCOLOR COLON HEX_NUM #TextFieldTextColor
                    | PADDINGATTR COLON edgeInsets #TextFieldPadding
-                   | HINT COLON STRING #TextFieldHint
+                   | HINT COLON (STRING|IDENTIFIER) #TextFieldHint //var
                    | BORDERATRI COLON border #TextFieldBorder
                    | ONCHANGED COLON LP (IDENTIFIER COMMA)* RP OB statment* CB #TextFieldOnChanged
                    ;
 border: BORDER LP (borderProperties (COMMA borderProperties)* COMMA? )? RP;
 
-borderProperties: THICKNESS COLON NUM #BorderThickness
+borderProperties: THICKNESS COLON (NUM|IDENTIFIER) #BorderThickness //var
                 | borderRadiusProperty   #BorderBorderRadius
                 | colorProperty #BorderColor
                 ;
@@ -225,7 +225,7 @@ variableDeclaration
     ;
 
 variableAssignment
-    :   IDENTIFIER EQL (NUM | FLOAT | STRING) SC
+    :   IDENTIFIER EQL (NUM | FLOAT | STRING) SC //var
     ;
 
 //custom widget stuff
@@ -234,8 +234,8 @@ customWidgetDeclaration
     ;
 
 // Frequency grammars
-widthProperty:  WIDTH COLON (NUM|FLOAT);
-heightProperty: HEIGHT COLON (NUM|FLOAT);
+widthProperty:  WIDTH COLON (NUM|FLOAT|IDENTIFIER); //var
+heightProperty: HEIGHT COLON (NUM|FLOAT|IDENTIFIER); //var
 colorProperty: COLOR COLON HEX_NUM;
 childProperty:  CHILD COLON widget;
 childrenProperty:   CHILDREN COLON OA (widget (COMMA widget)* COMMA? )? CA;
@@ -244,3 +244,14 @@ crossAxisAlignmentProperty: CROSSAXISALIGNMENT COLON (STRETCH | LEFT | RIGHT | C
 onPressedProperty
     :   ONPRESSED COLON LP (IDENTIFIER COMMA)* RP OB statment* CB
     ;
+
+//    customWidgetProperties
+//    textProperties
+//    borderRadiusCircularRadiusProperty
+//    borderRadiusOnlyProperties
+//    expandedProperties
+//    edgeInsetsOnlyProperties
+//    edgeInsetsSymetricProperties
+//    buttonProperties
+//    imageProperties
+//    textFieldProperties

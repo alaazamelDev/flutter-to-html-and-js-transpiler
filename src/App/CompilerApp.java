@@ -14,6 +14,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultEdge;
 import program.Program;
+import utils.SymbolTable;
 import utils.UTIL;
 import visitors.AntlrObjectFactory;
 import visitors.AntlrToProgram;
@@ -28,23 +29,26 @@ import java.io.IOException;
 public class CompilerApp {
 
     public static void main(String[] args) throws IOException {
-        String fileName = "test2.txt";
+        String fileName = "tests/test3.txt";
         DartParser parser = getParser(fileName);
 
         ParseTree antlrAST = parser.prog();
         IAntlrObjectFactory antlrObjectFactory = new AntlrObjectFactory();
 
         //check if there is any syntax error
+        AntlrToProgram antlrToProgram = null;
         if (MyErrorLisitener.hasErorr) {
 
 
         } else {
             //visitor
-            AntlrToProgram antlrToProgram = new AntlrToProgram(antlrObjectFactory);
+            antlrToProgram = new AntlrToProgram(antlrObjectFactory);
             Program program = antlrToProgram.visit(antlrAST);
 
             AstToGraphVisitor graphVisitor = new AstToGraphVisitor();
             program.accept(graphVisitor);
+
+            SymbolTable instance = SymbolTable.getInstance();
 
             JGraphXAdapter<String, DefaultEdge> graphAdapter = new JGraphXAdapter<>(UTIL.g);
             graphAdapter.getEdgeToCellMap().forEach((edge, cell) -> cell.setValue(null));
@@ -62,7 +66,13 @@ public class CompilerApp {
             );
             imgFile = new File("src/graph.png");
             ImageIO.write(image, "PNG", imgFile);
+        }
+        if (antlrToProgram.getSemanticError().isEmpty()) {
 
+        } else {
+            for (String semantic : antlrToProgram.getSemanticError()) {
+                System.err.println(semantic);
+            }
         }
     }
 
@@ -85,3 +95,4 @@ public class CompilerApp {
         return parser;
     }
 }
+

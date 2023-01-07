@@ -1,0 +1,42 @@
+int boxWidth;
+int boxHeight;
+
+int box1Flex;
+int box2Flex;
+
+
+boxWidth = 250;
+boxHeight = 700;
+box1Flex= 1;
+box2Flex= 2;
+
+Scaffold(
+    appBar: AppBar(
+        title: "Main App",
+        centerTitle: true,
+    ),
+    body: Container(
+        width:boxWidth,
+        height: boxHeight,
+        child: Center(
+            child: Column(
+                children:[
+                    Expanded(
+                        flex: box2Flex,
+                        child: Image(
+                            url:"https://www.google.com",
+                            fit: cover,
+                        ),
+                    ),
+                    Expanded(
+                        flex: box1Flex,
+                        child: Text(
+                            text: "here is a description on the content of the image",
+                        ),
+                    ),
+                ],
+            ),
+        ),
+        
+    ),
+)

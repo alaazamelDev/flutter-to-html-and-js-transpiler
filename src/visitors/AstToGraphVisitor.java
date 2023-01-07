@@ -479,7 +479,10 @@ public class AstToGraphVisitor implements Visitor<String> {
 
     @Override
     public String visit(CustomWidgetProperty customWidgetProperty) {
-        return null;
+        String vertex = UTIL.propertyToString(++UTIL.ID, customWidgetProperty.getName(),
+                String.valueOf(customWidgetProperty.getValue()), 0, customWidgetProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+        return vertex;
     }
 
 
