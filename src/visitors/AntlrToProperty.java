@@ -44,9 +44,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     private final IAntlrObjectFactory factory;
     List<String> semanticError;
 
-    public AntlrToProperty(IAntlrObjectFactory factory,List<String> semanticError) {
+    public AntlrToProperty(IAntlrObjectFactory factory, List<String> semanticError) {
         this.factory = factory;
-        this.semanticError=semanticError;
+        this.semanticError = semanticError;
     }
 
 
@@ -173,12 +173,10 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             if (type.equals("int")) {
                 Integer value = (Integer) symbol.getValue();
                 return new FontSizeProperty(value, lineNumber);
-            }
-            else if (type.equals("double")) {
+            } else if (type.equals("double")) {
                 Double value = (Double) symbol.getValue();
                 return new FontSizeProperty(value, lineNumber);
-             }
-            else {
+            } else {
                 //type mismatch
             }
         }
@@ -368,14 +366,12 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             String type = symbol.getType();
 
             if (type.equals("int")) {
-                Integer intValue = (Integer) symbol.getValue();
-                return new WidthProperty(intValue, String.valueOf(line));
-            }
-            else if (type.equals("double")) {
-                Double doubleValue = (Double) symbol.getValue();
-                return new WidthProperty(doubleValue, String.valueOf(line));
-            }
-            else {
+                int intValue = Integer.parseInt(String.valueOf(symbol.getValue()));
+                return new Horizontal(intValue, String.valueOf(line));
+            } else if (type.equals("double")) {
+                double doubleValue = Double.parseDouble(String.valueOf(symbol.getValue()));
+                return new Horizontal(doubleValue, String.valueOf(line));
+            } else {
                 //type mismatch
             }
         }
@@ -402,14 +398,12 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             String type = symbol.getType();
 
             if (type.equals("int")) {
-                Integer intValue = (Integer) symbol.getValue();
-                return new WidthProperty(intValue, String.valueOf(line));
-            }
-            else if (type.equals("double")) {
-                Double doubleValue = (Double) symbol.getValue();
-                return new WidthProperty(doubleValue, String.valueOf(line));
-            }
-            else {
+                int intValue = Integer.parseInt(String.valueOf(symbol.getValue()));
+                return new Horizontal(intValue, String.valueOf(line));
+            } else if (type.equals("double")) {
+                double doubleValue = Double.parseDouble(String.valueOf(symbol.getValue()));
+                return new Horizontal(doubleValue, String.valueOf(line));
+            } else {
                 //type mismatch
             }
         }
@@ -437,10 +431,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             String type = symbol.getType();
 
             if (type.equals("string")) {
-                String stringValue = (String) symbol.getValue();
+                String stringValue = String.valueOf(symbol.getValue());
                 return new UrlProperty(stringValue, Integer.toString(line));
-            }
-            else {
+            } else {
                 //type mismatch
             }
         }
@@ -621,14 +614,12 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             String type = symbol.getType();
 
             if (type.equals("int")) {
-                Integer intValue = (Integer) symbol.getValue();
-                return new WidthProperty(intValue, lnNumber);
-            }
-            else if (type.equals("double")) {
-                Double doubleValue = (Double) symbol.getValue();
-                return new WidthProperty(doubleValue, lnNumber);
-            }
-            else {
+                int intValue = Integer.parseInt(String.valueOf(symbol.getValue()));
+                return new HeightProperty(intValue, lnNumber);
+            } else if (type.equals("double")) {
+                double doubleValue = Double.parseDouble(String.valueOf(symbol.getValue()));
+                return new HeightProperty(doubleValue, lnNumber);
+            } else {
                 //type mismatch
             }
         }
@@ -654,14 +645,12 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             String type = symbol.getType();
 
             if (type.equals("int")) {
-                Integer intValue = (Integer) symbol.getValue();
+                int intValue = Integer.parseInt(String.valueOf(symbol.getValue()));
                 return new HeightProperty(intValue, lnNumber);
-            }
-            else if (type.equals("double")) {
-                Double doubleValue = (Double) symbol.getValue();
+            } else if (type.equals("double")) {
+                double doubleValue = Double.parseDouble(String.valueOf(symbol.getValue()));
                 return new HeightProperty(doubleValue, lnNumber);
-            }
-            else {
+            } else {
                 //type mismatch
             }
         }
