@@ -38,19 +38,10 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         String lnNumber = String.valueOf(ctx.WIDGET().getSymbol().getLine());
 
         List<Statement> vars = new ArrayList<>();
-        //set of identifiers
-        Set<String> set = new HashSet<>();
 
         for (DartParser.VariableDeclarationContext vd : ctx.variableDeclaration()) {
             Statement statement = visit(vd);
             vars.add(statement);
-
-            if (set.contains(((VariableDeclarationStatement) statement).getName())) {
-                semanticError.add(UTIL.semanticAlreadyDeclaredIdentifier(vd.getStart().getLine(),
-                        vd.getStart().getCharPositionInLine() + 1,
-                        ((VariableDeclarationStatement) statement).getName()));
-            } else
-                set.add(((VariableDeclarationStatement) statement).getName());
         }
 
         Widget widget = antlrToWidget.visit(ctx.widget());
@@ -100,7 +91,7 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         // register the widget in the symbol table
         String error = varDeclaration.accept(symbolTableVisitorAst);
         if(!error.isEmpty()) semanticError.add(error+" "+ctx.IDENTIFIER().getSymbol().getLine()+":"
-        +ctx.IDENTIFIER().getSymbol().getCharPositionInLine()+1);
+        +(ctx.IDENTIFIER().getSymbol().getCharPositionInLine()+1));
 
         return varDeclaration;
     }
@@ -135,7 +126,7 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         // register the widget in the symbol table
         String error = varAssignment.accept(symbolTableVisitorAst);
         if (!error.isEmpty()) semanticError.add(error + " " + ctx.IDENTIFIER().getSymbol().getLine() + ":"
-                +ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1);
+                +(ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1));
 
         return varAssignment;
     }

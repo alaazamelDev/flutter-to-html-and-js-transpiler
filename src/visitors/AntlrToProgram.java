@@ -40,7 +40,7 @@ public class AntlrToProgram extends DartParserBaseVisitor<Program> {
 
             String varId = null;
             if (statement instanceof VariableDeclarationStatement) {
-                varId = ((VariableDeclarationStatement) statement).getName();
+                continue; // already handled in symbol table
             } else if (statement instanceof CustomWidgetDeclarationStatement) {
                 varId = ((CustomWidgetDeclarationStatement) statement).getName();
             }
