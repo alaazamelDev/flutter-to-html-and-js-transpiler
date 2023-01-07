@@ -34,6 +34,7 @@ import properties.text.*;
 import statements.Statement;
 import utils.Symbol;
 import utils.SymbolTable;
+import utils.UTIL;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -361,7 +362,10 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             //TODO if the symbol is null there is a semantic error, the var wasn't declared
             //search for the var in the st
             Symbol symbol = instance.get(var);
-
+            if (symbol == null) {
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, ctx.IDENTIFIER().getSymbol().getText()));
+                return new Horizontal(-1.0d,Integer.toString(line));
+            }
             //get the type
             String type = symbol.getType();
 
@@ -373,6 +377,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
                 return new Horizontal(doubleValue, String.valueOf(line));
             } else {
                 //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1,
+                        "double,int", type));
+                return new Horizontal(-1.0d,Integer.toString(line));
             }
         }
         return new Horizontal(Double.parseDouble(value), Integer.toString(line));
@@ -393,7 +400,10 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             //TODO if the symbol is null there is a semantic error, the var wasn't declared
             //search for the var in the st
             Symbol symbol = instance.get(var);
-
+            if (symbol == null) {
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, ctx.IDENTIFIER().getSymbol().getText()));
+                return new Vertical(-1.0d,Integer.toString(line));
+            }
             //get the type
             String type = symbol.getType();
 
@@ -404,7 +414,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
                 double doubleValue = Double.parseDouble(String.valueOf(symbol.getValue()));
                 return new Horizontal(doubleValue, String.valueOf(line));
             } else {
-                //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1,
+                        "double,int", type));
+                return new Vertical(-1.0d,Integer.toString(line));
             }
         }
         return new Vertical(Double.parseDouble(ctx.getChild(2).getText()), Integer.toString(line));
@@ -426,7 +438,10 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             //TODO if the symbol is null there is a semantic error, the var wasn't declared
             //search for the var in the st
             Symbol symbol = instance.get(var);
-
+            if (symbol == null) {
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, ctx.IDENTIFIER().getSymbol().getText()));
+                return new UrlProperty("",Integer.toString(line));
+            }
             //get the type
             String type = symbol.getType();
 
@@ -435,6 +450,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
                 return new UrlProperty(stringValue, Integer.toString(line));
             } else {
                 //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1,
+                        "string", type));
+                return new UrlProperty("",Integer.toString(line));
             }
         }
         return new UrlProperty(url, Integer.toString(line));
@@ -609,7 +627,10 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             //TODO if the symbol is null there is a semantic error, the var wasn't declared
             //search for the var in the st
             Symbol symbol = instance.get(var);
-
+            if (symbol == null) {
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, ctx.IDENTIFIER().getSymbol().getText()));
+                return new WidthProperty(-1.0d,lnNumber);
+            }
             //get the type
             String type = symbol.getType();
 
@@ -621,6 +642,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
                 return new HeightProperty(doubleValue, lnNumber);
             } else {
                 //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1,
+                        "double,int", type));
+                return new WidthProperty(-1.0d,lnNumber);
             }
         }
         return new WidthProperty(Double.parseDouble(value), lnNumber);
@@ -640,7 +664,10 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             //TODO if the symbol is null there is a semantic error, the var wasn't declared
             //search for the var in the st
             Symbol symbol = instance.get(var);
-
+            if (symbol == null) {
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, ctx.IDENTIFIER().getSymbol().getText()));
+                return new HeightProperty(-1.0d,lnNumber);
+            }
             //get the type
             String type = symbol.getType();
 
@@ -652,6 +679,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
                 return new HeightProperty(doubleValue, lnNumber);
             } else {
                 //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1,
+                        "double,int", type));
+                return new HeightProperty(-1.0d,lnNumber);
             }
         }
 
