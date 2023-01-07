@@ -291,7 +291,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
                         "double,int",
                         symbol.getType()
                 ));
-                return new Top(-1, lineNumber);
+                return new borderRadiusCircularRadiusProperty(-1, lineNumber);
             }
         }
         double radius = Double.parseDouble(ctx.getChild(2).getText());
