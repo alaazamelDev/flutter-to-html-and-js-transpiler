@@ -45,7 +45,7 @@ public class AntlrToProgram extends DartParserBaseVisitor<Program> {
                 varId = ((CustomWidgetDeclarationStatement) statement).getName();
             }
 
-            if (varIds.contains(varId))
+            if (varId != null && varIds.contains(varId))
                 semanticError.add(UTIL.semanticAlreadyDeclaredIdentifier(sc.getStart().getLine(), sc.getStart().getCharPositionInLine() + 1, varId));
             else varIds.add(varId);
         }

@@ -1271,10 +1271,10 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
             if (type.equals("int")) {
                 int intValue = Integer.parseInt(String.valueOf(symbol.getValue()));
-                return new HeightProperty(intValue, lnNumber);
+                return new WidthProperty(intValue, lnNumber);
             } else if (type.equals("double")) {
                 double doubleValue = Double.parseDouble(String.valueOf(symbol.getValue()));
-                return new HeightProperty(doubleValue, lnNumber);
+                return new WidthProperty(doubleValue, lnNumber);
             } else {
                 //type mismatch
                 semanticError.add(UTIL.semanticTypeMismatch(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1,

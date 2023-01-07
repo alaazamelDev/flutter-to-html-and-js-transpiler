@@ -28,7 +28,7 @@ Scaffold(
         child: ProductCard(
           name: "Headset",
           imageUrl: "https://www.google.com",
-          description: "a black beats headset",
+          description: "a black beats headset", 
         ),
       ),
       Column(
@@ -36,8 +36,18 @@ Scaffold(
             ProductCard(
             name: "Watch",
             imageUrl: "https://www.google.com",
-            description: "a great looking hand watch",
-          )
+            description: "a great looking hand watch", 
+          ),
+          ProductCard(
+            name: "Headset",
+            imageUrl: "https://www.google.com",
+            description: "a black beats headset", 
+          ),
+          ProductCard(
+            name: "Backpack",
+            imageUrl: "https://www.google.com",
+            description: "a gray and big size backpack", 
+          ),
         ],
       ),
     ],
