@@ -12,7 +12,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import properties.*;
 import properties.appbar.CenterTitleProperty;
 import properties.appbar.TitleProperty;
-import properties.border_radius.*;
+import properties.border_radius.BorderRadiusProperty;
 import properties.border_radius.border_radius_circular.borderRadiusCircularRadiusProperty;
 import properties.border_radius.border_radius_only.BottomLeftProperty;
 import properties.border_radius.border_radius_only.BottomRightProperty;
@@ -29,7 +29,6 @@ import properties.edgeInsetsSymetricProperties.Vertical;
 import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
-import properties.ColorProperty;
 import properties.text.*;
 import statements.Statement;
 import utils.Symbol;
@@ -381,33 +380,230 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitBorderRadiusOnlyTopRight(DartParser.BorderRadiusOnlyTopRightContext ctx) {
-        String line = Integer.toString(ctx.TOPRIGHT().getSymbol().getLine());
-        return new TopRightProperty(Double.parseDouble(ctx.getChild(2).getText()), line);
+        String lineNumber = Integer.toString(ctx.TOPRIGHT().getSymbol().getLine());
+        String columnNumber = String.valueOf(ctx.TOPRIGHT().getSymbol().getCharPositionInLine() + 1);
+
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            // TODO: var is not found.
+            if (!instance.contains(var)) {
+                //type mismatch
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        var
+                ));
+                return new TopRightProperty(-1, lineNumber);
+            }
+
+            //search for the var in the st
+            Symbol symbol = instance.get(var);
+
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("int")) {
+                int value = Integer.parseInt(symbol.getValue().toString());
+                return new TopRightProperty(value, lineNumber);
+            } else {
+                //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        "int",
+                        type
+                ));
+                return new TopRightProperty(-1, lineNumber);
+            }
+
+        }
+
+        return new TopRightProperty(Double.parseDouble(ctx.getChild(2).getText()), lineNumber);
     }
 
     @Override
     public Property visitBorderRadiusOnlyTopLeft(DartParser.BorderRadiusOnlyTopLeftContext ctx) {
-        String line = Integer.toString(ctx.TOPLEFT().getSymbol().getLine());
-        return new TopLeftProperty(Double.parseDouble(ctx.getChild(2).getText()), line);
+        String lineNumber = Integer.toString(ctx.TOPLEFT().getSymbol().getLine());
+        String columnNumber = String.valueOf(ctx.TOPLEFT().getSymbol().getCharPositionInLine() + 1);
+
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            if (!instance.contains(var)) {
+                //type mismatch
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        var
+                ));
+                return new TopLeftProperty(-1, lineNumber);
+            }
+
+
+            //search for the var in the st
+            Symbol symbol = instance.get(var);
+
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("int")) {
+                int value = Integer.parseInt(symbol.getValue().toString());
+                return new TopLeftProperty(value, lineNumber);
+            } else {
+                semanticError.add(UTIL.semanticTypeMismatch(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        "int",
+                        type
+                ));
+                return new TopLeftProperty(-1, lineNumber);
+            }
+
+        }
+        return new TopLeftProperty(Double.parseDouble(ctx.getChild(2).getText()), lineNumber);
     }
 
     @Override
     public Property visitBorderRadiusOnlyBottomRight(DartParser.BorderRadiusOnlyBottomRightContext ctx) {
-        String line = Integer.toString(ctx.BOTTOMRIGHT().getSymbol().getLine());
-        return new BottomRightProperty(Double.parseDouble(ctx.getChild(2).getText()), line);
+        String lineNumber = Integer.toString(ctx.BOTTOMRIGHT().getSymbol().getLine());
+        String columnNumber = String.valueOf(ctx.BOTTOMRIGHT().getSymbol().getCharPositionInLine() + 1);
+
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            if (!instance.contains(var)) {
+                //type mismatch
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        var
+                ));
+                return new BottomRightProperty(-1, lineNumber);
+            }
+
+            //search for the var in the st
+            Symbol symbol = instance.get(var);
+
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("int")) {
+                int value = Integer.parseInt(symbol.getValue().toString());
+                return new BottomRightProperty(value, lineNumber);
+            } else {
+                //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        "int",
+                        type
+                ));
+                return new BottomRightProperty(-1, lineNumber);
+            }
+
+        }
+        return new BottomRightProperty(Double.parseDouble(ctx.getChild(2).getText()), lineNumber);
     }
 
     @Override
     public Property visitBorderRadiusOnlyBottomLeft(DartParser.BorderRadiusOnlyBottomLeftContext ctx) {
-        String line = Integer.toString(ctx.BOTTOMLEFT().getSymbol().getLine());
-        return new BottomLeftProperty(Double.parseDouble(ctx.getChild(2).getText()), line);
+        String lineNumber = Integer.toString(ctx.BOTTOMLEFT().getSymbol().getLine());
+        String columnNumber = String.valueOf(ctx.BOTTOMLEFT().getSymbol().getCharPositionInLine() + 1);
+
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            if (!instance.contains(var)) {
+                //type mismatch
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        var
+                ));
+                return new BottomLeftProperty(-1, lineNumber);
+            }
+
+            //search for the var in the st
+            Symbol symbol = instance.get(var);
+
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("int")) {
+                int value = Integer.parseInt(symbol.getValue().toString());
+                System.out.println(value);
+                return new BottomLeftProperty(value, lineNumber);
+            } else {
+                //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        "int",
+                        type
+                ));
+                return new BottomLeftProperty(-1, lineNumber);
+            }
+
+        }
+        return new BottomLeftProperty(Double.parseDouble(ctx.getChild(2).getText()), lineNumber);
     }
 
 
     @Override
     public Property visitExpandedFlex(DartParser.ExpandedFlexContext ctx) {
-        String line = Integer.toString(ctx.FLEX().getSymbol().getLine());
-        return new ExpandedFlexProperty(Integer.parseInt(ctx.getChild(2).getText()), line);
+        String lineNumber = Integer.toString(ctx.FLEX().getSymbol().getLine());
+        String columnNumber = String.valueOf(ctx.FLEX().getSymbol().getCharPositionInLine() + 1);
+
+        if (ctx.IDENTIFIER() != null) {
+            //get the symbol table
+            SymbolTable instance = SymbolTable.getInstance();
+            //get the var name from the parse tree
+            String var = ctx.IDENTIFIER().getText();
+
+            if (!instance.contains(var)) {
+                //type mismatch
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        var
+                ));
+                return new ExpandedFlexProperty(-1, lineNumber);
+            }
+
+            //search for the var in the st
+            Symbol symbol = instance.get(var);
+
+            //get the type
+            String type = symbol.getType();
+
+            if (type.equals("int")) {
+                int value = Integer.parseInt(symbol.getValue().toString());
+                return new ExpandedFlexProperty(value, lineNumber);
+            } else {
+                //type mismatch
+                semanticError.add(UTIL.semanticTypeMismatch(
+                        Integer.parseInt(lineNumber),
+                        Integer.parseInt(columnNumber),
+                        "int",
+                        type
+                ));
+                return new ExpandedFlexProperty(-1, lineNumber);
+            }
+        }
+        return new ExpandedFlexProperty(Integer.parseInt(ctx.getChild(2).getText()), lineNumber);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class UTIL {
     }
 
     public static String semanticTypeMismatch(int line, int column, String expected, String found) {
-        return "type mismatch " + "expected: " + expected + " found:" + found + " " + line+ ":" + column;
+        return "type mismatch " + "expected: " + expected + " found:" + found + " " + line + ":" + column;
     }
 
     public static <E extends Enum<E>> boolean isInEnum(String value, Class<E> enumClass) {
