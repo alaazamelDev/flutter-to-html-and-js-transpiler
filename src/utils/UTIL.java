@@ -38,16 +38,36 @@ public class UTIL {
     public static String semanticAlreadyDeclaredIdentifier(int line, int column, String id) {
         return "Identifier " + id + " Already Declared " + line + ":" + column;
     }
+
     public static String semanticReservedWidgetIdentifier(int line, int column, String Widget) {
         return "Widget name " + Widget + " Is Already Reserved " + line + ":" + column;
     }
 
+    public static String semanticUndeclaredIdentifier(int line, int column, String identifier) {
+        return "Identifier " + identifier + " not declared " + line + ":" + column;
+    }
+
+    public static String semanticTypeMismatch(int line, int column, String expected, String found) {
+        return "type mismatch " + "expected: " + expected + " found:" + found + " " + line + ":" + column;
+    }
+
     public static <E extends Enum<E>> boolean isInEnum(String value, Class<E> enumClass) {
         for (E e : enumClass.getEnumConstants()) {
-            if(e.name().equals(value)) { return true; }
+            if (e.name().equals(value)) {
+                return true;
+            }
         }
         return false;
     }
+
+    public static String semanticUndeclaredIdentifier(int line, int column, String identifier) {
+        return "Identifier " + identifier + " not declared " + line + ":" + column;
+    }
+
+    public static String semanticTypeMismatch(int line, int column, String expected, String found) {
+        return "type mismatch " + "expected: " + expected + " found:" + found + " " + line ":" + column;
+    }
+
 
 
 }
