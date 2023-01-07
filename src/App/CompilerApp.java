@@ -71,7 +71,7 @@ public class CompilerApp {
 
         } else {
             for (String semantic : antlrToProgram.getSemanticError()) {
-                System.out.println(semantic);
+                System.err.println(semantic);
             }
         }
     }
