@@ -262,7 +262,7 @@ relationalExpression : additiveExpression ( (GTE | GT | LTE | LT) additiveExpres
 //  Int a = 1 + 2;
 additiveExpression : multiplicativeExpression ((PL | MINUS) multiplicativeExpression )*;
 //TODO divison
-multiplicativeExpression : primary ( STAR primary )* ;
+multiplicativeExpression : primary ( (STAR | DIV) primary )* ;
 
 // main() -> main is primary , () are selectors
 primary :  LP expression RP #PrimaryExpressionExpression

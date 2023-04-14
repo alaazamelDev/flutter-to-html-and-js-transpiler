@@ -22,6 +22,7 @@ MINUS: '-';
 OO:'||';
 AA:'&&';
 STAR:'*';
+DIV: '/';
 
 
 //Widgets
