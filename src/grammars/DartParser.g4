@@ -266,15 +266,13 @@ multiplicativeExpression : primary ( STAR primary )* ;
 primary :  LP expression RP | literal | IDENTIFIER;
 literal
    //:    nullLiteral
-    :    booleanLiteral
-    |    numericLiteral
-    |    stringLiteral
+    :    BOOLEAN
+    |    NUM | FLOAT | HEX_NUM
+    |    STRING
 //    |    listLiteral
     ;
 //nullLiteral : NULL_ ;
-booleanLiteral : BOOLEAN ;
-numericLiteral : NUM | FLOAT | HEX_NUM ;
-stringLiteral: STRING;
+
 
 //    customWidgetProperties
 //    textProperties
