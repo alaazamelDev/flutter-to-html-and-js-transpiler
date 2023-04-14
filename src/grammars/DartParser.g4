@@ -265,12 +265,13 @@ additiveExpression : multiplicativeExpression ((PL | MINUS) multiplicativeExpres
 multiplicativeExpression : primary ( STAR primary )* ;
 
 // main() -> main is primary , () are selectors
-primary :  LP expression RP | literal | IDENTIFIER;
+primary :  LP expression RP #PrimaryExpressionExpression
+| literal #PrimaryLiteralExpression
+| IDENTIFIER #PrimaryIdentifierExpression
+;
 literal
    //:    nullLiteral
-    :    BOOLEAN
-    |    NUM | FLOAT | HEX_NUM
-    |    STRING
+    :    BOOLEAN | NUM | FLOAT | HEX_NUM | STRING
 //    |    listLiteral
     ;
 //nullLiteral : NULL_ ;

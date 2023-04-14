@@ -1,25 +1,27 @@
 package expressions;
 
+import enums.TokenType;
 import visitors.Visitor;
 
+import java.util.List;
+
 public class MultiplicativeExpression extends Expression {
-    private final Expression left;
-    private final Expression right;
+    private final List<Expression> expressions;
+    private final List<TokenType> operators;
 
-    public MultiplicativeExpression(Expression left, Expression right, String lnNumber) {
+    public MultiplicativeExpression(List<Expression> expressions, List<TokenType> operators, String lnNumber) {
         super(lnNumber);
-        this.left = left;
-        this.right = right;
+        this.expressions = expressions;
+        this.operators = operators;
     }
 
-    public Expression getLeft() {
-        return left;
+    public List<Expression> getExpressions() {
+        return expressions;
     }
 
-    public Expression getRight() {
-        return right;
+    public List<TokenType> getOperators() {
+        return operators;
     }
-
 
     @Override
     public <T> T accept(Visitor<T> visitor) {

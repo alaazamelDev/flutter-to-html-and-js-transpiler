@@ -1,6 +1,8 @@
 package visitors;
 
 import expressions.*;
+import expressions.primary.PrimaryIdentifierExpression;
+import expressions.primary.PrimaryLiteralExpression;
 import program.Program;
 import properties.*;
 import properties.BackgroundColorProperty;
@@ -185,8 +187,9 @@ public interface Visitor<T> {
     public T visit(ExpressionListExpression expressionList);
     public T visit(MultiplicativeExpression multiplicativeExpression);
     public T visit(AdditiveExpression additiveExpression);
-    public T visit(PrimaryExpression primaryExpression);
     public T visit(LiteralExpression literalExpression);
+    public T visit(PrimaryIdentifierExpression primaryIdentifierExpression);
+    public T visit(PrimaryLiteralExpression primaryLiteralExpression);
 
 
 }

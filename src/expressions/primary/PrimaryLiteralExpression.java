@@ -1,11 +1,11 @@
-package expressions;
+package expressions.primary;
 
 import visitors.Visitor;
 
-public class PrimaryExpression extends Expression {
+public class PrimaryLiteralExpression extends PrimaryExpression {
     private final Object value;
 
-    public PrimaryExpression(Object value, String lnNumber) {
+    public PrimaryLiteralExpression(Object value,String lnNumber) {
         super(lnNumber);
         this.value = value;
     }

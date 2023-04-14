@@ -1229,13 +1229,37 @@ public class DartParserBaseListener implements DartParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrimary(DartParser.PrimaryContext ctx) { }
+	@Override public void enterPrimaryExpressionExpression(DartParser.PrimaryExpressionExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrimary(DartParser.PrimaryContext ctx) { }
+	@Override public void exitPrimaryExpressionExpression(DartParser.PrimaryExpressionExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrimaryLiteralExpression(DartParser.PrimaryLiteralExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrimaryLiteralExpression(DartParser.PrimaryLiteralExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrimaryIdentifierExpression(DartParser.PrimaryIdentifierExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrimaryIdentifierExpression(DartParser.PrimaryIdentifierExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1248,42 +1272,6 @@ public class DartParserBaseListener implements DartParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLiteral(DartParser.LiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBooleanLiteral(DartParser.BooleanLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBooleanLiteral(DartParser.BooleanLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNumericLiteral(DartParser.NumericLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNumericLiteral(DartParser.NumericLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStringLiteral(DartParser.StringLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStringLiteral(DartParser.StringLiteralContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

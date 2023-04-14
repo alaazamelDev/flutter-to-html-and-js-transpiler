@@ -1126,15 +1126,41 @@ public interface DartParserListener extends ParseTreeListener {
 	 */
 	void exitMultiplicativeExpression(DartParser.MultiplicativeExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DartParser#primary}.
+	 * Enter a parse tree produced by the {@code PrimaryExpressionExpression}
+	 * labeled alternative in {@link DartParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrimary(DartParser.PrimaryContext ctx);
+	void enterPrimaryExpressionExpression(DartParser.PrimaryExpressionExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DartParser#primary}.
+	 * Exit a parse tree produced by the {@code PrimaryExpressionExpression}
+	 * labeled alternative in {@link DartParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrimary(DartParser.PrimaryContext ctx);
+	void exitPrimaryExpressionExpression(DartParser.PrimaryExpressionExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PrimaryLiteralExpression}
+	 * labeled alternative in {@link DartParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryLiteralExpression(DartParser.PrimaryLiteralExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PrimaryLiteralExpression}
+	 * labeled alternative in {@link DartParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryLiteralExpression(DartParser.PrimaryLiteralExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PrimaryIdentifierExpression}
+	 * labeled alternative in {@link DartParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryIdentifierExpression(DartParser.PrimaryIdentifierExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PrimaryIdentifierExpression}
+	 * labeled alternative in {@link DartParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryIdentifierExpression(DartParser.PrimaryIdentifierExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DartParser#literal}.
 	 * @param ctx the parse tree
@@ -1145,34 +1171,4 @@ public interface DartParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLiteral(DartParser.LiteralContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DartParser#booleanLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterBooleanLiteral(DartParser.BooleanLiteralContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DartParser#booleanLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitBooleanLiteral(DartParser.BooleanLiteralContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DartParser#numericLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterNumericLiteral(DartParser.NumericLiteralContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DartParser#numericLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitNumericLiteral(DartParser.NumericLiteralContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DartParser#stringLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterStringLiteral(DartParser.StringLiteralContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DartParser#stringLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitStringLiteral(DartParser.StringLiteralContext ctx);
 }

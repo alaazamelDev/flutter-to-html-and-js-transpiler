@@ -2,27 +2,22 @@ package expressions;
 
 import visitors.Visitor;
 
+import java.util.List;
+
 public class LogicalAndExpression extends Expression {
-    private final Expression left;
-    private final Expression right;
+    private final List<Expression> expressions;
 
-    public LogicalAndExpression(Expression left, Expression right, String lnNumber) {
+    public LogicalAndExpression(List<Expression> expressions, String lnNumber) {
         super(lnNumber);
-        this.left = left;
-        this.right = right;
+        this.expressions = expressions;
     }
 
-    public Expression getLeft() {
-        return left;
-    }
-
-    public Expression getRight() {
-        return right;
+    public List<Expression> getExpressions() {
+        return expressions;
     }
 
     @Override
     public <T> T accept(Visitor<T> visitor) {
         return visitor.visit(this);
     }
-
 }

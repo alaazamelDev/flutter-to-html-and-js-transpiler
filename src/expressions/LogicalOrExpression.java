@@ -2,22 +2,18 @@ package expressions;
 
 import visitors.Visitor;
 
+import java.util.List;
+
 public class LogicalOrExpression extends Expression {
-    private final Expression left;
-    private final Expression right;
+    private final List<Expression> expressions;
 
-    public LogicalOrExpression(Expression left, Expression right, String lnNumber) {
+    public LogicalOrExpression(List<Expression> expressions,String lnNumber) {
         super(lnNumber);
-        this.left = left;
-        this.right = right;
+        this.expressions = expressions;
     }
 
-    public Expression getLeft() {
-        return left;
-    }
-
-    public Expression getRight() {
-        return right;
+    public List<Expression> getExpressions() {
+        return expressions;
     }
 
     @Override

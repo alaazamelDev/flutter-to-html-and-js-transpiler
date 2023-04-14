@@ -671,33 +671,30 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMultiplicativeExpression(DartParser.MultiplicativeExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#primary}.
+	 * Visit a parse tree produced by the {@code PrimaryExpressionExpression}
+	 * labeled alternative in {@link DartParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrimary(DartParser.PrimaryContext ctx);
+	T visitPrimaryExpressionExpression(DartParser.PrimaryExpressionExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PrimaryLiteralExpression}
+	 * labeled alternative in {@link DartParser#primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryLiteralExpression(DartParser.PrimaryLiteralExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PrimaryIdentifierExpression}
+	 * labeled alternative in {@link DartParser#primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryIdentifierExpression(DartParser.PrimaryIdentifierExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLiteral(DartParser.LiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#booleanLiteral}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBooleanLiteral(DartParser.BooleanLiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#numericLiteral}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNumericLiteral(DartParser.NumericLiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#stringLiteral}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStringLiteral(DartParser.StringLiteralContext ctx);
 }

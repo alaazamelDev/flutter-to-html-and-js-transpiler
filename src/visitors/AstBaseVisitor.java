@@ -1,5 +1,8 @@
 package visitors;
 
+import expressions.*;
+import expressions.primary.PrimaryIdentifierExpression;
+import expressions.primary.PrimaryLiteralExpression;
 import program.Program;
 import properties.*;
 import properties.appbar.CenterTitleProperty;
@@ -28,7 +31,55 @@ import statements.VariableDeclarationStatement;
 import widgets.*;
 
 public class AstBaseVisitor<T> implements Visitor<T>{
+    @Override
+    public T visit(LogicalAndExpression logicalAndExpression) {
+        return null;
+    }
 
+    @Override
+    public T visit(LogicalOrExpression logicalOrExpression) {
+        return null;
+    }
+
+    @Override
+    public T visit(EqualityExpression equalityExpression) {
+        return null;
+    }
+
+    @Override
+    public T visit(RelationalExpression relationalExpression) {
+        return null;
+    }
+
+    @Override
+    public T visit(ExpressionListExpression expressionList) {
+        return null;
+    }
+
+    @Override
+    public T visit(MultiplicativeExpression multiplicativeExpression) {
+        return null;
+    }
+
+    @Override
+    public T visit(AdditiveExpression additiveExpression) {
+        return null;
+    }
+
+    @Override
+    public T visit(LiteralExpression literalExpression) {
+        return null;
+    }
+
+    @Override
+    public T visit(PrimaryIdentifierExpression primaryIdentifierExpression) {
+        return null;
+    }
+
+    @Override
+    public T visit(PrimaryLiteralExpression primaryLiteralExpression) {
+        return null;
+    }
 
     @Override
     public T visit(Program program) {
