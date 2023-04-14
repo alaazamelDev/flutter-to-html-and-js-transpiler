@@ -1,9 +1,6 @@
 package interfaces;
 
-import visitors.AntlrToProperty;
-import visitors.AntlrToStatement;
-import visitors.AntlrToWidget;
-import visitors.SymbolTableVisitorAst;
+import visitors.*;
 
 import java.util.List;
 
@@ -14,5 +11,6 @@ public interface IAntlrObjectFactory {
     AntlrToProperty createAntlrToProperty(List<String> semanticError);
 
     AntlrToStatement createAntlrToStatement(List<String> semanticError);
+    AntlrToExpression createAntlrToExpression(List<String> semanticError);
     SymbolTableVisitorAst createSymbolTableVisitor();
 }

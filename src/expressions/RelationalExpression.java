@@ -1,15 +1,18 @@
 package expressions;
 
+import enums.TokenType;
 import visitors.Visitor;
 
-public class LogicalAndExpression extends Expression {
+public class RelationalExpression extends Expression {
     private final Expression left;
     private final Expression right;
+    private final TokenType operatorType;
 
-    public LogicalAndExpression(Expression left, Expression right, String lnNumber) {
+    public RelationalExpression(Expression left, Expression right, TokenType operatorType, String lnNumber) {
         super(lnNumber);
         this.left = left;
         this.right = right;
+        this.operatorType = operatorType;
     }
 
     public Expression getLeft() {
@@ -20,9 +23,12 @@ public class LogicalAndExpression extends Expression {
         return right;
     }
 
+    public TokenType getOperatorType() {
+        return operatorType;
+    }
+
     @Override
     public <T> T accept(Visitor<T> visitor) {
         return visitor.visit(this);
     }
-
 }

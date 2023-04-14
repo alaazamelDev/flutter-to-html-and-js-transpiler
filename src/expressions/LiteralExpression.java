@@ -2,10 +2,10 @@ package expressions;
 
 import visitors.Visitor;
 
-public class literal extends Expression {
+public class LiteralExpression extends Expression {
 
     private final Object value;
-    public literal(Object value, String lnNumber) {
+    public LiteralExpression(Object value, String lnNumber) {
         super(lnNumber);
         this.value=value;
     }
@@ -17,6 +17,6 @@ public class literal extends Expression {
 
     @Override
     public <T> T accept(Visitor<T> visitor) {
-        return null;
+        return visitor.visit(this);
     }
 }

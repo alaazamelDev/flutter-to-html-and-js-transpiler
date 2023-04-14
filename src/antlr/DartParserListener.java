@@ -1046,16 +1046,6 @@ public interface DartParserListener extends ParseTreeListener {
 	 */
 	void exitOnPressedProperty(DartParser.OnPressedPropertyContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DartParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterExpression(DartParser.ExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DartParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitExpression(DartParser.ExpressionContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link DartParser#expressionList}.
 	 * @param ctx the parse tree
 	 */
@@ -1065,6 +1055,16 @@ public interface DartParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpressionList(DartParser.ExpressionListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DartParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression(DartParser.ExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DartParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression(DartParser.ExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DartParser#logicalOrExpression}.
 	 * @param ctx the parse tree
@@ -1125,16 +1125,6 @@ public interface DartParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMultiplicativeExpression(DartParser.MultiplicativeExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DartParser#multiplicativeOperator}.
-	 * @param ctx the parse tree
-	 */
-	void enterMultiplicativeOperator(DartParser.MultiplicativeOperatorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DartParser#multiplicativeOperator}.
-	 * @param ctx the parse tree
-	 */
-	void exitMultiplicativeOperator(DartParser.MultiplicativeOperatorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DartParser#primary}.
 	 * @param ctx the parse tree

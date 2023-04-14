@@ -2,11 +2,12 @@ package expressions;
 
 import visitors.Visitor;
 
-public class multiplicativeExpression extends Expression {
+public class AdditiveExpression extends Expression {
+
     private final Expression left;
     private final Expression right;
 
-    public multiplicativeExpression(Expression left, Expression right, String lnNumber) {
+    public AdditiveExpression(Expression left, Expression right, String lnNumber) {
         super(lnNumber);
         this.left = left;
         this.right = right;
@@ -23,6 +24,6 @@ public class multiplicativeExpression extends Expression {
 
     @Override
     public <T> T accept(Visitor<T> visitor) {
-        return null;
+        return visitor.visit(this);
     }
 }

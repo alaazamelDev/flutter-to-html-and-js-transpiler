@@ -246,9 +246,11 @@ onPressedProperty
     ;
 
 //expressions
-expression : logicalOrExpression;
+
 //a=1-2,b=1+2
 expressionList : expression ( COMMA expression )* ;
+
+expression : logicalOrExpression;
 //String a = 1 || 2;
 logicalOrExpression : logicalAndExpression ( OO logicalAndExpression )* ;
 //String a = 1 && 2 ;
@@ -259,7 +261,7 @@ equalityExpression : relationalExpression ( (EE | NE) relationalExpression )?;
 relationalExpression : additiveExpression ( (GTE | GT | LTE | LT) additiveExpression )?;
 //  Int a = 1 + 2;
 additiveExpression : multiplicativeExpression ((PL | MINUS) multiplicativeExpression )*;
-
+//TODO divison
 multiplicativeExpression : primary ( STAR primary )* ;
 
 // main() -> main is primary , () are selectors

@@ -21,4 +21,12 @@ public enum TokenType {
     public String getSymbol() {
         return symbol;
     }
+    public static TokenType fromSymbol(String symbol) {
+        for (TokenType tokenType : TokenType.values()) {
+            if (tokenType.symbol.equals(symbol)) {
+                return tokenType;
+            }
+        }
+        throw new IllegalArgumentException("No TokenType found for symbol: " + symbol);
+    }
 }

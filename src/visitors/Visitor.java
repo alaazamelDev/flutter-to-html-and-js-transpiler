@@ -1,5 +1,6 @@
 package visitors;
 
+import expressions.*;
 import program.Program;
 import properties.*;
 import properties.BackgroundColorProperty;
@@ -176,6 +177,16 @@ public interface Visitor<T> {
     public T visit(VariableAssignmentStatement variableAssignmentStatement);
 
     public T visit(VariableDeclarationStatement variableDeclarationStatement);
+
+    public T visit(LogicalAndExpression logicalAndExpression);
+    public T visit(LogicalOrExpression logicalOrExpression);
+    public T visit(EqualityExpression equalityExpression);
+    public T visit(RelationalExpression relationalExpression);
+    public T visit(ExpressionListExpression expressionList);
+    public T visit(MultiplicativeExpression multiplicativeExpression);
+    public T visit(AdditiveExpression additiveExpression);
+    public T visit(PrimaryExpression primaryExpression);
+    public T visit(LiteralExpression literalExpression);
 
 
 }

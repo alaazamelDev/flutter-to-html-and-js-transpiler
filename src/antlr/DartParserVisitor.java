@@ -623,17 +623,17 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOnPressedProperty(DartParser.OnPressedPropertyContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DartParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpression(DartParser.ExpressionContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link DartParser#expressionList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitExpressionList(DartParser.ExpressionListContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression(DartParser.ExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#logicalOrExpression}.
 	 * @param ctx the parse tree
@@ -670,12 +670,6 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMultiplicativeExpression(DartParser.MultiplicativeExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#multiplicativeOperator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMultiplicativeOperator(DartParser.MultiplicativeOperatorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#primary}.
 	 * @param ctx the parse tree

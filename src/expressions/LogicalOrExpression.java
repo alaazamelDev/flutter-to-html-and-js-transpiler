@@ -2,11 +2,11 @@ package expressions;
 
 import visitors.Visitor;
 
-public class LogicalAndExpression extends Expression {
+public class LogicalOrExpression extends Expression {
     private final Expression left;
     private final Expression right;
 
-    public LogicalAndExpression(Expression left, Expression right, String lnNumber) {
+    public LogicalOrExpression(Expression left, Expression right, String lnNumber) {
         super(lnNumber);
         this.left = left;
         this.right = right;
@@ -24,5 +24,4 @@ public class LogicalAndExpression extends Expression {
     public <T> T accept(Visitor<T> visitor) {
         return visitor.visit(this);
     }
-
 }
