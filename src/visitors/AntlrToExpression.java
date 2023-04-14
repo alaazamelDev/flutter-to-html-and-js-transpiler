@@ -23,7 +23,6 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
 
     @Override
     public Expression visitExpressionList(DartParser.ExpressionListContext ctx) {
-        AntlrToExpression antlrToExpressionVisitor = factory.createAntlrToExpression(semanticError);
 
         int lineNumber = ctx.getStart().getLine();
 
@@ -32,7 +31,7 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
         List<DartParser.ExpressionContext> expressionContextList = ctx.expression();
 
         for(DartParser.ExpressionContext expressionContext : expressionContextList){
-            Expression expression = antlrToExpressionVisitor.visit(expressionContext);
+            Expression expression = visit(expressionContext);
 
             expressions.add(expression);
         }
@@ -42,7 +41,6 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
 
     @Override
     public Expression visitLogicalOrExpression(DartParser.LogicalOrExpressionContext ctx) {
-        AntlrToExpression antlrToExpressionVisitor = factory.createAntlrToExpression(semanticError);
 
         int lineNumber = ctx.getStart().getLine();
 
@@ -51,21 +49,14 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
         List<DartParser.LogicalAndExpressionContext> logicalAndExpressionContextList = ctx.logicalAndExpression();
 
         for(DartParser.LogicalAndExpressionContext logicalAndExpressionContext : logicalAndExpressionContextList){
-            Expression expression = antlrToExpressionVisitor.visit(logicalAndExpressionContext);
+            Expression expression = visit(logicalAndExpressionContext);
             expressionList.add(expression);
         }
-        if(expressionList.size()>1){
-            return new LogicalOrExpression(expressionList.get(0), expressionList.get(1),String.valueOf(lineNumber));
-        }
-        else {
-            return new LogicalOrExpression(expressionList.get(0), null,String.valueOf(lineNumber));
-
-        }
+        return new LogicalOrExpression(expressionList,String.valueOf(lineNumber));
     }
 
     @Override
     public Expression visitLogicalAndExpression(DartParser.LogicalAndExpressionContext ctx) {
-        AntlrToExpression antlrToExpressionVisitor = factory.createAntlrToExpression(semanticError);
 
         int lineNumber = ctx.getStart().getLine();
 
@@ -74,20 +65,14 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
         List<DartParser.EqualityExpressionContext> equalityExpressionContextList = ctx.equalityExpression();
 
         for(DartParser.EqualityExpressionContext equalityExpressionContext : equalityExpressionContextList){
-            Expression expression = antlrToExpressionVisitor.visit(equalityExpressionContext);
+            Expression expression = visit(equalityExpressionContext);
             expressionList.add(expression);
         }
-        if(expressionList.size()>1){
-            return new LogicalAndExpression(expressionList.get(0), expressionList.get(1),String.valueOf(lineNumber));
-        }
-        else {
-            return new LogicalOrExpression(expressionList.get(0), null,String.valueOf(lineNumber));
-        }
+       return new LogicalAndExpression(expressionList,String.valueOf(lineNumber));
     }
 
     @Override
     public Expression visitEqualityExpression(DartParser.EqualityExpressionContext ctx) {
-        AntlrToExpression antlrToExpressionVisitor = factory.createAntlrToExpression(semanticError);
 
         int lineNumber = ctx.getStart().getLine();
 
@@ -96,11 +81,11 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
         List<DartParser.RelationalExpressionContext> relationalExpressionContextList = ctx.relationalExpression();
 
         for(DartParser.RelationalExpressionContext relationalExpressionContext : relationalExpressionContextList){
-            Expression expression = antlrToExpressionVisitor.visit(relationalExpressionContext);
+            Expression expression = visit(relationalExpressionContext);
             expressionList.add(expression);
         }
         if(expressionList.size()>1){
-            TokenType tokenType = TokenType.fromSymbol(ctx.EE().getSymbol().getText());
+            TokenType tokenType = TokenType.fromSymbol(ctx.getChild(1).getText());
             return new EqualityExpression(expressionList.get(0), expressionList.get(1),tokenType,String.valueOf(lineNumber));
         }
         else {
@@ -110,12 +95,47 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
 
     @Override
     public Expression visitRelationalExpression(DartParser.RelationalExpressionContext ctx) {
-        return super.visitRelationalExpression(ctx);
+
+        int lineNumber = ctx.getStart().getLine();
+
+        List<Expression> expressionList = new ArrayList<>();
+
+        List<DartParser.AdditiveExpressionContext> additiveExpressionContextList = ctx.additiveExpression();
+
+        for(DartParser.AdditiveExpressionContext additiveExpressionContext : additiveExpressionContextList){
+            Expression expression = visit(additiveExpressionContext);
+
+            expressionList.add(expression);
+        }
+        if(expressionList.size()>1){
+            TokenType tokenType = TokenType.fromSymbol(ctx.getChild(1).getText());
+            return new RelationalExpression(expressionList.get(0), expressionList.get(1),tokenType,String.valueOf(lineNumber));
+        }
+        else {
+            return new RelationalExpression(expressionList.get(0), null,null,String.valueOf(lineNumber));
+        }
     }
 
     @Override
     public Expression visitAdditiveExpression(DartParser.AdditiveExpressionContext ctx) {
-        return super.visitAdditiveExpression(ctx);
+
+        int lineNumber = ctx.getStart().getLine();
+
+        List<Expression> expressionList = new ArrayList<>();
+
+        List<DartParser.AdditiveExpressionContext> additiveExpressionContextList = ctx.multiplicativeExpression();
+
+        for(DartParser.AdditiveExpressionContext additiveExpressionContext : additiveExpressionContextList){
+            Expression expression = visit(additiveExpressionContext);
+            expressionList.add(expression);
+        }
+        if(expressionList.size()>1){
+            TokenType tokenType = TokenType.fromSymbol(ctx.getChild(1).getText());
+            return new RelationalExpression(expressionList.get(0), expressionList.get(1),tokenType,String.valueOf(lineNumber));
+        }
+        else {
+            return new RelationalExpression(expressionList.get(0), null,null,String.valueOf(lineNumber));
+        }
     }
 
     @Override
