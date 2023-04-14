@@ -245,6 +245,37 @@ onPressedProperty
     :   ONPRESSED COLON LP (IDENTIFIER COMMA)* RP OB statment* CB
     ;
 
+//expressions
+expression : logicalOrExpression;
+//a=1-2,b=1+2
+expressionList : expression ( COMMA expression )* ;
+//String a = 1 || 2;
+logicalOrExpression : logicalAndExpression ( OO logicalAndExpression )* ;
+//String a = 1 && 2 ;
+logicalAndExpression : equalityExpression ( AA equalityExpression )* ;
+//String a = 1 == ( 2 ==3) ;  1==2==3 will give  error
+equalityExpression : relationalExpression ( (EE | NE) relationalExpression )?;
+//Int a = 1 <= 2;
+relationalExpression : additiveExpression ( (GTE | GT | LTE | LT) additiveExpression )?;
+//  Int a = 1 + 2;
+additiveExpression : multiplicativeExpression ((PL | MINUS) multiplicativeExpression )*;
+
+multiplicativeExpression : primary ( STAR primary )* ;
+
+// main() -> main is primary , () are selectors
+primary :  LP expression RP | literal | IDENTIFIER;
+literal
+   //:    nullLiteral
+    :    booleanLiteral
+    |    numericLiteral
+    |    stringLiteral
+//    |    listLiteral
+    ;
+//nullLiteral : NULL_ ;
+booleanLiteral : BOOLEAN ;
+numericLiteral : NUM | FLOAT | HEX_NUM ;
+stringLiteral: STRING;
+
 //    customWidgetProperties
 //    textProperties
 //    borderRadiusCircularRadiusProperty

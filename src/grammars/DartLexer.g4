@@ -11,6 +11,18 @@ CB: '}';
 SC: ';';
 COMMA: ',';
 EQL: '=';
+EE: '==';
+NE: '!=';
+GT: '>';
+GTE:'>=';
+LT: '<';
+LTE: '<=';
+PL: '+';
+MINUS: '-';
+OO:'||';
+AA:'&&';
+STAR:'*';
+
 
 //Widgets
 SCAFFOLD: 'Scaffold';
@@ -77,7 +89,6 @@ BACKGROUND_COLOR:'backgroundColor';
 TITLE_COLOR:'titleColor';
 CONTAINS:'contains';
 COVER:'cover';
-BOOLEAN: 'true' | 'false';
 CENTERTITLE: 'centerTitle';
 TEXTALIGN:'textAlign';
 ONPRESSED: 'onPressed';
@@ -104,7 +115,8 @@ RIGHT: 'right';
 WIDGETNAME: [A-Z][A-Za-z0-9_]*;
 IDENTIFIER: [a-z][A-Za-z0-9_]*;
 
-
+//Boolean
+BOOLEAN: 'true' | 'false';
 // Decimal Numbers
 FLOAT : '-'? ('0'..'9')+ '.' ('0'..'9')*;
 
