@@ -5,8 +5,7 @@ options {
   tokenVocab=DartLexer;
 }
 
-prog: statment* scaffold?  EOF
-    ;
+prog:statment* scaffold? EOF ;
 // modify comma
 scaffold: SCAFFOLD LP (scaffoldProperty (COMMA scaffoldProperty )* COMMA?) ? RP
         ;
@@ -261,20 +260,16 @@ equalityExpression : relationalExpression ( (EE | NE) relationalExpression )?;
 relationalExpression : additiveExpression ( (GTE | GT | LTE | LT) additiveExpression )?;
 //  Int a = 1 + 2;
 additiveExpression : multiplicativeExpression ((PL | MINUS) multiplicativeExpression )*;
-//TODO divison
+
 multiplicativeExpression : primary ( (STAR | DIV) primary )* ;
 
-// main() -> main is primary , () are selectors
-primary :  LP expression RP #PrimaryExpressionExpression
-| literal #PrimaryLiteralExpression
-| IDENTIFIER #PrimaryIdentifierExpression
-;
-literal
-   //:    nullLiteral
-    :    BOOLEAN | NUM | FLOAT | HEX_NUM | STRING
-//    |    listLiteral
+primary :
+    LP expression RP #PrimaryExpressionExpression
+    | literal #PrimaryLiteralExpression
+    | IDENTIFIER #PrimaryIdentifierExpression
     ;
-//nullLiteral : NULL_ ;
+literal: BOOLEAN | NUM | FLOAT | HEX_NUM | STRING ;
+
 
 
 //    customWidgetProperties
