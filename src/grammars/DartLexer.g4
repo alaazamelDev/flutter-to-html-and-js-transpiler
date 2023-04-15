@@ -45,6 +45,8 @@ TEXTFIELD: 'TextField';
 BORDER: 'Border';
 BORDERRADIUSONLY: 'BorderRadiusOnly';
 BORDERRADIUSCIRCULAR:'BorderRadiusCircular';
+IF: 'If';
+FOR: 'For';
 
 //keywords
 CHILDREN: 'children';
@@ -112,6 +114,10 @@ TOP: 'top';
 LEFT: 'left';
 BOTTOM: 'bottom';
 RIGHT: 'right';
+CONDITION: 'conditionProperty';
+THEN: 'thenProperty';
+FROM: 'fromProperty';
+TO: 'to';
 
 WIDGETNAME: [A-Z][A-Za-z0-9_]*;
 IDENTIFIER: [a-z][A-Za-z0-9_]*;

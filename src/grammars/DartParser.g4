@@ -39,6 +39,8 @@ widget
     |   button
     |   customWidget
     |   textField
+    |   if
+    |   for
     ;
 
 customWidget
@@ -210,6 +212,21 @@ borderProperties: THICKNESS COLON (NUM|IDENTIFIER) #BorderThickness //var
                 | borderRadiusProperty   #BorderBorderRadius
                 | colorProperty #BorderColor
                 ;
+
+//if: IF LP CONDITION COLON expression COMMA THEN COLON widget RP;
+
+if: IF LP (ifProperties (COMMA ifProperties)* COMMA? ) RP;
+
+ifProperties: CONDITION COLON expression #IfCondition
+            | THEN COLON widget #IfThen
+            ;
+
+for: FOR LP (forProperties (COMMA forProperties)* COMMA? ) RP;
+
+forProperties: FROM COLON (NUM|IDENTIFIER) #ForFrom
+             | TO COLON (NUM|IDENTIFIER) #ForTo
+             | childProperty    #ForChild
+             ;
 
 statment
     :   variableDeclaration
