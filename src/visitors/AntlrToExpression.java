@@ -9,11 +9,8 @@ import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import properties.Property;
-import statements.VariableAssignmentStatement;
 
 import java.util.ArrayList;
-//import java.util.HexFormat;
 import java.util.List;
 
 public class AntlrToExpression extends DartParserBaseVisitor<Expression> {

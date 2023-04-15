@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from C:/Users/Alaa/IdeaProjects/Compiler Project/src/grammars\DartParser.g4 by ANTLR 4.12.0
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -542,6 +542,46 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBorderColor(DartParser.BorderColorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#if}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIf(DartParser.IfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IfCondition}
+	 * labeled alternative in {@link DartParser#ifProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfCondition(DartParser.IfConditionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IfChild}
+	 * labeled alternative in {@link DartParser#ifProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfChild(DartParser.IfChildContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#for}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFor(DartParser.ForContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ForIterations}
+	 * labeled alternative in {@link DartParser#forProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForIterations(DartParser.ForIterationsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ForChild}
+	 * labeled alternative in {@link DartParser#forProperties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForChild(DartParser.ForChildContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#statment}.
 	 * @param ctx the parse tree

@@ -2,12 +2,12 @@ package properties;
 
 import visitors.Visitor;
 
-public class ToProperty extends Property{
+public class IterationsProperty extends Property {
 
     private final int value;
 
-    protected ToProperty(String lnNumber, int value) {
-        super("to", lnNumber);
+    protected IterationsProperty(String lnNumber, int value) {
+        super("iterations", lnNumber);
         this.value = value;
     }
 

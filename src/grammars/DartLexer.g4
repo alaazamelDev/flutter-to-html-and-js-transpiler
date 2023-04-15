@@ -117,7 +117,7 @@ RIGHT: 'right';
 CONDITION: 'conditionProperty';
 THEN: 'thenProperty';
 FROM: 'fromProperty';
-TO: 'to';
+ITERATIONS: 'iterations';
 
 WIDGETNAME: [A-Z][A-Za-z0-9_]*;
 IDENTIFIER: [a-z][A-Za-z0-9_]*;

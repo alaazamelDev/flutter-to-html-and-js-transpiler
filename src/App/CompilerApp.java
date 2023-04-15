@@ -2,28 +2,17 @@ package App;
 
 import antlr.DartLexer;
 import antlr.DartParser;
-//import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
-//import com.mxgraph.layout.mxIGraphLayout;
-//import com.mxgraph.util.mxCellRenderer;
 import error_lisitener.MyErrorLisitener;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-//import org.jgrapht.ext.JGraphXAdapter;
-//import org.jgrapht.graph.DefaultEdge;
 import program.Program;
 import utils.SymbolTable;
-import utils.UTIL;
 import visitors.AntlrObjectFactory;
 import visitors.AntlrToProgram;
-//import visitors.AstToGraphVisitor;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class CompilerApp {

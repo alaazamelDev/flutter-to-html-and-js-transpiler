@@ -194,7 +194,5 @@ public interface Visitor<T> {
     public T visit(FOR For);
     public T visit(ConditionProperty conditionProperty);
 
-    public T visit(ThenProperty thenProperty);
-    public T visit(FromProperty fromProperty);
-    public T visit(ToProperty toProperty);
+    public T visit(IterationsProperty iterationsProperty);
 }

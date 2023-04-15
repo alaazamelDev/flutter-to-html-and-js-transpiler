@@ -218,13 +218,12 @@ borderProperties: THICKNESS COLON (NUM|IDENTIFIER) #BorderThickness //var
 if: IF LP (ifProperties (COMMA ifProperties)* COMMA? ) RP;
 
 ifProperties: CONDITION COLON expression #IfCondition
-            | THEN COLON widget #IfThen
+            | childProperty #IfChild
             ;
 
 for: FOR LP (forProperties (COMMA forProperties)* COMMA? ) RP;
 
-forProperties: FROM COLON (NUM|IDENTIFIER) #ForFrom
-             | TO COLON (NUM|IDENTIFIER) #ForTo
+forProperties: ITERATIONS COLON (NUM|IDENTIFIER) #ForIterations
              | childProperty    #ForChild
              ;
 
