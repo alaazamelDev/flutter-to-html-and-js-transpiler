@@ -7,8 +7,8 @@ import java.util.List;
 public class LogicalOrExpression extends Expression {
     private final List<Expression> expressions;
 
-    public LogicalOrExpression(List<Expression> expressions,String lnNumber) {
-        super(lnNumber);
+    public LogicalOrExpression(List<Expression> expressions,String lnNumber,Object value) {
+        super(lnNumber, value);
         this.expressions = expressions;
     }
 

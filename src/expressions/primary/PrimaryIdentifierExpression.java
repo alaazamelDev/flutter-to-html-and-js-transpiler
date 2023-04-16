@@ -5,8 +5,8 @@ import visitors.Visitor;
 public class PrimaryIdentifierExpression extends PrimaryExpression {
     private final String identifier;
 
-    public PrimaryIdentifierExpression(String identifier, String lnNumber) {
-        super(lnNumber);
+    public PrimaryIdentifierExpression(String identifier, String lnNumber,Object value) {
+        super(lnNumber,value);
         this.identifier = identifier;
     }
 

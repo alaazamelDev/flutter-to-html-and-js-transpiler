@@ -7,8 +7,8 @@ import java.util.List;
 public class ExpressionListExpression extends Expression {
     private final List<Expression> expressions;
 
-    public ExpressionListExpression(List<Expression> expressions, String lnNumber) {
-        super(lnNumber);
+    public ExpressionListExpression(List<Expression> expressions, String lnNumber, Object value) {
+        super(lnNumber, value);
         this.expressions = expressions;
     }
 

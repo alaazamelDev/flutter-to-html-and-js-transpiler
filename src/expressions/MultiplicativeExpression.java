@@ -9,8 +9,8 @@ public class MultiplicativeExpression extends Expression {
     private final List<Expression> expressions;
     private final List<TokenType> operators;
 
-    public MultiplicativeExpression(List<Expression> expressions, List<TokenType> operators, String lnNumber) {
-        super(lnNumber);
+    public MultiplicativeExpression(List<Expression> expressions, List<TokenType> operators, String lnNumber,Object value) {
+        super(lnNumber, value);
         this.expressions = expressions;
         this.operators = operators;
     }
