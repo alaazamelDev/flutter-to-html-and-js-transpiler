@@ -1021,4 +1021,68 @@ public class AstToGraphVisitor implements Visitor<String> {
     public String visit(PrimaryLiteralExpression primaryLiteralExpression) {
         return null;
     }
+
+    @Override
+    public String visit(IF If) {
+        UTIL.ID++;
+
+        String vertex = UTIL.widgetToString(UTIL.ID, If.getIdentifier(), If.getProperties().size(), If.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        List<Property> properties = If.getProperties();
+
+        for (Property property : properties) {
+            String childVertex = property.accept(this);
+            UTIL.g.addEdge(vertex, childVertex);
+        }
+
+        return vertex;
+    }
+
+    @Override
+    public String visit(FOR For) {
+        UTIL.ID++;
+
+        String vertex = UTIL.widgetToString(UTIL.ID, For.getIdentifier(), For.getProperties().size(), For.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        List<Property> properties = For.getProperties();
+
+        for (Property property : properties) {
+            String childVertex = property.accept(this);
+            UTIL.g.addEdge(vertex, childVertex);
+        }
+
+        return vertex;
+    }
+
+    @Override
+    public String visit(ConditionProperty conditionProperty) {
+        UTIL.ID++;
+
+        String vertex = UTIL.propertyToString( UTIL.ID, conditionProperty.getName(), null, 1,
+                                               conditionProperty.getLnNumber() );
+
+        g.addVertex(vertex);
+
+        Expression propertyValue = conditionProperty.getExpression();
+        String childVertex = propertyValue.accept(this);
+        g.addEdge(vertex, childVertex);
+
+        return vertex;
+    }
+
+    @Override
+    public String visit(IterationsProperty iterationsProperty) {
+        UTIL.ID++;
+
+        String vertex = UTIL.propertyToString(UTIL.ID, iterationsProperty.getName(),
+                String.valueOf(iterationsProperty.getValue()), 0, iterationsProperty.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
+    }
 }
