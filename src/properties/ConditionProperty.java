@@ -7,7 +7,7 @@ public class ConditionProperty extends Property {
 
     private final Expression expression;
 
-    protected ConditionProperty(String lnNumber, Expression expression) {
+    public ConditionProperty(String lnNumber, Expression expression) {
         super("condition", lnNumber);
         this.expression = expression;
     }
