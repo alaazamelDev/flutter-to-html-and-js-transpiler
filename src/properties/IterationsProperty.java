@@ -6,7 +6,7 @@ public class IterationsProperty extends Property {
 
     private final int value;
 
-    protected IterationsProperty(String lnNumber, int value) {
+    public IterationsProperty(int value, String lnNumber) {
         super("iterations", lnNumber);
         this.value = value;
     }
