@@ -4,7 +4,6 @@ import visitors.Visitor;
 
 public class LiteralExpression extends Expression {
 
-
     public LiteralExpression(String lnNumber,Object value) {
         super(lnNumber, value);
     }

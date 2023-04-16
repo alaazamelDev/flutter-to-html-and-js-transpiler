@@ -8,7 +8,7 @@ public class RelationalExpression extends Expression {
     private final Expression right;
     private final TokenType operatorType;
 
-    public RelationalExpression(Expression left, Expression right, TokenType operatorType, String lnNumber,Object value) {
+    public RelationalExpression(Expression left, Expression right, TokenType operatorType, String lnNumber,Boolean value) {
         super(lnNumber, value);
         this.left = left;
         this.right = right;

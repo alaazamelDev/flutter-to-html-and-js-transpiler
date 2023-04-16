@@ -7,7 +7,7 @@ import java.util.List;
 public class LogicalAndExpression extends Expression {
     private final List<Expression> expressions;
 
-    public LogicalAndExpression(List<Expression> expressions, String lnNumber , Object value) {
+    public LogicalAndExpression(List<Expression> expressions, String lnNumber , Boolean value) {
         super(lnNumber, value);
         this.expressions = expressions;
     }

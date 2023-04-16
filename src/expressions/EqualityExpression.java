@@ -8,7 +8,7 @@ public class EqualityExpression extends Expression {
     private final Expression right;
     private final TokenType operatorType;
 
-    public EqualityExpression(Expression left, Expression right, TokenType operatorType, String lnNumber, Object value) {
+    public EqualityExpression(Expression left, Expression right, TokenType operatorType, String lnNumber, Boolean value) {
         super(lnNumber, value);
         this.left = left;
         this.right = right;
