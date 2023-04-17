@@ -82,6 +82,26 @@ public class AstBaseVisitor<T> implements Visitor<T>{
     }
 
     @Override
+    public T visit(IF If) {
+        return null;
+    }
+
+    @Override
+    public T visit(FOR For) {
+        return null;
+    }
+
+    @Override
+    public T visit(ConditionProperty conditionProperty) {
+        return null;
+    }
+
+    @Override
+    public T visit(IterationsProperty iterationsProperty) {
+        return null;
+    }
+
+    @Override
     public T visit(Program program) {
         return null;
     }

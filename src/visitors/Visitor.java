@@ -190,6 +190,9 @@ public interface Visitor<T> {
     public T visit(LiteralExpression literalExpression);
     public T visit(PrimaryIdentifierExpression primaryIdentifierExpression);
     public T visit(PrimaryLiteralExpression primaryLiteralExpression);
+    public T visit(IF If);
+    public T visit(FOR For);
+    public T visit(ConditionProperty conditionProperty);
 
-
+    public T visit(IterationsProperty iterationsProperty);
 }

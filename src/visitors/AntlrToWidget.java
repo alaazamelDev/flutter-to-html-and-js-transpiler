@@ -520,4 +520,57 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         return new Border(properties,String.valueOf(lineNumber));
     }
 
+    @Override
+    public Widget visitIf(DartParser.IfContext ctx) {
+        int lineNumber = ctx.IF().getSymbol().getLine();
+
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty(semanticError);
+
+        List<Property> properties = new ArrayList<>();
+
+        List<DartParser.IfPropertiesContext> ifPropertiesContexts = ctx.ifProperties();
+        Set<String> set = new HashSet<>();
+
+        for(DartParser.IfPropertiesContext ifPropertiesContext : ifPropertiesContexts) {
+            Property property = antlrToPropertyVisitor.visit(ifPropertiesContext);
+            properties.add(property);
+
+            if(set.contains(property.getClass().toString())){
+                int column = ifPropertiesContext.getStart().getCharPositionInLine() + 1;
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column, property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
+        }
+
+        return new IF(properties, String.valueOf(lineNumber));
+    }
+
+    @Override
+    public Widget visitFor(DartParser.ForContext ctx) {
+        int lineNumber = ctx.FOR().getSymbol().getLine();
+
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty(semanticError);
+
+        List<Property> properties = new ArrayList<>();
+
+        List<DartParser.ForPropertiesContext> forPropertiesContexts = ctx.forProperties();
+        Set<String> set = new HashSet<>();
+
+        for(DartParser.ForPropertiesContext forPropertiesContext : forPropertiesContexts) {
+            Property property = antlrToPropertyVisitor.visit(forPropertiesContext);
+            properties.add(property);
+
+            if(set.contains(property.getClass().toString())){
+                int column = forPropertiesContext.getStart().getCharPositionInLine() + 1;
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column, property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
+        }
+
+        return new FOR(properties, String.valueOf(lineNumber));
+    }
 }
