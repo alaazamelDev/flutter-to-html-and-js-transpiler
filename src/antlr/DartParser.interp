@@ -108,7 +108,7 @@ null
 'left'
 'bottom'
 'right'
-'conditionProperty'
+'condition'
 'thenProperty'
 'fromProperty'
 'iterations'

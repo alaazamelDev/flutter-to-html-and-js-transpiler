@@ -114,7 +114,7 @@ TOP: 'top';
 LEFT: 'left';
 BOTTOM: 'bottom';
 RIGHT: 'right';
-CONDITION: 'conditionProperty';
+CONDITION: 'condition';
 THEN: 'thenProperty';
 FROM: 'fromProperty';
 ITERATIONS: 'iterations';

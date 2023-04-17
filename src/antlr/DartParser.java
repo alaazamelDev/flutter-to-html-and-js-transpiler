@@ -102,7 +102,7 @@ public class DartParser extends Parser {
 			"'start'", "'end'", "'justify'", "'only'", "'light'", "'semibold'", "'medium'", 
 			"'value'", "'label'", "'textColor'", "'hint'", "'border'", "'thickness'", 
 			"'radius'", "'onChanged'", "'top'", "'left'", "'bottom'", "'right'", 
-			"'conditionProperty'", "'thenProperty'", "'fromProperty'", "'iterations'"
+			"'condition'", "'thenProperty'", "'fromProperty'", "'iterations'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
