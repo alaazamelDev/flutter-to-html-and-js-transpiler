@@ -113,8 +113,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         Object propertyValue = new Object();
 
         ParseTree child = ctx.getChild(2);
-        if (child instanceof TerminalNode) {
-            TerminalNode terminalNode = (TerminalNode) child;
+        if (child instanceof TerminalNode terminalNode) {
             Token token = terminalNode.getSymbol();
             int tokenType = token.getType();
             if (tokenType == DartParser.NUM) {
@@ -252,11 +251,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             } else if (type.equals("double")) {
                 if (symbol.getValue() instanceof Integer) {
                     int a = (int) symbol.getValue();
-                    double value = (double) a;
-                    System.out.println(value);
-                    return new LetterSpacingProperty(value, lineNumber);
-                } else if (symbol.getValue() instanceof Double) {
-                    Double value = (Double) symbol.getValue();
+                    System.out.println((double) a);
+                    return new LetterSpacingProperty(a, lineNumber);
+                } else if (symbol.getValue() instanceof Double value) {
                     System.out.println(value);
                     return new LetterSpacingProperty(value, lineNumber);
                 }
@@ -996,7 +993,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         }
 
         String textFieldHint = ctx.getChild(2).getText();
-        return new HintProperty(textFieldHint, valueOf(lineNumber));
+        return new HintProperty(textFieldHint, lineNumber);
     }
 
     @Override
@@ -1061,7 +1058,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
             if (type.equals("int")) {
                 Integer value = (Integer) symbol.getValue();
-                return new ThicknessProperty(value, valueOf(lineNumber));
+                return new ThicknessProperty(value, lineNumber);
             } else {
                 //type mismatch
                 semanticError.add(UTIL.semanticTypeMismatch(Integer.parseInt(lineNumber), Integer.parseInt(columnNumber), "int", type));
