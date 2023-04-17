@@ -26,8 +26,6 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
         this.factory = factory;
         this.semanticError = semanticError;
     }
-
-
     @Override
     public Expression visitExpressionList(DartParser.ExpressionListContext ctx) {
 
@@ -42,7 +40,10 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
             expressions.add(expression);
         }
 
-        return new ExpressionListExpression(expressions, String.valueOf(lineNumber), expressions.get(expressions.size() - 1).getValue());
+        if(expressions.size()>1){
+            return new ExpressionListExpression(expressions, String.valueOf(lineNumber), expressions.get(expressions.size() - 1).getValue());
+        }
+        else return expressions.get(0);
     }
 
     @Override
@@ -59,13 +60,17 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
             expressionList.add(expression);
         }
 
-        boolean result = false;
-        for (Expression expression : expressionList) {
-            Object value = expression.getValue();
-            result = result || (Boolean) value;
+        if(expressionList.size()>1){
+            boolean result = false;
+            for (Expression expression : expressionList) {
+                Object value = expression.getValue();
+                result = result || (Boolean) value;
+            }
+            return new LogicalOrExpression(expressionList, String.valueOf(lineNumber), result);
         }
+        else return expressionList.get(0);
 
-        return new LogicalOrExpression(expressionList, String.valueOf(lineNumber), result);
+
     }
 
     @Override
@@ -81,14 +86,16 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
             Expression expression = visit(equalityExpressionContext);
             expressionList.add(expression);
         }
-
-        boolean result = true;
-        for (Expression expression : expressionList) {
-            Object value = expression.getValue();
-            result = result && (Boolean) value;
+        if(expressionList.size()>1){
+            boolean result = true;
+            for (Expression expression : expressionList) {
+                Object value = expression.getValue();
+                result = result && (Boolean) value;
+            }
+            return new LogicalAndExpression(expressionList, String.valueOf(lineNumber), result);
         }
+        else return expressionList.get(0);
 
-        return new LogicalAndExpression(expressionList, String.valueOf(lineNumber), result);
     }
 
     @Override
@@ -194,14 +201,13 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
         }
 
         if (expressionList.size() > 1) {
-
-            for (int i = 1; i < expressionList.size() - 1; i += 2) {
+            for (int i = 0; i < expressionList.size()-1; i++) {
                 tokenTypeList.add(
-                        TokenType.fromSymbol(ctx.getChild(i).getText()));
+                        TokenType.fromSymbol(ctx.getChild(i*2+1).getText()));
             }
             Number result = (Number) expressionList.get(0).value;
 
-            for (int i = 0; i < tokenTypeList.size(); i++) {  // Step 2
+            for (int i = 0; i < tokenTypeList.size(); i++) {
                 TokenType tokenType = tokenTypeList.get(i);
                 Number nextExpression = (Number) expressionList.get(i + 1).value;
 
@@ -211,11 +217,11 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
                     result = result.doubleValue() - nextExpression.doubleValue();
                 }
             }
+
             return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), result);
         } else {
             return expressionList.get(0);
         }
-
     }
 
 
@@ -234,11 +240,10 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
 
         if (expressionList.size() > 1) {
             List<TokenType> tokenTypeList = new ArrayList<>();
-            for (int i = 1; i < expressionList.size() - 1; i += 2) {
+            for (int i = 0; i < expressionList.size()-1; i++) {
                 tokenTypeList.add(
-                        TokenType.fromSymbol(ctx.getChild(i).getText()));
+                        TokenType.fromSymbol(ctx.getChild(i*2+1).getText()));
             }
-
             Number result = (Number) expressionList.get(0).value;
 
             for (int i = 0; i < tokenTypeList.size(); i++) {
@@ -266,25 +271,44 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
     public Expression visitPrimaryLiteralExpression(DartParser.PrimaryLiteralExpressionContext ctx) {
         int lineNumber = ctx.getStart().getLine();
 
-        Object variableValue = new Object();
-
-        ParseTree child = ctx.getChild(0);
-        if (child instanceof TerminalNode terminalNode) {
-            Token token = terminalNode.getSymbol();
+        DartParser.LiteralContext literalContext = ctx.literal();
+        if (literalContext != null) {
+            Token token = literalContext.getStart();
             int tokenType = token.getType();
             if (tokenType == DartParser.NUM) {
-                variableValue = Integer.parseInt(token.getText());
+                return new PrimaryLiteralExpression(String.valueOf(lineNumber), Integer.parseInt(token.getText()));
             } else if (tokenType == DartParser.STRING) {
-                variableValue = token.getText();
+                return new PrimaryLiteralExpression(String.valueOf(lineNumber), token.getText());
             } else if (tokenType == DartParser.FLOAT) {
-                variableValue = Double.parseDouble(token.getText());
+                return new PrimaryLiteralExpression(String.valueOf(lineNumber), Double.parseDouble(token.getText()));
             } else if (tokenType == DartParser.HEX_NUM) {
-                variableValue = Long.parseLong(token.getText(), 16);
+                return new PrimaryLiteralExpression(String.valueOf(lineNumber), Long.parseLong(token.getText(), 16));
             } else if (tokenType == DartParser.BOOLEAN) {
-                variableValue = Boolean.parseBoolean(token.getText());
+                return new PrimaryLiteralExpression(String.valueOf(lineNumber),  Boolean.parseBoolean(token.getText()));
             }
         }
-        return new PrimaryLiteralExpression(String.valueOf(lineNumber), variableValue);
+        return null;
+    }
+
+    @Override
+    public Expression visitPrimaryNumericLiteral(DartParser.PrimaryNumericLiteralContext ctx) {
+        int lineNumber = ctx.getStart().getLine();
+
+        DartParser.NumericLiteralContext numericLiteral = ctx.numericLiteral();
+
+        if (numericLiteral != null) {
+            Token token = numericLiteral.getStart();
+            int tokenType = token.getType();
+            boolean isNegative = ctx.MINUS() != null;
+            if (tokenType == DartParser.NUM) {
+                return new PrimaryLiteralExpression(String.valueOf(lineNumber), isNegative ? -Integer.parseInt(token.getText()) : Integer.parseInt(token.getText()));
+            }  else if (tokenType == DartParser.FLOAT) {
+                return new PrimaryLiteralExpression(String.valueOf(lineNumber), isNegative ? -Double.parseDouble(token.getText()) : Double.parseDouble(token.getText()));
+            } else if (tokenType == DartParser.HEX_NUM) {
+                return new PrimaryLiteralExpression(String.valueOf(lineNumber), isNegative ? -Long.parseLong(token.getText(), 16) : Long.parseLong(token.getText(), 16));
+            }
+        }
+        return null;
     }
 
     @Override

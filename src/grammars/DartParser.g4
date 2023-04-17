@@ -5,9 +5,7 @@ options {
   tokenVocab=DartLexer;
 }
 
-prog: expression*
-//statment* scaffold?
- EOF ;
+prog: statment* scaffold? EOF ;
 // modify comma
 scaffold: SCAFFOLD LP (scaffoldProperty (COMMA scaffoldProperty )* COMMA?) ? RP
         ;
@@ -269,8 +267,10 @@ primary :
     LP expression RP #PrimaryExpressionExpression
     | literal #PrimaryLiteralExpression
     | IDENTIFIER #PrimaryIdentifierExpression
+    | MINUS? numericLiteral #PrimaryNumericLiteral
     ;
-literal: BOOLEAN | NUM | FLOAT | HEX_NUM | STRING ;
+literal: BOOLEAN | STRING ;
+numericLiteral: NUM | HEX_NUM | FLOAT;
 
 
 

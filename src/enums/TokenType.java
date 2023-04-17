@@ -5,7 +5,7 @@ public enum TokenType {
     MINUS("-"),
     STAR("*"),
     SLASH("/"),
-    EQUALS("="),
+    EQUALS("=="),
     NOT_EQUALS("!="),
     GREATER_THAN(">"),
     LESS_THAN("<"),

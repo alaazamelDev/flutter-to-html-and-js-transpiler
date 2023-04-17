@@ -1,22 +1,23 @@
 package program;
 
+import expressions.Expression;
 import statements.Statement;
 import visitors.Visitable;
 import visitors.Visitor;
-import widgets.Scaffold;
 import widgets.Widget;
 
 import java.util.List;
 
 public class Program implements Visitable {
     private final List<Statement> statements;
+
+
     private Widget scaffold;
 
 
     public Program(List<Statement> statements) {
         this.statements = statements;
     }
-
 
     public List<Statement> getStatements() {
         return statements;

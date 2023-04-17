@@ -692,9 +692,22 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrimaryIdentifierExpression(DartParser.PrimaryIdentifierExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code PrimaryNumericLiteral}
+	 * labeled alternative in {@link DartParser#primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNumericLiteral(DartParser.PrimaryNumericLiteralContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DartParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLiteral(DartParser.LiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DartParser#numericLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumericLiteral(DartParser.NumericLiteralContext ctx);
 }

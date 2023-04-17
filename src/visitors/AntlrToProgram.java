@@ -2,6 +2,7 @@ package visitors;
 
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
+import expressions.Expression;
 import interfaces.IAntlrObjectFactory;
 import program.Program;
 import statements.CustomWidgetDeclarationStatement;
@@ -51,8 +52,7 @@ public class AntlrToProgram extends DartParserBaseVisitor<Program> {
         }
 
 
-
-        Program program = new Program(statements);
+            Program program = new Program(statements);
         if(ctx.scaffold()!=null) {
             Widget widget = antlrToWidget.visit(ctx.scaffold());
             program.setScaffold(widget);
