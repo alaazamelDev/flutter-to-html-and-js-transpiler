@@ -1,5 +1,8 @@
 package visitors;
 
+import expressions.*;
+import expressions.primary.PrimaryIdentifierExpression;
+import expressions.primary.PrimaryLiteralExpression;
 import program.Program;
 import properties.*;
 import properties.appbar.CenterTitleProperty;
@@ -962,10 +965,140 @@ public class AstToGraphVisitor implements Visitor<String> {
     public String visit(VariableDeclarationStatement variableDeclarationStatement) {
         UTIL.ID++;
 
-        String vertex = UTIL.statementToString(UTIL.ID, variableDeclarationStatement.getName(), null, variableDeclarationStatement.getType(), variableDeclarationStatement.getLnNumber());
+        String vertex = UTIL.statementToString(UTIL.ID, variableDeclarationStatement.getName(), null,
+                variableDeclarationStatement.getType(), variableDeclarationStatement.getLnNumber());
 
         UTIL.g.addVertex(vertex);
 
+        return vertex;
+    }
+
+    @Override
+    public String visit(LogicalAndExpression logicalAndExpression) {
+        UTIL.ID++;
+        String vertex = UTIL.expressionToString(UTIL.ID, "Logical And Expression",
+                valueOf(logicalAndExpression.getValue()), logicalAndExpression.getExpressions().size(),
+                logicalAndExpression.getLnNumber()+ 1);
+        UTIL.g.addVertex(vertex);
+        for (Expression s : logicalAndExpression.getExpressions()) {
+            String childVertex = s.accept(this);
+            UTIL.g.addEdge(vertex, childVertex);
+        }
+        return vertex;
+    }
+
+    @Override
+    public String visit(LogicalOrExpression logicalOrExpression) {
+        UTIL.ID++;
+        String vertex = UTIL.expressionToString(UTIL.ID, "Logical Or Expression",
+                valueOf(logicalOrExpression.getValue()), logicalOrExpression.getExpressions().size(),
+                logicalOrExpression.getLnNumber()+ 1);
+        UTIL.g.addVertex(vertex);
+        for (Expression s : logicalOrExpression.getExpressions()) {
+            String childVertex = s.accept(this);
+            UTIL.g.addEdge(vertex, childVertex);
+        }
+        return vertex;
+    }
+
+    @Override
+    public String visit(EqualityExpression equalityExpression) {
+        UTIL.ID++;
+        String vertex = UTIL.expressionToString(UTIL.ID, "Equality Expression "+equalityExpression.getOperatorType(),
+                valueOf(equalityExpression.getValue()), 2,
+                equalityExpression.getLnNumber()+ 1);
+        UTIL.g.addVertex(vertex);
+        String leftChildVertex = equalityExpression.getLeft().accept(this);
+        String rightChildVertex = equalityExpression.getRight().accept(this);
+        UTIL.g.addEdge(vertex, leftChildVertex);
+        UTIL.g.addEdge(vertex, rightChildVertex);
+        return vertex;
+    }
+
+    @Override
+    public String visit(RelationalExpression relationalExpression) {
+        UTIL.ID++;
+        String vertex = UTIL.expressionToString(UTIL.ID, "Relational Expression "+relationalExpression.getOperatorType(),
+                valueOf(relationalExpression.getValue()), 2,
+                relationalExpression.getLnNumber()+ 1);
+        UTIL.g.addVertex(vertex);
+        String leftChildVertex = relationalExpression.getLeft().accept(this);
+        String rightChildVertex = relationalExpression.getRight().accept(this);
+        UTIL.g.addEdge(vertex, leftChildVertex);
+        UTIL.g.addEdge(vertex, rightChildVertex);
+        return vertex;
+    }
+
+    @Override
+    public String visit(ExpressionListExpression expressionList)
+    {
+        UTIL.ID++;
+        String vertex = UTIL.expressionToString(UTIL.ID, "Expression List",
+                valueOf(expressionList.getValue()), expressionList.getExpressions().size(),
+                expressionList.getLnNumber()+ 1);
+        UTIL.g.addVertex(vertex);
+        for (Expression s : expressionList.getExpressions()) {
+            String childVertex = s.accept(this);
+            UTIL.g.addEdge(vertex, childVertex);
+        }
+        return vertex;
+    }
+
+    @Override
+    public String visit(MultiplicativeExpression multiplicativeExpression) {
+        UTIL.ID++;
+        String vertex = UTIL.expressionToString(UTIL.ID, "Multiplicative Expression",
+                valueOf(multiplicativeExpression.getValue()), multiplicativeExpression.getExpressions().size(),
+                multiplicativeExpression.getLnNumber()+ 1);
+        UTIL.g.addVertex(vertex);
+        for (Expression s : multiplicativeExpression.getExpressions()) {
+            String childVertex = s.accept(this);
+            UTIL.g.addEdge(vertex, childVertex);
+        }
+        return vertex;
+    }
+
+    @Override
+    public String visit(AdditiveExpression additiveExpression) {
+        UTIL.ID++;
+        String vertex = UTIL.expressionToString(UTIL.ID, "Additive Expression",
+                valueOf(additiveExpression.getValue()), additiveExpression.getExpressions().size(),
+                additiveExpression.getLnNumber()+ 1);
+        UTIL.g.addVertex(vertex);
+        for (Expression s : additiveExpression.getExpressions()) {
+            String childVertex = s.accept(this);
+            UTIL.g.addEdge(vertex, childVertex);
+        }
+        return vertex;
+    }
+
+    @Override
+    public String visit(LiteralExpression literalExpression) {
+        UTIL.ID++;
+        String vertex = UTIL.expressionToString(UTIL.ID, "Literal Expression",
+                valueOf(literalExpression.getValue()), 0,
+                literalExpression.getLnNumber()+ 1);
+        UTIL.g.addVertex(vertex);
+        return vertex;
+    }
+
+    @Override
+    public String visit(PrimaryIdentifierExpression primaryIdentifierExpression) {
+        UTIL.ID++;
+        String vertex = UTIL.expressionToString(UTIL.ID, "Primary Identifier Expression",
+                valueOf(primaryIdentifierExpression.getValue()), 0,
+                primaryIdentifierExpression.getLnNumber()+ 1);
+        UTIL.g.addVertex(vertex);
+        return vertex;
+    }
+
+    @Override
+    public String visit(PrimaryLiteralExpression primaryLiteralExpression) {
+        UTIL.ID++;
+        String vertex = UTIL.expressionToString(UTIL.ID, "Primary Literal Expression",
+                valueOf(primaryLiteralExpression.getValue()), 0,
+                primaryLiteralExpression.getLnNumber()+ 1);
+        UTIL.g.addVertex(vertex);
         return vertex;
     }
 }

@@ -1,6 +1,9 @@
 package utils;
 
 
+//import org.jgrapht.graph.DefaultEdge;
+//import org.jgrapht.graph.DefaultUndirectedGraph;
+
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
 
@@ -31,6 +34,14 @@ public class UTIL {
                 "line: " + lnNum;
     }
 
+    public static String expressionToString(int ID, String name, String value, int childCnt, String lnNum) {
+        return "ID: " + ID + "\n" +
+                name + " (Expression) " + "\n" +
+                ((value != null) ? "value: " + value + "\n" : "") +
+                ((childCnt > 0) ? "child_count: " + childCnt + "\n" : "") +
+                "line: " + lnNum;
+    }
+
     public static String semanticAlreadyDeclaredProperty(int line, int column, String propertyName) {
         return "Property " + propertyName + " Already Declared " + line + ":" + column;
     }
@@ -50,6 +61,8 @@ public class UTIL {
     public static String semanticTypeMismatch(int line, int column, String expected, String found) {
         return "type mismatch " + "expected: " + expected + " found:" + found + " " + line + ":" + column;
     }
+
+
 
     public static <E extends Enum<E>> boolean isInEnum(String value, Class<E> enumClass) {
         for (E e : enumClass.getEnumConstants()) {

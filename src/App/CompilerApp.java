@@ -2,6 +2,9 @@ package App;
 
 import antlr.DartLexer;
 import antlr.DartParser;
+//import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+//import com.mxgraph.layout.mxIGraphLayout;
+//import com.mxgraph.util.mxCellRenderer;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.layout.mxIGraphLayout;
 import com.mxgraph.util.mxCellRenderer;
@@ -11,6 +14,8 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+//import org.jgrapht.ext.JGraphXAdapter;
+//import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultEdge;
 import program.Program;
@@ -19,6 +24,7 @@ import utils.UTIL;
 import visitors.AntlrObjectFactory;
 import visitors.AntlrToProgram;
 import visitors.AstToGraphVisitor;
+//import visitors.AstToGraphVisitor;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -29,7 +35,7 @@ import java.io.IOException;
 public class CompilerApp {
 
     public static void main(String[] args) throws IOException {
-        String fileName = "tests/test3.txt";
+        String fileName = "tests/test2.txt";
         DartParser parser = getParser(fileName);
 
         ParseTree antlrAST = parser.prog();

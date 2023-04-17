@@ -20,7 +20,7 @@ Widget ProductCard {
 Scaffold(
   appBar: AppBar(
     title: 'Products Screen',
-    centerTitle: true
+
   ),
   body: Row(
     children:[

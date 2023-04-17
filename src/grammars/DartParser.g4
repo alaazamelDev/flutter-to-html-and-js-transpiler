@@ -5,8 +5,7 @@ options {
   tokenVocab=DartLexer;
 }
 
-prog: statment* scaffold?  EOF
-    ;
+prog: statment* scaffold? EOF ;
 // modify comma
 scaffold: SCAFFOLD LP (scaffoldProperty (COMMA scaffoldProperty )* COMMA?) ? RP
         ;
@@ -225,7 +224,7 @@ variableDeclaration
     ;
 
 variableAssignment
-    :   IDENTIFIER EQL (NUM | FLOAT | STRING) SC //var
+    :   IDENTIFIER EQL ( MINUS? NUM | FLOAT | STRING) SC //var
     ;
 
 //custom widget stuff
@@ -244,6 +243,36 @@ crossAxisAlignmentProperty: CROSSAXISALIGNMENT COLON (STRETCH | LEFT | RIGHT | C
 onPressedProperty
     :   ONPRESSED COLON LP (IDENTIFIER COMMA)* RP OB statment* CB
     ;
+
+//expressions
+
+//a=1-2,b=1+2
+expressionList : expression ( COMMA expression )* ;
+
+expression : logicalOrExpression;
+//String a = 1 || 2;
+logicalOrExpression : logicalAndExpression ( OO logicalAndExpression )* ;
+//String a = 1 && 2 ;
+logicalAndExpression : equalityExpression ( AA equalityExpression )* ;
+//String a = 1 == ( 2 ==3) ;  1==2==3 will give  error
+equalityExpression : relationalExpression ( (EE | NE) relationalExpression )?;
+//Int a = 1 <= 2;
+relationalExpression : additiveExpression ( (GTE | GT | LTE | LT) additiveExpression )?;
+//  Int a = 1 + 2;
+additiveExpression : multiplicativeExpression ((PL | MINUS) multiplicativeExpression )*;
+
+multiplicativeExpression : primary ( (STAR | DIV) primary )* ;
+
+primary :
+    LP expression RP #PrimaryExpressionExpression
+    | literal #PrimaryLiteralExpression
+    | IDENTIFIER #PrimaryIdentifierExpression
+    | MINUS? numericLiteral #PrimaryNumericLiteral
+    ;
+literal: BOOLEAN | STRING ;
+numericLiteral: NUM | HEX_NUM | FLOAT;
+
+
 
 //    customWidgetProperties
 //    textProperties

@@ -1,5 +1,5 @@
-// Generated from java-escape by ANTLR 4.11.1
-package antlr;
+// Generated from D:/Users/anas/Desktop/PROJECTS DONE/compilerproject/src/grammars\DartParser.g4 by ANTLR 4.12.0
+package grammars;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -671,43 +671,15 @@ public interface DartParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMultiplicativeExpression(DartParser.MultiplicativeExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PrimaryExpressionExpression}
-	 * labeled alternative in {@link DartParser#primary}.
+	 * Visit a parse tree produced by {@link DartParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrimaryExpressionExpression(DartParser.PrimaryExpressionExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PrimaryLiteralExpression}
-	 * labeled alternative in {@link DartParser#primary}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPrimaryLiteralExpression(DartParser.PrimaryLiteralExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PrimaryIdentifierExpression}
-	 * labeled alternative in {@link DartParser#primary}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPrimaryIdentifierExpression(DartParser.PrimaryIdentifierExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PrimaryNumericLiteral}
-	 * labeled alternative in {@link DartParser#primary}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPrimaryNumericLiteral(DartParser.PrimaryNumericLiteralContext ctx);
+	T visitPrimary(DartParser.PrimaryContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DartParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLiteral(DartParser.LiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DartParser#numericLiteral}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNumericLiteral(DartParser.NumericLiteralContext ctx);
 }
