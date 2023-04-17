@@ -7,6 +7,9 @@ package utils;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class UTIL {
     public static int ID = 1;
     public static DefaultUndirectedGraph<String, DefaultEdge> g = new DefaultUndirectedGraph<>(DefaultEdge.class);
@@ -63,7 +66,6 @@ public class UTIL {
     }
 
 
-
     public static <E extends Enum<E>> boolean isInEnum(String value, Class<E> enumClass) {
         for (E e : enumClass.getEnumConstants()) {
             if (e.name().equals(value)) {
@@ -72,5 +74,18 @@ public class UTIL {
         }
         return false;
     }
+
+    public static void writeToFile(String text, String filename) {
+        try {
+            FileWriter fileWriter = new FileWriter(filename);
+            fileWriter.write(text);
+            fileWriter.close();
+            System.out.println("Successfully wrote to file " + filename);
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
 
 }

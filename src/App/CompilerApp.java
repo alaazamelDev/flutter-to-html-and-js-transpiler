@@ -19,6 +19,7 @@ import utils.UTIL;
 import visitors.AntlrObjectFactory;
 import visitors.AntlrToProgram;
 import visitors.AstToGraphVisitor;
+import visitors.AstToHTML;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class CompilerApp {
     public static void main(String[] args) throws IOException {
         String fileName = "tests/test2.txt";
         DartParser parser = getParser(fileName);
+        Program program = null;
 
         ParseTree antlrAST = parser.prog();
         IAntlrObjectFactory antlrObjectFactory = new AntlrObjectFactory();
@@ -43,7 +45,7 @@ public class CompilerApp {
         } else {
             //visitor
             antlrToProgram = new AntlrToProgram(antlrObjectFactory);
-            Program program = antlrToProgram.visit(antlrAST);
+            program = antlrToProgram.visit(antlrAST);
 
             AstToGraphVisitor graphVisitor = new AstToGraphVisitor();
             program.accept(graphVisitor);
@@ -67,7 +69,22 @@ public class CompilerApp {
             imgFile = new File("src/graph.png");
             ImageIO.write(image, "PNG", imgFile);
         }
+
+
         if (antlrToProgram.getSemanticError().isEmpty()) {
+
+
+            if (program != null) {
+
+                // call code generation visitor.
+                AstToHTML codeGenerationVisitor = new AstToHTML();
+                String htmlOutput = codeGenerationVisitor.visit(program);
+
+                UTIL.writeToFile(htmlOutput,"output/compiled.html");
+
+                // print message that tells that every thing is okay
+                System.out.println("Code Compiled Successfully...");
+            }
 
         } else {
             for (String semantic : antlrToProgram.getSemanticError()) {

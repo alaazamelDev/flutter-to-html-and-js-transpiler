@@ -1,0 +1,6 @@
+Scaffold(
+  appBar: AppBar(
+    title: 'Products Screen',
+  ),
+  body: Image(),
+)

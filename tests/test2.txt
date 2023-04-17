@@ -12,6 +12,10 @@ Widget ProductCard {
             Text(text: ""),
             Image(url: ""),
             Text(text: ""),
+            If(
+            condition: x==y,
+            child: Container(),
+            ),
             For(
                 iterations: 5,
                 child: Text(text: "conditional"),
@@ -21,8 +25,8 @@ Widget ProductCard {
       )
 }
 
-int x;
-x="5";
+int y;
+y=5;
 
 Scaffold(
   appBar: AppBar(
@@ -40,7 +44,7 @@ Scaffold(
       ),
       Column(
         children:[
-         Container(height:x),
+         Container(height:y),
           ProductCard(
             name: "Watch",
             imageUrl: "https://www.google.com",
