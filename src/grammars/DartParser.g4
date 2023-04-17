@@ -46,7 +46,7 @@ customWidget
     ;
 
 customWidgetProperties
-    :   IDENTIFIER COLON (NUM | STRING | FLOAT) //var
+    :   IDENTIFIER COLON ( MINUS? NUM | STRING | FLOAT) //var
     ;
 
 row
