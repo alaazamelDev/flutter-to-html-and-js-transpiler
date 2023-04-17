@@ -224,7 +224,7 @@ variableDeclaration
     ;
 
 variableAssignment
-    :   IDENTIFIER EQL (NUM | FLOAT | STRING) SC //var
+    :   IDENTIFIER EQL ( MINUS? NUM | FLOAT | STRING) SC //var
     ;
 
 //custom widget stuff
