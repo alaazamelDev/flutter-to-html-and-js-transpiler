@@ -73,7 +73,18 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Center center) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        System.out.println("asadq");
+        //delete first \n
+        tag.append("\n<center>\n");
+
+
+        for(Property property : center.getProperties())
+            tag.append(property.accept(this));
+
+        tag.append("</center>\n");
+        return tag.toString();
+
     }
 
     @Override
@@ -145,11 +156,11 @@ public class AstToHTML implements Visitor<String> {
     @Override
     public String visit(Text text) {
         StringBuilder tag = new StringBuilder();
-        tag.append("\n<p");
+        tag.append("<p");
         List<Property> properties = text.getProperties();
 
         StringBuilder styleAttribute = new StringBuilder();
-        styleAttribute.append(" style=\" ");
+        styleAttribute.append(" style=\"");
         int contentIndex=-1;
         for (int i = 0; i < properties.size(); i++) {
             switch (properties.get(i).getName()) {
@@ -207,7 +218,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(ChildWidgetProperty childWidgetProperty) {
-        return null;
+        return childWidgetProperty.getValue().accept(this);
     }
 
     @Override

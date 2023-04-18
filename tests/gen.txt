@@ -1,9 +1,11 @@
 Scaffold(
-  body: Text(
-          text:"anas",
-          fontWeight:bold,
-          fontSize:59,
-          letterSpacing:2,
-          textAlign:center
-          )
+  body:Center(
+        child: Text(
+         text:"anas",
+         fontWeight:bold,
+         fontSize:59,
+         letterSpacing:2,
+         textAlign:center
+            ),
+         ),
 )
