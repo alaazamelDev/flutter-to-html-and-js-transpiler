@@ -9,6 +9,10 @@ import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import properties.text.TextContent;
+import utils.Symbol;
+import utils.SymbolTable;
+import utils.UTIL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -312,6 +316,29 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
     public Expression visitPrimaryIdentifierExpression(DartParser.PrimaryIdentifierExpressionContext ctx) {
         int lineNumber = ctx.getStart().getLine();
         //TODO get identifier value from ST
-        return new PrimaryLiteralExpression(String.valueOf(lineNumber), ctx.getChild(0).getText());
+        //get the symbol table
+        SymbolTable instance = SymbolTable.getInstance();
+        //get the var name from the parse tree
+        String var = ctx.IDENTIFIER().getText();
+
+        Symbol symbol = instance.get(var);
+
+        if (symbol == null) {
+            semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, var));
+            return new PrimaryLiteralExpression(String.valueOf(lineNumber), null);
+        }
+        //get the type
+        String type = symbol.getType();
+        System.out.println(type);
+        if (type.equals("string")) {
+            String value = (String) symbol.getValue();
+            return new PrimaryLiteralExpression(String.valueOf(lineNumber), value);
+        }
+        else if (type.equals("int")) {
+            Number value = (Number) symbol.getValue();
+            return new PrimaryLiteralExpression(String.valueOf(lineNumber), value);
+        }
+
+        return new PrimaryLiteralExpression(String.valueOf(lineNumber), null);
     }
 }

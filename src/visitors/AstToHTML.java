@@ -95,7 +95,7 @@ public class AstToHTML implements Visitor<String> {
 
 
         border.append("border-radius: ")
-                        .append(borderRadiusCircular.getProperties()
+                .append(borderRadiusCircular.getProperties()
                         .get(0).accept(this)).append("px").append(";");
 
         return border.toString();
@@ -115,7 +115,13 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(BoxDecorationWidget boxDecorationWidget) {
-        return null;
+        StringBuilder attributes = new StringBuilder();
+        List<Property> properties = boxDecorationWidget.getProperties();
+
+        for (Property property : properties) {
+            attributes.append(property.accept(this));
+        }
+        return attributes.toString();
     }
 
     @Override
@@ -187,9 +193,45 @@ public class AstToHTML implements Visitor<String> {
         return null;
     }
 
+
     @Override
     public String visit(Container container) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        tag.append("<div class=\"container\" ");
+        List<Property> properties = container.getProperties();
+        int childIndex = -1;
+
+        StringBuilder styleAttribute = new StringBuilder();
+        styleAttribute.append("style=\" ");
+
+        for (int i = 0; i < properties.size(); i++) {
+            if (properties.get(i).getName().equals("width")) {
+                styleAttribute.append("width:").append(properties.get(i).accept(this)).append("px; ");
+            } else if (properties.get(i).getName().equals("height")) {
+                styleAttribute.append("height:").append(properties.get(i).accept(this)).append("px; ");
+            } else if (properties.get(i).getName().equals("ContainerContentAlignment")) {
+                String align = properties.get(i).accept(this);
+                if (align.equals("center")) {
+                    styleAttribute.append("text-align:center; ");
+                } else if (align.equals("left")) {
+                    styleAttribute.append("text-align:left; ");
+                } else if (align.equals("right")) {
+                    styleAttribute.append("text-align:right; ");
+                }
+            } else if (properties.get(i).getName().equals("child")) {
+                childIndex = i;
+            } else if (properties.get(i).getName().equals("Decoration")) {
+                styleAttribute.append(properties.get(i).accept(this));
+            }
+        }
+        tag.append(styleAttribute).append("\" >");
+
+        if (childIndex != -1) {
+            tag.append(properties.get(childIndex).accept(this));
+        }
+
+        tag.append("</div>\n");
+        return tag.toString();
     }
 
     @Override
@@ -202,7 +244,7 @@ public class AstToHTML implements Visitor<String> {
         List<Property> properties = edgeInsetsOnly.getProperties();
         StringBuilder paddings = new StringBuilder();
 
-        for (Property property: properties) {
+        for (Property property : properties) {
             paddings.append(property.accept(this)).append(" ");
         }
 
@@ -222,7 +264,7 @@ public class AstToHTML implements Visitor<String> {
             }
         }
 
-        for (Property property: properties) {
+        for (Property property : properties) {
             padding.append(property.accept(this)).append("px").append(" ");
         }
 
@@ -232,8 +274,33 @@ public class AstToHTML implements Visitor<String> {
     }
 
     @Override
+    //TODO make sure parent display set to FLEX
     public String visit(Expanded expanded) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        tag.append("<div  class=\"Expanded\" ");
+        List<Property> properties = expanded.getProperties();
+
+        StringBuilder styleAttribute = new StringBuilder();
+        styleAttribute.append("style=\" ");
+        styleAttribute.append("flex-grow: 1; ");
+        styleAttribute.append("flex-shrink: 1; ");
+
+        int childIndex=-1;
+        for (int i = 0; i < properties.size(); i++) {
+            if (properties.get(i).getName().equals("ExpandedFlex")) {
+                styleAttribute.append("flex: ").append(properties.get(i).accept(this)).append("; ");
+            } else if (properties.get(i).getName().equals("child")) {
+                childIndex=i;
+            }
+        }
+        tag.append(styleAttribute).append("\" >");
+
+        if(childIndex!=-1){
+            tag.append(properties.get(childIndex).accept(this));
+        }
+        tag.append("</div>\n");
+
+        return tag.toString();
     }
 
     @Override
@@ -295,7 +362,30 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Padding padding) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        tag.append("<div class=\"padding\" ");
+
+        StringBuilder styleAttribute = new StringBuilder();
+        styleAttribute.append("style=\" ");
+
+        List<Property> properties = padding.getProperties();
+
+        int childIndex=-1;
+        for (int i = 0; i < properties.size(); i++) {
+            if (properties.get(i).getName().equals("padding")) {
+                styleAttribute.append(properties.get(i).accept(this)).append("; ");
+            } else if (properties.get(i).getName().equals("child")) {
+                childIndex=i;
+            }
+        }
+        tag.append(styleAttribute).append("\" >");
+
+        if(childIndex!=-1){
+            tag.append(properties.get(childIndex).accept(this));
+        }
+        tag.append("</div>\n");
+
+        return tag.toString();
     }
 
     @Override
@@ -330,7 +420,7 @@ public class AstToHTML implements Visitor<String> {
                 "<html>\n" +
                 "  <head>\n" +
                 "    <meta charset=\"UTF-8\">\n" +
-                "    <title>" + UTIL.pageName + "</title>\n" +
+                "    <title>null</title>\n" +
                 "    <style>\n" +
                 "      body {\n" +
                 "        margin: 0;\n" +
@@ -352,9 +442,7 @@ public class AstToHTML implements Visitor<String> {
                 "      }\n" +
                 "    </style>\n" +
                 "  </head>\n" +
-                "  <body>" +
-                props + //? add properties
-                "   </body>" +
+                props +
                 "</html>";
     }
 
@@ -378,7 +466,7 @@ public class AstToHTML implements Visitor<String> {
         for (int i = 0; i < properties.size(); i++) {
             if (properties.get(i).getName().equals("label")) {
                 code.append("placeholder=").append(properties.get(i).accept(this)).append(" ");
-            } else if(properties.get(i).getName().equals("value")) {
+            } else if (properties.get(i).getName().equals("value")) {
                 code.append("value=").append(properties.get(i).accept(this)).append(" ");
             } else if (properties.get(i).getName().equals("textColor")) {
                 styles.append(properties.get(i).accept(this));
@@ -440,10 +528,11 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(ChildWidgetProperty childWidgetProperty) {
-        return null;
+        return childWidgetProperty.getValue().accept(this);
     }
 
     @Override
+    //TODO fix background
     public String visit(ColorProperty colorProperty) {
         return colorProperty.getValue();
     }
@@ -499,6 +588,7 @@ public class AstToHTML implements Visitor<String> {
     }
 
     @Override
+    //TODO check height
     public String visit(HeightProperty heightProperty) {
         StringBuilder value = new StringBuilder();
         value.append("height: ");
@@ -638,6 +728,7 @@ public class AstToHTML implements Visitor<String> {
     }
 
     @Override
+    //TODO check width
     public String visit(WidthProperty widthProperty) {
         StringBuilder value = new StringBuilder();
         value.append("width: ");
@@ -689,12 +780,12 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(ContainerContentAlignmentProperty containerContentAlignmentProperty) {
-        return null;
+        return containerContentAlignmentProperty.getContentAlignmentValue().toString();
     }
 
     @Override
     public String visit(DecorationProperty decorationProperty) {
-        return null;
+        return decorationProperty.getWidget().accept(this);
     }
 
     @Override
@@ -731,7 +822,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(ExpandedFlexProperty expandedFlexProperty) {
-        return null;
+        return String.valueOf(expandedFlexProperty.getValue());
     }
 
     @Override

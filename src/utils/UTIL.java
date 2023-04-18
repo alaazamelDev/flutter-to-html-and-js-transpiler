@@ -6,6 +6,8 @@ package utils;
 
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -90,13 +92,18 @@ public class UTIL {
     public static void writeToFile(String text, String filename) {
         try {
             FileWriter fileWriter = new FileWriter(filename);
-            fileWriter.write(text);
+            fileWriter.write(formatHtml(text));
             fileWriter.close();
             System.out.println("Successfully wrote to file " + filename);
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    public static String formatHtml(String html) {
+        Document doc = Jsoup.parse(html);
+        return doc.outerHtml();
     }
 
 
