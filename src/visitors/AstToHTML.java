@@ -161,8 +161,18 @@ public class AstToHTML implements Visitor<String> {
         // all of its properties are tags.
         StringBuilder props = new StringBuilder();
 
+        // check for "appBar" property and append to beginning of props list
         for (Property prop : propertyList) {
-            props.append("\n").append(prop.accept(this));
+            if (prop.getName().equals("appBar")) {
+                props.insert(0, prop.accept(this) + "\n");
+            }
+        }
+
+        // append the rest of the properties
+        for (Property prop : propertyList) {
+            if (!prop.getName().equals("appBar")) {
+                props.append(prop.accept(this)).append("\n");
+            }
         }
 
         // HTML code.
