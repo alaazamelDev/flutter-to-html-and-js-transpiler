@@ -6,10 +6,7 @@ import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import statements.CustomWidgetDeclarationStatement;
-import statements.Statement;
-import statements.VariableAssignmentStatement;
-import statements.VariableDeclarationStatement;
+import statements.*;
 import widgets.Widget;
 
 import java.util.ArrayList;
@@ -87,8 +84,8 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
         // register the widget in the symbol table
         String error = varDeclaration.accept(symbolTableVisitorAst);
-        if(!error.isEmpty()) semanticError.add(error+" "+ctx.IDENTIFIER().getSymbol().getLine()+":"
-        +(ctx.IDENTIFIER().getSymbol().getCharPositionInLine()+1));
+        if (!error.isEmpty()) semanticError.add(error + " " + ctx.IDENTIFIER().getSymbol().getLine() + ":"
+                + (ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1));
 
         return varDeclaration;
     }
@@ -123,8 +120,34 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         // register the widget in the symbol table
         String error = varAssignment.accept(symbolTableVisitorAst);
         if (!error.isEmpty()) semanticError.add(error + " " + ctx.IDENTIFIER().getSymbol().getLine() + ":"
-                +(ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1));
+                + (ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1));
 
         return varAssignment;
+    }
+
+    @Override
+    public Statement visitNavigation(DartParser.NavigationContext ctx) {
+
+        int lineNumber = ctx.NAVIGATE_TO().getSymbol().getLine();
+
+        // extract the destination
+        String destination = ctx.STRING().getSymbol().getText();
+
+        //? no semantic error needs to be checked here.
+
+        return new Navigation(destination, String.valueOf(lineNumber));
+    }
+
+    @Override
+    public Statement visitPopup(DartParser.PopupContext ctx) {
+
+        int lineNumber = ctx.POP_UP().getSymbol().getLine();
+
+        // extract the message
+        String message = ctx.STRING().getSymbol().getText();
+
+        //? no semantic error needs to be checked here.
+
+        return new PopUp(message, String.valueOf(lineNumber));
     }
 }

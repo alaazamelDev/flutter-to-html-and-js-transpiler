@@ -25,9 +25,7 @@ import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
 import properties.text.*;
-import statements.CustomWidgetDeclarationStatement;
-import statements.VariableAssignmentStatement;
-import statements.VariableDeclarationStatement;
+import statements.*;
 import utils.UTIL;
 import widgets.*;
 
@@ -612,6 +610,18 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(IterationsProperty iterationsProperty) {
+        return null;
+    }
+
+    @Override
+    public String visit(Navigation navigation) {
+        // TODO: IMPLEMENT THIS CODE
+        return null;
+    }
+
+    @Override
+    public String visit(PopUp popUp) {
+        // TODO: IMPLEMENT THIS CODE
         return null;
     }
 }

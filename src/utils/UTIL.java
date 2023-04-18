@@ -41,6 +41,14 @@ public class UTIL {
                 "line: " + lnNum;
     }
 
+    public static String procedureStatementToString(int ID, String name, String params, String lnNum) {
+        return "ID: " + ID + "\n" +
+                "name: " + name + "\n" +
+                ((params != null) ? "params: " + params + "\n" : "") +
+                "line: " + lnNum;
+    }
+
+
     public static String expressionToString(int ID, String name, String value, int childCnt, String lnNum) {
         return "ID: " + ID + "\n" +
                 name + " (Expression) " + "\n" +

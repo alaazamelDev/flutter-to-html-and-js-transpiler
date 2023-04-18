@@ -49,6 +49,8 @@ IF: 'If';
 FOR: 'For';
 
 //keywords
+NAVIGATE_TO: 'navigateTo';
+POP_UP: 'popUp';
 CHILDREN: 'children';
 BODY: 'body';
 CHILD: 'child';
