@@ -49,6 +49,8 @@ IF: 'If';
 FOR: 'For';
 
 //keywords
+NAVIGATE_TO: 'navigateTo';
+POP_UP: 'popUp';
 CHILDREN: 'children';
 BODY: 'body';
 CHILD: 'child';
@@ -119,8 +121,6 @@ THEN: 'thenProperty';
 FROM: 'fromProperty';
 ITERATIONS: 'iterations';
 
-
-
 //Boolean
 BOOLEAN: 'true' | 'false';
 // Decimal Numbers
@@ -142,5 +142,7 @@ fragment DOUBLE_QUOTED_STRING: '"' (~'"')* '"';
 HEX_NUM : '#' HEX_DIGIT+ | '#' HEX_DIGIT+ ;
 fragment HEX_DIGIT : 'a' .. 'f' | 'A' .. 'F' | NUM ;
 
+WIDGETNAME: [A-Z][A-Za-z0-9_]*;
+IDENTIFIER: [a-z][A-Za-z0-9_]*;
 
 WS: [ \t\r\n]+ -> skip;

@@ -12,6 +12,10 @@ import java.io.IOException;
 
 public class UTIL {
     public static int ID = 1;
+
+
+    // page name
+    public static String pageName = "";
     public static DefaultUndirectedGraph<String, DefaultEdge> g = new DefaultUndirectedGraph<>(DefaultEdge.class);
 
     public static String widgetToString(int ID, String name, int childCnt, String lnNum) {
@@ -36,6 +40,14 @@ public class UTIL {
                 ((type != null) ? "type: " + type + "\n" : "") +
                 "line: " + lnNum;
     }
+
+    public static String procedureStatementToString(int ID, String name, String params, String lnNum) {
+        return "ID: " + ID + "\n" +
+                "name: " + name + "\n" +
+                ((params != null) ? "params: " + params + "\n" : "") +
+                "line: " + lnNum;
+    }
+
 
     public static String expressionToString(int ID, String name, String value, int childCnt, String lnNum) {
         return "ID: " + ID + "\n" +

@@ -1,6 +1,12 @@
 Scaffold(
   appBar: AppBar(
-    title: 'Products Screen',
+    title: 'Home Screen',
+    centerTitle: true,
   ),
-  body: Image(),
+  body: Button(
+  onPressed: (){
+    navigateTo("home.html");
+    popUp("hello world!");
+  },
+  ),
 )
