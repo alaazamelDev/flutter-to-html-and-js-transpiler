@@ -144,6 +144,7 @@ gestureDetector: GESTUREDETECTOR LP (gestureDetectorProperties (COMMA gestureDet
 
 gestureDetectorProperties
     :   onPressedProperty  #GestureDetectorOnPressed
+    |   childProperty   #GestureDetectorChild
     ;
 
 

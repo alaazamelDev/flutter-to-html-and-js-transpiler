@@ -122,6 +122,7 @@ public class AstToHTML implements Visitor<String> {
         List<Property> properties = button.getProperties();
         StringBuilder btn = new StringBuilder("<button ");
         StringBuilder styles = new StringBuilder("style=\" ");
+        StringBuilder listeners = new StringBuilder("onClick=\" ");
         Property titleProperty = null;
         Property titleColorProperty = null;
 
@@ -136,10 +137,20 @@ public class AstToHTML implements Visitor<String> {
                 titleProperty = property;
             } else if (property.getName().equals("titleColor")) {
                 titleColorProperty = property;
+            } else if (property.getName().equals("onPressed")) {
+                listeners.append(property.accept(this));
+
             }
         }
-        styles.append("\"");
-        btn.append(styles);
+        styles.append("\" ");
+        listeners.append("\" ");
+
+        // don't add them if they are empty
+        if (styles.length() > 10)
+            btn.append(styles);
+        if (listeners.length() > 12)
+            btn.append(listeners);
+
         btn.append(">");
 
         if (titleProperty != null) {
@@ -160,7 +171,6 @@ public class AstToHTML implements Visitor<String> {
 
             btn.append(title);
         }
-
 
         btn.append("</button>");
         return btn.toString();
@@ -230,19 +240,21 @@ public class AstToHTML implements Visitor<String> {
     public String visit(GestureDetector gestureDetector) {
 
         StringBuilder code = new StringBuilder();
+        StringBuilder listeners = new StringBuilder("onClick=\" ");
+
         code.append("<div ");
-        code.append("style=");
         List<Property> properties = gestureDetector.getProperties();
         int childIndex = -1;
 
         for (int i = 0; i < properties.size(); i++) {
             if (!properties.get(i).getName().equals("child")) {
-                code.append(" ").append(properties.get(i).accept(this));
+                listeners.append(properties.get(i).accept(this));
             } else {
                 childIndex = i;
             }
         }
 
+        code.append(listeners).append("\"");
         code.append(" >\n");
 
         if (childIndex != -1) {
@@ -532,7 +544,17 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(OnPressedProperty onPressedProperty) {
-        return null;
+        List<Statement> statements = onPressedProperty.getValue().getStatements();
+        StringBuilder code = new StringBuilder();
+
+        for (int i = 0; i < statements.size(); i++) {
+            code.append(statements.get(i).accept(this));
+            if (i != statements.size() - 1) {
+                code.append(", ");
+            }
+        }
+
+        return code.toString();
     }
 
     @Override
@@ -816,13 +838,17 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Navigation navigation) {
-        // TODO: IMPLEMENT THIS CODE
-        return null;
+        StringBuilder code = new StringBuilder();
+        code.append("window.location.assign('").append(navigation.getDestination().replace("\"", "")).append("')");
+
+        return code.toString();
     }
 
     @Override
     public String visit(PopUp popUp) {
-        // TODO: IMPLEMENT THIS CODE
-        return null;
+        StringBuilder code = new StringBuilder();
+        code.append("alert('").append(popUp.getMessage().replace("\"", "")).append("')");
+
+        return code.toString();
     }
 }

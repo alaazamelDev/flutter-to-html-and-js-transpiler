@@ -106,6 +106,11 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
 
     @Override
+    public Property visitGestureDetectorChild(DartParser.GestureDetectorChildContext ctx) {
+        return visit(ctx.childProperty());
+    }
+
+    @Override
     public Property visitCustomWidgetProperties(DartParser.CustomWidgetPropertiesContext ctx) {
 
         String lineNumber = valueOf(ctx.IDENTIFIER().getSymbol().getLine());

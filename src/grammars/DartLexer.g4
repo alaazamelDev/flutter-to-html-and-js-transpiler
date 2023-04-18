@@ -130,8 +130,7 @@ FLOAT : '-'? ('0'..'9')+ '.' ('0'..'9')*;
 NUM: ('1'..'9') ('0'..'9')* | '0';
 
 
-WIDGETNAME: [A-Z][A-Za-z0-9_]*;
-IDENTIFIER: [a-z][A-Za-z0-9_]*;
+
 
 // String
 STRING: SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING;
