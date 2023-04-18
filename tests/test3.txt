@@ -28,6 +28,10 @@ Scaffold(
                             fit: cover,
                         ),
                     ),
+                    If(
+                    condition: x==y,
+                    child: Container()
+                    ),
                     Expanded(
                         flex: box1Flex,
                         child: Text(
