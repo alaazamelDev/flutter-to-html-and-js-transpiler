@@ -130,13 +130,16 @@ FLOAT : '-'? ('0'..'9')+ '.' ('0'..'9')*;
 NUM: ('1'..'9') ('0'..'9')* | '0';
 
 
+WIDGETNAME: [A-Z][A-Za-z0-9_]*;
+IDENTIFIER: [a-z][A-Za-z0-9_]*;
+
 // String
 STRING: SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING;
 fragment SINGLE_QUOTED_STRING: '\'' (~'\'')* '\'';
 fragment DOUBLE_QUOTED_STRING: '"' (~'"')* '"';
 
 // Hex Numbers
-HEX_NUM : '0x' HEX_DIGIT+ | '0X' HEX_DIGIT+ ;
+HEX_NUM : '#' HEX_DIGIT+ | '#' HEX_DIGIT+ ;
 fragment HEX_DIGIT : 'a' .. 'f' | 'A' .. 'F' | NUM ;
 
 WIDGETNAME: [A-Z][A-Za-z0-9_]*;
