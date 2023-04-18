@@ -116,7 +116,7 @@ public class AstToHTML implements Visitor<String> {
     @Override
     public String visit(Container container) {
         StringBuilder tag = new StringBuilder();
-        tag.append("<div ");
+        tag.append("<div class=\"container\" ");
         List<Property> properties = container.getProperties();
         int childIndex = -1;
 
@@ -193,9 +193,10 @@ public class AstToHTML implements Visitor<String> {
     }
 
     @Override
+    //TODO make sure parent display set to FLEX
     public String visit(Expanded expanded) {
         StringBuilder tag = new StringBuilder();
-        tag.append("<div ");
+        tag.append("<div  class=\"Expanded\" ");
         List<Property> properties = expanded.getProperties();
 
         StringBuilder styleAttribute = new StringBuilder();
@@ -205,7 +206,6 @@ public class AstToHTML implements Visitor<String> {
 
         int childIndex=-1;
         for (int i = 0; i < properties.size(); i++) {
-            System.out.println(properties.get(i).getName());
             if (properties.get(i).getName().equals("ExpandedFlex")) {
                 styleAttribute.append("flex: ").append(properties.get(i).accept(this)).append("; ");
             } else if (properties.get(i).getName().equals("child")) {
