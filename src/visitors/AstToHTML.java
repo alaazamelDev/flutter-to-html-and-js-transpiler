@@ -512,7 +512,23 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(IF If) {
-        return null;
+        // extract props
+        List<Property> propertyList = If.getProperties();
+        int childIndex=-1;
+        for(int i=0;i<propertyList.size();i++){
+            if(propertyList.get(i).getName().equals("condition")){
+                if(propertyList.get(i).accept(this).equals("false")){
+                    return "";
+                }
+            }
+            else if(propertyList.get(i).getName().equals("child")){
+                childIndex =i;
+            }
+        }
+        if(childIndex!=-1){
+            return propertyList.get(childIndex).accept(this);
+        }
+        return "";
     }
 
     @Override
@@ -522,7 +538,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(ConditionProperty conditionProperty) {
-        return null;
+        return conditionProperty.getExpression().getValue().toString();
     }
 
     @Override
