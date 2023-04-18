@@ -169,9 +169,10 @@ public class AstToHTML implements Visitor<String> {
                 tag.append(styleAttribute).append("\"");
         tag.append(">");
         String content ="";
-        if(contentIndex!=-1)
-            content =properties.get(contentIndex).accept(this);
-        tag.append(content.replace("\"", "")); //delete all double quotes (") from the String
+        if(contentIndex!=-1) {
+            content = properties.get(contentIndex).accept(this);
+            tag.append(content.replace("\"", "")); //delete all double quotes (") from the String
+        }
 
         tag.append("</p>\n");
 
