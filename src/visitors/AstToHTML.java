@@ -112,7 +112,28 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Image image) {
-        return null;
+
+        StringBuilder imgString = new StringBuilder();
+
+        // open the tag
+        imgString.append("<img ");
+
+
+        // style the image
+        imgString.append("style = \"");
+
+
+        // translate the properties
+        for (Property prop : image.getProperties()) {
+            imgString.append(prop.accept(this));
+        }
+
+        // close the tag
+        imgString.append("\" />");
+
+
+        // HTML code...
+        return imgString.toString();
     }
 
     @Override
@@ -203,7 +224,17 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(FitProperty fitProperty) {
-        return null;
+
+        String fitValue = "";
+        switch (fitProperty.getValue()) {
+            case cover:
+                fitValue = "background-size: cover; ";
+                break;
+            case contains:
+                fitValue = "background-size: contain; ";
+                break;
+        }
+        return fitValue;
     }
 
     @Override
@@ -223,7 +254,11 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(HeightProperty heightProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("height: ");
+        value.append(heightProperty.getValue()).append("px").append(";");
+
+        return value.toString();
     }
 
     @Override
@@ -303,7 +338,12 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(UrlProperty urlProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("background-image: url(\'");
+        value.append(urlProperty.getValue().replace("\"", "").replace("'", ""));
+        value.append("\'); ");
+
+        return value.toString();
     }
 
     @Override
@@ -318,7 +358,11 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(WidthProperty widthProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("width: ");
+        value.append(widthProperty.getValue()).append("px").append(";");
+
+        return value.toString();
     }
 
     @Override

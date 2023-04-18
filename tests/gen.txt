@@ -2,5 +2,10 @@ Scaffold(
   appBar: AppBar(
     title: 'Products Screen',
   ),
-  body: Image(),
+  body: Image(
+    url: 'https://plus.unsplash.com/premium_photo-1675826774817-fe983ceb0475?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+    fit: cover,
+    width: 1000,
+    height: 800,
+  ),
 )
