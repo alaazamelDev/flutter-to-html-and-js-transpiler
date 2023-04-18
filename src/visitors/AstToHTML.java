@@ -406,8 +406,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(HeightProperty heightProperty) {
-        return String.valueOf(Double.valueOf(heightProperty.getValue()).intValue());
-
+        return String.valueOf(heightProperty.getValue());
     }
 
     @Override
