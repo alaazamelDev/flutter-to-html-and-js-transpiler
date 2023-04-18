@@ -61,6 +61,7 @@ public class AstToHTML implements Visitor<String> {
         div.append("padding: 0.5rem 1.5rem 0.5rem 1.5rem; ");   // padding attribute
         div.append("background-color: #044389; ");   // background color attribute
         div.append("color: #FFFFFF; ");   // background color attribute
+        div.append("margin-bottom: 20px; ");
         div.append(appbarCenterTitleProperty);  // center title attribute
         div.append(" \">"); // close style attribute
         div.append("\n");   // break the line
