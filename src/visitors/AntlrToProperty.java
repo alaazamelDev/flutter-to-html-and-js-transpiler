@@ -1085,6 +1085,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitWidthProperty(DartParser.WidthPropertyContext ctx) {
         String value = ctx.getChild(2).getText();
         String lnNumber = String.valueOf(ctx.WIDTH().getSymbol().getLine());
+
         //value from variable
         if (ctx.IDENTIFIER() != null) {
             //get the symbol table

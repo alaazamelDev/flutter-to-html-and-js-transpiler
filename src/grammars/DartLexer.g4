@@ -140,5 +140,7 @@ fragment DOUBLE_QUOTED_STRING: '"' (~'"')* '"';
 HEX_NUM : '0x' HEX_DIGIT+ | '0X' HEX_DIGIT+ ;
 fragment HEX_DIGIT : 'a' .. 'f' | 'A' .. 'F' | NUM ;
 
+WIDGETNAME: [A-Z][A-Za-z0-9_]*;
+IDENTIFIER: [a-z][A-Za-z0-9_]*;
 
 WS: [ \t\r\n]+ -> skip;
