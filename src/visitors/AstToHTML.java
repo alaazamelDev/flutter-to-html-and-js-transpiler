@@ -194,7 +194,32 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Expanded expanded) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        tag.append("<div ");
+        List<Property> properties = expanded.getProperties();
+
+        StringBuilder styleAttribute = new StringBuilder();
+        styleAttribute.append("style=\" ");
+        styleAttribute.append("flex-grow: 1; ");
+        styleAttribute.append("flex-shrink: 1; ");
+
+        int childIndex=-1;
+        for (int i = 0; i < properties.size(); i++) {
+            System.out.println(properties.get(i).getName());
+            if (properties.get(i).getName().equals("ExpandedFlex")) {
+                styleAttribute.append("flex: ").append(properties.get(i).accept(this)).append("; ");
+            } else if (properties.get(i).getName().equals("child")) {
+                childIndex=i;
+            }
+        }
+        tag.append(styleAttribute).append("\" >");
+
+        if(childIndex!=-1){
+            tag.append(properties.get(childIndex).accept(this));
+        }
+        tag.append("</div>\n");
+
+        return tag.toString();
     }
 
     @Override
@@ -603,7 +628,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(ExpandedFlexProperty expandedFlexProperty) {
-        return null;
+        return String.valueOf(expandedFlexProperty.getValue());
     }
 
     @Override
