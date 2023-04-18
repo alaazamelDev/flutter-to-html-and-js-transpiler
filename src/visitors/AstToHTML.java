@@ -258,7 +258,30 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Padding padding) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        tag.append("<div class=\"padding\" ");
+
+        StringBuilder styleAttribute = new StringBuilder();
+        styleAttribute.append("style=\" ");
+
+        List<Property> properties = padding.getProperties();
+
+        int childIndex=-1;
+        for (int i = 0; i < properties.size(); i++) {
+            if (properties.get(i).getName().equals("padding")) {
+                styleAttribute.append(properties.get(i).accept(this)).append("; ");
+            } else if (properties.get(i).getName().equals("child")) {
+                childIndex=i;
+            }
+        }
+        tag.append(styleAttribute).append("\" >");
+
+        if(childIndex!=-1){
+            tag.append(properties.get(childIndex).accept(this));
+        }
+        tag.append("</div>\n");
+
+        return tag.toString();
     }
 
     @Override
