@@ -145,7 +145,7 @@ public class AstToHTML implements Visitor<String> {
     @Override
     public String visit(Text text) {
         StringBuilder tag = new StringBuilder();
-        tag.append("\n<p");
+        tag.append("<p");
         List<Property> properties = text.getProperties();
 
         StringBuilder styleAttribute = new StringBuilder();
