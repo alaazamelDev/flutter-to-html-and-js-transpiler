@@ -1,0 +1,26 @@
+Scaffold(
+  appBar: AppBar(
+    title: 'Products Screen',
+  ),
+  body: Container(
+            width: 500,
+            height: 500,
+            contentAlignment: center,
+            decoration: BoxDecoration(
+              color: #96eac0,
+              borderRadius: BorderRadiusOnly(topLeft:10,bottomRight:50),
+            ),
+            child:TextField(
+                      padding: EdgeInsetsSymmetric( vertical: 10, horizontal: 20),
+                      hint: "hey",
+                      label: "hey",
+                      value: "test value",
+                      textColor: #eb4034,
+                      border: Border(
+                                  borderRadius: BorderRadiusOnly(topLeft: 10, bottomRight: 10),
+                                  color: #0000ff,
+                                  thickness: 10
+                              )
+                      ),
+          ),
+)

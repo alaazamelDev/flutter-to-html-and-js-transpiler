@@ -139,7 +139,7 @@ fragment SINGLE_QUOTED_STRING: '\'' (~'\'')* '\'';
 fragment DOUBLE_QUOTED_STRING: '"' (~'"')* '"';
 
 // Hex Numbers
-HEX_NUM : '#' HEX_DIGIT+ | '#' HEX_DIGIT+ ;
+HEX_NUM : '#' HEX_DIGIT+;
 fragment HEX_DIGIT : 'a' .. 'f' | 'A' .. 'F' | NUM ;
 
 
