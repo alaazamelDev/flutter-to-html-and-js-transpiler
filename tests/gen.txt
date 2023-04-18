@@ -1,6 +1,9 @@
 Scaffold(
-  appBar: AppBar(
-    title: 'Products Screen',
-  ),
-  body: Image(),
+  body: Text(
+          text:"anas",
+          fontWeight:bold,
+          fontSize:59,
+          letterSpacing:2,
+          textAlign:center
+          )
 )

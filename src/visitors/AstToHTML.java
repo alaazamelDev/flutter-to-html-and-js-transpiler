@@ -31,6 +31,7 @@ import statements.VariableDeclarationStatement;
 import widgets.*;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AstToHTML implements Visitor<String> {
     @Override
@@ -143,7 +144,39 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Text text) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        tag.append("\n<p");
+        List<Property> properties = text.getProperties();
+
+        StringBuilder styleAttribute = new StringBuilder();
+        styleAttribute.append(" style=\" ");
+        int contentIndex=-1;
+        for (int i = 0; i < properties.size(); i++) {
+            switch (properties.get(i).getName()) {
+                case "fontWeight" ->
+                        styleAttribute.append("font-weight: ").append(properties.get(i).accept(this)).append("; ");
+                case "fontSize" ->
+                        styleAttribute.append("font-size: ").append(properties.get(i).accept(this)).append("px; ");
+                case "letterSpacing" ->
+                        styleAttribute.append("letter-spacing: ").append(properties.get(i).accept(this)).append("px; ");
+                case "textAlign" ->
+                        styleAttribute.append("text-align: ").append(properties.get(i).accept(this)).append("; ");
+                case "text" -> contentIndex = i;
+            }
+        }
+        if(properties.size()!=0)
+            if(!(properties.size()==1 && Objects.equals(properties.get(0).getName(), "text")))
+                tag.append(styleAttribute).append("\"");
+        tag.append(">");
+        String content ="";
+        if(contentIndex!=-1)
+            content =properties.get(contentIndex).accept(this);
+        tag.append(content.replace("\"", "")); //delete all double quotes (") from the String
+
+        tag.append("</p>\n");
+
+        return tag.toString();
+
     }
 
     @Override
@@ -213,12 +246,12 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(FontSizeProperty fontSizeProperty) {
-        return null;
+        return String.valueOf(fontSizeProperty.getValue());
     }
 
     @Override
     public String visit(FontWeightProperty fontWeightProperty) {
-        return null;
+        return fontWeightProperty.getValue().toString();
     }
 
     @Override
@@ -243,7 +276,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(LetterSpacingProperty letterSpacingProperty) {
-        return null;
+        return String.valueOf(letterSpacingProperty.getValue());
     }
 
     @Override
@@ -268,7 +301,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(TextAlignProperty textAlignProperty) {
-        return null;
+        return textAlignProperty.getValue().toString();
     }
 
     @Override
@@ -408,7 +441,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(TextContent textContent) {
-        return null;
+        return textContent.getValue();
     }
 
     @Override

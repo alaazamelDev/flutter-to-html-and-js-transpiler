@@ -1004,7 +1004,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(EqualityExpression equalityExpression) {
         UTIL.ID++;
-        String vertex = UTIL.expressionToString(UTIL.ID, "Equality Expression "+equalityExpression.getOperatorType(),
+        String vertex = UTIL.expressionToString(UTIL.ID, "Equality Expression "+equalityExpression.getOperatorType().getSymbol(),
                 valueOf(equalityExpression.getValue()), 2,
                 equalityExpression.getLnNumber()+ 1);
         UTIL.g.addVertex(vertex);
@@ -1018,7 +1018,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(RelationalExpression relationalExpression) {
         UTIL.ID++;
-        String vertex = UTIL.expressionToString(UTIL.ID, "Relational Expression "+relationalExpression.getOperatorType(),
+        String vertex = UTIL.expressionToString(UTIL.ID, "Relational Expression "+relationalExpression.getOperatorType().getSymbol(),
                 valueOf(relationalExpression.getValue()), 2,
                 relationalExpression.getLnNumber()+ 1);
         UTIL.g.addVertex(vertex);
