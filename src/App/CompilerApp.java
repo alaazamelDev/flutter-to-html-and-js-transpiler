@@ -30,7 +30,7 @@ import java.io.IOException;
 public class CompilerApp {
 
     public static void main(String[] args) throws IOException {
-        String fileName = "tests/test2.txt";
+        String fileName = "tests/padding.txt";
         DartParser parser = getParser(fileName);
         Program program = null;
 
