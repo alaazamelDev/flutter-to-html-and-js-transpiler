@@ -67,7 +67,51 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Button button) {
-        return null;
+        List<Property> properties = button.getProperties();
+        StringBuilder btn = new StringBuilder("<button ");
+        StringBuilder styles = new StringBuilder("style=\" ");
+        Property titleProperty = null;
+        Property titleColorProperty = null;
+
+        for (Property property : properties) {
+            if (property.getName().equals("width")) {
+                styles.append(property.accept(this)).append(" ");
+            } else if (property.getName().equals("height")) {
+                styles.append(property.accept(this)).append(" ");
+            } else if (property.getName().equals("backgroundColor")) {
+                styles.append(property.accept(this)).append(" ");
+            } else if (property.getName().equals("title")) {
+                titleProperty = property;
+            } else if (property.getName().equals("titleColor")) {
+                titleColorProperty = property;
+            }
+        }
+        styles.append("\"");
+        btn.append(styles);
+        btn.append(">");
+
+        if (titleProperty != null) {
+            StringBuilder title = new StringBuilder();
+
+            if (titleColorProperty != null) {
+                title.append("<div style=\" ")
+                        .append(titleColorProperty.accept(this))
+                        .append(" \"").append(">");
+
+            }
+
+            title.append(titleProperty.accept(this));
+
+            if (titleColorProperty != null) {
+                title.append("</div>");
+            }
+
+            btn.append(title);
+        }
+
+
+        btn.append("</button>");
+        return btn.toString();
     }
 
     @Override
@@ -153,7 +197,10 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(BackgroundColorProperty backgroundColorProperty) {
-        return null;
+        StringBuilder color = new StringBuilder();
+        color.append("background-color: ").append(backgroundColorProperty.getValue()).append(";");
+
+        return color.toString();
     }
 
     @Override
@@ -223,7 +270,11 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(HeightProperty heightProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("height: ");
+        value.append(heightProperty.getValue()).append("px").append(";");
+
+        return value.toString();
     }
 
     @Override
@@ -283,12 +334,21 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(TitleColorProperty titleColorProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("color: ").append(titleColorProperty.getValue()).append(";");
+
+        return value.toString();
     }
 
     @Override
     public String visit(TitleProperty titleProperty) {
-        return null;
+        String titleValue = titleProperty.getValue();
+
+        StringBuilder title = new StringBuilder("<h5>");
+        title.append(titleValue);
+        title.append("</h5>");
+
+        return title.toString();
     }
 
     @Override
@@ -318,7 +378,11 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(WidthProperty widthProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("width: ");
+        value.append(widthProperty.getValue()).append("px").append(";");
+
+        return value.toString();
     }
 
     @Override
