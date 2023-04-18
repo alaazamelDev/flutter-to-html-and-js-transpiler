@@ -52,6 +52,7 @@ public class AstToHTML implements Visitor<String> {
         for (Property property : appBar.getProperties()) {
             if (property.getName().equals("title")) {
                 appbarTitleProperty = property.accept(this);
+                UTIL.pageName = appbarTitleProperty.replace("<h3>", "").replace("</h3>", "");
             } else if (property.getName().equals("centerTitle")) {
                 appbarCenterTitleProperty = property.accept(this);
             }
