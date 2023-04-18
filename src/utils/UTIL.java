@@ -12,6 +12,10 @@ import java.io.IOException;
 
 public class UTIL {
     public static int ID = 1;
+
+
+    // page name
+    public static String pageName = "";
     public static DefaultUndirectedGraph<String, DefaultEdge> g = new DefaultUndirectedGraph<>(DefaultEdge.class);
 
     public static String widgetToString(int ID, String name, int childCnt, String lnNum) {

@@ -99,7 +99,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitAppBarCenterTitle(DartParser.AppBarCenterTitleContext ctx) {
         String lineNumber = valueOf(ctx.CENTERTITLE().getSymbol().getLine());
-        boolean value = Boolean.parseBoolean(ctx.BOOLEAN().getSymbol().getText());
+        boolean value = Boolean.parseBoolean(ctx.BOOLEAN().getSymbol().getText().replace("\"", "").replace("'", ""));
         // return new CenterTitleProperty Object
         return new CenterTitleProperty(value, lineNumber);
     }

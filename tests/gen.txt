@@ -1,6 +1,6 @@
 Scaffold(
   appBar: AppBar(
-    title: 'Products Screen',
+    title: 'Home Screen',
+    centerTitle: false,
   ),
-  body: Image(),
 )

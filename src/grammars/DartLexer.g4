@@ -119,9 +119,6 @@ THEN: 'thenProperty';
 FROM: 'fromProperty';
 ITERATIONS: 'iterations';
 
-WIDGETNAME: [A-Z][A-Za-z0-9_]*;
-IDENTIFIER: [a-z][A-Za-z0-9_]*;
-
 //Boolean
 BOOLEAN: 'true' | 'false';
 // Decimal Numbers
@@ -129,6 +126,9 @@ FLOAT : '-'? ('0'..'9')+ '.' ('0'..'9')*;
 
 // Integer Numbers
 NUM: ('1'..'9') ('0'..'9')* | '0';
+
+WIDGETNAME: [A-Z][A-Za-z0-9_]*;
+IDENTIFIER: [a-z][A-Za-z0-9_]*;
 
 
 // String

@@ -28,6 +28,7 @@ import properties.text.*;
 import statements.CustomWidgetDeclarationStatement;
 import statements.VariableAssignmentStatement;
 import statements.VariableDeclarationStatement;
+import utils.UTIL;
 import widgets.*;
 
 import java.util.List;
@@ -42,7 +43,33 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(AppBar appBar) {
-        return null;
+
+        String appbarTitleProperty = "";
+        String appbarCenterTitleProperty = "";
+
+        System.out.println(appBar.getProperties());
+
+        for (Property property : appBar.getProperties()) {
+            if (property.getName().equals("title")) {
+                appbarTitleProperty = property.accept(this);
+            } else if (property.getName().equals("centerTitle")) {
+                appbarCenterTitleProperty = property.accept(this);
+            }
+        }
+
+        // Create div with some styling
+        StringBuilder div = new StringBuilder("<div style=\"");
+        div.append("padding: 0.5rem 1.5rem 0.5rem 1.5rem; ");   // padding attribute
+        div.append("background-color: #044389; ");   // background color attribute
+        div.append("color: #FFFFFF; ");   // background color attribute
+        div.append(appbarCenterTitleProperty);  // center title attribute
+        div.append(" \">"); // close style attribute
+        div.append("\n");   // break the line
+        div.append(appbarTitleProperty);    // add title attribute as heading tag
+        div.append("\n");
+        div.append("</div>");   // close div tag
+
+        return div.toString();
     }
 
     @Override
@@ -134,11 +161,40 @@ public class AstToHTML implements Visitor<String> {
         StringBuilder props = new StringBuilder();
 
         for (Property prop : propertyList) {
-            props.append(" ").append(prop.accept(this));
+            props.append("\n").append(prop.accept(this));
         }
 
         // HTML code.
-        return "<html>" + props + "</html>";
+        return "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "  <head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <title>" + UTIL.pageName + "</title>\n" +
+                "    <style>\n" +
+                "      body {\n" +
+                "        margin: 0;\n" +
+                "      }\n" +
+                "      html {\n" +
+                "        box-sizing: border-box;\n" +
+                "      }\n" +
+                "      \n" +
+                "      *,\n" +
+                "      *:before,\n" +
+                "      *:after {\n" +
+                "        box-sizing: inherit;\n" +
+                "      }\n" +
+                "      \n" +
+                "      html,\n" +
+                "      body,\n" +
+                "      #root {\n" +
+                "        height: 100%;\n" +
+                "      }\n" +
+                "    </style>\n" +
+                "  </head>\n" +
+                "  <body>" +
+                props + //? add properties
+                "   </body>" +
+                "</html>";
     }
 
     @Override
@@ -163,7 +219,14 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(CenterTitleProperty centerTitleProperty) {
-        return null;
+
+        boolean centerTitle = centerTitleProperty.getValue();
+
+        if (centerTitle) {
+            return "text-align: center;";
+        }
+
+        return "";
     }
 
     @Override
@@ -288,7 +351,15 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(TitleProperty titleProperty) {
-        return null;
+
+        // extract title content
+        String titleValue = titleProperty.getValue().replace("\"", "").replace("'", "");
+
+        StringBuilder title = new StringBuilder("<h3>");
+        title.append(titleValue);
+        title.append("</h3>");
+
+        return title.toString();
     }
 
     @Override
@@ -318,7 +389,11 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(WidthProperty widthProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("width: ");
+        value.append(widthProperty.getValue()).append("px").append(";");
+
+        return value.toString();
     }
 
     @Override
@@ -388,22 +463,15 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(AppBarProperty appBarProperty) {
-
-        // appbar value
-        String appbarValue = appBarProperty.getValue().accept(this);
-
         // HTML code.
-        return "<title>" + appbarValue + "</title>";
+        return appBarProperty.getValue().accept(this);
     }
 
     @Override
     public String visit(BodyProperty bodyProperty) {
 
-        // body value
-        String bodyValue = bodyProperty.getValue().accept(this);
-
         // HTML code.
-        return "<body>" + bodyValue + "</body>";
+        return bodyProperty.getValue().accept(this);
     }
 
     @Override
