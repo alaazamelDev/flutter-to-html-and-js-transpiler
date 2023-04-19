@@ -219,23 +219,17 @@ public class AstToHTML implements Visitor<String> {
         styleAttribute.append("style=\" ");
 
         for (int i = 0; i < properties.size(); i++) {
-            if (properties.get(i).getName().equals("width")) {
-                styleAttribute.append(properties.get(i).accept(this));
-            } else if (properties.get(i).getName().equals("height")) {
-                styleAttribute.append(properties.get(i).accept(this));
-            } else if (properties.get(i).getName().equals("ContainerContentAlignment")) {
-                String align = properties.get(i).accept(this);
-                if (align.equals("center")) {
-                    styleAttribute.append("text-align:center; ");
-                } else if (align.equals("left")) {
-                    styleAttribute.append("text-align:left; ");
-                } else if (align.equals("right")) {
-                    styleAttribute.append("text-align:right; ");
+            switch (properties.get(i).getName()) {
+                case "width", "Decoration", "height" -> styleAttribute.append(properties.get(i).accept(this));
+                case "ContainerContentAlignment" -> {
+                    String align = properties.get(i).accept(this);
+                    switch (align) {
+                        case "center" -> styleAttribute.append("text-align:center; ");
+                        case "left" -> styleAttribute.append("text-align:left; ");
+                        case "right" -> styleAttribute.append("text-align:right; ");
+                    }
                 }
-            } else if (properties.get(i).getName().equals("child")) {
-                childIndex = i;
-            } else if (properties.get(i).getName().equals("Decoration")) {
-                styleAttribute.append(properties.get(i).accept(this));
+                case "child" -> childIndex = i;
             }
         }
         tag.append(styleAttribute).append("\" >");
@@ -508,23 +502,15 @@ public class AstToHTML implements Visitor<String> {
         StringBuilder styles = new StringBuilder();
         styles.append("style=\" ");
 
-        StringBuilder hint = new StringBuilder("");
+        StringBuilder hint = new StringBuilder();
 
         for (int i = 0; i < properties.size(); i++) {
-            if (properties.get(i).getName().equals("label")) {
-                code.append("placeholder=").append(properties.get(i).accept(this)).append(" ");
-            } else if (properties.get(i).getName().equals("value")) {
-                code.append("value=").append(properties.get(i).accept(this)).append(" ");
-            } else if (properties.get(i).getName().equals("textColor")) {
-                styles.append(properties.get(i).accept(this));
-            } else if (properties.get(i).getName().equals("border")) {
-                styles.append(properties.get(i).accept(this));
-            } else if (properties.get(i).getName().equals("hint")) {
-                hint.append(properties.get(i).accept(this));
-            } else if (properties.get(i).getName().equals("padding")) {
-                styles.append(properties.get(i).accept(this));
-            } else {
-                childIndex = i;
+            switch (properties.get(i).getName()) {
+                case "label" -> code.append("placeholder=").append(properties.get(i).accept(this)).append(" ");
+                case "value" -> code.append("value=").append(properties.get(i).accept(this)).append(" ");
+                case "textColor", "border", "padding" -> styles.append(properties.get(i).accept(this));
+                case "hint" -> hint.append(properties.get(i).accept(this));
+                default -> childIndex = i;
             }
         }
 
@@ -606,16 +592,10 @@ public class AstToHTML implements Visitor<String> {
     @Override
     public String visit(FitProperty fitProperty) {
 
-        String fitValue = "";
-        switch (fitProperty.getValue()) {
-            case cover:
-                fitValue = "background-size: cover; ";
-                break;
-            case contains:
-                fitValue = "background-size: contain; ";
-                break;
-        }
-        return fitValue;
+        return switch (fitProperty.getValue()) {
+            case cover -> "background-size: cover; ";
+            case contains -> "background-size: contain; ";
+        };
     }
 
     @Override
