@@ -1,12 +1,13 @@
 Scaffold(
   appBar: AppBar(
     title: 'Home Screen',
-    centerTitle: true,
+    centerTitle: false,
   ),
-  body: Button(
+  body: Center(
+  child:Button(
+  title:"Show Welcome Message",
   onPressed: (){
-    navigateTo("home.html");
-    popUp("hello world!");
+    popUp("Welcome to the world");
   },
-  ),
+  ),),
 )

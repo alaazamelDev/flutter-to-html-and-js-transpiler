@@ -46,7 +46,6 @@ public class AstToHTML implements Visitor<String> {
         String appbarTitleProperty = "";
         String appbarCenterTitleProperty = "";
 
-        System.out.println(appBar.getProperties());
 
         for (Property property : appBar.getProperties()) {
             if (property.getName().equals("title")) {
@@ -122,7 +121,7 @@ public class AstToHTML implements Visitor<String> {
         for (Property property : properties) {
             System.out.println(property.getName());
             if (property.getName().equals("color")) {
-                attributes.append("background-color:" + property.accept(this)+";");
+                attributes.append("background-color:" + property.accept(this) + ";");
             } else attributes.append(property.accept(this));
         }
         return attributes.toString();
@@ -174,7 +173,7 @@ public class AstToHTML implements Visitor<String> {
 
             }
 
-            title.append(titleProperty.accept(this));
+            title.append(titleProperty.accept(this).replace("<h3>", "").replace("</h3>", ""));
 
             if (titleColorProperty != null) {
                 title.append("</div>");
@@ -190,12 +189,12 @@ public class AstToHTML implements Visitor<String> {
     @Override
     public String visit(Center center) {
         StringBuilder tag = new StringBuilder();
-        System.out.println("asadq");
+
         //delete first \n
         tag.append("\n<center>\n");
 
 
-        for(Property property : center.getProperties())
+        for (Property property : center.getProperties())
             tag.append(property.accept(this));
 
         tag.append("</center>\n");
@@ -435,7 +434,7 @@ public class AstToHTML implements Visitor<String> {
                 "<html>\n" +
                 "  <head>\n" +
                 "    <meta charset=\"UTF-8\">\n" +
-                "    <title>null</title>\n" +
+                "    <title>" + UTIL.pageName + "</title>\n" +
                 "    <style>\n" +
                 "      body {\n" +
                 "        margin: 0;\n" +
@@ -469,7 +468,7 @@ public class AstToHTML implements Visitor<String> {
 
         StringBuilder styleAttribute = new StringBuilder();
         styleAttribute.append(" style=\"");
-        int contentIndex=-1;
+        int contentIndex = -1;
         for (int i = 0; i < properties.size(); i++) {
             switch (properties.get(i).getName()) {
                 case "fontWeight" ->
@@ -483,14 +482,14 @@ public class AstToHTML implements Visitor<String> {
                 case "text" -> contentIndex = i;
             }
         }
-        if(properties.size()!=0)
-            if(!(properties.size()==1 && Objects.equals(properties.get(0).getName(), "text")))
+        if (properties.size() != 0)
+            if (!(properties.size() == 1 && Objects.equals(properties.get(0).getName(), "text")))
                 tag.append(styleAttribute).append("\"");
         tag.append(">");
-        String content ="";
-        if(contentIndex!=-1) {
+        String content = "";
+        if (contentIndex != -1) {
             content = properties.get(contentIndex).accept(this);
-            tag.append(content.replace("\"", "")); //delete all double quotes (") from the String
+            tag.append(content.replace("\"", "")); //delete all double quotes ("") from the String
         }
 
         tag.append("</p>\n");
@@ -957,18 +956,17 @@ public class AstToHTML implements Visitor<String> {
     public String visit(IF If) {
         // extract props
         List<Property> propertyList = If.getProperties();
-        int childIndex=-1;
-        for(int i=0;i<propertyList.size();i++){
-            if(propertyList.get(i).getName().equals("condition")){
-                if(propertyList.get(i).accept(this).equals("false")){
+        int childIndex = -1;
+        for (int i = 0; i < propertyList.size(); i++) {
+            if (propertyList.get(i).getName().equals("condition")) {
+                if (propertyList.get(i).accept(this).equals("false")) {
                     return "";
                 }
-            }
-            else if(propertyList.get(i).getName().equals("child")){
-                childIndex =i;
+            } else if (propertyList.get(i).getName().equals("child")) {
+                childIndex = i;
             }
         }
-        if(childIndex!=-1){
+        if (childIndex != -1) {
             return propertyList.get(childIndex).accept(this);
         }
         return "";
