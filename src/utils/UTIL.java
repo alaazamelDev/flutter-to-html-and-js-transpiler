@@ -6,12 +6,18 @@ package utils;
 
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class UTIL {
     public static int ID = 1;
+
+
+    // page name
+    public static String pageName = "";
     public static DefaultUndirectedGraph<String, DefaultEdge> g = new DefaultUndirectedGraph<>(DefaultEdge.class);
 
     public static String widgetToString(int ID, String name, int childCnt, String lnNum) {
@@ -36,6 +42,14 @@ public class UTIL {
                 ((type != null) ? "type: " + type + "\n" : "") +
                 "line: " + lnNum;
     }
+
+    public static String procedureStatementToString(int ID, String name, String params, String lnNum) {
+        return "ID: " + ID + "\n" +
+                "name: " + name + "\n" +
+                ((params != null) ? "params: " + params + "\n" : "") +
+                "line: " + lnNum;
+    }
+
 
     public static String expressionToString(int ID, String name, String value, int childCnt, String lnNum) {
         return "ID: " + ID + "\n" +
@@ -78,13 +92,18 @@ public class UTIL {
     public static void writeToFile(String text, String filename) {
         try {
             FileWriter fileWriter = new FileWriter(filename);
-            fileWriter.write(text);
+            fileWriter.write(formatHtml(text));
             fileWriter.close();
             System.out.println("Successfully wrote to file " + filename);
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    public static String formatHtml(String html) {
+        Document doc = Jsoup.parse(html);
+        return doc.outerHtml();
     }
 
 

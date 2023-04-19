@@ -1,6 +1,13 @@
 Scaffold(
   appBar: AppBar(
-    title: 'Products Screen',
+    title: 'Home Screen',
+    centerTitle: false,
   ),
-  body: Image(),
+  body: Center(
+  child:Button(
+  title:"Show Welcome Message",
+  onPressed: (){
+    popUp("Welcome to the world");
+  },
+  ),),
 )

@@ -25,22 +25,15 @@ import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
 import properties.text.*;
-import statements.CustomWidgetDeclarationStatement;
-import statements.Statement;
-import statements.VariableAssignmentStatement;
-import statements.VariableDeclarationStatement;
+import statements.*;
 import utils.UTIL;
 import widgets.*;
 
 import java.util.List;
 
+import static java.lang.String.valueOf;
 import static utils.UTIL.ID;
 import static utils.UTIL.g;
-
-
-import java.util.List;
-
-import static java.lang.String.valueOf;
 
 public class AstToGraphVisitor implements Visitor<String> {
 
@@ -237,12 +230,12 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(EdgeInsetsOnly edgeInsetsOnly) {
         UTIL.ID++;
-        String vertex =UTIL.widgetToString(UTIL.ID,edgeInsetsOnly.getIdentifier(),edgeInsetsOnly.getProperties().size(),
+        String vertex = UTIL.widgetToString(UTIL.ID, edgeInsetsOnly.getIdentifier(), edgeInsetsOnly.getProperties().size(),
                 edgeInsetsOnly.getLnNumber());
         UTIL.g.addVertex(vertex);
-        for(Property property : edgeInsetsOnly.getProperties()){
+        for (Property property : edgeInsetsOnly.getProperties()) {
             String child = property.accept(this);
-            UTIL.g.addEdge(vertex,child);
+            UTIL.g.addEdge(vertex, child);
         }
         return vertex;
     }
@@ -250,12 +243,12 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(EdgeInsetsSymmetric edgeInsetsSymmetric) {
         UTIL.ID++;
-        String vertex =UTIL.widgetToString(UTIL.ID,edgeInsetsSymmetric.getIdentifier(),edgeInsetsSymmetric.getProperties().size(),
+        String vertex = UTIL.widgetToString(UTIL.ID, edgeInsetsSymmetric.getIdentifier(), edgeInsetsSymmetric.getProperties().size(),
                 edgeInsetsSymmetric.getLnNumber());
         UTIL.g.addVertex(vertex);
-        for(Property property : edgeInsetsSymmetric.getProperties()){
+        for (Property property : edgeInsetsSymmetric.getProperties()) {
             String child = property.accept(this);
-            UTIL.g.addEdge(vertex,child);
+            UTIL.g.addEdge(vertex, child);
         }
         return vertex;
     }
@@ -274,12 +267,12 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(GestureDetector gestureDetector) {
         UTIL.ID++;
-        String vertex =UTIL.widgetToString(UTIL.ID,gestureDetector.getIdentifier(),gestureDetector.getProperties().size(),
+        String vertex = UTIL.widgetToString(UTIL.ID, gestureDetector.getIdentifier(), gestureDetector.getProperties().size(),
                 gestureDetector.getLnNumber());
         UTIL.g.addVertex(vertex);
-        for(Property property : gestureDetector.getProperties()){
+        for (Property property : gestureDetector.getProperties()) {
             String child = property.accept(this);
-            UTIL.g.addEdge(vertex,child);
+            UTIL.g.addEdge(vertex, child);
         }
         return vertex;
     }
@@ -287,12 +280,12 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(Image image) {
         UTIL.ID++;
-        String vertex =UTIL.widgetToString(UTIL.ID,image.getIdentifier(),image.getProperties().size(),
+        String vertex = UTIL.widgetToString(UTIL.ID, image.getIdentifier(), image.getProperties().size(),
                 image.getLnNumber());
         UTIL.g.addVertex(vertex);
-        for(Property property : image.getProperties()){
+        for (Property property : image.getProperties()) {
             String child = property.accept(this);
-            UTIL.g.addEdge(vertex,child);
+            UTIL.g.addEdge(vertex, child);
         }
         return vertex;
     }
@@ -300,11 +293,11 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(Padding padding) {
         UTIL.ID++;
-        String vertex =UTIL.widgetToString(UTIL.ID,padding.getIdentifier(),padding.getProperties().size(),padding.getLnNumber());
+        String vertex = UTIL.widgetToString(UTIL.ID, padding.getIdentifier(), padding.getProperties().size(), padding.getLnNumber());
         UTIL.g.addVertex(vertex);
-        for(Property property : padding.getProperties()){
+        for (Property property : padding.getProperties()) {
             String child = property.accept(this);
-            UTIL.g.addEdge(vertex,child);
+            UTIL.g.addEdge(vertex, child);
         }
         return vertex;
     }
@@ -434,7 +427,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     public String visit(Children children) {
         UTIL.ID++;
         String vertex = UTIL.propertyToString(UTIL.ID, children.getName(),
-                                                null, children.getChildren().size(), children.getLnNumber());
+                null, children.getChildren().size(), children.getLnNumber());
         UTIL.g.addVertex(vertex);
         for (Widget widget : children.getChildren()) {
             String childVertex = widget.accept(this);
@@ -447,7 +440,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     public String visit(ChildWidgetProperty childWidgetProperty) {
         UTIL.ID++;
         String vertex = UTIL.propertyToString(UTIL.ID, childWidgetProperty.getName(),
-                                                null, 1, childWidgetProperty.getLnNumber());
+                null, 1, childWidgetProperty.getLnNumber());
         UTIL.g.addVertex(vertex);
         String childVertex = childWidgetProperty.getValue().accept(this);
         UTIL.g.addEdge(vertex, childVertex);
@@ -459,7 +452,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     public String visit(ColorProperty colorProperty) {
         UTIL.ID++;
         String vertex = UTIL.propertyToString(UTIL.ID, colorProperty.getName(),
-                        colorProperty.getValue(), 0, colorProperty.getLnNumber());
+                colorProperty.getValue(), 0, colorProperty.getLnNumber());
         UTIL.g.addVertex(vertex);
 
         return vertex;
@@ -526,7 +519,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     public String visit(FontWeightProperty fontWeightProperty) {
         UTIL.ID++;
         String vertex = UTIL.propertyToString(UTIL.ID, fontWeightProperty.getName(),
-                                            String.valueOf(fontWeightProperty.getValue()), 0,
+                String.valueOf(fontWeightProperty.getValue()), 0,
                 fontWeightProperty.getLnNumber());
 
         UTIL.g.addVertex(vertex);
@@ -538,7 +531,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     public String visit(HeightProperty heightProperty) {
         UTIL.ID++;
         String vertex = UTIL.propertyToString(UTIL.ID, heightProperty.getName(),
-                        String.valueOf(heightProperty.getValue()), 0, heightProperty.getLnNumber());
+                String.valueOf(heightProperty.getValue()), 0, heightProperty.getLnNumber());
         UTIL.g.addVertex(vertex);
 
         return vertex;
@@ -558,7 +551,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(Horizontal horizontal) {
         UTIL.ID++;
-        String vertex =UTIL.propertyToString(UTIL.ID,horizontal.getName(),Double.toString(horizontal.getValue()),0,
+        String vertex = UTIL.propertyToString(UTIL.ID, horizontal.getName(), Double.toString(horizontal.getValue()), 0,
                 horizontal.getLnNumber());
         UTIL.g.addVertex(vertex);
         return vertex;
@@ -623,9 +616,9 @@ public class AstToGraphVisitor implements Visitor<String> {
     public String visit(OnPressedProperty onPressedProperty) {
         UTIL.ID++;
         String vertex = UTIL.propertyToString(UTIL.ID, onPressedProperty.getName(), null,
-                                                onPressedProperty.getValue().getIdentifiers().size() +
-                                                        onPressedProperty.getValue().getStatements().size(),
-                                                        onPressedProperty.getLnNumber());
+                onPressedProperty.getValue().getIdentifiers().size() +
+                        onPressedProperty.getValue().getStatements().size(),
+                onPressedProperty.getLnNumber());
         UTIL.g.addVertex(vertex);
         for (String i : onPressedProperty.getValue().getIdentifiers()) {
             UTIL.ID++;
@@ -644,11 +637,11 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(PaddingAttributeProperty paddingAttributeProperty) {
         UTIL.ID++;
-        String vertex =UTIL.propertyToString(UTIL.ID,paddingAttributeProperty.getName(),null,1,
+        String vertex = UTIL.propertyToString(UTIL.ID, paddingAttributeProperty.getName(), null, 1,
                 paddingAttributeProperty.getLnNumber());
         UTIL.g.addVertex(vertex);
-        String child =paddingAttributeProperty.getValue().accept(this);
-        UTIL.g.addEdge(vertex,child);
+        String child = paddingAttributeProperty.getValue().accept(this);
+        UTIL.g.addEdge(vertex, child);
         return vertex;
     }
 
@@ -748,7 +741,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(Vertical vertical) {
         UTIL.ID++;
-        String vertex =UTIL.propertyToString(UTIL.ID,vertical.getName(),Double.toString(vertical.getValue()),0,
+        String vertex = UTIL.propertyToString(UTIL.ID, vertical.getName(), Double.toString(vertical.getValue()), 0,
                 vertical.getLnNumber());
         UTIL.g.addVertex(vertex);
         return vertex;
@@ -758,7 +751,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     public String visit(WidthProperty widthProperty) {
         UTIL.ID++;
         String vertex = UTIL.propertyToString(UTIL.ID, widthProperty.getName(),
-                        String.valueOf(widthProperty.getValue()), 0, widthProperty.getLnNumber());
+                String.valueOf(widthProperty.getValue()), 0, widthProperty.getLnNumber());
         UTIL.g.addVertex(vertex);
 
         return vertex;
@@ -841,7 +834,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(Left left) {
         UTIL.ID++;
-        String vertex =UTIL.propertyToString(UTIL.ID,left.getName(),Double.toString(left.getValue()),0,
+        String vertex = UTIL.propertyToString(UTIL.ID, left.getName(), Double.toString(left.getValue()), 0,
                 left.getLnNumber());
         UTIL.g.addVertex(vertex);
         return vertex;
@@ -850,7 +843,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(Right right) {
         UTIL.ID++;
-        String vertex =UTIL.propertyToString(UTIL.ID,right.getName(),Double.toString(right.getValue()),0,
+        String vertex = UTIL.propertyToString(UTIL.ID, right.getName(), Double.toString(right.getValue()), 0,
                 right.getLnNumber());
         UTIL.g.addVertex(vertex);
         return vertex;
@@ -859,7 +852,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(Bottom bottom) {
         UTIL.ID++;
-        String vertex =UTIL.propertyToString(UTIL.ID,bottom.getName(),Double.toString(bottom.getValue()),0,
+        String vertex = UTIL.propertyToString(UTIL.ID, bottom.getName(), Double.toString(bottom.getValue()), 0,
                 bottom.getLnNumber());
         UTIL.g.addVertex(vertex);
         return vertex;
@@ -868,7 +861,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(Top top) {
         UTIL.ID++;
-        String vertex =UTIL.propertyToString(UTIL.ID,top.getName(),Double.toString(top.getValue()),0,
+        String vertex = UTIL.propertyToString(UTIL.ID, top.getName(), Double.toString(top.getValue()), 0,
                 top.getLnNumber());
         UTIL.g.addVertex(vertex);
         return vertex;
@@ -927,7 +920,7 @@ public class AstToGraphVisitor implements Visitor<String> {
     public String visit(TextContent textContent) {
         UTIL.ID++;
         String vertex = UTIL.propertyToString(UTIL.ID, textContent.getName(), textContent.getValue(),
-                                        0, textContent.getLnNumber());
+                0, textContent.getLnNumber());
 
         UTIL.g.addVertex(vertex);
 
@@ -978,7 +971,7 @@ public class AstToGraphVisitor implements Visitor<String> {
         UTIL.ID++;
         String vertex = UTIL.expressionToString(UTIL.ID, "Logical And Expression",
                 valueOf(logicalAndExpression.getValue()), logicalAndExpression.getExpressions().size(),
-                logicalAndExpression.getLnNumber()+ 1);
+                logicalAndExpression.getLnNumber() + 1);
         UTIL.g.addVertex(vertex);
         for (Expression s : logicalAndExpression.getExpressions()) {
             String childVertex = s.accept(this);
@@ -992,7 +985,7 @@ public class AstToGraphVisitor implements Visitor<String> {
         UTIL.ID++;
         String vertex = UTIL.expressionToString(UTIL.ID, "Logical Or Expression",
                 valueOf(logicalOrExpression.getValue()), logicalOrExpression.getExpressions().size(),
-                logicalOrExpression.getLnNumber()+ 1);
+                logicalOrExpression.getLnNumber() + 1);
         UTIL.g.addVertex(vertex);
         for (Expression s : logicalOrExpression.getExpressions()) {
             String childVertex = s.accept(this);
@@ -1004,9 +997,9 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(EqualityExpression equalityExpression) {
         UTIL.ID++;
-        String vertex = UTIL.expressionToString(UTIL.ID, "Equality Expression "+equalityExpression.getOperatorType(),
+        String vertex = UTIL.expressionToString(UTIL.ID, "Equality Expression " + equalityExpression.getOperatorType(),
                 valueOf(equalityExpression.getValue()), 2,
-                equalityExpression.getLnNumber()+ 1);
+                equalityExpression.getLnNumber() + 1);
         UTIL.g.addVertex(vertex);
         String leftChildVertex = equalityExpression.getLeft().accept(this);
         String rightChildVertex = equalityExpression.getRight().accept(this);
@@ -1018,9 +1011,9 @@ public class AstToGraphVisitor implements Visitor<String> {
     @Override
     public String visit(RelationalExpression relationalExpression) {
         UTIL.ID++;
-        String vertex = UTIL.expressionToString(UTIL.ID, "Relational Expression "+relationalExpression.getOperatorType(),
+        String vertex = UTIL.expressionToString(UTIL.ID, "Relational Expression " + relationalExpression.getOperatorType(),
                 valueOf(relationalExpression.getValue()), 2,
-                relationalExpression.getLnNumber()+ 1);
+                relationalExpression.getLnNumber() + 1);
         UTIL.g.addVertex(vertex);
         String leftChildVertex = relationalExpression.getLeft().accept(this);
         String rightChildVertex = relationalExpression.getRight().accept(this);
@@ -1030,12 +1023,11 @@ public class AstToGraphVisitor implements Visitor<String> {
     }
 
     @Override
-    public String visit(ExpressionListExpression expressionList)
-    {
+    public String visit(ExpressionListExpression expressionList) {
         UTIL.ID++;
         String vertex = UTIL.expressionToString(UTIL.ID, "Expression List",
                 valueOf(expressionList.getValue()), expressionList.getExpressions().size(),
-                expressionList.getLnNumber()+ 1);
+                expressionList.getLnNumber() + 1);
         UTIL.g.addVertex(vertex);
         for (Expression s : expressionList.getExpressions()) {
             String childVertex = s.accept(this);
@@ -1049,7 +1041,7 @@ public class AstToGraphVisitor implements Visitor<String> {
         UTIL.ID++;
         String vertex = UTIL.expressionToString(UTIL.ID, "Multiplicative Expression",
                 valueOf(multiplicativeExpression.getValue()), multiplicativeExpression.getExpressions().size(),
-                multiplicativeExpression.getLnNumber()+ 1);
+                multiplicativeExpression.getLnNumber() + 1);
         UTIL.g.addVertex(vertex);
         for (Expression s : multiplicativeExpression.getExpressions()) {
             String childVertex = s.accept(this);
@@ -1063,7 +1055,7 @@ public class AstToGraphVisitor implements Visitor<String> {
         UTIL.ID++;
         String vertex = UTIL.expressionToString(UTIL.ID, "Additive Expression",
                 valueOf(additiveExpression.getValue()), additiveExpression.getExpressions().size(),
-                additiveExpression.getLnNumber()+ 1);
+                additiveExpression.getLnNumber() + 1);
         UTIL.g.addVertex(vertex);
         for (Expression s : additiveExpression.getExpressions()) {
             String childVertex = s.accept(this);
@@ -1077,7 +1069,7 @@ public class AstToGraphVisitor implements Visitor<String> {
         UTIL.ID++;
         String vertex = UTIL.expressionToString(UTIL.ID, "Literal Expression",
                 valueOf(literalExpression.getValue()), 0,
-                literalExpression.getLnNumber()+ 1);
+                literalExpression.getLnNumber() + 1);
         UTIL.g.addVertex(vertex);
         return vertex;
     }
@@ -1087,7 +1079,7 @@ public class AstToGraphVisitor implements Visitor<String> {
         UTIL.ID++;
         String vertex = UTIL.expressionToString(UTIL.ID, "Primary Identifier Expression",
                 valueOf(primaryIdentifierExpression.getValue()), 0,
-                primaryIdentifierExpression.getLnNumber()+ 1);
+                primaryIdentifierExpression.getLnNumber() + 1);
         UTIL.g.addVertex(vertex);
         return vertex;
     }
@@ -1097,7 +1089,7 @@ public class AstToGraphVisitor implements Visitor<String> {
         UTIL.ID++;
         String vertex = UTIL.expressionToString(UTIL.ID, "Primary Literal Expression",
                 valueOf(primaryLiteralExpression.getValue()), 0,
-                primaryLiteralExpression.getLnNumber()+ 1);
+                primaryLiteralExpression.getLnNumber() + 1);
         UTIL.g.addVertex(vertex);
         return vertex;
     }
@@ -1142,8 +1134,8 @@ public class AstToGraphVisitor implements Visitor<String> {
     public String visit(ConditionProperty conditionProperty) {
         UTIL.ID++;
 
-        String vertex = UTIL.propertyToString( UTIL.ID, conditionProperty.getName(), null, 1,
-                                               conditionProperty.getLnNumber() );
+        String vertex = UTIL.propertyToString(UTIL.ID, conditionProperty.getName(), null, 1,
+                conditionProperty.getLnNumber());
 
         g.addVertex(vertex);
 
@@ -1160,6 +1152,30 @@ public class AstToGraphVisitor implements Visitor<String> {
 
         String vertex = UTIL.propertyToString(UTIL.ID, iterationsProperty.getName(),
                 String.valueOf(iterationsProperty.getValue()), 0, iterationsProperty.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
+    }
+
+    @Override
+    public String visit(Navigation navigation) {
+
+        UTIL.ID++;
+
+        String vertex = UTIL.procedureStatementToString(UTIL.ID, "Navigate To", navigation.getDestination(), navigation.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
+    }
+
+    @Override
+    public String visit(PopUp popUp) {
+
+        UTIL.ID++;
+
+        String vertex = UTIL.procedureStatementToString(UTIL.ID, "Pop Up", popUp.getMessage(), popUp.getLnNumber());
 
         UTIL.g.addVertex(vertex);
 

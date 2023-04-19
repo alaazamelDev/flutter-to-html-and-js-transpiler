@@ -144,6 +144,7 @@ gestureDetector: GESTUREDETECTOR LP (gestureDetectorProperties (COMMA gestureDet
 
 gestureDetectorProperties
     :   onPressedProperty  #GestureDetectorOnPressed
+    |   childProperty   #GestureDetectorChild
     ;
 
 
@@ -231,6 +232,8 @@ statment
     :   variableDeclaration
     |   variableAssignment
     |   customWidgetDeclaration
+    |   navigation
+    |   popup
     ;
 
 // statements
@@ -241,6 +244,14 @@ variableDeclaration
 
 variableAssignment
     :   IDENTIFIER EQL ( MINUS? NUM | FLOAT | STRING) SC //var
+    ;
+
+navigation
+    : NAVIGATE_TO LP STRING RP SC
+    ;
+
+popup
+    : POP_UP LP STRING RP SC
     ;
 
 //custom widget stuff

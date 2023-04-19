@@ -49,6 +49,8 @@ IF: 'If';
 FOR: 'For';
 
 //keywords
+NAVIGATE_TO: 'navigateTo';
+POP_UP: 'popUp';
 CHILDREN: 'children';
 BODY: 'body';
 CHILD: 'child';
@@ -119,9 +121,6 @@ THEN: 'thenProperty';
 FROM: 'fromProperty';
 ITERATIONS: 'iterations';
 
-WIDGETNAME: [A-Z][A-Za-z0-9_]*;
-IDENTIFIER: [a-z][A-Za-z0-9_]*;
-
 //Boolean
 BOOLEAN: 'true' | 'false';
 // Decimal Numbers
@@ -131,14 +130,18 @@ FLOAT : '-'? ('0'..'9')+ '.' ('0'..'9')*;
 NUM: ('1'..'9') ('0'..'9')* | '0';
 
 
+
+
 // String
 STRING: SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING;
 fragment SINGLE_QUOTED_STRING: '\'' (~'\'')* '\'';
 fragment DOUBLE_QUOTED_STRING: '"' (~'"')* '"';
 
 // Hex Numbers
-HEX_NUM : '0x' HEX_DIGIT+ | '0X' HEX_DIGIT+ ;
+HEX_NUM : '#' HEX_DIGIT+;
 fragment HEX_DIGIT : 'a' .. 'f' | 'A' .. 'F' | NUM ;
 
+WIDGETNAME: [A-Z][A-Za-z0-9_]*;
+IDENTIFIER: [a-z][A-Za-z0-9_]*;
 
 WS: [ \t\r\n]+ -> skip;

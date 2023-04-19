@@ -25,9 +25,7 @@ import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
 import properties.text.*;
-import statements.CustomWidgetDeclarationStatement;
-import statements.VariableAssignmentStatement;
-import statements.VariableDeclarationStatement;
+import statements.*;
 import widgets.*;
 
 public class AstBaseVisitor<T> implements Visitor<T>{
@@ -98,6 +96,16 @@ public class AstBaseVisitor<T> implements Visitor<T>{
 
     @Override
     public T visit(IterationsProperty iterationsProperty) {
+        return null;
+    }
+
+    @Override
+    public T visit(Navigation navigation) {
+        return null;
+    }
+
+    @Override
+    public T visit(PopUp popUp) {
         return null;
     }
 

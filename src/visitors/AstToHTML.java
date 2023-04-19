@@ -25,12 +25,12 @@ import properties.expanded.ExpandedFlexProperty;
 import properties.scaffold.AppBarProperty;
 import properties.scaffold.BodyProperty;
 import properties.text.*;
-import statements.CustomWidgetDeclarationStatement;
-import statements.VariableAssignmentStatement;
-import statements.VariableDeclarationStatement;
+import statements.*;
+import utils.UTIL;
 import widgets.*;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AstToHTML implements Visitor<String> {
     @Override
@@ -42,37 +42,164 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(AppBar appBar) {
-        return null;
+
+        String appbarTitleProperty = "";
+        String appbarCenterTitleProperty = "";
+
+
+        for (Property property : appBar.getProperties()) {
+            if (property.getName().equals("title")) {
+                appbarTitleProperty = property.accept(this);
+                UTIL.pageName = appbarTitleProperty.replace("<h3>", "").replace("</h3>", "");
+            } else if (property.getName().equals("centerTitle")) {
+                appbarCenterTitleProperty = property.accept(this);
+            }
+        }
+
+        // Create div with some styling
+        StringBuilder div = new StringBuilder("<div style=\"");
+        div.append("padding: 0.5rem 1.5rem 0.5rem 1.5rem; ");   // padding attribute
+        div.append("background-color: #044389; ");   // background color attribute
+        div.append("color: #FFFFFF; ");   // background color attribute
+        div.append("margin-bottom: 20px; ");
+        div.append(appbarCenterTitleProperty);  // center title attribute
+        div.append(" \">"); // close style attribute
+        div.append("\n");   // break the line
+        div.append(appbarTitleProperty);    // add title attribute as heading tag
+        div.append("\n");
+        div.append("</div>");   // close div tag
+
+        return div.toString();
     }
 
     @Override
     public String visit(Border border) {
-        return null;
+        List<Property> properties = border.getProperties();
+        StringBuilder borders = new StringBuilder();
+
+        for (Property property : properties) {
+            if (property.getName().equals("borderRadius")) {
+                borders.append(property.accept(this)).append(" ");
+            } else if (property.getName().equals("color")) {
+                borders.append("border-color: ").append(property.accept(this)).append("; ");
+            } else if (property.getName().equals("thickness")) {
+                borders.append("border-width: ").append(property.accept(this)).append("px").append("; ");
+            }
+        }
+        return borders.toString();
     }
 
     @Override
     public String visit(BorderRadiusCircular borderRadiusCircular) {
-        return null;
+        StringBuilder border = new StringBuilder();
+
+
+        border.append("border-radius: ")
+                .append(borderRadiusCircular.getProperties()
+                        .get(0).accept(this)).append("px").append(";");
+
+        return border.toString();
     }
 
     @Override
     public String visit(BorderRadiusOnly borderRadiusOnly) {
-        return null;
+        List<Property> properties = borderRadiusOnly.getProperties();
+        StringBuilder borders = new StringBuilder();
+
+        for (int i = 0; i < properties.size(); i++) {
+            borders.append(properties.get(i).accept(this)).append(" ");
+        }
+
+        return borders.toString();
     }
 
     @Override
     public String visit(BoxDecorationWidget boxDecorationWidget) {
-        return null;
+        StringBuilder attributes = new StringBuilder();
+        List<Property> properties = boxDecorationWidget.getProperties();
+
+        for (Property property : properties) {
+            System.out.println(property.getName());
+            if (property.getName().equals("color")) {
+                attributes.append("background-color:" + property.accept(this) + ";");
+            } else attributes.append(property.accept(this));
+        }
+        return attributes.toString();
     }
 
     @Override
     public String visit(Button button) {
-        return null;
+        List<Property> properties = button.getProperties();
+        StringBuilder btn = new StringBuilder("<button ");
+        StringBuilder styles = new StringBuilder("style=\" ");
+        StringBuilder listeners = new StringBuilder("onClick=\" ");
+        Property titleProperty = null;
+        Property titleColorProperty = null;
+
+        for (Property property : properties) {
+            if (property.getName().equals("width")) {
+                styles.append(property.accept(this)).append(" ");
+            } else if (property.getName().equals("height")) {
+                styles.append(property.accept(this)).append(" ");
+            } else if (property.getName().equals("backgroundColor")) {
+                styles.append(property.accept(this)).append(" ");
+            } else if (property.getName().equals("title")) {
+                titleProperty = property;
+            } else if (property.getName().equals("titleColor")) {
+                titleColorProperty = property;
+            } else if (property.getName().equals("onPressed")) {
+                listeners.append(property.accept(this));
+
+            }
+        }
+        styles.append("\" ");
+        listeners.append("\" ");
+
+        // don't add them if they are empty
+        if (styles.length() > 10)
+            btn.append(styles);
+        if (listeners.length() > 12)
+            btn.append(listeners);
+
+        btn.append(">");
+
+        if (titleProperty != null) {
+            StringBuilder title = new StringBuilder();
+
+            if (titleColorProperty != null) {
+                title.append("<div style=\" ")
+                        .append(titleColorProperty.accept(this))
+                        .append(" \"").append(">");
+
+            }
+
+            title.append(titleProperty.accept(this).replace("<h3>", "").replace("</h3>", ""));
+
+            if (titleColorProperty != null) {
+                title.append("</div>");
+            }
+
+            btn.append(title);
+        }
+
+        btn.append("</button>");
+        return btn.toString();
     }
 
     @Override
     public String visit(Center center) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+
+        //delete first \n
+        tag.append("\n<center>\n");
+
+
+        for (Property property : center.getProperties())
+            tag.append(property.accept(this));
+
+        tag.append("</center>\n");
+        return tag.toString();
+
     }
 
     @Override
@@ -80,9 +207,39 @@ public class AstToHTML implements Visitor<String> {
         return null;
     }
 
+
     @Override
     public String visit(Container container) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        tag.append("<div class=\"container\" ");
+        List<Property> properties = container.getProperties();
+        int childIndex = -1;
+
+        StringBuilder styleAttribute = new StringBuilder();
+        styleAttribute.append("style=\" ");
+
+        for (int i = 0; i < properties.size(); i++) {
+            switch (properties.get(i).getName()) {
+                case "width", "Decoration", "height" -> styleAttribute.append(properties.get(i).accept(this));
+                case "ContainerContentAlignment" -> {
+                    String align = properties.get(i).accept(this);
+                    switch (align) {
+                        case "center" -> styleAttribute.append("text-align:center; ");
+                        case "left" -> styleAttribute.append("text-align:left; ");
+                        case "right" -> styleAttribute.append("text-align:right; ");
+                    }
+                }
+                case "child" -> childIndex = i;
+            }
+        }
+        tag.append(styleAttribute).append("\" >");
+
+        if (childIndex != -1) {
+            tag.append(properties.get(childIndex).accept(this));
+        }
+
+        tag.append("</div>\n");
+        return tag.toString();
     }
 
     @Override
@@ -92,32 +249,151 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(EdgeInsetsOnly edgeInsetsOnly) {
-        return null;
+        List<Property> properties = edgeInsetsOnly.getProperties();
+        StringBuilder paddings = new StringBuilder();
+
+        for (Property property : properties) {
+            paddings.append(property.accept(this)).append(" ");
+        }
+
+        return paddings.toString();
     }
 
     @Override
     public String visit(EdgeInsetsSymmetric edgeInsetsSymmetric) {
-        return null;
+        List<Property> properties = edgeInsetsSymmetric.getProperties();
+        StringBuilder padding = new StringBuilder("padding: ");
+
+        for (int i = 0; i < properties.size(); i++) {
+            if (i == 0 && properties.get(i).getName().equals("horizontal")) {
+                Property horizontal = properties.remove(i);
+                properties.add(horizontal);
+                break;
+            }
+        }
+
+        for (Property property : properties) {
+            padding.append(property.accept(this)).append("px").append(" ");
+        }
+
+        padding.append("; ");
+
+        return padding.toString();
     }
 
     @Override
+    //TODO make sure parent display set to FLEX
     public String visit(Expanded expanded) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        tag.append("<div  class=\"Expanded\" ");
+        List<Property> properties = expanded.getProperties();
+
+        StringBuilder styleAttribute = new StringBuilder();
+        styleAttribute.append("style=\" ");
+        styleAttribute.append("flex-grow: 1; ");
+        styleAttribute.append("flex-shrink: 1; ");
+
+        int childIndex = -1;
+        for (int i = 0; i < properties.size(); i++) {
+            if (properties.get(i).getName().equals("ExpandedFlex")) {
+                styleAttribute.append("flex: ").append(properties.get(i).accept(this)).append("; ");
+            } else if (properties.get(i).getName().equals("child")) {
+                childIndex = i;
+            }
+        }
+        tag.append(styleAttribute).append("\" >");
+
+        if (childIndex != -1) {
+            tag.append(properties.get(childIndex).accept(this));
+        }
+        tag.append("</div>\n");
+
+        return tag.toString();
     }
 
     @Override
+    // TODO not completed
     public String visit(GestureDetector gestureDetector) {
-        return null;
+
+        StringBuilder code = new StringBuilder();
+        StringBuilder listeners = new StringBuilder("onClick=\" ");
+
+        code.append("<div ");
+        List<Property> properties = gestureDetector.getProperties();
+        int childIndex = -1;
+
+        for (int i = 0; i < properties.size(); i++) {
+            if (!properties.get(i).getName().equals("child")) {
+                listeners.append(properties.get(i).accept(this));
+            } else {
+                childIndex = i;
+            }
+        }
+
+        code.append(listeners).append("\"");
+        code.append(" >\n");
+
+        if (childIndex != -1) {
+            code.append(properties.get(childIndex).accept(this));
+        }
+
+        code.append("</div>");
+
+        return code.toString();
     }
 
     @Override
     public String visit(Image image) {
-        return null;
+
+        StringBuilder imgString = new StringBuilder();
+
+        // open the tag
+        imgString.append("<img ");
+
+
+        // style the image
+        imgString.append("style = \"");
+
+
+        // translate the properties
+        for (Property prop : image.getProperties()) {
+            imgString.append(prop.accept(this));
+        }
+
+        // close the tag
+        imgString.append("\" />");
+
+
+        // HTML code...
+        return imgString.toString();
     }
 
     @Override
     public String visit(Padding padding) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        tag.append("<div class=\"padding\" ");
+
+        StringBuilder styleAttribute = new StringBuilder();
+        styleAttribute.append("style=\" ");
+
+        List<Property> properties = padding.getProperties();
+
+        int childIndex = -1;
+        for (int i = 0; i < properties.size(); i++) {
+            if (properties.get(i).getName().equals("padding")) {
+                styleAttribute.append(properties.get(i).accept(this)).append("; ");
+            } else if (properties.get(i).getName().equals("child")) {
+                childIndex = i;
+            }
+        }
+        tag.append(styleAttribute).append("\" >");
+
+        if (childIndex != -1) {
+            tag.append(properties.get(childIndex).accept(this));
+        }
+        tag.append("</div>\n");
+
+        return tag.toString();
     }
 
     @Override
@@ -133,37 +409,149 @@ public class AstToHTML implements Visitor<String> {
         // all of its properties are tags.
         StringBuilder props = new StringBuilder();
 
+        // check for "appBar" property and append to beginning of props list
         for (Property prop : propertyList) {
-            props.append(" ").append(prop.accept(this));
+            if (prop.getName().equals("appBar")) {
+                props.insert(0, prop.accept(this) + "\n");
+            }
+        }
+
+        // append the rest of the properties
+        for (Property prop : propertyList) {
+            if (!prop.getName().equals("appBar")) {
+                props.append(prop.accept(this)).append("\n");
+            }
         }
 
         // HTML code.
-        return "<html>" + props + "</html>";
+        return "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "  <head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <title>" + UTIL.pageName + "</title>\n" +
+                "    <style>\n" +
+                "      body {\n" +
+                "        margin: 0;\n" +
+                "      }\n" +
+                "      html {\n" +
+                "        box-sizing: border-box;\n" +
+                "      }\n" +
+                "      \n" +
+                "      *,\n" +
+                "      *:before,\n" +
+                "      *:after {\n" +
+                "        box-sizing: inherit;\n" +
+                "      }\n" +
+                "      \n" +
+                "      html,\n" +
+                "      body,\n" +
+                "      #root {\n" +
+                "        height: 100%;\n" +
+                "      }\n" +
+                "    </style>\n" +
+                "  </head>\n" +
+                props +
+                "</html>";
     }
 
     @Override
     public String visit(Text text) {
-        return null;
+        StringBuilder tag = new StringBuilder();
+        tag.append("<p");
+        List<Property> properties = text.getProperties();
+
+        StringBuilder styleAttribute = new StringBuilder();
+        styleAttribute.append(" style=\"");
+        int contentIndex = -1;
+        for (int i = 0; i < properties.size(); i++) {
+            switch (properties.get(i).getName()) {
+                case "fontWeight" ->
+                        styleAttribute.append("font-weight: ").append(properties.get(i).accept(this)).append("; ");
+                case "fontSize" ->
+                        styleAttribute.append("font-size: ").append(properties.get(i).accept(this)).append("px; ");
+                case "letterSpacing" ->
+                        styleAttribute.append("letter-spacing: ").append(properties.get(i).accept(this)).append("px; ");
+                case "textAlign" ->
+                        styleAttribute.append("text-align: ").append(properties.get(i).accept(this)).append("; ");
+                case "text" -> contentIndex = i;
+            }
+        }
+        if (properties.size() != 0)
+            if (!(properties.size() == 1 && Objects.equals(properties.get(0).getName(), "text")))
+                tag.append(styleAttribute).append("\"");
+        tag.append(">");
+        String content = "";
+        if (contentIndex != -1) {
+            content = properties.get(contentIndex).accept(this);
+            tag.append(content.replace("\"", "")); //delete all double quotes ("") from the String
+        }
+
+        tag.append("</p>\n");
+
+        return tag.toString();
+
     }
 
     @Override
     public String visit(TextField textField) {
-        return null;
+        StringBuilder code = new StringBuilder();
+        code.append("<input ");
+        List<Property> properties = textField.getProperties();
+        int childIndex = -1;
+
+        StringBuilder styles = new StringBuilder();
+        styles.append("style=\" ");
+
+        StringBuilder hint = new StringBuilder();
+
+        for (int i = 0; i < properties.size(); i++) {
+            switch (properties.get(i).getName()) {
+                case "label" -> code.append("placeholder=").append(properties.get(i).accept(this)).append(" ");
+                case "value" -> code.append("value=").append(properties.get(i).accept(this)).append(" ");
+                case "textColor", "border", "padding" -> styles.append(properties.get(i).accept(this));
+                case "hint" -> hint.append(properties.get(i).accept(this));
+                default -> childIndex = i;
+            }
+        }
+
+        if (styles.length() > 8) {
+            code.append(styles).append("\" ");
+        }
+
+        code.append(" >\n");
+        // append the hint if it's exist, if not it will append empty string
+        code.append(hint);
+
+        if (childIndex != -1) {
+            code.append(properties.get(childIndex).accept(this));
+        }
+
+        return code.toString();
     }
 
     @Override
     public String visit(BackgroundColorProperty backgroundColorProperty) {
-        return null;
+        StringBuilder color = new StringBuilder();
+        color.append("background-color: ").append(backgroundColorProperty.getValue()).append(";");
+
+        return color.toString();
     }
 
     @Override
     public String visit(BorderProperty borderProperty) {
-        return null;
+        return borderProperty.getValue().accept(this);
     }
 
     @Override
     public String visit(CenterTitleProperty centerTitleProperty) {
-        return null;
+
+        boolean centerTitle = centerTitleProperty.getValue();
+
+        if (centerTitle) {
+            return "text-align: center;";
+        }
+
+        return "";
     }
 
     @Override
@@ -173,12 +561,12 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(ChildWidgetProperty childWidgetProperty) {
-        return null;
+        return childWidgetProperty.getValue().accept(this);
     }
 
     @Override
     public String visit(ColorProperty colorProperty) {
-        return null;
+        return colorProperty.getValue();
     }
 
     @Override
@@ -203,7 +591,11 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(FitProperty fitProperty) {
-        return null;
+
+        return switch (fitProperty.getValue()) {
+            case cover -> "background-size: cover; ";
+            case contains -> "background-size: contain; ";
+        };
     }
 
     @Override
@@ -213,37 +605,47 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(FontSizeProperty fontSizeProperty) {
-        return null;
+        return String.valueOf(fontSizeProperty.getValue());
     }
 
     @Override
     public String visit(FontWeightProperty fontWeightProperty) {
-        return null;
+        return fontWeightProperty.getValue().toString();
     }
 
     @Override
     public String visit(HeightProperty heightProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("height: ");
+        value.append(heightProperty.getValue()).append("px").append(";");
+
+        return value.toString();
     }
 
     @Override
     public String visit(HintProperty hintProperty) {
-        return null;
+        StringBuilder hint = new StringBuilder();
+        hint.append("<h4 style=\"margin-top: 0;\">\n").append(hintProperty.getValue().replace("\"", "")).append("\n").append("</h4>\n");
+
+        return hint.toString();
     }
 
     @Override
     public String visit(Horizontal horizontal) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append(horizontal.getValue());
+
+        return value.toString();
     }
 
     @Override
     public String visit(LabelProperty labelProperty) {
-        return null;
+        return labelProperty.getValue();
     }
 
     @Override
     public String visit(LetterSpacingProperty letterSpacingProperty) {
-        return null;
+        return String.valueOf(letterSpacingProperty.getValue());
     }
 
     @Override
@@ -258,37 +660,63 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(OnPressedProperty onPressedProperty) {
-        return null;
+        List<Statement> statements = onPressedProperty.getValue().getStatements();
+        StringBuilder code = new StringBuilder();
+
+        for (int i = 0; i < statements.size(); i++) {
+            code.append(statements.get(i).accept(this));
+            if (i != statements.size() - 1) {
+                code.append(", ");
+            }
+        }
+
+        return code.toString();
     }
 
     @Override
     public String visit(PaddingAttributeProperty paddingAttributeProperty) {
-        return null;
+        return paddingAttributeProperty.getValue().accept(this);
     }
 
     @Override
     public String visit(TextAlignProperty textAlignProperty) {
-        return null;
+        return textAlignProperty.getValue().toString();
     }
 
     @Override
     public String visit(TextColorProperty textColorProperty) {
-        return null;
+        StringBuilder color = new StringBuilder();
+        color.append("color: ").append(textColorProperty.getValue()).append("; ");
+        return color.toString();
     }
 
     @Override
     public String visit(ThicknessProperty thicknessProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append(thicknessProperty.getValue());
+
+        return value.toString();
     }
 
     @Override
     public String visit(TitleColorProperty titleColorProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("color: ").append(titleColorProperty.getValue()).append(";");
+
+        return value.toString();
     }
 
     @Override
     public String visit(TitleProperty titleProperty) {
-        return null;
+
+        // extract title content
+        String titleValue = titleProperty.getValue().replace("\"", "").replace("'", "");
+
+        StringBuilder title = new StringBuilder("<h3>");
+        title.append(titleValue);
+        title.append("</h3>");
+
+        return title.toString();
     }
 
     @Override
@@ -303,112 +731,140 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(UrlProperty urlProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("background-image: url(\'");
+        value.append(urlProperty.getValue().replace("\"", "").replace("'", ""));
+        value.append("\'); ");
+
+        return value.toString();
     }
 
     @Override
     public String visit(ValueProperty valueProperty) {
-        return null;
+        return valueProperty.getValue();
     }
 
     @Override
     public String visit(Vertical vertical) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append(vertical.getValue());
+
+        return value.toString();
     }
 
     @Override
     public String visit(WidthProperty widthProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("width: ");
+        value.append(widthProperty.getValue()).append("px").append(";");
+
+        return value.toString();
     }
 
     @Override
     public String visit(borderRadiusCircularRadiusProperty borderRadiusCircularRadiusProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        System.out.println(value);
+        value.append(borderRadiusCircularRadiusProperty.getValue());
+        return value.toString();
     }
 
     @Override
     public String visit(BottomLeftProperty bottomLeftProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("border-bottom-left-radius: ").append(bottomLeftProperty.getValue()).append("px").append(";");
+        return value.toString();
     }
 
     @Override
     public String visit(BottomRightProperty bottomRightProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("border-bottom-right-radius: ").append(bottomRightProperty.getValue()).append("px").append(";");
+        return value.toString();
     }
 
     @Override
     public String visit(TopLeftProperty topLeftProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("border-top-left-radius: ").append(topLeftProperty.getValue()).append("px").append(";");
+        return value.toString();
     }
 
     @Override
     public String visit(TopRightProperty topRightProperty) {
-        return null;
+        StringBuilder value = new StringBuilder();
+        value.append("border-top-right-radius: ").append(topRightProperty.getValue()).append("px").append(";");
+        return value.toString();
     }
 
     @Override
     public String visit(BorderRadiusProperty borderRadiusProperty) {
-        return null;
+        return borderRadiusProperty.getWidget().accept(this);
     }
 
     @Override
     public String visit(ContainerContentAlignmentProperty containerContentAlignmentProperty) {
-        return null;
+        return containerContentAlignmentProperty.getContentAlignmentValue().toString();
     }
 
     @Override
     public String visit(DecorationProperty decorationProperty) {
-        return null;
+        return decorationProperty.getWidget().accept(this);
     }
 
     @Override
     public String visit(Left left) {
-        return null;
+        StringBuilder padding = new StringBuilder();
+        padding.append("padding-left: ").append(left.getValue()).append("px").append("; ");
+
+        return padding.toString();
     }
 
     @Override
     public String visit(Right right) {
-        return null;
+        StringBuilder padding = new StringBuilder();
+        padding.append("padding-right: ").append(right.getValue()).append("px").append("; ");
+
+        return padding.toString();
     }
 
     @Override
     public String visit(Bottom bottom) {
-        return null;
+        StringBuilder padding = new StringBuilder();
+        padding.append("padding-bottom: ").append(bottom.getValue()).append("px").append("; ");
+
+        return padding.toString();
     }
 
     @Override
     public String visit(Top top) {
-        return null;
+        StringBuilder padding = new StringBuilder();
+        padding.append("padding-top: ").append(top.getValue()).append("px").append("; ");
+
+        return padding.toString();
     }
 
     @Override
     public String visit(ExpandedFlexProperty expandedFlexProperty) {
-        return null;
+        return String.valueOf(expandedFlexProperty.getValue());
     }
 
     @Override
     public String visit(AppBarProperty appBarProperty) {
-
-        // appbar value
-        String appbarValue = appBarProperty.getValue().accept(this);
-
         // HTML code.
-        return "<title>" + appbarValue + "</title>";
+        return appBarProperty.getValue().accept(this);
     }
 
     @Override
     public String visit(BodyProperty bodyProperty) {
 
-        // body value
-        String bodyValue = bodyProperty.getValue().accept(this);
-
         // HTML code.
-        return "<body>" + bodyValue + "</body>";
+        return bodyProperty.getValue().accept(this);
     }
 
     @Override
     public String visit(TextContent textContent) {
-        return null;
+        return textContent.getValue();
     }
 
     @Override
@@ -478,7 +934,22 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(IF If) {
-        return null;
+        // extract props
+        List<Property> propertyList = If.getProperties();
+        int childIndex = -1;
+        for (int i = 0; i < propertyList.size(); i++) {
+            if (propertyList.get(i).getName().equals("condition")) {
+                if (propertyList.get(i).accept(this).equals("false")) {
+                    return "";
+                }
+            } else if (propertyList.get(i).getName().equals("child")) {
+                childIndex = i;
+            }
+        }
+        if (childIndex != -1) {
+            return propertyList.get(childIndex).accept(this);
+        }
+        return "";
     }
 
     @Override
@@ -488,11 +959,27 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(ConditionProperty conditionProperty) {
-        return null;
+        return conditionProperty.getExpression().getValue().toString();
     }
 
     @Override
     public String visit(IterationsProperty iterationsProperty) {
         return null;
+    }
+
+    @Override
+    public String visit(Navigation navigation) {
+        StringBuilder code = new StringBuilder();
+        code.append("window.location.assign('").append(navigation.getDestination().replace("\"", "")).append("')");
+
+        return code.toString();
+    }
+
+    @Override
+    public String visit(PopUp popUp) {
+        StringBuilder code = new StringBuilder();
+        code.append("alert('").append(popUp.getMessage().replace("\"", "")).append("')");
+
+        return code.toString();
     }
 }

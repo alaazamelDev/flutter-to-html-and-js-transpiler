@@ -99,11 +99,16 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitAppBarCenterTitle(DartParser.AppBarCenterTitleContext ctx) {
         String lineNumber = valueOf(ctx.CENTERTITLE().getSymbol().getLine());
-        boolean value = Boolean.parseBoolean(ctx.BOOLEAN().getSymbol().getText());
+        boolean value = Boolean.parseBoolean(ctx.BOOLEAN().getSymbol().getText().replace("\"", "").replace("'", ""));
         // return new CenterTitleProperty Object
         return new CenterTitleProperty(value, lineNumber);
     }
 
+
+    @Override
+    public Property visitGestureDetectorChild(DartParser.GestureDetectorChildContext ctx) {
+        return visit(ctx.childProperty());
+    }
 
     @Override
     public Property visitCustomWidgetProperties(DartParser.CustomWidgetPropertiesContext ctx) {
@@ -1085,6 +1090,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitWidthProperty(DartParser.WidthPropertyContext ctx) {
         String value = ctx.getChild(2).getText();
         String lnNumber = String.valueOf(ctx.WIDTH().getSymbol().getLine());
+
         //value from variable
         if (ctx.IDENTIFIER() != null) {
             //get the symbol table

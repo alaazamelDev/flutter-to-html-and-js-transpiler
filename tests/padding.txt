@@ -1,0 +1,22 @@
+Scaffold(
+  appBar: AppBar(
+    title: 'Products Screen',
+  ),
+    body:   Expanded(flex:1,
+    child:  Padding(
+                      padding: EdgeInsetsOnly( top: 100, left: 20),
+                      child: TextField(
+                                                  padding: EdgeInsetsSymmetric( vertical: 10, horizontal: 20),
+                                                  hint: "hey",
+                                                  label: "hey",
+                                                  value: "test value",
+                                                  textColor: #eb4034,
+                                                  border: Border(
+                                                              borderRadius: BorderRadiusOnly(topLeft: 10, bottomRight: 10),
+                                                              color: #0000ff,
+                                                              thickness: 10
+                                                          )
+                                                  ),
+                      ),
+  )
+)
