@@ -982,4 +982,38 @@ public class AstToHTML implements Visitor<String> {
 
         return code.toString();
     }
+
+    @Override
+    public String visit(VideoPlayer videoPlayer) {
+        StringBuilder code = new StringBuilder("<video ");
+        List<Property> properties = videoPlayer.getProperties();
+
+        StringBuilder styles = new StringBuilder("style=\" ");
+        StringBuilder src = new StringBuilder();
+
+        for (Property property : properties) {
+            if (!property.getName().equals("src")) {
+                styles.append(property.accept(this)).append(" ");
+            } else {
+                src.append(property.accept(this));
+            }
+        }
+
+        code.append(src).append(" ");
+        code.append(styles.append("\""));
+
+        code.append(" controls >");
+
+        code.append("</video>");
+
+        return code.toString();
+    }
+
+    @Override
+    public String visit(SrcProperty srcProperty) {
+        StringBuilder src = new StringBuilder();
+        src.append("src=").append(srcProperty.getValue());
+
+        return src.toString();
+    }
 }

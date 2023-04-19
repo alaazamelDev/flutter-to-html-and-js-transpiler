@@ -1293,4 +1293,22 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitForChild(DartParser.ForChildContext ctx) {
         return visit(ctx.childProperty());
     }
+
+    @Override
+    public Property visitVideoPlayerSrc(DartParser.VideoPlayerSrcContext ctx) {
+        String value = ctx.getChild(2).getText();
+        String lnNumber = valueOf(ctx.SRC().getSymbol().getLine());
+
+        return new SrcProperty(lnNumber, value);
+    }
+
+    @Override
+    public Property visitVideoPlayerWidth(DartParser.VideoPlayerWidthContext ctx) {
+        return visit(ctx.widthProperty());
+    }
+
+    @Override
+    public Property visitVideoPlayerHeight(DartParser.VideoPlayerHeightContext ctx) {
+        return visit(ctx.heightProperty());
+    }
 }

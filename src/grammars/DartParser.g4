@@ -41,6 +41,15 @@ widget
     |   textField
     |   if
     |   for
+    |   videoPlayer
+    ;
+
+videoPlayer: VIDEOPLAYER LP (videoPlayerProperties (COMMA videoPlayerProperties)* COMMA? )? RP;
+
+videoPlayerProperties
+    :   widthProperty   #VideoPlayerWidth
+    |   heightProperty  #VideoPlayerHeight
+    |   SRC COLON STRING    #VideoPlayerSrc
     ;
 
 customWidget

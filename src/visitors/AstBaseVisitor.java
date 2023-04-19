@@ -110,6 +110,16 @@ public class AstBaseVisitor<T> implements Visitor<T>{
     }
 
     @Override
+    public T visit(VideoPlayer videoPlayer) {
+        return null;
+    }
+
+    @Override
+    public T visit(SrcProperty srcProperty) {
+        return null;
+    }
+
+    @Override
     public T visit(Program program) {
         return null;
     }
