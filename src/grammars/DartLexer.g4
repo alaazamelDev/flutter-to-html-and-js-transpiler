@@ -47,6 +47,7 @@ BORDERRADIUSONLY: 'BorderRadiusOnly';
 BORDERRADIUSCIRCULAR:'BorderRadiusCircular';
 IF: 'If';
 FOR: 'For';
+VIDEOPLAYER: 'VideoPlayer';
 
 //keywords
 NAVIGATE_TO: 'navigateTo';
@@ -120,6 +121,7 @@ CONDITION: 'condition';
 THEN: 'thenProperty';
 FROM: 'fromProperty';
 ITERATIONS: 'iterations';
+SRC: 'src';
 
 //Boolean
 BOOLEAN: 'true' | 'false';

@@ -209,4 +209,8 @@ public interface Visitor<T> {
     public T visit(Navigation navigation);
 
     public T visit(PopUp popUp);
+
+    public T visit(VideoPlayer videoPlayer);
+
+    public T visit(SrcProperty srcProperty);
 }

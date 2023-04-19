@@ -1181,4 +1181,34 @@ public class AstToGraphVisitor implements Visitor<String> {
 
         return vertex;
     }
+
+    @Override
+    public String visit(VideoPlayer videoPlayer) {
+        UTIL.ID++;
+
+        String vertex = UTIL.widgetToString(UTIL.ID, videoPlayer.getIdentifier(), videoPlayer.getProperties().size(), videoPlayer.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        List<Property> properties = videoPlayer.getProperties();
+
+        for (Property property : properties) {
+            String childVertex = property.accept(this);
+            UTIL.g.addEdge(vertex, childVertex);
+        }
+
+        return vertex;
+    }
+
+    @Override
+    public String visit(SrcProperty srcProperty) {
+        UTIL.ID++;
+
+        String vertex = UTIL.propertyToString(UTIL.ID, srcProperty.getName(),
+                String.valueOf(srcProperty.getValue()), 0, srcProperty.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
+    }
 }

@@ -573,4 +573,31 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
 
         return new FOR(properties, String.valueOf(lineNumber));
     }
+
+    @Override
+    public Widget visitVideoPlayer(DartParser.VideoPlayerContext ctx) {
+        int lineNumber = ctx.VIDEOPLAYER().getSymbol().getLine();
+
+        AntlrToProperty antlrToPropertyVisitor = factory.createAntlrToProperty(semanticError);
+
+        List<Property> properties = new ArrayList<>();
+
+        List<DartParser.VideoPlayerPropertiesContext> videoPlayerPropertiesContexts = ctx.videoPlayerProperties();
+        Set<String> set = new HashSet<>();
+
+        for(DartParser.VideoPlayerPropertiesContext videoPlayerPropertiesContext : videoPlayerPropertiesContexts) {
+            Property property = antlrToPropertyVisitor.visit(videoPlayerPropertiesContext);
+            properties.add(property);
+
+            if(set.contains(property.getClass().toString())){
+                int column = videoPlayerPropertiesContext.getStart().getCharPositionInLine() + 1;
+                semanticError.add(UTIL.semanticAlreadyDeclaredProperty(Integer.parseInt(property.getLnNumber()),
+                        column, property.getName()));
+            }
+            else
+                set.add(property.getClass().toString());
+        }
+
+        return new VideoPlayer(properties, String.valueOf(lineNumber));
+    }
 }
