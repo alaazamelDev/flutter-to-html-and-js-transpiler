@@ -32,6 +32,8 @@ import widgets.*;
 import java.util.List;
 import java.util.Objects;
 
+import static enums.MainAxisSizeValue.min;
+
 public class AstToHTML implements Visitor<String> {
     @Override
     public String visit(Program program) {
@@ -204,7 +206,39 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Column column) {
-        return null;
+
+        String childrenProperty = "";
+        StringBuilder columnChildrenString = new StringBuilder();
+
+        for (Property property : column.getProperties()) {
+            if (property.getName().equals("children")) {
+                childrenProperty = property.accept(this);
+                break;
+            }
+        }
+
+        for (Property property : column.getProperties()) {
+            if (!property.getName().equals("children")) {
+                columnChildrenString.append(property.accept(this));
+            }
+        }
+
+
+        StringBuilder div = new StringBuilder();
+
+        // open the tag
+        div.append("<div style=\"");
+        div.append("display: flex; ");
+        div.append("flex-direction: column; ");
+        div.append(columnChildrenString);
+        div.append("\" >");
+        div.append(childrenProperty);
+
+        // close the tag
+        div.append("</div>");
+
+        // HTML code...
+        return div.toString();
     }
 
 
@@ -398,7 +432,38 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Row row) {
-        return null;
+
+        String childrenProperty = "";
+        StringBuilder rowChildrenString = new StringBuilder();
+
+        for (Property property : row.getProperties()) {
+            if (property.getName().equals("children")) {
+                childrenProperty = property.accept(this);
+                break;
+            }
+        }
+
+        for (Property property : row.getProperties()) {
+            if (!property.getName().equals("children")) {
+                rowChildrenString.append(property.accept(this));
+            }
+        }
+
+
+        StringBuilder div = new StringBuilder();
+
+        // open the tag
+        div.append("<div style=\"");
+        div.append("display: flex; ");
+        div.append(rowChildrenString);
+        div.append("\" >");
+        div.append(childrenProperty);
+
+        // close the tag
+        div.append("</div>");
+
+        // HTML code...
+        return div.toString();
     }
 
     @Override
@@ -556,8 +621,15 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Children children) {
-        return null;
+
+        StringBuilder child = new StringBuilder();
+
+        for (Widget widget : children.getChildren()) {
+            child.append(widget.accept(this));
+        }
+        return child.toString();
     }
+
 
     @Override
     public String visit(ChildWidgetProperty childWidgetProperty) {
@@ -576,7 +648,12 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(CrossAxisAlignmentProperty crossAxisAlignmentProperty) {
-        return null;
+        return switch (crossAxisAlignmentProperty.getValue()) {
+            case stretch -> "align-items: stretch; ";
+            case left -> "align-items: flex-start; ";
+            case right -> "align-items: flex-end; ";
+            case center -> "align-items: center; ";
+        };
     }
 
     @Override
@@ -650,7 +727,11 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(MainAxisSizeObjectProperty mainAxisSizeObjectProperty) {
-        return null;
+
+        return switch (mainAxisSizeObjectProperty.getValue()) {
+            case min -> "align-items: flex-start; ";
+            case max -> "align-items: stretch; ";
+        };
     }
 
     @Override
@@ -954,7 +1035,41 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(FOR For) {
-        return null;
+        String childProperty = "";
+        int numOfIteration = 0;
+
+
+        for (Property property : For.getProperties()) {
+            if (property.getName().equals("iterations")) {
+                numOfIteration = Integer.parseInt(property.accept(this));
+                break;
+            }
+        }
+
+        for (Property property : For.getProperties()) {
+            if (property.getName().equals("child")) {
+                childProperty = property.accept(this);
+                break;
+            }
+        }
+
+        StringBuilder div = new StringBuilder();
+
+        // open the tag
+        div.append("<div style=\"");
+        div.append("display: flex; ");
+        div.append("\" >");
+
+
+        for (int i = 0; i < numOfIteration; i++) {
+            div.append(childProperty);
+        }
+
+        // close the tag
+        div.append("</div>");
+
+        // HTML code...
+        return div.toString();
     }
 
     @Override
@@ -964,7 +1079,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(IterationsProperty iterationsProperty) {
-        return null;
+        return String.valueOf(iterationsProperty.getValue());
     }
 
     @Override
