@@ -1,67 +1,22 @@
 Widget ProductCard {
   string id;
   string name;
-  string imageUrl;
-  string description;
-  function(int,) callback;
-
   return (
-     Column(
-          crossAxisAlignment:center,
-          children:[
-            Text(text: ""),
-            Image(url: ""),
-            Text(text: ""),
-            If(
-            condition: x==y,
-            child: Container(),
-            ),
-            For(
-                iterations: 5,
-                child: Text(text: "conditional"),
-            ),
-          ],
+     Center(
+       child:Button(
+       title:name
         )
       )
+      )
 }
-
-int y;
-y=5;
 
 Scaffold(
   appBar: AppBar(
     title: 'Products Screen',
-
   ),
-  body: Row(
-    children:[
-      Center(
+  body: Center(
         child: ProductCard(
           name: "Headset",
-          imageUrl: "https://www.google.com",
-          description: "a black beats headset", 
         ),
       ),
-      Column(
-        children:[
-         Container(height:y),
-          ProductCard(
-            name: "Watch",
-            imageUrl: "https://www.google.com",
-            description: "a great looking hand watch", 
-          ),
-          ProductCard(
-            name: "Headset",
-            imageUrl: "https://www.google.com",
-            description: "a black beats headset", 
-          ),
-          ProductCard(
-            name: "Backpack",
-            imageUrl: "https://www.google.com",
-            description: "a gray and big size backpack", 
-          ),
-        ],
-      ),
-    ],
-  ),
 )

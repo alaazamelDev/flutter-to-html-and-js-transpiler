@@ -6,6 +6,9 @@ import antlr.DartParserBaseVisitor;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import properties.Property;
+import statements.CustomWidgetDeclarationStatement;
+import utils.Symbol;
+import utils.SymbolTable;
 import utils.UTIL;
 import widgets.Border;
 import widgets.Button;
@@ -121,13 +124,21 @@ public class AntlrToWidget extends DartParserBaseVisitor<Widget> {
         // get access to symbol table visitor
         SymbolTableVisitorAst symbolTableVisitorAst = factory.createSymbolTableVisitor();
 
+        SymbolTable instance = SymbolTable.getInstance();
+
+        Symbol widgetSignature = instance.get(widgetIdentifier);
+        CustomWidgetDeclarationStatement widgetDeclaration =
+                (CustomWidgetDeclarationStatement) widgetSignature.getValue();
+
+        DartParser.WidgetContext widgetContext = widgetDeclaration.getChild();
+        Widget child = visit(widgetContext);
         CustomWidget customWidget =
-                new CustomWidget(widgetIdentifier, widgetProperties, String.valueOf(lineNumber));
+                new CustomWidget(widgetIdentifier,child, widgetProperties, String.valueOf(lineNumber));
 
         // TODO: Handle semantic errors, if error.isEmpty() -> there is no error, else the error is inside the string
         // register the widget in the symbol table
         String error = customWidget.accept(symbolTableVisitorAst);
-     //   if (!error.isEmpty()) semanticError.add(error);
+        //   if (!error.isEmpty()) semanticError.add(error);
 
         return customWidget;
     }

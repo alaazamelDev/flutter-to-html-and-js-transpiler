@@ -204,6 +204,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Column column) {
+        System.out.println("hi");
         return null;
     }
 
@@ -244,7 +245,8 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(CustomWidget customWidget) {
-        return null;
+        System.out.println("hello world");
+        return customWidget.getChild().accept(this);
     }
 
     @Override
@@ -556,6 +558,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(Children children) {
+        System.out.println("Hello again");
         return null;
     }
 
