@@ -1321,4 +1321,12 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     public Property visitVideoPlayerHeight(DartParser.VideoPlayerHeightContext ctx) {
         return visit(ctx.heightProperty());
     }
+
+    @Override
+    public Property visitScaffoldName(DartParser.ScaffoldNameContext ctx) {
+        String value = ctx.getChild(2).getText();
+        String lnNumber = valueOf(ctx.NAME().getSymbol().getLine());
+
+        return new ScaffoldName(lnNumber, value);
+    }
 }

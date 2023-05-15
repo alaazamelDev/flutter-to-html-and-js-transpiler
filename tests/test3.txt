@@ -11,6 +11,7 @@ box1Flex= 1;
 box2Flex= 2;
 
 Scaffold(
+    name: "hadi",
     appBar: AppBar(
         title: "Main App",
         centerTitle: true,
@@ -27,10 +28,6 @@ Scaffold(
                             url:"https://www.google.com",
                             fit: cover,
                         ),
-                    ),
-                    If(
-                    condition: x==y,
-                    child: Container()
                     ),
                     Expanded(
                         flex: box1Flex,

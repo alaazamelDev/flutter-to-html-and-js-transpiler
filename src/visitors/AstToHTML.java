@@ -1131,4 +1131,10 @@ public class AstToHTML implements Visitor<String> {
 
         return src.toString();
     }
+
+    @Override
+    //TODO should it be the className?
+    public String visit(ScaffoldName scaffoldName) {
+        return null;
+    }
 }

@@ -1214,4 +1214,17 @@ public class AstToGraphVisitor implements Visitor<String> {
 
         return vertex;
     }
+
+    @Override
+    //TODO
+    public String visit(ScaffoldName scaffoldName) {
+        UTIL.ID++;
+
+        String vertex = UTIL.propertyToString(UTIL.ID, scaffoldName.getName(),
+                String.valueOf(scaffoldName.getValue()), 0, scaffoldName.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
+    }
 }

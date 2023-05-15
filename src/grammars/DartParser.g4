@@ -14,6 +14,7 @@ scaffold: SCAFFOLD LP (scaffoldProperty (COMMA scaffoldProperty )* COMMA?) ? RP
 scaffoldProperty
     :   BODY COLON widget #ScaffoldBody
     |   APPBARATRIB COLON appBar #ScaffoldAppBar
+    |   NAME COLON STRING #ScaffoldName
     ;
 
 

@@ -14,6 +14,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultEdge;
 import program.Program;
+import properties.Property;
+import properties.ScaffoldName;
 import utils.SymbolTable;
 import utils.UTIL;
 import visitors.AntlrObjectFactory;
@@ -30,7 +32,10 @@ import java.io.IOException;
 public class CompilerApp {
 
     public static void main(String[] args) throws IOException {
-        String fileName = "tests/test2.txt";
+
+        System.out.println(args[0]);
+
+        String fileName = args[0];
         DartParser parser = getParser(fileName);
         Program program = null;
 
@@ -80,7 +85,16 @@ public class CompilerApp {
                 AstToHTML codeGenerationVisitor = new AstToHTML();
                 String htmlOutput = codeGenerationVisitor.visit(program);
 
-                UTIL.writeToFile(htmlOutput,"output/compiled.html");
+                String htmlName = "defaultName";
+
+                for (Property property : program.getScaffold().getProperties()) {
+                    if(property.getName().equals("name")) {
+                        ScaffoldName scaffoldName = (ScaffoldName)property;
+                        htmlName = scaffoldName.getValue().replace("\"", "");
+                    }
+                }
+
+                UTIL.writeToFile(htmlOutput,"output/" + htmlName + ".html");
 
                 // print message that tells that every thing is okay
                 System.out.println("Code Compiled Successfully...");
