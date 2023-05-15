@@ -33,9 +33,7 @@ public class CompilerApp {
 
     public static void main(String[] args) throws IOException {
 
-        System.out.println(args[0]);
-
-        String fileName = args[0];
+        String fileName = "./tests/test3.txt";
         DartParser parser = getParser(fileName);
         Program program = null;
 
