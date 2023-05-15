@@ -11,6 +11,7 @@ Widget ProductCard {
 }
 
 Scaffold(
+  name: "test2"
   appBar: AppBar(
     title: 'Products Screen',
   ),
