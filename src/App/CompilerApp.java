@@ -85,7 +85,7 @@ public class CompilerApp {
                 AstToHTML codeGenerationVisitor = new AstToHTML();
                 String htmlOutput = codeGenerationVisitor.visit(program);
 
-                String htmlName = "";
+                String htmlName = "defaultName";
 
                 for (Property property : program.getScaffold().getProperties()) {
                     if(property.getName().equals("name")) {
