@@ -213,4 +213,6 @@ public interface Visitor<T> {
     public T visit(VideoPlayer videoPlayer);
 
     public T visit(SrcProperty srcProperty);
+
+    public T visit(ScaffoldName scaffoldName);
 }

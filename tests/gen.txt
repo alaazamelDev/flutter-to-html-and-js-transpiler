@@ -1,13 +1,8 @@
 Scaffold(
+  name: "anotherFile",
   appBar: AppBar(
     title: 'Home Screen',
     centerTitle: false,
   ),
-  body: Center(
-  child:Button(
-  title:"Show Welcome Message",
-  onPressed: (){
-    popUp("Welcome to the world");
-  },
-  ),),
+  body: VideoPlayer(height: 600, width: 600, src: "a405d374-5b55-4ba1-9ea6-516571bb82b1.mp4")
 )

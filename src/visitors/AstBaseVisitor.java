@@ -120,6 +120,11 @@ public class AstBaseVisitor<T> implements Visitor<T>{
     }
 
     @Override
+    public T visit(ScaffoldName scaffoldName) {
+        return null;
+    }
+
+    @Override
     public T visit(Program program) {
         return null;
     }

@@ -122,6 +122,7 @@ THEN: 'thenProperty';
 FROM: 'fromProperty';
 ITERATIONS: 'iterations';
 SRC: 'src';
+NAME: 'name';
 
 //Boolean
 BOOLEAN: 'true' | 'false';
