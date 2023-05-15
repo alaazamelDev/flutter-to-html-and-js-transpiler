@@ -37,13 +37,14 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
             vars.add(statement);
         }
 
-        Widget widget = antlrToWidget.visit(ctx.widget());
+        DartParser.WidgetContext child = ctx.widget();
+        Widget tree = antlrToWidget.visit(ctx.widget());
 
         // get access to symbol table visitor
         SymbolTableVisitorAst symbolTableVisitorAst = factory.createSymbolTableVisitor();
 
         CustomWidgetDeclarationStatement customWidget =
-                new CustomWidgetDeclarationStatement(name, vars, widget, lnNumber);
+                new CustomWidgetDeclarationStatement(name, vars,tree, child, lnNumber);
 
         // TODO: Handle semantic errors, if error.isEmpty() -> there is no error, else the error is inside the string
         // register the widget in the symbol table

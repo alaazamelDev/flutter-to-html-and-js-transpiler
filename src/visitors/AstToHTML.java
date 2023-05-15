@@ -278,7 +278,7 @@ public class AstToHTML implements Visitor<String> {
 
     @Override
     public String visit(CustomWidget customWidget) {
-        return null;
+        return customWidget.getChild().accept(this);
     }
 
     @Override

@@ -224,6 +224,9 @@ public class AstToGraphVisitor implements Visitor<String> {
             String childVertex = child.accept(this);
             g.addEdge(vertex, childVertex);
         }
+        Widget child = customWidget.getChild();
+        String childVertex = child.accept(this);
+        g.addEdge(vertex, childVertex);
         return vertex;
     }
 

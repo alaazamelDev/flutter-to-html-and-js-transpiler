@@ -119,14 +119,22 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
         ParseTree child = ctx.getChild(2);
         if (child instanceof TerminalNode terminalNode) {
+            // get access to symbol table visitor
+            SymbolTableVisitorAst symbolTableVisitorAst = factory.createSymbolTableVisitor();
+            SymbolTable instance = SymbolTable.getInstance();
+            Symbol widgetSignature = instance.get(ctx.IDENTIFIER().toString());
+
             Token token = terminalNode.getSymbol();
             int tokenType = token.getType();
             if (tokenType == DartParser.NUM) {
                 propertyValue = Integer.parseInt(token.getText());
+                widgetSignature.setValue(propertyValue);
             } else if (tokenType == DartParser.STRING) {
                 propertyValue = token.getText();
+                widgetSignature.setValue(propertyValue);
             } else if (tokenType == DartParser.FLOAT) {
                 propertyValue = Double.parseDouble(token.getText());
+                widgetSignature.setValue(propertyValue);
             }
         }
         return new CustomWidgetProperty(propertyName, propertyValue, lineNumber);
@@ -828,7 +836,9 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
             String type = symbol.getType();
 
             if (type.equals("string")) {
-                String value = symbol.getValue().toString();
+                //this line was String value = symbol.getValue().toString();
+                //we should change every ".toString" to (String)statement ,like this :
+                String value = (String)symbol.getValue();
                 return new TitleProperty(value, String.valueOf(lineNumber));
             } else {
                 semanticError.add(UTIL.semanticTypeMismatch(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, "string", symbol.getType()));
