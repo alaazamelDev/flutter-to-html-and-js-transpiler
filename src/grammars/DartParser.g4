@@ -14,7 +14,7 @@ scaffold: SCAFFOLD LP (scaffoldProperty (COMMA scaffoldProperty )* COMMA?) ? RP
 scaffoldProperty
     :   BODY COLON widget #ScaffoldBody
     |   APPBARATRIB COLON appBar #ScaffoldAppBar
-    |   NAME COLON STRING #ScaffoldName
+    |   SCREENNAME COLON STRING #ScaffoldName
     ;
 
 
@@ -50,7 +50,7 @@ videoPlayer: VIDEOPLAYER LP (videoPlayerProperties (COMMA videoPlayerProperties)
 videoPlayerProperties
     :   widthProperty   #VideoPlayerWidth
     |   heightProperty  #VideoPlayerHeight
-    |   SRC COLON STRING    #VideoPlayerSrc
+    |   SRC COLON (STRING | IDENTIFIER)    #VideoPlayerSrc
     ;
 
 customWidget

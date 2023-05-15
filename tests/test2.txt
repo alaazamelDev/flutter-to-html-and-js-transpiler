@@ -3,21 +3,19 @@ Widget ProductCard {
   string name;
   return (
      Center(
-       child:Button(
-       title:name
-        )
+       child:VideoPlayer(src: name)
       )
       )
 }
 
 Scaffold(
-  name: "test2",
+  screenName: "test2",
   appBar: AppBar(
     title: 'Products Screen',
   ),
   body: Center(
         child: ProductCard(
-          name: "Headset",
+          name: "https://www.google.com/video",
         ),
       ),
 )

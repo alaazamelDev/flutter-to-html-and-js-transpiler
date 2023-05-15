@@ -122,7 +122,7 @@ THEN: 'thenProperty';
 FROM: 'fromProperty';
 ITERATIONS: 'iterations';
 SRC: 'src';
-NAME: 'name';
+SCREENNAME: 'screenName';
 
 //Boolean
 BOOLEAN: 'true' | 'false';

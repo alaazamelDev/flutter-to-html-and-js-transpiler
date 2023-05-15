@@ -1306,8 +1306,29 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
 
     @Override
     public Property visitVideoPlayerSrc(DartParser.VideoPlayerSrcContext ctx) {
-        String value = ctx.getChild(2).getText();
         String lnNumber = valueOf(ctx.SRC().getSymbol().getLine());
+
+        if (ctx.IDENTIFIER() != null) {
+            SymbolTable symbolTable = SymbolTable.getInstance();
+            String var = ctx.IDENTIFIER().getText();
+
+            Symbol symbol = symbolTable.get(var);
+            if (symbol == null) {
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, var));
+                return new SrcProperty(lnNumber, "value");
+            }
+            String type = symbol.getType();
+
+            if (type.equals("string")) {
+                String value = (String)symbol.getValue();
+                return new SrcProperty(lnNumber, value);
+            } else {
+                semanticError.add(UTIL.semanticTypeMismatch(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, "string", symbol.getType()));
+                return new TitleProperty(lnNumber, "value");
+            }
+        }
+
+        String value = ctx.getChild(2).getText();
 
         return new SrcProperty(lnNumber, value);
     }
@@ -1325,7 +1346,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitScaffoldName(DartParser.ScaffoldNameContext ctx) {
         String value = ctx.getChild(2).getText();
-        String lnNumber = valueOf(ctx.NAME().getSymbol().getLine());
+        String lnNumber = valueOf(ctx.SCREENNAME().getSymbol().getLine());
 
         return new ScaffoldName(lnNumber, value);
     }

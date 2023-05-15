@@ -1135,6 +1135,6 @@ public class AstToHTML implements Visitor<String> {
     @Override
     //TODO should it be the className?
     public String visit(ScaffoldName scaffoldName) {
-        return null;
+        return "";
     }
 }
