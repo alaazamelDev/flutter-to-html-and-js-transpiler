@@ -52,26 +52,26 @@ public class AstToHTML implements Visitor<String> {
         for (Property property : appBar.getProperties()) {
             if (property.getName().equals("title")) {
                 appbarTitleProperty = property.accept(this);
-                UTIL.pageName = appbarTitleProperty.replace("<h3>", "").replace("</h3>", "");
+                UTIL.pageName = appbarTitleProperty.replace("<p>", "").replace("</p>", "");
             } else if (property.getName().equals("centerTitle")) {
                 appbarCenterTitleProperty = property.accept(this);
             }
         }
 
         // Create div with some styling
-        StringBuilder div = new StringBuilder("<div style=\"");
-        div.append("padding: 0.5rem 1.5rem 0.5rem 1.5rem; ");   // padding attribute
-        div.append("background-color: #044389; ");   // background color attribute
-        div.append("color: #FFFFFF; ");   // background color attribute
-        div.append("margin-bottom: 20px; ");
-        div.append(appbarCenterTitleProperty);  // center title attribute
-        div.append(" \">"); // close style attribute
-        div.append("\n");   // break the line
-        div.append(appbarTitleProperty);    // add title attribute as heading tag
-        div.append("\n");
-        div.append("</div>");   // close div tag
+        StringBuilder nav = new StringBuilder("<nav style=\"");
+        nav.append("padding: 0.5rem 1.5rem 0.5rem 1.5rem; ");   // padding attribute
+        nav.append("background-color: #044389; ");   // background color attribute
+        nav.append("color: #FFFFFF; ");   // background color attribute
+        nav.append("margin-bottom: 20px; ");
+        nav.append(appbarCenterTitleProperty);  // center title attribute
+        nav.append(" \">"); // close style attribute
+        nav.append("\n");   // break the line
+        nav.append(appbarTitleProperty);    // add title attribute as heading tag
+        nav.append("\n");
+        nav.append("</nav>");   // close div tag
 
-        return div.toString();
+        return nav.toString();
     }
 
     @Override
@@ -175,7 +175,7 @@ public class AstToHTML implements Visitor<String> {
 
             }
 
-            title.append(titleProperty.accept(this).replace("<h3>", "").replace("</h3>", ""));
+            title.append(titleProperty.accept(this).replace("<p>", "").replace("</p>", ""));
 
             if (titleColorProperty != null) {
                 title.append("</div>");
@@ -193,13 +193,13 @@ public class AstToHTML implements Visitor<String> {
         StringBuilder tag = new StringBuilder();
 
         //delete first \n
-        tag.append("\n<center>\n");
+        tag.append("\n<div style=\"text-align: center;\">\n");
 
 
         for (Property property : center.getProperties())
             tag.append(property.accept(this));
 
-        tag.append("</center>\n");
+        tag.append("</div>\n");
         return tag.toString();
 
     }
@@ -380,6 +380,7 @@ public class AstToHTML implements Visitor<String> {
     public String visit(Image image) {
 
         StringBuilder imgString = new StringBuilder();
+        StringBuilder imgSrc = new StringBuilder();
 
         // open the tag
         imgString.append("<img ");
@@ -391,11 +392,17 @@ public class AstToHTML implements Visitor<String> {
 
         // translate the properties
         for (Property prop : image.getProperties()) {
-            imgString.append(prop.accept(this));
+            if(prop.getName().equals("url")) {
+                imgSrc.append(prop.accept(this));
+            } else {
+                imgString.append(prop.accept(this));
+            }
         }
 
         // close the tag
-        imgString.append("\" />");
+        imgString.append("\"");
+        imgString.append(imgSrc);
+        imgString.append(" \\>");
 
 
         // HTML code...
@@ -793,9 +800,9 @@ public class AstToHTML implements Visitor<String> {
         // extract title content
         String titleValue = titleProperty.getValue().replace("\"", "").replace("'", "");
 
-        StringBuilder title = new StringBuilder("<h3>");
+        StringBuilder title = new StringBuilder("<p>");
         title.append(titleValue);
-        title.append("</h3>");
+        title.append("</p>");
 
         return title.toString();
     }
@@ -813,9 +820,9 @@ public class AstToHTML implements Visitor<String> {
     @Override
     public String visit(UrlProperty urlProperty) {
         StringBuilder value = new StringBuilder();
-        value.append("background-image: url(\'");
+        value.append("src=\"");
         value.append(urlProperty.getValue().replace("\"", "").replace("'", ""));
-        value.append("\'); ");
+        value.append("\" ");
 
         return value.toString();
     }
