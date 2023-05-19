@@ -25,7 +25,7 @@ Scaffold(
                     Expanded(
                         flex: box2Flex,
                         child: Image(
-                            url:"https://www.google.com",
+                            url:"https://media.istockphoto.com/id/466187907/photo/landscape-aerial-view.jpg?s=612x612&w=0&k=20&c=4DAsAkuuXNxBtLWlL-dpQxFKoKsq3zpr6756Ke4eaao=",
                             fit: cover,
                         ),
                     ),
@@ -35,7 +35,7 @@ Scaffold(
                             text: "here is a description on the content of the image",
                         ),
                     ),
-                    Container(width: 10, height: 10, child: TextField(label: "hey")),
+                    TextField(label: "hey"),
                     Button(title: 'click here', titleColor: #FFFFFF)
                 ],
             ),
