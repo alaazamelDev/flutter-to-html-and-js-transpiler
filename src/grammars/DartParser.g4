@@ -43,7 +43,17 @@ widget
     |   if
     |   for
     |   videoPlayer
+    |   form
     ;
+
+form: FORM LP (formProperties (COMMA formProperties)* COMMA? )? RP;
+
+formProperties
+    :   childProperty   #FormChild
+    |   onSubmitProperty    #FormOnSubmit
+    ;
+
+onSubmitProperty: ONSUBMIT COLON OB statment* CB;
 
 videoPlayer: VIDEOPLAYER LP (videoPlayerProperties (COMMA videoPlayerProperties)* COMMA? )? RP;
 
@@ -103,7 +113,11 @@ textProperties:     TEXTATRIB COLON (STRING|IDENTIFIER) #TextContent //var
               |     FONTSIZE COLON (NUM|FLOAT|IDENTIFIER) #TextFontSize //var
               |     LETTERSPACING COLON (NUM|FLOAT|IDENTIFIER) #TextLetterSpacing //var
               |     TEXTALIGN COLON (CENTERVALUE | START_ATTR | END_ATTR | JUSTIFY_ATTR)    #TextTextAlign
+              |     idProperty  #TextId
+              |     setValueProperty #TextSetValue
               ;
+
+setValueProperty: SETVALUE COLON LP STRING COMMA getStateX RP;
 
 
 container: CONTAINER LP (containerProperties (COMMA containerProperties)* COMMA? )? RP;
@@ -216,7 +230,9 @@ textFieldProperties: VALUE COLON (STRING|IDENTIFIER) #TextFieldValue //var
                    | HINT COLON (STRING|IDENTIFIER) #TextFieldHint //var
                    | BORDERATRI COLON border #TextFieldBorder
                    | ONCHANGED COLON LP (IDENTIFIER COMMA)* RP OB statment* CB #TextFieldOnChanged
+                   | idProperty #TextFieldID
                    ;
+idProperty: ID COLON (STRING|IDENTIFIER);
 border: BORDER LP (borderProperties (COMMA borderProperties)* COMMA? )? RP;
 
 borderProperties: THICKNESS COLON (NUM|IDENTIFIER) #BorderThickness //var
@@ -244,7 +260,19 @@ statment
     |   customWidgetDeclaration
     |   navigation
     |   popup
+    |   setState
+    |   getStateX
+    |   itemValue SC //added SC as it is a statment
+    |   setValueStatement
     ;
+
+setValueStatement: SETVALUE LP STRING COMMA getStateX RP SC;
+
+setState: GETXDOTSET LP STRING COMMA (NUM | STRING | itemValue) RP SC;
+
+getStateX: GETXDOTGET LP STRING RP;
+
+itemValue:  ITEMVALUE LP STRING RP;
 
 // statements
 variableDeclaration

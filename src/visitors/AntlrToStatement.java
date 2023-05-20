@@ -6,11 +6,14 @@ import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import properties.SetValueProperty;
 import statements.*;
 import widgets.Widget;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.String.valueOf;
 
 public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
 
@@ -150,5 +153,57 @@ public class AntlrToStatement extends DartParserBaseVisitor<Statement> {
         //? no semantic error needs to be checked here.
 
         return new PopUp(message, String.valueOf(lineNumber));
+    }
+
+    @Override
+    public Statement visitSetState(DartParser.SetStateContext ctx) {
+        int lineNumber = ctx.GETXDOTSET().getSymbol().getLine();
+
+        String key = ctx.getChild(2).getText();
+        String value = "";
+        boolean isString = false;
+
+        if(ctx.STRING().size() > 1) {
+            isString = true;
+            value = ctx.STRING().get(1).getSymbol().getText();
+        } else if (ctx.NUM() != null) {
+            value = ctx.NUM().getSymbol().getText();
+        } else if (ctx.itemValue() != null) {
+            Statement statement = visit(ctx.itemValue());
+            ItemValue itemValue = (ItemValue) statement;
+            value = itemValue.getPhrase();
+        }
+
+        return new SetState(String.valueOf(lineNumber), key, value, isString);
+    }
+
+    @Override
+    public Statement visitGetStateX(DartParser.GetStateXContext ctx) {
+        int lineNumber = ctx.GETXDOTGET().getSymbol().getLine();
+
+        String key = ctx.getChild(2).getText();
+
+        return new GetState(String.valueOf(lineNumber), key);
+    }
+
+    @Override
+    public Statement visitItemValue(DartParser.ItemValueContext ctx) {
+        int lineNumber = ctx.ITEMVALUE().getSymbol().getLine();
+
+        String id = ctx.STRING().getSymbol().getText();
+
+        String phrase = "document.getElementById('" + id.replace("\"", "") + "').value";
+
+        return new ItemValue(String.valueOf(lineNumber), id, phrase);
+    }
+
+    @Override
+    public Statement visitSetValueStatement(DartParser.SetValueStatementContext ctx) {
+        String lnNumber = valueOf(ctx.SETVALUE().getSymbol().getLine());
+
+        String id = ctx.STRING().getSymbol().getText();
+        Statement statement = visit(ctx.getStateX());
+
+        return new SetValueStatement(lnNumber, statement, id);
     }
 }

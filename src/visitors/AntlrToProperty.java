@@ -1324,7 +1324,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
                 return new SrcProperty(lnNumber, value);
             } else {
                 semanticError.add(UTIL.semanticTypeMismatch(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, "string", symbol.getType()));
-                return new TitleProperty(lnNumber, "value");
+                return new SrcProperty(lnNumber, "value");
             }
         }
 
@@ -1349,5 +1349,84 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         String lnNumber = valueOf(ctx.SCREENNAME().getSymbol().getLine());
 
         return new ScaffoldName(lnNumber, value);
+    }
+
+    @Override
+    public Property visitFormChild(DartParser.FormChildContext ctx) {
+        return visit(ctx.childProperty());
+    }
+
+    @Override
+    public Property visitFormOnSubmit(DartParser.FormOnSubmitContext ctx) {
+        return visit(ctx.onSubmitProperty());
+    }
+
+    @Override
+    public Property visitOnSubmitProperty(DartParser.OnSubmitPropertyContext ctx) {
+        int lineNumber = ctx.ONSUBMIT().getSymbol().getLine();
+
+        AntlrToStatement antlrToStatement = factory.createAntlrToStatement(semanticError);
+
+        List<Statement> statements = new ArrayList<>();
+
+        for (DartParser.StatmentContext statementContext : ctx.statment()) {
+            statements.add(antlrToStatement.visit(statementContext));
+        }
+
+        return new OnSubmitProperty(valueOf(lineNumber), statements);
+    }
+
+    @Override
+    public Property visitTextFieldID(DartParser.TextFieldIDContext ctx) {
+        return visit(ctx.idProperty());
+    }
+
+    @Override
+    public Property visitTextId(DartParser.TextIdContext ctx) {
+        return visit(ctx.idProperty());
+    }
+
+    @Override
+    public Property visitIdProperty(DartParser.IdPropertyContext ctx) {
+        String lnNumber = valueOf(ctx.ID().getSymbol().getLine());
+
+        if (ctx.IDENTIFIER() != null) {
+            SymbolTable symbolTable = SymbolTable.getInstance();
+            String var = ctx.IDENTIFIER().getText();
+
+            Symbol symbol = symbolTable.get(var);
+            if (symbol == null) {
+                semanticError.add(UTIL.semanticUndeclaredIdentifier(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, var));
+                return new IdProperty(lnNumber, "value");
+            }
+            String type = symbol.getType();
+
+            if (type.equals("string")) {
+                String value = (String)symbol.getValue();
+                return new IdProperty(lnNumber, value);
+            } else {
+                semanticError.add(UTIL.semanticTypeMismatch(ctx.IDENTIFIER().getSymbol().getLine(), ctx.IDENTIFIER().getSymbol().getCharPositionInLine() + 1, "string", symbol.getType()));
+                return new IdProperty(lnNumber, "value");
+            }
+        }
+
+        String value = ctx.getChild(2).getText();
+
+        return new IdProperty(lnNumber, value);
+    }
+
+    @Override
+    public Property visitSetValueProperty(DartParser.SetValuePropertyContext ctx) {
+        AntlrToStatement antlrToStatement = factory.createAntlrToStatement(semanticError);
+
+        String lnNumber = valueOf(ctx.SETVALUE().getSymbol().getLine());
+
+        String id = ctx.STRING().getSymbol().getText();
+        Statement statement = antlrToStatement.visit(ctx.getStateX());
+
+        System.out.println(statement);
+
+
+        return new SetValueProperty(lnNumber, statement, id);
     }
 }

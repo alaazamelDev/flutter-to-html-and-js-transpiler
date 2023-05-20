@@ -1,0 +1,27 @@
+string ab;
+ab = "bla";
+
+Scaffold(
+  screenName: "anotherFile",
+  appBar: AppBar(
+    title: 'Home Screen',
+    centerTitle: false,
+  ),
+  body: Row( children: [ Form(
+            child:
+                Column(
+                    children: [
+
+                        TextField(label: "hey", id: ab),
+                        Button(title: "clickMe", backgroundColor: #FF0000)
+                    ]
+                )
+            ,
+            onSubmit: {
+                getX.set("bla", itemValue("bla"));
+                setValue("textID", getX.get("bla"));
+            }
+        ),
+        Text(id: "textID", text: "hhhhhhhhh", setValue: ("textID", getX.get("bla")))
+       ]
+) )

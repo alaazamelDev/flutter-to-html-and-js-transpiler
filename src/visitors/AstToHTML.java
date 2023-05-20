@@ -59,7 +59,7 @@ public class AstToHTML implements Visitor<String> {
         }
 
         // Create div with some styling
-        StringBuilder nav = new StringBuilder("<nav style=\"");
+        StringBuilder nav = new StringBuilder("<nav class=\"navbar\" style=\"");
         nav.append("padding: 0.5rem 1.5rem 0.5rem 1.5rem; ");   // padding attribute
         nav.append("background-color: #044389; ");   // background color attribute
         nav.append("color: #FFFFFF; ");   // background color attribute
@@ -121,7 +121,6 @@ public class AstToHTML implements Visitor<String> {
         List<Property> properties = boxDecorationWidget.getProperties();
 
         for (Property property : properties) {
-            System.out.println(property.getName());
             if (property.getName().equals("color")) {
                 attributes.append("background-color:" + property.accept(this) + ";");
             } else attributes.append(property.accept(this));
@@ -132,7 +131,7 @@ public class AstToHTML implements Visitor<String> {
     @Override
     public String visit(Button button) {
         List<Property> properties = button.getProperties();
-        StringBuilder btn = new StringBuilder("<button ");
+        StringBuilder btn = new StringBuilder("<button class=\"btn\" type=\"submit\" ");
         StringBuilder styles = new StringBuilder("style=\" ");
         StringBuilder listeners = new StringBuilder("onClick=\" ");
         Property titleProperty = null;
@@ -500,6 +499,8 @@ public class AstToHTML implements Visitor<String> {
                 "<html>\n" +
                 "  <head>\n" +
                 "    <meta charset=\"UTF-8\">\n" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                "    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65\" crossorigin=\"anonymous\">\n"  +
                 "    <title>" + UTIL.pageName + "</title>\n" +
                 "    <style>\n" +
                 "      body {\n" +
@@ -523,12 +524,15 @@ public class AstToHTML implements Visitor<String> {
                 "    </style>\n" +
                 "  </head>\n" +
                 props +
+                "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4\" crossorigin=\"anonymous\"></script>\n" +
                 "</html>";
     }
 
     @Override
     public String visit(Text text) {
         StringBuilder tag = new StringBuilder();
+        StringBuilder tagId = new StringBuilder();
+        StringBuilder setvalue = new StringBuilder();
         tag.append("<p");
         List<Property> properties = text.getProperties();
 
@@ -537,6 +541,8 @@ public class AstToHTML implements Visitor<String> {
         int contentIndex = -1;
         for (int i = 0; i < properties.size(); i++) {
             switch (properties.get(i).getName()) {
+                case "setValue" -> setvalue.append(properties.get(i).accept(this));
+                case "id" -> tagId.append(properties.get(i).accept(this));
                 case "fontWeight" ->
                         styleAttribute.append("font-weight: ").append(properties.get(i).accept(this)).append("; ");
                 case "fontSize" ->
@@ -551,11 +557,17 @@ public class AstToHTML implements Visitor<String> {
         if (properties.size() != 0)
             if (!(properties.size() == 1 && Objects.equals(properties.get(0).getName(), "text")))
                 tag.append(styleAttribute).append("\"");
+        if (tagId.length() > 0) {
+            tag.append(tagId);
+        }
         tag.append(">");
         String content = "";
         if (contentIndex != -1) {
             content = properties.get(contentIndex).accept(this);
             tag.append(content.replace("\"", "")); //delete all double quotes ("") from the String
+        }
+        if (setvalue.length() > 0) {
+            tag.append(setvalue);
         }
 
         tag.append("</p>\n");
@@ -565,9 +577,11 @@ public class AstToHTML implements Visitor<String> {
     }
 
     @Override
+    //TODO debug the tagId if it's working
     public String visit(TextField textField) {
         StringBuilder code = new StringBuilder();
-        code.append("<input ");
+        StringBuilder tagId = new StringBuilder();
+        code.append("<input class=\"form-control\" type=\"text\" ");
         List<Property> properties = textField.getProperties();
         int childIndex = -1;
 
@@ -582,10 +596,14 @@ public class AstToHTML implements Visitor<String> {
                 case "value" -> code.append("value=").append(properties.get(i).accept(this)).append(" ");
                 case "textColor", "border", "padding" -> styles.append(properties.get(i).accept(this));
                 case "hint" -> hint.append(properties.get(i).accept(this));
+                case "id" -> tagId.append(properties.get(i).accept(this));
                 default -> childIndex = i;
             }
         }
 
+        if (tagId.length() > 0) {
+            code.append(tagId);
+        }
         if (styles.length() > 8) {
             code.append(styles).append("\" ");
         }
@@ -852,7 +870,6 @@ public class AstToHTML implements Visitor<String> {
     @Override
     public String visit(borderRadiusCircularRadiusProperty borderRadiusCircularRadiusProperty) {
         StringBuilder value = new StringBuilder();
-        System.out.println(value);
         value.append(borderRadiusCircularRadiusProperty.getValue());
         return value.toString();
     }
@@ -1140,8 +1157,102 @@ public class AstToHTML implements Visitor<String> {
     }
 
     @Override
-    //TODO should it be the className?
     public String visit(ScaffoldName scaffoldName) {
         return "";
     }
+
+    @Override
+    public String visit(Form form) {
+        StringBuilder code = new StringBuilder();
+        code.append("<form ");
+        List<Property> properties = form.getProperties();
+        int childIndex = -1;
+
+        for (int i = 0; i < properties.size(); i++) {
+            if (properties.get(i).getName().equals("onSubmit")) {
+                code.append(properties.get(i).accept(this)).append("\"");
+            } else {
+                childIndex = i;
+            }
+        }
+
+        code.append(" >\n");
+
+        if (childIndex != -1) {
+            code.append(properties.get(childIndex).accept(this));
+        }
+
+        return code.toString();
+    }
+
+    @Override
+    public String visit(OnSubmitProperty onSubmitProperty) {
+        StringBuilder submit = new StringBuilder("onSubmit=\"event.preventDefault();\n");
+
+        for(Statement statement : onSubmitProperty.getStatements()) {
+            submit.append(statement.accept(this)).append(" ").append(";\n");
+        }
+        return submit.toString();
+    }
+
+    @Override
+    public String visit(IdProperty idProperty) {
+        return " id=\"" + idProperty.getValue().replace("\"", "") + "\" ";
+    }
+
+    @Override
+    public String visit(SetState setState) {
+        StringBuilder code = new StringBuilder();
+        code.append("localStorage.setItem('")
+                .append(setState.getKey().replace("\"", ""))
+                .append("',").append(setState.isString() ? "'" : "")
+                .append(setState.getValue().replace("\"", ""))
+                .append(setState.isString() ? "'" : "")
+                .append(")");
+
+        return code.toString();
+    }
+
+    @Override
+    public String visit(GetState getState) {
+        StringBuilder code = new StringBuilder();
+        code.append("localStorage.getItem('")
+                .append(getState.getKey().replace("\"", "")).append("')");
+
+        return code.toString();
+    }
+
+    @Override
+    public String visit(ItemValue itemValue) {
+        StringBuilder code = new StringBuilder();
+        code.append("document.getElementById(")
+                .append(itemValue.getId().replace("\"", ""))
+                .append(").value");
+
+        return code.toString();
+    }
+
+    @Override
+    public String visit(SetValueProperty setValueProperty) {
+        StringBuilder code = new StringBuilder("<script>\n");
+        code.append("document.getElementById('")
+                .append(setValueProperty.getId().replace("\"", ""))
+                .append("').textContent = ").append(setValueProperty.getStatement().accept(this))
+                .append(";");
+        code.append("\n</script>");
+        return code.toString();
+    }
+
+    @Override
+    public String visit(SetValueStatement setValueStatement) {
+        StringBuilder code = new StringBuilder("");
+        code.append("document.getElementById('")
+                .append(setValueStatement.getId().replace("\"", ""))
+                .append("').textContent = ").append(setValueStatement.getStatement().accept(this))
+                .append(";");
+//        code.append("\n</script>");
+        return code.toString();
+    }
+
+
 }
