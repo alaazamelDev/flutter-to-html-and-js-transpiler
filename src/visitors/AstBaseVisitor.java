@@ -125,6 +125,46 @@ public class AstBaseVisitor<T> implements Visitor<T>{
     }
 
     @Override
+    public T visit(Form form) {
+        return null;
+    }
+
+    @Override
+    public T visit(OnSubmitProperty onSubmitProperty) {
+        return null;
+    }
+
+    @Override
+    public T visit(IdProperty idProperty) {
+        return null;
+    }
+
+    @Override
+    public T visit(SetState setState) {
+        return null;
+    }
+
+    @Override
+    public T visit(GetState getState) {
+        return null;
+    }
+
+    @Override
+    public T visit(ItemValue itemValue) {
+        return null;
+    }
+
+    @Override
+    public T visit(SetValueProperty setValueProperty) {
+        return null;
+    }
+
+    @Override
+    public T visit(SetValueStatement setValueStatement) {
+        return null;
+    }
+
+    @Override
     public T visit(Program program) {
         return null;
     }

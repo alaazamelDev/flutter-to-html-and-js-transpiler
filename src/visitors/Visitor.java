@@ -215,4 +215,21 @@ public interface Visitor<T> {
     public T visit(SrcProperty srcProperty);
 
     public T visit(ScaffoldName scaffoldName);
+
+    public T visit(Form form);
+
+    public T visit(OnSubmitProperty onSubmitProperty);
+
+    public T visit(IdProperty idProperty);
+
+    public T visit(SetState setState);
+
+    public T visit(GetState getState);
+
+    public T visit(ItemValue itemValue);
+
+    public T visit(SetValueProperty setValueProperty);
+
+    public T visit(SetValueStatement setValueStatement);
+
 }

@@ -1216,7 +1216,6 @@ public class AstToGraphVisitor implements Visitor<String> {
     }
 
     @Override
-    //TODO
     public String visit(ScaffoldName scaffoldName) {
         UTIL.ID++;
 
@@ -1227,4 +1226,104 @@ public class AstToGraphVisitor implements Visitor<String> {
 
         return vertex;
     }
+
+    @Override
+    public String visit(Form form) {
+        UTIL.ID++;
+
+        String vertex = UTIL.widgetToString(UTIL.ID, form.getIdentifier(), form.getProperties().size(), form.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        List<Property> properties = form.getProperties();
+
+        for (Property property : properties) {
+            String childVertex = property.accept(this);
+            UTIL.g.addEdge(vertex, childVertex);
+        }
+
+        return vertex;
+    }
+
+    @Override
+    public String visit(OnSubmitProperty onSubmitProperty) {
+        UTIL.ID++;
+        String vertex = UTIL.propertyToString(UTIL.ID, onSubmitProperty.getName(), null,
+                onSubmitProperty.getStatements().size(),
+                onSubmitProperty.getLnNumber());
+        UTIL.g.addVertex(vertex);
+
+        for (Statement statement : onSubmitProperty.getStatements()) {
+            String statementVertex = statement.accept(this);
+            UTIL.g.addEdge(vertex, statementVertex);
+        }
+
+        return vertex;
+    }
+
+    @Override
+    public String visit(IdProperty idProperty) {
+        UTIL.ID++;
+
+        String vertex = UTIL.propertyToString(UTIL.ID, idProperty.getName(),
+                String.valueOf(idProperty.getValue()), 0, idProperty.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
+    }
+
+    @Override
+    public String visit(SetState setState) {
+        UTIL.ID++;
+
+        String vertex = UTIL.procedureStatementToString(UTIL.ID, "getX.set", setState.getKey(), setState.getLnNumber());
+        vertex = vertex.concat("\n " + "value: " + setState.getValue());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
+    }
+
+    @Override
+    //TODO implement it when you want to read data
+    public String visit(GetState getState) {
+        return null;
+    }
+
+    @Override
+    public String visit(ItemValue itemValue) {
+        UTIL.ID++;
+
+        String vertex = UTIL.procedureStatementToString(UTIL.ID, "itemValue", itemValue.getId(), itemValue.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
+    }
+
+    @Override
+    public String visit(SetValueProperty setValueProperty) {
+        UTIL.ID++;
+
+        String vertex = UTIL.propertyToString(UTIL.ID, setValueProperty.getName(),
+                String.valueOf(setValueProperty.getId()), 0, setValueProperty.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
+    }
+
+    @Override
+    public String visit(SetValueStatement setValueStatement) {
+        UTIL.ID++;
+
+        String vertex = UTIL.procedureStatementToString(UTIL.ID, "setValueStatement", setValueStatement.getId(), setValueStatement.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
+    }
+
+
 }

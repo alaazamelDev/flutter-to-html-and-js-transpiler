@@ -1,0 +1,37 @@
+<!doctype html>
+<html> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <title>Home Screen</title> 
+  <style>
+      body {
+        margin: 0;
+      }
+      html {
+        box-sizing: border-box;
+      }
+      
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
+      
+      html,
+      body,
+      #root {
+        height: 100%;
+      }
+    </style> 
+ </head> 
+ <body>
+  <nav style="padding: 0.5rem 1.5rem 0.5rem 1.5rem; background-color: #044389; color: #FFFFFF; margin-bottom: 20px;  "> 
+   <p>Home Screen</p> 
+  </nav> 
+  <div style="display: flex; flex-direction: column; ">
+   <p style="" id="textID">hhhhhhhhh<script>
+document.getElementById('textID').textContent = localStorage.getItem('bla');
+</script></p> 
+  </div> 
+ </body>
+</html>

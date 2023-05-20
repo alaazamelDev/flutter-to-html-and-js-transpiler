@@ -1,0 +1,13 @@
+string ab;
+ab = "bla";
+
+Scaffold(
+  screenName: "anotherFile2",
+  appBar: AppBar(
+    title: 'Home Screen',
+    centerTitle: false,
+  ),
+  body: Column( children: [
+        Text(id: "textID", text: "hhhhhhhhh", setValueStatement: ("textID", getX.get("bla")))
+       ]
+) )

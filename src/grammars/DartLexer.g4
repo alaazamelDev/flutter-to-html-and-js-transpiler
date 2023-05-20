@@ -48,6 +48,7 @@ BORDERRADIUSCIRCULAR:'BorderRadiusCircular';
 IF: 'If';
 FOR: 'For';
 VIDEOPLAYER: 'VideoPlayer';
+FORM: 'Form';
 
 //keywords
 NAVIGATE_TO: 'navigateTo';
@@ -123,6 +124,12 @@ FROM: 'fromProperty';
 ITERATIONS: 'iterations';
 SRC: 'src';
 SCREENNAME: 'screenName';
+ONSUBMIT: 'onSubmit';
+ID: 'id';
+GETXDOTSET: 'getX.set';
+GETXDOTGET: 'getX.get';
+ITEMVALUE: 'itemValue';
+SETVALUE: 'setValue';
 
 //Boolean
 BOOLEAN: 'true' | 'false';
