@@ -10,6 +10,10 @@ boxHeight = 700;
 box1Flex= 1;
 box2Flex= 2;
 
+string s;
+s="anas";
+string s2;
+s2="hi";
 Scaffold(
     screenName: "hadi",
     appBar: AppBar(
@@ -20,7 +24,7 @@ Scaffold(
         width:boxWidth,
         height: boxHeight,
         child: Center(
-            child: Column(
+            child: If(condition: boxWidth*s , child:Column(
                 children:[
                     Expanded(
                         flex: box2Flex,
@@ -38,7 +42,7 @@ Scaffold(
                     TextField(label: "hey"),
                     Button(title: 'click here', titleColor: #FFFFFF)
                 ],
-            ),
+            )),
         ),
         
     ),

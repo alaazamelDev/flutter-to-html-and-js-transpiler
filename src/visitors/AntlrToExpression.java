@@ -1,5 +1,6 @@
 package visitors;
 
+
 import antlr.DartParser;
 import antlr.DartParserBaseVisitor;
 import enums.TokenType;
@@ -7,9 +8,6 @@ import expressions.*;
 import expressions.primary.PrimaryLiteralExpression;
 import interfaces.IAntlrObjectFactory;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNode;
-import properties.text.TextContent;
 import utils.Symbol;
 import utils.SymbolTable;
 import utils.UTIL;
@@ -27,6 +25,7 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
         this.factory = factory;
         this.semanticError = semanticError;
     }
+
     @Override
     public Expression visitExpressionList(DartParser.ExpressionListContext ctx) {
 
@@ -41,10 +40,9 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
             expressions.add(expression);
         }
 
-        if(expressions.size()>1){
+        if (expressions.size() > 1) {
             return new ExpressionListExpression(expressions, String.valueOf(lineNumber), expressions.get(expressions.size() - 1).getValue());
-        }
-        else return expressions.get(0);
+        } else return expressions.get(0);
     }
 
     @Override
@@ -61,15 +59,14 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
             expressionList.add(expression);
         }
 
-        if(expressionList.size()>1){
+        if (expressionList.size() > 1) {
             boolean result = false;
             for (Expression expression : expressionList) {
                 Object value = expression.getValue();
                 result = result || (Boolean) value;
             }
             return new LogicalOrExpression(expressionList, String.valueOf(lineNumber), result);
-        }
-        else return expressionList.get(0);
+        } else return expressionList.get(0);
 
 
     }
@@ -87,15 +84,14 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
             Expression expression = visit(equalityExpressionContext);
             expressionList.add(expression);
         }
-        if(expressionList.size()>1){
+        if (expressionList.size() > 1) {
             boolean result = true;
             for (Expression expression : expressionList) {
                 Object value = expression.getValue();
                 result = result && (Boolean) value;
             }
             return new LogicalAndExpression(expressionList, String.valueOf(lineNumber), result);
-        }
-        else return expressionList.get(0);
+        } else return expressionList.get(0);
 
     }
 
@@ -119,9 +115,19 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
             Object value1 = expressionList.get(0).getValue();
             Object value2 = expressionList.get(1).getValue();
 
+
+            //Handle type mismatch errors first
             if ((value1 instanceof Boolean && value2 instanceof Number) || (value1 instanceof Number && value2 instanceof Boolean)) {
-                //TODO Handle type mismatch error
-                return null;
+                semanticError.add(UTIL.semanticExpressionTypeMismatch(lineNumber, ctx.getStart().getCharPositionInLine() + 1, "comparing", "boolean", "number"));
+                return new EqualityExpression(expressionList.get(0), expressionList.get(1), tokenType, String.valueOf(lineNumber), null);
+            } else if ((value1 instanceof String && value2 instanceof Boolean) || (value1 instanceof Boolean && value2 instanceof String)) {
+                semanticError.add(UTIL.semanticExpressionTypeMismatch(lineNumber, ctx.getStart().getCharPositionInLine() + 1, "comparing", "boolean", "string"));
+                return new EqualityExpression(expressionList.get(0), expressionList.get(1), tokenType, String.valueOf(lineNumber), null);
+
+            } else if ((value1 instanceof String && value2 instanceof Number) || (value1 instanceof Number && value2 instanceof String)) {
+                semanticError.add(UTIL.semanticExpressionTypeMismatch(lineNumber, ctx.getStart().getCharPositionInLine() + 1, "comparing", "number", "string"));
+                return new EqualityExpression(expressionList.get(0), expressionList.get(1), tokenType, String.valueOf(lineNumber), null);
+
             } else {
                 boolean result = switch (tokenType) {
                     case EQUALS -> Objects.equals(value1, value2);
@@ -157,7 +163,7 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
             Object value2 = expressionList.get(1).getValue();
 
             boolean result = false;
-            if (value1 instanceof String || value2 instanceof String) {
+            if (value1 instanceof String && value2 instanceof String) {
                 String str1 = String.valueOf(value1);
                 String str2 = String.valueOf(value2);
                 int comparisonResult = str1.compareTo(str2);
@@ -177,8 +183,17 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
                     case GREATER_THAN -> result = comparisonResult > 0;
                     case GREATER_THAN_OR_EQUALS -> result = comparisonResult >= 0;
                 }
-            } else {
-                // TODO Handle type error
+            } else if ((value1 instanceof Boolean && value2 instanceof Number) || (value1 instanceof Number && value2 instanceof Boolean)) {
+                semanticError.add(UTIL.semanticExpressionTypeMismatch(lineNumber, ctx.getStart().getCharPositionInLine() + 1, "comparing", "boolean", "number"));
+                return new RelationalExpression(expressionList.get(0), expressionList.get(1), tokenType, String.valueOf(lineNumber), null);
+            } else if ((value1 instanceof String && value2 instanceof Boolean) || (value1 instanceof Boolean && value2 instanceof String)) {
+                semanticError.add(UTIL.semanticExpressionTypeMismatch(lineNumber, ctx.getStart().getCharPositionInLine() + 1, "comparing", "boolean", "string"));
+                return new RelationalExpression(expressionList.get(0), expressionList.get(1), tokenType, String.valueOf(lineNumber), null);
+
+            } else if ((value1 instanceof String && value2 instanceof Number) || (value1 instanceof Number && value2 instanceof String)) {
+                semanticError.add(UTIL.semanticExpressionTypeMismatch(lineNumber, ctx.getStart().getCharPositionInLine() + 1, "comparing", "number", "string"));
+                return new RelationalExpression(expressionList.get(0), expressionList.get(1), tokenType, String.valueOf(lineNumber), null);
+
             }
             return new RelationalExpression(expressionList.get(0), expressionList.get(1), tokenType, String.valueOf(lineNumber), result);
         } else {
@@ -202,24 +217,58 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
         }
 
         if (expressionList.size() > 1) {
-            for (int i = 0; i < expressionList.size()-1; i++) {
+            for (int i = 0; i < expressionList.size() - 1; i++) {
                 tokenTypeList.add(
-                        TokenType.fromSymbol(ctx.getChild(i*2+1).getText()));
+                        TokenType.fromSymbol(ctx.getChild(i * 2 + 1).getText()));
             }
-            Number result = (Number) expressionList.get(0).value;
+            Object result = expressionList.get(0).getValue();
+
 
             for (int i = 0; i < tokenTypeList.size(); i++) {
                 TokenType tokenType = tokenTypeList.get(i);
-                Number nextExpression = (Number) expressionList.get(i + 1).value;
+                Object nextExpression = expressionList.get(i + 1).getValue();
 
-                if (tokenType == TokenType.PLUS) {
-                    result = result.doubleValue() + nextExpression.doubleValue();
-                } else if (tokenType == TokenType.MINUS) {
-                    result = result.doubleValue() - nextExpression.doubleValue();
+                if (result instanceof Number && nextExpression instanceof Number) {
+                    if (tokenType == TokenType.PLUS) {
+                        result = ((Number) result).doubleValue() + ((Number) nextExpression).doubleValue();
+                    } else if (tokenType == TokenType.MINUS) {
+                        result = ((Number) result).doubleValue() - ((Number) nextExpression).doubleValue();
+                    }
+                } else if (result instanceof String && nextExpression instanceof String) {
+                    if (tokenType == TokenType.PLUS) {
+                        result = ((String) result) + ((String) nextExpression);
+                    } else if (tokenType == TokenType.MINUS) {
+                        semanticError.add(UTIL.semanticStringMinusString(lineNumber, ctx.getStart().getCharPositionInLine() + 1));
+                        return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), null);
+
+                    }
+                } else if (result instanceof String && nextExpression instanceof Number) {
+                    if (tokenType == TokenType.PLUS) {
+                        semanticError.add(UTIL.semanticExpressionTypeMismatch(lineNumber, ctx.getStart().getCharPositionInLine() + 1, "adding", "number", "string"));
+                        return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), null);
+
+                    } else if (tokenType == TokenType.MINUS) {
+                        semanticError.add(UTIL.semanticExpressionTypeMismatch(lineNumber, ctx.getStart().getCharPositionInLine() + 1, "substracting", "number", "string"));
+                        return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), null);
+
+                    }
+                } else if (result instanceof Number && nextExpression instanceof String) {
+                    if (tokenType == TokenType.PLUS) {
+                        semanticError.add(UTIL.semanticExpressionTypeMismatch(lineNumber, ctx.getStart().getCharPositionInLine() + 1, "adding", "string", "number"));
+                        return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), null);
+
+                    } else if (tokenType == TokenType.MINUS) {
+                        semanticError.add(UTIL.semanticExpressionTypeMismatch(lineNumber, ctx.getStart().getCharPositionInLine() + 1, "substracting", "string", "number"));
+                        return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), null);
+
+                    }
+                } else if (nextExpression instanceof Boolean || result instanceof Boolean) {
+                    semanticError.add(UTIL.semanticBooleanInAdditiveExpression(lineNumber, ctx.getStart().getCharPositionInLine() + 1));
+                    return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), null);
                 }
             }
+            return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), String.valueOf(result));
 
-            return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), result);
         } else {
             return expressionList.get(0);
         }
@@ -241,23 +290,35 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
 
         if (expressionList.size() > 1) {
             List<TokenType> tokenTypeList = new ArrayList<>();
-            for (int i = 0; i < expressionList.size()-1; i++) {
+            for (int i = 0; i < expressionList.size() - 1; i++) {
                 tokenTypeList.add(
-                        TokenType.fromSymbol(ctx.getChild(i*2+1).getText()));
+                        TokenType.fromSymbol(ctx.getChild(i * 2 + 1).getText()));
             }
-            Number result = (Number) expressionList.get(0).value;
+            Object result = expressionList.get(0).getValue();
 
             for (int i = 0; i < tokenTypeList.size(); i++) {
                 TokenType tokenType = tokenTypeList.get(i);
-                Number nextExpression = (Number) expressionList.get(i + 1).value;
+                Object nextExpression = expressionList.get(i + 1).getValue();
+                if (result instanceof Boolean || nextExpression instanceof Boolean) {
+                    semanticError.add(UTIL.semanticBooleanInMultiplicativeExpression(lineNumber, ctx.getStart().getCharPositionInLine() + 1));
+                    return new MultiplicativeExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), null);
 
-                if (tokenType == TokenType.STAR) {
-                    result = result.doubleValue() * nextExpression.doubleValue();
-                } else if (tokenType == TokenType.SLASH) {
-                    result = result.doubleValue() / nextExpression.doubleValue();
+                } else if (result instanceof String || nextExpression instanceof String) {
+                    semanticError.add(UTIL.semanticStringInMultiplicativeExpression(lineNumber, ctx.getStart().getCharPositionInLine() + 1));
+                    return new MultiplicativeExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), null);
+                } else if (result instanceof Number && nextExpression instanceof Number) {
+                    if (tokenType == TokenType.STAR) {
+                        result = ((Number) result).doubleValue() * ((Number) nextExpression).doubleValue();
+                    } else if (tokenType == TokenType.SLASH) {
+                        result = ((Number) result).doubleValue() / ((Number) nextExpression).doubleValue();
+                    }
+
+                } else {
+                    return new MultiplicativeExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), null);
                 }
             }
-            return new MultiplicativeExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), result);
+            return new MultiplicativeExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), ((Number) result));
+
         } else {
             return expressionList.get(0);
         }
@@ -285,7 +346,7 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
             } else if (tokenType == DartParser.HEX_NUM) {
                 return new PrimaryLiteralExpression(String.valueOf(lineNumber), Long.parseLong(token.getText(), 16));
             } else if (tokenType == DartParser.BOOLEAN) {
-                return new PrimaryLiteralExpression(String.valueOf(lineNumber),  Boolean.parseBoolean(token.getText()));
+                return new PrimaryLiteralExpression(String.valueOf(lineNumber), Boolean.parseBoolean(token.getText()));
             }
         }
         return null;
@@ -303,7 +364,7 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
             boolean isNegative = ctx.MINUS() != null;
             if (tokenType == DartParser.NUM) {
                 return new PrimaryLiteralExpression(String.valueOf(lineNumber), isNegative ? -Integer.parseInt(token.getText()) : Integer.parseInt(token.getText()));
-            }  else if (tokenType == DartParser.FLOAT) {
+            } else if (tokenType == DartParser.FLOAT) {
                 return new PrimaryLiteralExpression(String.valueOf(lineNumber), isNegative ? -Double.parseDouble(token.getText()) : Double.parseDouble(token.getText()));
             } else if (tokenType == DartParser.HEX_NUM) {
                 return new PrimaryLiteralExpression(String.valueOf(lineNumber), isNegative ? -Long.parseLong(token.getText(), 16) : Long.parseLong(token.getText(), 16));
@@ -333,8 +394,7 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
         if (type.equals("string")) {
             String value = (String) symbol.getValue();
             return new PrimaryLiteralExpression(String.valueOf(lineNumber), value);
-        }
-        else if (type.equals("int")) {
+        } else if (type.equals("int")) {
             Number value = (Number) symbol.getValue();
             return new PrimaryLiteralExpression(String.valueOf(lineNumber), value);
         }
