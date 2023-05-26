@@ -1,0 +1,24 @@
+int index = 0;
+Scaffold(
+    appBar: AppBar(
+        title: "Main App",
+        centerTitle: true,
+    ),
+    body: ListView(
+      children:[
+        for(index < 5)(
+          if(index != "aa")(
+            Container(
+              width:200,
+              height:200,
+              child: Image(
+                      url:"https://www.google.com",
+                      fit: cover,
+                  ),
+            ),
+            Container(height:20),
+          )
+        )
+      ],
+    ),
+)

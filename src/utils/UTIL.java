@@ -79,6 +79,23 @@ public class UTIL {
         return "type mismatch " + "expected: " + expected + " found:" + found + " " + line + ":" + column;
     }
 
+    public static String semanticExpressionTypeMismatch(int line, int column, String action, String lhs, String rhs) {
+        return "type mismatch: " + action + " " + lhs + " to " + rhs + " " + line + ":" + column;
+    }
+
+    public static String semanticStringMinusString(int line, int column) {
+        return "type mismatch: '-' isn't defined for the class 'String' " + line + ":" + column;
+    }
+    public static String semanticBooleanInAdditiveExpression(int line, int column) {
+        return "type mismatch : Boolean can't be used with additive Expressions " + line + ":" + column;
+    }
+    public static String semanticBooleanInMultiplicativeExpression(int line, int column) {
+        return "type mismatch : Boolean can't be used with multiplicative Expressions "+ line + ":" + column;
+    }
+    public static String semanticStringInMultiplicativeExpression(int line, int column) {
+        return "type mismatch : String can't be used with multiplicative Expressions " + line + ":" + column;
+    }
+
 
     public static <E extends Enum<E>> boolean isInEnum(String value, Class<E> enumClass) {
         for (E e : enumClass.getEnumConstants()) {

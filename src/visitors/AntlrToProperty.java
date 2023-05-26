@@ -1238,6 +1238,7 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
     @Override
     public Property visitIfCondition(DartParser.IfConditionContext ctx) {
         AntlrToExpression antlrToExpression = factory.createAntlrToExpression(semanticError);
+
         Expression expression = antlrToExpression.visitExpression(ctx.expression());
         String lnNumber = valueOf(ctx.CONDITION().getSymbol().getLine());
         return new ConditionProperty(lnNumber, expression);
