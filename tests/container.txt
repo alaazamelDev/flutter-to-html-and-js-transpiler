@@ -1,4 +1,5 @@
 Scaffold(
+  screenName:"alaa",
   appBar: AppBar(
     title: 'Products Screen',
   ),
