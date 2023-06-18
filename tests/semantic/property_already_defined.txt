@@ -1,0 +1,15 @@
+Scaffold(
+  appBar: AppBar(
+    title: 'Products Screen',
+  ),
+    body:  TextField(
+                      padding: EdgeInsetsSymmetric( vertical: 10, horizontal: 20),
+                      hint: "product price",
+                      textColor: #eb4034,
+                      border: Border(
+                                  borderRadius: BorderRadiusOnly(topLeft: 10, bottomRight: 10),
+                                  thickness: 10
+                              ),
+                      textColor: #eb40334,
+                      ),
+  )
