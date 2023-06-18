@@ -25,6 +25,7 @@ appBar
 appBarProperties
     :   TITLE COLON (STRING|IDENTIFIER) #AppBarTitle //var
     |   CENTERTITLE COLON BOOLEAN #AppBarCenterTitle
+    |   BACKGROUND_COLOR COLON HEX_NUM  #AppBarBackgroundColor
     ;
 
 widget
