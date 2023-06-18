@@ -1127,7 +1127,7 @@ public class AstToHTML implements Visitor<String> {
         StringBuilder code = new StringBuilder("<video ");
         List<Property> properties = videoPlayer.getProperties();
 
-        StringBuilder styles = new StringBuilder("style=\" ");
+        StringBuilder styles = new StringBuilder("style=\" width: 100%; height: auto;\"");
         StringBuilder src = new StringBuilder();
 
         for (Property property : properties) {
