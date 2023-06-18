@@ -581,7 +581,7 @@ public class AstToHTML implements Visitor<String> {
     public String visit(TextField textField) {
         StringBuilder code = new StringBuilder();
         StringBuilder tagId = new StringBuilder();
-        code.append("<input class=\"form-control\" type=\"text\" ");
+        code.append("<input class=\"form-control\" ");
         List<Property> properties = textField.getProperties();
         int childIndex = -1;
 
@@ -601,7 +601,14 @@ public class AstToHTML implements Visitor<String> {
             }
         }
 
+        System.out.println(tagId);
+
         if (tagId.length() > 0) {
+            int x = tagId.indexOf("password");
+            if(x != -1) {
+                System.out.println(x);
+                code.append(" type=\"password\" ");
+            }
             code.append(tagId);
         }
         if (styles.length() > 8) {
