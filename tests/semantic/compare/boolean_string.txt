@@ -1,0 +1,12 @@
+string str;
+str = "hey";
+Scaffold(
+  appBar: AppBar(
+    title: 'Home Screen',
+    centerTitle: false,
+  ),
+  body: If(
+    condition: str != true,
+    child: Container(height:10)
+  ),
+)

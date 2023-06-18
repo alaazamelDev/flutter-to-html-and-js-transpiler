@@ -1,0 +1,12 @@
+int num;
+num = 0;
+Scaffold(
+  appBar: AppBar(
+    title: 'Home Screen',
+    centerTitle: false,
+  ),
+  body: If(
+    condition: num > true,
+    child: Container(height:10)
+  ),
+)

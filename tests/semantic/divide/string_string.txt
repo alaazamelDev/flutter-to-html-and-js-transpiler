@@ -1,0 +1,16 @@
+string str;
+str = "hello,";
+
+string str2;
+str2 = "world";
+
+Scaffold(
+  appBar: AppBar(
+    title: 'Home Screen',
+    centerTitle: false,
+  ),
+  body: If(
+    condition: str/str2 == "hello,world",
+    child: Container(height:10)
+  ),
+)

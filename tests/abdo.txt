@@ -6,19 +6,14 @@ Scaffold(
     ),
     body: ListView(
       children:[
-        for(index < 5)(
-          if(index != "aa")(
+          If(index != "aa")(
             Container(
               width:200,
               height:200,
-              child: Image(
-                      url:"https://www.google.com",
-                      fit: cover,
-                  ),
+              child: Container(height:40)
             ),
             Container(height:20),
-          )
-        )
+         )
       ],
     ),
 )

@@ -9,7 +9,7 @@ public class AdditiveExpression extends Expression {
     private final List<Expression> expressions;
     private final List<TokenType> operators;
 
-    public AdditiveExpression(List<Expression> expressions, List<TokenType> operators,String lnNumber, String value) {
+    public AdditiveExpression(List<Expression> expressions, List<TokenType> operators,String lnNumber, Object value) {
         super(lnNumber, value);
         this.expressions = expressions;
         this.operators = operators;
