@@ -74,6 +74,8 @@ public interface Visitor<T> {
 
     public T visit(BackgroundColorProperty backgroundColorProperty);
 
+    public T visit(properties.appbar.BackgroundColorProperty backgroundColorProperty);
+
     public T visit(BorderProperty borderProperty);
 
     public T visit(CenterTitleProperty centerTitleProperty);

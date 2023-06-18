@@ -47,6 +47,7 @@ public class AstToHTML implements Visitor<String> {
 
         String appbarTitleProperty = "";
         String appbarCenterTitleProperty = "";
+        String appbarBackgroundColorProperty = "";
 
 
         for (Property property : appBar.getProperties()) {
@@ -55,13 +56,15 @@ public class AstToHTML implements Visitor<String> {
                 UTIL.pageName = appbarTitleProperty.replace("<p>", "").replace("</p>", "");
             } else if (property.getName().equals("centerTitle")) {
                 appbarCenterTitleProperty = property.accept(this);
+            }else if (property.getName().equals("backgroundColor")) {
+                appbarBackgroundColorProperty = property.accept(this);
             }
         }
 
         // Create div with some styling
         StringBuilder nav = new StringBuilder("<div style=\"");
         nav.append("padding: 1.0rem; ");   // padding attribute
-        nav.append("background-color: #610F7F; ");   // background color attribute
+        nav.append(appbarBackgroundColorProperty);  // background color attribute
         nav.append("color: #FFFFFF; ");   // background color attribute
 //        nav.append("margin: 20px; 20px; 20px; 20px;");   // margin attribute
         nav.append(appbarCenterTitleProperty);  // center title attribute
@@ -649,6 +652,14 @@ public class AstToHTML implements Visitor<String> {
         }
 
         return "";
+    }
+
+    @Override
+    public String visit(properties.appbar.BackgroundColorProperty backgroundColorProperty) {
+        StringBuilder color = new StringBuilder();
+        color.append("background-color: ").append(backgroundColorProperty.getValue()).append(";");
+
+        return color.toString();
     }
 
     @Override

@@ -275,6 +275,11 @@ public class AstBaseVisitor<T> implements Visitor<T>{
     }
 
     @Override
+    public T visit(properties.appbar.BackgroundColorProperty backgroundColorProperty) {
+        return null;
+    }
+
+    @Override
     public T visit(BorderProperty borderProperty) {
         return null;
     }
