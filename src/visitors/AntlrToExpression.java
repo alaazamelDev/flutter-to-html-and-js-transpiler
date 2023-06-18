@@ -267,7 +267,7 @@ public class AntlrToExpression extends DartParserBaseVisitor<Expression> {
                     return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), null);
                 }
             }
-            return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), String.valueOf(result));
+            return new AdditiveExpression(expressionList, tokenTypeList, String.valueOf(lineNumber), result);
 
         } else {
             return expressionList.get(0);

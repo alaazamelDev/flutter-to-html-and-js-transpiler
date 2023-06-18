@@ -1,0 +1,37 @@
+Widget ProductCard {
+string text_title;
+return (
+Center(
+       child:Text(
+       text:text_title
+        )
+      )
+)
+}
+
+Widget ProductCard {
+  string ids;
+  string name;
+  return (
+     Center(
+       child:Button(
+       title:name
+        )
+      )
+      )
+}
+
+
+
+Scaffold(
+  appBar: AppBar(
+    title: 'products Screen',
+  ),
+  body: Center(
+          child: ProductCard(
+            name: "Headset",
+          ),
+        ),
+
+
+)
