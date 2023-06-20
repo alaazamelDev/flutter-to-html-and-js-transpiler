@@ -604,12 +604,10 @@ public class AstToHTML implements Visitor<String> {
             }
         }
 
-        System.out.println(tagId);
 
         if (tagId.length() > 0) {
             int x = tagId.indexOf("password");
             if(x != -1) {
-                System.out.println(x);
                 code.append(" type=\"password\" ");
             }
             code.append(tagId);
