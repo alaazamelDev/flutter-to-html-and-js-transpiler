@@ -1,0 +1,59 @@
+Scaffold(
+    screenName: "LoginScreenTest",
+    appBar: AppBar(
+        backgroundColor: #610F7F,
+        title:"Login Screen",
+        centerTitle: true,
+    ),
+    body: Center(
+        child: Padding(
+            padding: EdgeInsetsSymmetric(horizontal: 100, vertical: 100),
+            child: Form(child: Column(
+                       children:[
+                           Text(
+                               text:"Welcome to our app 🙋🏻‍♂️",
+                               fontSize: 36,
+                               fontWeight: bold,
+                           ),
+                           Container(height: 100),
+                           TextField(
+                               id: "email",
+                               hint: "Enter your email",
+                               padding: EdgeInsetsSymmetric(horizontal: 20, vertical: 10),
+                               textColor: #610F7F,
+                               border: Border(
+                                   color: #610F7F,
+                                   thickness: 1,
+                                   borderRadius: BorderRadiusCircular(radius: 10),
+                               ),
+                           ),
+                           Container(height: 16),
+                           TextField(
+                               id: "password",
+                               hint: "Enter your password",
+                               padding: EdgeInsetsSymmetric(horizontal: 20, vertical: 10),
+                               textColor: #610F7F,
+                               border: Border(
+                                   color: #610F7F,
+                                   thickness: 1,
+                                   borderRadius: BorderRadiusCircular(radius: 10),
+                               ),
+                           ),
+                           Container(height: 40),
+                           Button(
+                               title:"Login",
+                               backgroundColor: #610F7F,
+                               titleColor: #FFFFFF,
+                               onPressed: () {
+                                   popUp("Login button pressed");
+                               },
+                           ),
+                       ],
+                   ), onSubmit: {
+                        getX.set("email", itemValue("email"));
+                        getX.set("password", itemValue("password"));
+                        navigateTo("HomeScreenTest.html");
+                   }),
+        ),
+    )
+)

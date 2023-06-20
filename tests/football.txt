@@ -1,0 +1,163 @@
+Widget TeamLogo{
+    string teamName;
+    string teamLogo;
+    return (
+        Column(
+            crossAxisAlignment: center,
+            children:[
+                Image(
+                    url: teamLogo,
+                    width: 80,
+                    height: 80,
+                ),
+                Container(height: 10),
+                Text(
+                    text: teamName,
+                    fontWeight: bold,
+                )
+            ],
+        )
+    )
+}
+
+Scaffold(
+    screenName: "FootballTest",
+    appBar: AppBar(
+        backgroundColor: #2ECC71,
+        title:"Man City vs Real Madrid",
+        centerTitle: false,
+    ),
+    body: Padding(
+        padding: EdgeInsetsSymmetric(vertical: 30,horizontal: 100),
+        child: Column(
+            children:[
+                Row(
+                    children:[
+                        Text(
+                            text: "UEFA Champions League - 17 May",
+                        ),
+                        Container(width: 100),
+                        Text(
+                            text: "Full-time",
+                            fontWeight: bold,
+                        ),
+                    ],
+                ),
+
+                Container(height: 20),
+
+                Padding(
+                    padding: EdgeInsetsSymmetric(horizontal: 40),
+                    child: Row(
+                               crossAxisAlignment: center,
+                               children:[
+                                   TeamLogo(
+                                       teamName: "ManCity",
+                                       teamLogo: "https://ssl.gstatic.com/onebox/media/sports/logos/z44l-a0W1v5FmgPnemV6Xw_96x96.png",
+                                   ),
+                                   Container(width:50),
+                                   Text(
+                                       text:"4",
+                                       fontWeight: bold,
+                                       fontSize: 40,
+                                   ),
+                                   Container(width:20),
+                                   Text(
+                                       text:"-",
+                                       fontWeight: bold,
+                                       fontSize: 36,
+                                   ),
+                                   Container(width:20),
+                                   Text(
+                                       text:"0",
+                                       fontWeight: bold,
+                                       fontSize: 40,
+                                   ),
+                                   Container(width:50),
+                                   TeamLogo(
+                                       teamName: "Real Madrid",
+                                       teamLogo: "https://ssl.gstatic.com/onebox/media/sports/logos/Th4fAVAZeCJWRcKoLW7koA_96x96.png",
+                                   ),
+                               ],
+                           ),
+                ),
+                Padding(
+                    padding: EdgeInsetsSymmetric(horizontal: 40),
+                    child: Column(
+                               children:[
+                                  Text(text: "Bernardo Silva 23', 37'"),
+                                  Text(text: "Manuel Akanji 76'"),
+                                  Text(text: "Julian Alvarez 90+1'"),
+                               ],
+                          ),
+                ),
+                Center(
+                    child: Padding(
+                               padding: EdgeInsetsSymmetric(horizontal: 40),
+                               child: Column(
+                                   children:[
+                                        Text(
+                                            text: "First Goal!",
+                                            fontWeight: bold,
+                                            fontSize: 25
+                                        ),
+                                        VideoPlayer(
+                                            src: "C:\Users\ASUS\Desktop\vini.mp4"
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsetsSymmetric(horizontal: 30),
+                                            child:
+                                                Text(id: "caption", setValue: ("caption", getX.get("caption1"))),
+                                        ),
+                                            Column(
+                                              children: [
+                                                TextField(label: "add caption to video", id: "field1"),
+                                                Padding(
+                                                    padding: EdgeInsetsSymmetric(horizontal: 40),
+                                                    child: Row(children: [
+                                                        Padding(child:
+                                                        Button(
+                                                            title: "Add Caption",
+                                                            backgroundColor: #00C0AA,
+                                                            onPressed: () {
+                                                               getX.set("caption1", itemValue("field1"));
+                                                               setValue("caption", getX.get("caption1"));
+                                                            },
+                                                         ),
+                                                         padding: EdgeInsetsSymmetric(horizontal: 30),
+                                                        ),
+                                                        Padding( child:
+                                                        Button(
+                                                            title: "Reset Caption",
+                                                            backgroundColor: #FFC0AA,
+                                                            onPressed: () {
+                                                                popUp("Caption Cleared");
+                                                                getX.set("caption1", "");
+                                                                setValue("caption", getX.get("caption1"));
+                                                            },
+                                                        ),
+                                                          padding: EdgeInsetsSymmetric(horizontal: 30),
+                                                        ),
+                                                          Padding( child:
+                                                               Button(
+                                                               title: "See Full Match",
+                                                               backgroundColor: #AFCAAA,
+                                                               onPressed: () {
+                                                                  navigateTo("https://www.youtube.com/watch?v=o3V-GvvzjE4");
+                                                               },
+                                                            ),
+                                                               padding: EdgeInsetsSymmetric(horizontal: 30),
+                                                          ),
+                                                    ]
+                                                   ),
+                                                ),
+                                              ]
+                                            ),
+                               ]
+                       )
+                    ),
+                ),
+            ],
+        ),
+    ),
+)

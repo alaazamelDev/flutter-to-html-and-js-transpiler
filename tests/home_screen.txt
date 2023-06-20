@@ -1,0 +1,68 @@
+Scaffold(
+    screenName: "HomeScreenTest",
+    appBar: AppBar(
+        backgroundColor: #610F7F,
+        title:"Home Screen",
+        centerTitle: true,
+    ),
+    body: Center(
+        child: Padding(
+            padding: EdgeInsetsSymmetric(vertical:100),
+            child: Column(
+                children:[
+                    Text(
+                        text: "You've successfully logged in 🎊",
+                        fontSize: 36,
+                        fontWeight: bold,
+                    ),
+                    Container(height:50),
+                    Row(
+                        children:[
+                            Text(
+                                text: "Your Email: ",
+                                fontSize: 16,
+                                fontWeight: bold,
+                            ),
+                            Container(width:8),
+                            Text(
+                                id: "email",
+                                setValue: ("email", getX.get("email")),
+                                fontSize: 16,
+                                fontWeight: medium,
+                            ),
+                        ],
+                    ),
+                    Container(height:16),
+                    Row(
+                        children:[
+                            Text(
+                                text: "Your Password: ",
+                                fontSize: 16,
+                                fontWeight: bold,
+                                setValue: ("password", getX.get("password")),
+                            ),
+                            Container(width:8),
+                            Text(
+                                id: "password",
+
+                                fontSize: 16,
+                                fontWeight: medium,
+                            ),
+                        ],
+                    ),
+                    Button(
+                      title:"Logout",
+                      backgroundColor: #610F7F,
+                      titleColor: #FFFFFF,
+                      onPressed: () {
+                        popUp("Logged out");
+                        getX.set("email", "");
+                        getX.set("password", "");
+                        navigateTo("LoginScreenTest.html");
+                    },
+                  ),
+                ],
+            ),
+        ),
+    )
+)
