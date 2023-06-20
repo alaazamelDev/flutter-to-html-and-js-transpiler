@@ -427,6 +427,17 @@ public class AstToGraphVisitor implements Visitor<String> {
     }
 
     @Override
+    public String visit(properties.appbar.BackgroundColorProperty backgroundColorProperty) {
+        UTIL.ID++;
+
+        String vertex = UTIL.propertyToString(UTIL.ID, backgroundColorProperty.getName(), backgroundColorProperty.getValue(), 0, backgroundColorProperty.getLnNumber());
+
+        UTIL.g.addVertex(vertex);
+
+        return vertex;
+    }
+
+    @Override
     public String visit(Children children) {
         UTIL.ID++;
         String vertex = UTIL.propertyToString(UTIL.ID, children.getName(),

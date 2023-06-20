@@ -104,6 +104,14 @@ public class AntlrToProperty extends DartParserBaseVisitor<Property> {
         return new CenterTitleProperty(value, lineNumber);
     }
 
+    @Override
+    public Property visitAppBarBackgroundColor(DartParser.AppBarBackgroundColorContext ctx) {
+        int lineNumber = ctx.BACKGROUND_COLOR().getSymbol().getLine();
+
+        String buttonBackgroundColor = ctx.getChild(2).getText();
+        return new BackgroundColorProperty(buttonBackgroundColor, valueOf(lineNumber));
+    }
+
 
     @Override
     public Property visitGestureDetectorChild(DartParser.GestureDetectorChildContext ctx) {

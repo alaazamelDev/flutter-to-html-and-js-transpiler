@@ -5,4 +5,7 @@ src/antlr/
 out/
 *.iml
 !compilerproject.iml
+tests/
+output/
+src/graph.png
 

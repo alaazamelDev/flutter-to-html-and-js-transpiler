@@ -1,0 +1,9 @@
+string name ;
+name = "anas";
+string name ;
+name = "ahmad";
+Scaffold(
+  appBar: AppBar(
+    title: 'Products Screen',
+  ),
+)

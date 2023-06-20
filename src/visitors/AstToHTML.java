@@ -47,6 +47,7 @@ public class AstToHTML implements Visitor<String> {
 
         String appbarTitleProperty = "";
         String appbarCenterTitleProperty = "";
+        String appbarBackgroundColorProperty = "";
 
 
         for (Property property : appBar.getProperties()) {
@@ -55,21 +56,23 @@ public class AstToHTML implements Visitor<String> {
                 UTIL.pageName = appbarTitleProperty.replace("<p>", "").replace("</p>", "");
             } else if (property.getName().equals("centerTitle")) {
                 appbarCenterTitleProperty = property.accept(this);
+            }else if (property.getName().equals("backgroundColor")) {
+                appbarBackgroundColorProperty = property.accept(this);
             }
         }
 
         // Create div with some styling
-        StringBuilder nav = new StringBuilder("<nav class=\"navbar\" style=\"");
-        nav.append("padding: 0.5rem 1.5rem 0.5rem 1.5rem; ");   // padding attribute
-        nav.append("background-color: #044389; ");   // background color attribute
+        StringBuilder nav = new StringBuilder("<div style=\"");
+        nav.append("padding: 1.0rem; ");   // padding attribute
+        nav.append(appbarBackgroundColorProperty);  // background color attribute
         nav.append("color: #FFFFFF; ");   // background color attribute
-        nav.append("margin-bottom: 20px; ");
+//        nav.append("margin: 20px; 20px; 20px; 20px;");   // margin attribute
         nav.append(appbarCenterTitleProperty);  // center title attribute
         nav.append(" \">"); // close style attribute
         nav.append("\n");   // break the line
         nav.append(appbarTitleProperty);    // add title attribute as heading tag
         nav.append("\n");
-        nav.append("</nav>");   // close div tag
+        nav.append("</div>");   // close div tag
 
         return nav.toString();
     }
@@ -581,27 +584,32 @@ public class AstToHTML implements Visitor<String> {
     public String visit(TextField textField) {
         StringBuilder code = new StringBuilder();
         StringBuilder tagId = new StringBuilder();
-        code.append("<input class=\"form-control\" type=\"text\" ");
+        code.append("<input class=\"form-control\" ");
         List<Property> properties = textField.getProperties();
         int childIndex = -1;
 
         StringBuilder styles = new StringBuilder();
         styles.append("style=\" ");
 
-        StringBuilder hint = new StringBuilder();
+//        StringBuilder hint = new StringBuilder();
 
         for (int i = 0; i < properties.size(); i++) {
             switch (properties.get(i).getName()) {
                 case "label" -> code.append("placeholder=").append(properties.get(i).accept(this)).append(" ");
                 case "value" -> code.append("value=").append(properties.get(i).accept(this)).append(" ");
                 case "textColor", "border", "padding" -> styles.append(properties.get(i).accept(this));
-                case "hint" -> hint.append(properties.get(i).accept(this));
+                case "hint" -> code.append(properties.get(i).accept(this));
                 case "id" -> tagId.append(properties.get(i).accept(this));
                 default -> childIndex = i;
             }
         }
 
+
         if (tagId.length() > 0) {
+            int x = tagId.indexOf("password");
+            if(x != -1) {
+                code.append(" type=\"password\" ");
+            }
             code.append(tagId);
         }
         if (styles.length() > 8) {
@@ -610,7 +618,7 @@ public class AstToHTML implements Visitor<String> {
 
         code.append(" >\n");
         // append the hint if it's exist, if not it will append empty string
-        code.append(hint);
+//        code.append(hint);
 
         if (childIndex != -1) {
             code.append(properties.get(childIndex).accept(this));
@@ -642,6 +650,14 @@ public class AstToHTML implements Visitor<String> {
         }
 
         return "";
+    }
+
+    @Override
+    public String visit(properties.appbar.BackgroundColorProperty backgroundColorProperty) {
+        StringBuilder color = new StringBuilder();
+        color.append("background-color: ").append(backgroundColorProperty.getValue()).append(";");
+
+        return color.toString();
     }
 
     @Override
@@ -727,8 +743,8 @@ public class AstToHTML implements Visitor<String> {
     @Override
     public String visit(HintProperty hintProperty) {
         StringBuilder hint = new StringBuilder();
-        hint.append("<h4 style=\"margin-top: 0;\">\n").append(hintProperty.getValue().replace("\"", "")).append("\n").append("</h4>\n");
-
+//        hint.append("<h4 style=\"margin-top: 0;\">\n").append(hintProperty.getValue().replace("\"", "")).append("\n").append("</h4>\n");
+        hint.append("placeholder=").append(hintProperty.getValue());
         return hint.toString();
     }
 
@@ -1127,7 +1143,7 @@ public class AstToHTML implements Visitor<String> {
         StringBuilder code = new StringBuilder("<video ");
         List<Property> properties = videoPlayer.getProperties();
 
-        StringBuilder styles = new StringBuilder("style=\" ");
+        StringBuilder styles = new StringBuilder("style=\" width: 100%; height: auto;\"");
         StringBuilder src = new StringBuilder();
 
         for (Property property : properties) {

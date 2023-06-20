@@ -74,29 +74,27 @@ public class CompilerApp {
         }
 
 
+        assert antlrToProgram != null;
         if (antlrToProgram.getSemanticError().isEmpty()) {
 
 
-            if (program != null) {
+            // call code generation visitor.
+            AstToHTML codeGenerationVisitor = new AstToHTML();
+            String htmlOutput = codeGenerationVisitor.visit(program);
 
-                // call code generation visitor.
-                AstToHTML codeGenerationVisitor = new AstToHTML();
-                String htmlOutput = codeGenerationVisitor.visit(program);
+            String htmlName = "defaultName";
 
-                String htmlName = "defaultName";
-
-                for (Property property : program.getScaffold().getProperties()) {
-                    if(property.getName().equals("name")) {
-                        ScaffoldName scaffoldName = (ScaffoldName)property;
-                        htmlName = scaffoldName.getValue().replace("\"", "");
-                    }
+            for (Property property : program.getScaffold().getProperties()) {
+                if(property.getName().equals("name")) {
+                    ScaffoldName scaffoldName = (ScaffoldName)property;
+                    htmlName = scaffoldName.getValue().replace("\"", "");
                 }
-
-                UTIL.writeToFile(htmlOutput,"output/" + htmlName + ".html");
-
-                // print message that tells that every thing is okay
-                System.out.println("Code Compiled Successfully...");
             }
+
+            UTIL.writeToFile(htmlOutput,"output/" + htmlName + ".html");
+
+            // print message that tells that every thing is okay
+            System.out.println("Code Compiled Successfully...");
 
         } else {
             for (String semantic : antlrToProgram.getSemanticError()) {
