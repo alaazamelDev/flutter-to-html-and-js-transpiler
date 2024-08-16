@@ -48,6 +48,24 @@ The project is structured using the Composite Design Pattern, which is ideal for
 
 [To be added in a future update]
 
+## Examples
+
+Here's an example of how the Flutter-like code is transpiled to HTML and JavaScript:
+
+### Flutter-like Source Code
+
+[Source Language Code](test_source.drt)
+
+### Transpiled HTML & JavaScript
+
+[Transpiled Code](test_transpiled.html)
+
+<details>
+<summary>View Result</summary>
+
+<img src="showcase.png" alt="Execution Result" width="100%">
+</details>
+
 ## Future Improvements
 
 The project's structure, thanks to the use of Composite and Visitor design patterns, allows for easy extensibility and improvements without affecting the existing codebase. Potential areas for enhancement include:
