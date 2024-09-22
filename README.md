@@ -44,6 +44,12 @@ The project is structured using the Composite Design Pattern, which is ideal for
 - Java: Primary programming language
 - jGraphT library: Utilized for visualizing the AST as a graph
 
+## Documentation
+
+For complete documentation of the project in Arabic, please refer to the following link:
+
+[Arabic Documentation](https://docs.google.com/document/d/1c1PCO6FGULGv2V9SRgx8zC3AI9ZIaIeHzJyvhV3BaeE/edit?usp=sharing)
+
 ## How to Use
 
 [To be added in a future update]
