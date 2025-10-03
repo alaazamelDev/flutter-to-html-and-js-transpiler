@@ -9,3 +9,8 @@ tests/
 output/
 src/graph.png
 
+node_modules/
+bin/
+uploads/
+*.class
+package-lock.json
