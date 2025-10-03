@@ -1,16 +1,43 @@
-gen/
-src/gen/
-src/antlr/
+### Build / output
+/bin/
+/out/
+/target/
+/build/
+/dist/
+/output/
+uploads/
+
+### Java artifacts
+*.class
+*.log
+# Keep lib jars committed, but ignore any top-level jars produced by builds
+*.jar
+!lib/*.jar
+
+### Node / JS
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+### IDEs and editors
 .idea/
-out/
+.vscode/
 *.iml
 !compilerproject.iml
-tests/
-output/
-src/graph.png
 
-node_modules/
-bin/
-uploads/
-*.class
-package-lock.json
+### OS files
+.DS_Store
+Thumbs.db
+
+### Env / secrets
+.env
+.env.local
+*.keystore
+*.jks
+
+### Misc
+coverage/
+.cache/
+*.swp
+*.bak

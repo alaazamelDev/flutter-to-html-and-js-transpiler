@@ -1,27 +1,68 @@
 Scaffold(
-  screenName:"alaa",
+  screenName: "Showcase",
   appBar: AppBar(
-    title: 'Products Screen',
+    title: 'Product Showcase',
+    backgroundColor: #0E1116
   ),
-  body: Container(
-            width: 500,
-            height: 500,
-            contentAlignment: center,
-            decoration: BoxDecoration(
-              color: #96eac0,
-              borderRadius: BorderRadiusOnly(topLeft:10,bottomRight:50),
-            ),
-            child:TextField(
-                      padding: EdgeInsetsSymmetric( vertical: 10, horizontal: 20),
-                      hint: "hey",
-                      label: "hey",
-                      value: "test value",
-                      textColor: #eb4034,
-                      border: Border(
-                                  borderRadius: BorderRadiusOnly(topLeft: 10, bottomRight: 10),
-                                  color: #0000ff,
-                                  thickness: 10
-                              )
-                      ),
+  body: Padding(
+    padding: EdgeInsetsSymmetric(horizontal: 36, vertical: 28),
+    child: Column(
+      children: [
+        Text(
+          text: "Top Picks for You",
+          fontSize: 26,
+          fontWeight: bold,
+          textAlign: center
+        ),
+        Container(height: 16),
+        Row(children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: #FFFFFF,
+                borderRadius: BorderRadiusCircular(radius: 12)
+              ),
+              child: Padding(
+                padding: EdgeInsetsSymmetric(horizontal: 18, vertical: 18),
+                child: Column(children: [
+                  Text(text: "Aurora Headphones", fontSize: 18, fontWeight: bold),
+                  Container(height: 8),
+                  Text(text: "Immersive sound with active noise cancellation.", fontSize: 13),
+                  Container(height: 12),
+                  Row(children: [
+                      Text(text: "199", fontSize: 18, fontWeight: bold),
+                    Container(width: 12),
+                    Button(title: "Buy", backgroundColor: #00C9A7, titleColor: #FFFFFF, onPressed: () { popUp("Added Aurora to cart"); })
+                  ])
+                ])
+              )
+            )
           ),
+          Container(width: 16),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: #FFFFFF,
+                borderRadius: BorderRadiusCircular(radius: 12)
+              ),
+              child: Padding(
+                padding: EdgeInsetsSymmetric(horizontal: 18, vertical: 18),
+                child: Column(children: [
+                  Text(text: "Nebula Speaker", fontSize: 18, fontWeight: bold),
+                  Container(height: 8),
+                  Text(text: "Compact speaker, rich bass, smart integration.", fontSize: 13),
+                  Container(height: 12),
+                  Row(children: [
+                    Text(text: "129", fontSize: 18, fontWeight: bold),
+                    Container(width: 12),
+                    Button(title: "Buy", backgroundColor: #FF7A59, titleColor: #FFFFFF, onPressed: () { popUp("Added Nebula to cart"); })
+                  ])
+                ])
+              )
+            )
+          )
+        ])
+      ]
+    )
+  )
 )

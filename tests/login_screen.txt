@@ -1,59 +1,53 @@
 Scaffold(
-    screenName: "LoginScreenTest",
+    screenName: "PortfolioSimple",
     appBar: AppBar(
-        backgroundColor: #610F7F,
-        title:"Login Screen",
-        centerTitle: true,
+        title: 'Astra Studio',
+        backgroundColor: #FAFBFF,
+        centerTitle: true
     ),
-    body: Center(
-        child: Padding(
-            padding: EdgeInsetsSymmetric(horizontal: 100, vertical: 100),
-            child: Form(child: Column(
-                       children:[
-                           Text(
-                               text:"Welcome to our app 🙋🏻‍♂️",
-                               fontSize: 36,
-                               fontWeight: bold,
-                           ),
-                           Container(height: 100),
-                           TextField(
-                               id: "email",
-                               hint: "Enter your email",
-                               padding: EdgeInsetsSymmetric(horizontal: 20, vertical: 10),
-                               textColor: #610F7F,
-                               border: Border(
-                                   color: #610F7F,
-                                   thickness: 1,
-                                   borderRadius: BorderRadiusCircular(radius: 10),
-                               ),
-                           ),
-                           Container(height: 16),
-                           TextField(
-                               id: "password",
-                               hint: "Enter your password",
-                               padding: EdgeInsetsSymmetric(horizontal: 20, vertical: 10),
-                               textColor: #610F7F,
-                               border: Border(
-                                   color: #610F7F,
-                                   thickness: 1,
-                                   borderRadius: BorderRadiusCircular(radius: 10),
-                               ),
-                           ),
-                           Container(height: 40),
-                           Button(
-                               title:"Login",
-                               backgroundColor: #610F7F,
-                               titleColor: #FFFFFF,
-                               onPressed: () {
-                                   popUp("Login button pressed");
-                               },
-                           ),
-                       ],
-                   ), onSubmit: {
-                        getX.set("email", itemValue("email"));
-                        getX.set("password", itemValue("password"));
-                        navigateTo("HomeScreenTest.html");
-                   }),
-        ),
+    body: Padding(
+        padding: EdgeInsetsSymmetric(horizontal: 24, vertical: 24),
+        child: Column(children: [
+            
+            Container(
+                decoration: BoxDecoration(color: #FFFFFF, borderRadius: BorderRadiusCircular(radius: 12)),
+                child: Padding(
+                    padding: EdgeInsetsSymmetric(horizontal: 22, vertical: 18),
+                    child: Row(children: [
+                        Expanded(child: Column(children: [Text(text: "Astra Studio — Product Design", fontSize: 28, fontWeight: bold), Container(height: 8), Text(text: "We design simple, elegant interfaces and fast landing pages for founders and teams.", fontSize: 14)])),
+                        Container(width: 12),
+                        Container(decoration: BoxDecoration(color: #F1F7FF, borderRadius: BorderRadiusCircular(radius: 8)), child: Padding(padding: EdgeInsetsSymmetric(horizontal: 12, vertical: 8), child: Column(children: [Text(text: "Established 2021", fontSize: 12, fontWeight: bold), Container(height: 6), Text(text: "Small team — big results", fontSize: 12)])))
+                    ])
+                )
+            ),
+            Container(height: 18),
+
+            
+            Row(children: [
+                Expanded(child: Container(decoration: BoxDecoration(color: #F7FBFF, borderRadius: BorderRadiusCircular(radius: 10)), child: Padding(padding: EdgeInsetsSymmetric(horizontal: 16, vertical: 16), child: Column(children: [Text(text: "Design Systems", fontSize: 16, fontWeight: bold), Container(height: 8), Text(text: "Reusable UI kits for teams.", fontSize: 12)])))) ,
+                Container(width: 12),
+                Expanded(child: Container(decoration: BoxDecoration(color: #FFF7F1, borderRadius: BorderRadiusCircular(radius: 10)), child: Padding(padding: EdgeInsetsSymmetric(horizontal: 16, vertical: 16), child: Column(children: [Text(text: "Landing Pages", fontSize: 16, fontWeight: bold), Container(height: 8), Text(text: "Conversion-first templates.", fontSize: 12)])))) ,
+                Container(width: 12),
+                Expanded(child: Container(decoration: BoxDecoration(color: #F0FFF6, borderRadius: BorderRadiusCircular(radius: 10)), child: Padding(padding: EdgeInsetsSymmetric(horizontal: 16, vertical: 16), child: Column(children: [Text(text: "Prototypes", fontSize: 16, fontWeight: bold), Container(height: 8), Text(text: "Interactive demos for stakeholders.", fontSize: 12)]))))
+            ]),
+            Container(height: 18),
+
+            
+            Row(children: [
+                Expanded(child: Container(decoration: BoxDecoration(color: #FFFFFF, borderRadius: BorderRadiusCircular(radius: 10)), child: Padding(padding: EdgeInsetsSymmetric(horizontal: 14, vertical: 14), child: Column(children: [Text(text: "Meet Clara", fontSize: 16, fontWeight: bold), Container(height: 8), Text(text: "Lead Designer — product & interaction.", fontSize: 12)])))),
+                Container(width: 12),
+                Expanded(child: Container(decoration: BoxDecoration(color: #FFFFFF, borderRadius: BorderRadiusCircular(radius: 10)), child: Padding(padding: EdgeInsetsSymmetric(horizontal: 14, vertical: 14), child: Column(children: [Text(text: "Meet Omar", fontSize: 16, fontWeight: bold), Container(height: 8), Text(text: "Frontend engineer — performance-focused.", fontSize: 12)])))),
+                Container(width: 12),
+                Expanded(child: Container(decoration: BoxDecoration(color: #FFFFFF, borderRadius: BorderRadiusCircular(radius: 10)), child: Padding(padding: EdgeInsetsSymmetric(horizontal: 14, vertical: 14), child: Column(children: [Text(text: "Meet Priya", fontSize: 16, fontWeight: bold), Container(height: 8), Text(text: "UX researcher — user-first insights.", fontSize: 12)]))))
+            ]),
+            Container(height: 20),
+
+            
+            Row(children: [
+                Button(title: "Work with us", backgroundColor: #1F6FEB, titleColor: #FFFFFF, onPressed: () { popUp("Contact form coming soon"); }),
+                Container(width: 12),
+                Button(title: "See portfolio", backgroundColor: #00D4A9, titleColor: #FFFFFF, onPressed: () { navigateTo("anotherFile.html"); })
+            ])
+        ])
     )
 )
