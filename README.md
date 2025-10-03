@@ -1,98 +1,164 @@
-# Flutter-like to HTML/JS Transpiler
 
-## Project Overview
+# Astra — Flutter-like to HTML/JS Transpiler
 
-This project is an experimental transpiler that translates "Flutter-like" code into HTML and JavaScript. It was developed as a university assignment to demonstrate the process of building a transpiler, including lexical analysis, parsing, syntax and semantic error handling, Abstract Syntax Tree (AST) construction, and code generation.
+Astra is a Java-based transpiler that converts a compact, Flutter-inspired UI language into production-ready HTML and minimal JavaScript. This repo bundles a Java transpiler, ANTLR grammars, a small Node/Express preview server, curated example files, and a Docker/Render-friendly configuration to run the service as one deployable unit.
 
-The main goal of this project is to allow users to write code in a Flutter-like syntax and have it automatically translated into web technologies (HTML & JS). This showcases the ability to work with compiler design concepts and implement complex language processing systems.
+This README is written for inclusion in a portfolio: it explains what the project does, how to run it locally, how to deploy it, and how to contribute or extend the language.
+
+---
+
+Table of contents
+- What is Astra?
+- Quick demo
+- Features
+- Repo layout
+- Installation (local)
+- Build & run
+- Examples
+- Deployment (Docker & Render)
+- Extending the grammar
+- Contributing
+- Troubleshooting
+- Credits & License
+
+## What is Astra?
+
+Astra provides a small, designer-friendly language (a subset similar to Flutter's widget structure) and a transpiler that converts that language into responsive HTML and small JS snippets for interactions. It is an educational but practical project: it demonstrates compiler construction techniques (lexer, parser, AST, visitors) while producing usable web outputs.
+
+## Quick demo
+
+- Edit an example input in `tests/` (e.g. `tests/PortfolioSimple` or the other `.txt` examples).
+- Compile & run the transpiler to generate HTML in `output/`.
+- Start the Node preview server (`npm start`) and open the UI to load examples.
+
+See the `tests/` directory for ready-to-run example `.drt` files used in demos.
 
 ## Features
 
-- Custom lexer for tokenizing Flutter-like syntax
-- Parser with comprehensive syntax and semantic error handling
-- Multi-scoped symbol table implementation using a stack of hashmaps
-- Abstract Syntax Tree (AST) generation
-- Code generation from AST to HTML and JavaScript
-- Visual representation of the AST using jGraphT library
+- ANTLR4-based lexer & parser with clear syntax and semantic error messages.
+- Java visitors that transform the parse tree into an AST and generate HTML + JS.
+- Small Node/Express preview server to upload or paste `.drt` source and get back generated HTML.
+- Curated example inputs that strictly follow the grammar (no parser errors).
+- Docker multi-stage build for reproducible builds and compact runtime images.
 
-## Project Structure
+## Repo layout
 
-The project is structured using the Composite Design Pattern, which is ideal for representing the parent-child relationships in the language structure. The main components are:
+- `src/` — Java source code (ANTLR visitors, transpiler logic, `App.CompilerApp`).
+- `src/grammars/` — ANTLR lexer & parser definitions (`DartLexer.g4`, `DartParser.g4`).
+- `lib/` — third-party JARs required by the Java runtime (committed).
+- `bin/` — compiled classes (generated during local build; ignored by git).
+- `tests/` — curated example inputs (.drt / .txt files) used for demos.
+- `output/` — generated HTML (ignored by git).
+- `server.js` — Express preview server.
+- `Dockerfile`, `render.yaml`, `RENDER.md` — deployment artifacts and guidance.
 
-1. Program: The root of the structure, containing statements and the main scaffold.
-2. Widgets: Both pre-defined and custom UI elements.
-3. Statements: Variable declarations, assignments, and custom widget definitions.
-4. Properties: Attributes and settings for widgets.
-5. Expressions: Mathematical and logical expressions.
+## Installation (local)
 
-## Implementation Details
+Prerequisites
+- Java 17+ (for `javac` and runtime)
+- Node 18+ and `npm`
 
-### Transpiler Process
-1. **Lexical Analysis**: Tokenizes the input code and checks for syntactic errors.
-2. **Parsing and Semantic Analysis**: Matches token sequences against parsing rules and performs semantic checks (e.g., undefined variables, duplicate names, nested scopes).
-3. **Abstract Syntax Tree (AST) Generation**: Builds an AST representing the essential structure of the code.
-4. **Code Generation**: Converts the AST into the target languages (HTML and JavaScript).
+Install Node dependencies (for the preview server):
 
-![Transpiling Process](project_workflow.png)
+```bash
+npm install
+```
 
-### Design Patterns Used
-- **Composite Design Pattern**: Used to structure the project, representing the parent-child relationships in the language elements.
-- **Visitor Design Pattern**: Employed to separate the logic applied to the parsing tree (for AST generation and syntactic error checking) and the AST (for code generation and other operations) from the structure itself.
+Compile Java sources (this produces `bin/`):
 
-### Technologies and Tools
-- ANTLR4: Used for lexer and parser generation
-- Java: Primary programming language
-- jGraphT library: Utilized for visualizing the AST as a graph
+```bash
+mkdir -p bin
+javac --release 17 -cp "lib/*:src" -d bin $(find src -name "*.java")
+```
 
-## Documentation
+Run a transpiler pass on an example (generates `output/<name>.html`):
 
-For complete documentation of the project in Arabic, please refer to the following link:
+```bash
+java -cp "lib/*:bin" App.CompilerApp tests/PortfolioSimple
+# or
+java -cp "lib/*:bin" App.CompilerApp tests/container.txt
+```
 
-[Arabic Documentation](https://docs.google.com/document/d/1c1PCO6FGULGv2V9SRgx8zC3AI9ZIaIeHzJyvhV3BaeE/edit?usp=sharing)
+Start the preview server (serves UI on port 5000 by default):
 
-## How to Use
+```bash
+npm start
+# open http://localhost:5000
+```
 
-[To be added in a future update]
+Tip: the server uses `process.env.PORT` so it will work on Render / Heroku-style hosts.
 
 ## Examples
 
-Here's an example of how the Flutter-like code is transpiled to HTML and JavaScript:
+Curated examples live in `tests/`. A few highlights:
+- `tests/PortfolioSimple` — a compact company portfolio layout (no hero section).
+- `tests/form.txt` — contact form demo.
+- `tests/container.txt` — product showcase example.
 
-### Flutter-like Source Code
+These examples are intentionally strict so they parse with the current grammar. When editing examples:
+- avoid `//` comments (lexer doesn't support them)
+- use `#HEX` for colors
+- prefer the grammar tokens/keywords defined in `src/grammars/DartLexer.g4`
 
-[Source Language Code](test_source.drt)
+## Deployment (Docker & Render)
 
-### Transpiled HTML & JavaScript
+Docker
+- Build locally:
 
-[Transpiled Code](test_transpiled.html)
+```bash
+docker build -t astra-transpiler:latest .
+```
+- Run:
 
-<details>
-<summary>View Result</summary>
+```bash
+docker run -p 5000:5000 astra-transpiler:latest
+```
 
-<img src="showcase.png" alt="Execution Result" width="100%">
-</details>
+The provided `Dockerfile` is multi-stage. A JDK image compiles Java/ANTLR artifacts and a slim Node runtime image hosts the preview server with a matching JRE.
 
-## Future Improvements
+Render
+- See `RENDER.md` and `render.yaml` in the repo. The `render.yaml` is a minimal manifest that creates a Web Service on Render configured to build the Dockerfile and expose the app.
 
-The project's structure, thanks to the use of Composite and Visitor design patterns, allows for easy extensibility and improvements without affecting the existing codebase. Potential areas for enhancement include:
+## Extending the grammar
 
-- Expanding the set of supported Flutter-like widgets and properties
-- Optimizing the generated HTML and JavaScript code
-- Adding support for more complex Flutter features
-- Implementing a user-friendly interface for the transpiler
+To add new widgets or properties:
 
-## Contributors
+1. Update `src/grammars/DartLexer.g4` and `src/grammars/DartParser.g4`.
+2. Regenerate ANTLR artifacts (or compile against existing `lib/antlr-4.12.0-complete.jar`).
+3. Update or add visitor methods in `src/visitors/` to produce AST nodes and HTML output.
+4. Recompile Java and run tests against `tests/` examples.
 
-This project was developed as a university assignment by the following team members:
+If you'd like help adding a widget, open an issue describing the syntax and desired HTML output.
 
-- [Alaa Aldeen Zamel](https://github.com/alaazamelDev)
-- Mhd Hadi Barakat
-- Anas Rish
-- Anas Durra
-- Sham Tuameh
+## Contributing
 
-We appreciate the hard work and dedication of all team members in bringing this project to fruition.
+Contributions are welcome. Suggested workflow:
+
+1. Fork this repository.
+2. Create a feature branch: `git checkout -b feat/add-widget`.
+3. Update grammar + visitor code and add tests/examples under `tests/`.
+4. Compile and run the transpiler locally to ensure examples parse.
+5. Open a Pull Request describing the change, the grammar updates, and sample input/output.
+
+Please include tests/examples demonstrating the new or changed behavior.
+
+## Troubleshooting
+
+- "java: not found" — ensure your runtime has Java installed. The Dockerfile installs a JRE in the final image. Locally, install Java 17+.
+- Parsing errors — check the token and rule definitions in `src/grammars/`. Common causes: stray `//` comments, using `textColor` inside `Text` (not supported), or missing commas/parentheses.
+- If you see class version errors (UnsupportedClassVersionError), compile with `--release 17` to match the runtime JRE.
+
+## Credits & Authors
+
+- Lead developer: Alaa Aldeen Zamel (maintainer)
+- Original contributors: Mhd Hadi Barakat, Anas Rish, Anas Durra, Sham Tuameh
+
+If you include this project in your portfolio and want a short author blurb or role description added, tell me your preferred text and I'll add it under an "About the author" section.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License — see `LICENSE` for details.
+
+---
+
+If you want, I can: commit and push these README changes for you, add an "About the author" paragraph, or create a short screenshot of `output/PortfolioSimple.html` to embed in the README.
