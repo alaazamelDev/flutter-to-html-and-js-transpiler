@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: flutter-transpiler
+    env: docker
+    plan: free
+    dockerfilePath: Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: NODE_ENV
+        value: production
