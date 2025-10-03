@@ -46,23 +46,49 @@ This is a Java-based transpiler that converts Flutter-like syntax (.drt files) i
 
 ## Recent Changes
 
-**2025-10-03**: Initial Replit setup
-- Installed Java and Node.js environments
-- Generated ANTLR lexer and parser from grammar files
+**2025-10-03**: Production-ready demo with modern UI
+- Complete UI redesign with dark theme (#0E1116) and neo-mint accents (#00C9A7)
+- Added live working example in hero section (auto-transpiled login screen)
+- Implemented auto-transpile functionality when examples are loaded
+- Enhanced server to accept code directly via JSON (no file upload required)
+- Added Docker support for single-command deployment
+- Created docker-compose.yml for easy orchestration
+- Added startup script (start.sh) for quick local development
+- Improved typography with Inter and JetBrains Mono fonts
+- Added glassmorphism effects and modern animations
 - Compiled Java source code with all dependencies
-- Created Express.js web interface for transpiler
 - Configured workflow to run on port 5000
 - Disabled graph visualization for headless environment
-- Set up file upload and example loading functionality
 
 ## How to Use
 
 ### Web Interface
-1. Visit the application at http://localhost:5000
-2. Upload a .drt or .txt file with Flutter-like syntax
-3. Or click on example buttons to load sample code
-4. Click "Transpile" to convert the code
-5. View the result in the Preview tab or see HTML source in the HTML Source tab
+1. Visit the application at your Replit URL or http://localhost:5000
+2. See the live example in the hero section (auto-transpiled login screen)
+3. Click "Try it Now" to scroll to the editor
+4. Load an example by clicking example buttons (auto-transpiles immediately)
+5. Or upload a .drt or .txt file with Flutter-like syntax
+6. Or paste code directly into the editor and click "Transpile"
+7. View the result in the Preview tab or see HTML source in the HTML Source tab
+
+### Docker Deployment
+
+**Quick start:**
+```bash
+docker-compose up
+```
+
+Or build and run manually:
+```bash
+docker build -t transpiler . && docker run -p 5000:5000 transpiler
+```
+
+**Single script startup:**
+```bash
+./start.sh
+```
+
+See DEPLOYMENT.md for more deployment options.
 
 ### Command Line (Java)
 ```bash
