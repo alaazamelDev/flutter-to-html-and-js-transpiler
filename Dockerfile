@@ -30,8 +30,13 @@ COPY server.js ./
 COPY public ./public
 COPY tests ./tests
 
-# Install Node.js dependencies (production)
-RUN npm install --production
+# Install Node.js dependencies (production) and a lightweight JRE so `java` is available at runtime
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends openjdk-17-jre-headless ca-certificates && \
+    rm -rf /var/lib/apt/lists/* && \
+    npm install --production && \
+    apt-get purge -y --auto-remove && \
+    rm -rf /var/lib/apt/lists/*
 
 # Create runtime directories
 RUN mkdir -p uploads output
