@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  transpiler:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./output:/app/output
+      - ./uploads:/app/uploads
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production

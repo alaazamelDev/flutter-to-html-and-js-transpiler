@@ -1,0 +1,16 @@
+node_modules
+bin
+uploads
+output
+*.class
+.git
+.gitignore
+.replit
+replit.nix
+README.md
+replit.md
+src/antlr
+src/graph.png
+*.iml
+.idea
+out

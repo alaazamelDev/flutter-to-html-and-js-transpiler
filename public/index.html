@@ -3,8 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flutter-like to HTML Transpiler</title>
+    <title>Flutter-like to HTML Transpiler | Live Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: #0E1116;
+            --bg-secondary: #171C26;
+            --bg-tertiary: #1F242F;
+            --accent-primary: #00C9A7;
+            --accent-secondary: #00E5B8;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A8B3C1;
+            --text-tertiary: #6B7785;
+            --border-color: #2D3544;
+            --error: #FF6B6B;
+            --success: #00C9A7;
+            --spacing-xs: 8px;
+            --spacing-sm: 12px;
+            --spacing-md: 20px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,178 +37,369 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            padding: 0 var(--spacing-md);
         }
 
-        h1 {
-            color: white;
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 2.5em;
+        header {
+            padding: var(--spacing-lg) 0;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, transparent 100%);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
         }
 
-        .subtitle {
-            color: rgba(255, 255, 255, 0.9);
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero {
+            padding: var(--spacing-xl) 0;
+            position: relative;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .highlight {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            max-width: 500px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--bg-primary);
+            box-shadow: 0 4px 20px rgba(0, 201, 167, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 201, 167, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .hero-demo {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-demo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .demo-header {
+            display: flex;
+            gap: 6px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .demo-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-color);
+        }
+
+        .demo-dot:nth-child(1) { background: #FF5F56; }
+        .demo-dot:nth-child(2) { background: #FFBD2E; }
+        .demo-dot:nth-child(3) { background: #27C93F; }
+
+        .demo-content iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: white;
+        }
+
+        .section {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.1em;
+            margin-bottom: var(--spacing-lg);
         }
 
         .card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
 
-        .upload-area {
-            border: 3px dashed #667eea;
-            border-radius: 8px;
-            padding: 40px;
+        .card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-xl);
             text-align: center;
-            background: #f8f9ff;
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: all 0.3s;
+            background: var(--bg-tertiary);
+            margin-bottom: var(--spacing-md);
         }
 
-        .upload-area:hover {
-            background: #f0f3ff;
-            border-color: #764ba2;
+        .upload-zone:hover, .upload-zone.drag-over {
+            border-color: var(--accent-primary);
+            background: rgba(0, 201, 167, 0.05);
         }
 
-        .upload-area.drag-over {
-            background: #e8edff;
-            border-color: #764ba2;
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: var(--spacing-sm);
+            opacity: 0.6;
         }
 
         input[type="file"] {
             display: none;
         }
 
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 6px;
-            font-size: 16px;
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-sm);
+            margin: var(--spacing-md) 0;
+        }
+
+        .example-btn {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: transform 0.2s;
-            margin: 5px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
         }
 
-        .btn:hover {
+        .example-btn:hover {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-color: var(--accent-primary);
             transform: translateY(-2px);
-        }
-
-        .btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
         }
 
         .editor-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
         }
 
         .editor-panel {
-            display: flex;
-            flex-direction: column;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
         }
 
         .panel-header {
-            background: #667eea;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px 8px 0 0;
-            font-weight: 600;
+            background: var(--bg-tertiary);
+            padding: var(--spacing-sm) var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        textarea, .output-frame {
+        .panel-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .tabs {
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+
+        .tab {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .tab:hover {
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+        }
+
+        .tab.active {
+            color: var(--accent-primary);
+            background: var(--bg-secondary);
+        }
+
+        textarea {
             width: 100%;
             height: 500px;
-            border: 1px solid #ddd;
-            border-radius: 0 0 8px 8px;
-            padding: 15px;
-            font-family: 'Courier New', monospace;
+            background: var(--bg-tertiary);
+            border: none;
+            padding: var(--spacing-md);
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
             font-size: 14px;
             resize: vertical;
+            outline: none;
         }
 
-        .output-frame {
-            background: white;
+        .output-content {
+            height: 500px;
             overflow: auto;
         }
 
-        iframe {
+        .output-content iframe {
             width: 100%;
-            height: 500px;
-            border: 1px solid #ddd;
-            border-radius: 0 0 8px 8px;
+            height: 100%;
+            border: none;
             background: white;
         }
 
-        .examples {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .example-btn {
-            background: #f0f3ff;
-            color: #667eea;
-            border: 2px solid #667eea;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .example-btn:hover {
-            background: #667eea;
-            color: white;
+        .output-code {
+            padding: var(--spacing-md);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-secondary);
+            overflow: auto;
+            height: 100%;
+            background: var(--bg-tertiary);
         }
 
         .message {
-            padding: 15px;
-            border-radius: 6px;
-            margin: 15px 0;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-sm);
+            margin: var(--spacing-md) 0;
             display: none;
-        }
-
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            border-left: 3px solid;
         }
 
         .message.show {
             display: block;
         }
 
+        .message.success {
+            background: rgba(0, 201, 167, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .message.error {
+            background: rgba(255, 107, 107, 0.1);
+            border-color: var(--error);
+            color: var(--error);
+        }
+
         .loading {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: var(--spacing-lg);
         }
 
         .loading.show {
@@ -191,143 +407,168 @@
         }
 
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
             width: 40px;
             height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
+            margin: 0 auto var(--spacing-md);
+            border: 3px solid var(--bg-tertiary);
+            border-top-color: var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
+        footer {
+            padding: var(--spacing-lg) 0;
+            text-align: center;
+            color: var(--text-tertiary);
+            border-top: 1px solid var(--border-color);
+            margin-top: var(--spacing-xl);
+        }
+
         @media (max-width: 768px) {
-            .editor-container {
+            .hero-content {
                 grid-template-columns: 1fr;
             }
 
-            h1 {
-                font-size: 1.8em;
+            .hero-text h1 {
+                font-size: 36px;
             }
-        }
 
-        .tab-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .tab-btn {
-            background: #f0f3ff;
-            color: #667eea;
-            border: 2px solid #667eea;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
+            .editor-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Flutter-like to HTML Transpiler</h1>
-        <p class="subtitle">Transform your Flutter-like code into HTML & JavaScript</p>
+    <header>
+        <div class="container">
+            <div class="logo">⚡ Transpiler</div>
+        </div>
+    </header>
 
-        <div class="card">
-            <h2>Upload Your Code</h2>
-            <div class="upload-area" id="uploadArea">
-                <p>📁 Drag & drop your .drt or .txt file here, or click to browse</p>
-                <input type="file" id="fileInput" accept=".drt,.txt">
-            </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <button class="btn" onclick="document.getElementById('fileInput').click()">Choose File</button>
-                <button class="btn" id="transpileBtn" disabled>Transpile</button>
-            </div>
-
-            <div class="message" id="message"></div>
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p>Transpiling your code...</p>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Transform <span class="highlight">Flutter-like</span> Code to HTML</h1>
+                    <p>A powerful transpiler that converts Flutter-like syntax into clean, production-ready HTML and JavaScript.</p>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary" onclick="scrollToEditor()">
+                            Try it Now →
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-demo">
+                    <div class="demo-header">
+                        <span class="demo-dot"></span>
+                        <span class="demo-dot"></span>
+                        <span class="demo-dot"></span>
+                    </div>
+                    <div class="demo-content">
+                        <iframe id="heroPreview"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="card">
-            <h2>Try Examples</h2>
-            <div class="examples" id="examples">
-                <button class="example-btn" onclick="loadExample('football.txt')">Football Example</button>
-                <button class="example-btn" onclick="loadExample('login_screen.txt')">Login Screen</button>
-                <button class="example-btn" onclick="loadExample('form.txt')">Form Example</button>
-                <button class="example-btn" onclick="loadExample('container.txt')">Container Example</button>
+    <section class="section" id="editor-section">
+        <div class="container">
+            <h2 class="section-title">Start Transpiling</h2>
+            
+            <div class="card">
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-icon">📄</div>
+                    <p style="color: var(--text-secondary); margin-bottom: 8px;">Drop your .drt or .txt file here</p>
+                    <p style="color: var(--text-tertiary); font-size: 14px;">or click to browse</p>
+                    <input type="file" id="fileInput" accept=".drt,.txt">
+                </div>
+                
+                <div style="display: flex; gap: var(--spacing-sm); justify-content: center;">
+                    <button class="btn btn-primary" id="transpileBtn" disabled>
+                        ⚡ Transpile
+                    </button>
+                </div>
+
+                <div class="message" id="message"></div>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p style="color: var(--text-secondary);">Transpiling your code...</p>
+                </div>
             </div>
-        </div>
 
-        <div class="card">
+            <div class="card" style="margin-top: var(--spacing-md);">
+                <h3 style="margin-bottom: var(--spacing-md); font-size: 18px;">Try Examples</h3>
+                <div class="examples-grid">
+                    <button class="example-btn" onclick="loadExample('football.txt')">⚽ Football</button>
+                    <button class="example-btn" onclick="loadExample('login_screen.txt')">🔐 Login Screen</button>
+                    <button class="example-btn" onclick="loadExample('form.txt')">📝 Form</button>
+                    <button class="example-btn" onclick="loadExample('container.txt')">📦 Container</button>
+                </div>
+            </div>
+
             <div class="editor-container">
                 <div class="editor-panel">
-                    <div class="panel-header">Input Code (Flutter-like Syntax)</div>
+                    <div class="panel-header">
+                        <span class="panel-title">INPUT CODE</span>
+                    </div>
                     <textarea id="inputCode" placeholder="Paste your Flutter-like code here or load an example..."></textarea>
                 </div>
+                
                 <div class="editor-panel">
-                    <div class="tab-buttons">
-                        <button class="tab-btn active" onclick="switchTab('preview')">Preview</button>
-                        <button class="tab-btn" onclick="switchTab('html')">HTML Source</button>
+                    <div class="panel-header">
+                        <span class="panel-title">OUTPUT</span>
+                        <div class="tabs">
+                            <button class="tab active" onclick="switchTab('preview')">Preview</button>
+                            <button class="tab" onclick="switchTab('source')">HTML Source</button>
+                        </div>
                     </div>
-                    <div id="previewTab" class="tab-content active">
-                        <iframe id="outputPreview"></iframe>
-                    </div>
-                    <div id="htmlTab" class="tab-content">
-                        <div class="output-frame" id="outputCode"></div>
+                    <div class="output-content">
+                        <iframe id="outputPreview" style="display: block;"></iframe>
+                        <pre id="outputSource" class="output-code" style="display: none;"></pre>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Built with ANTLR4, Java & Node.js | MIT License</p>
+        </div>
+    </footer>
 
     <script>
-        const uploadArea = document.getElementById('uploadArea');
+        const uploadZone = document.getElementById('uploadZone');
         const fileInput = document.getElementById('fileInput');
         const transpileBtn = document.getElementById('transpileBtn');
         const inputCode = document.getElementById('inputCode');
-        const outputCode = document.getElementById('outputCode');
         const outputPreview = document.getElementById('outputPreview');
+        const outputSource = document.getElementById('outputSource');
         const message = document.getElementById('message');
         const loading = document.getElementById('loading');
+        const heroPreview = document.getElementById('heroPreview');
+        
         let currentFile = null;
+        let currentPreviewURL = null;
 
-        uploadArea.addEventListener('click', () => fileInput.click());
+        loadHeroExample();
 
-        uploadArea.addEventListener('dragover', (e) => {
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => {
             e.preventDefault();
-            uploadArea.classList.add('drag-over');
+            uploadZone.classList.add('drag-over');
         });
-
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('drag-over');
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
+        uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+        uploadZone.addEventListener('drop', (e) => {
             e.preventDefault();
-            uploadArea.classList.remove('drag-over');
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                handleFile(files[0]);
+            uploadZone.classList.remove('drag-over');
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
             }
         });
 
@@ -343,24 +584,18 @@
             reader.onload = (e) => {
                 inputCode.value = e.target.result;
                 transpileBtn.disabled = false;
-                showMessage('File loaded successfully!', 'success');
+                showMessage('File loaded successfully! Click Transpile to convert.', 'success');
             };
             reader.readAsText(file);
         }
 
-        transpileBtn.addEventListener('click', async () => {
-            if (!currentFile && !inputCode.value) {
-                showMessage('Please select a file or enter code', 'error');
-                return;
-            }
+        transpileBtn.addEventListener('click', () => runTranspilation());
 
-            const formData = new FormData();
-            
-            if (currentFile) {
-                formData.append('file', currentFile);
-            } else {
-                const blob = new Blob([inputCode.value], { type: 'text/plain' });
-                formData.append('file', blob, 'input.txt');
+        async function runTranspilation(autoRun = false) {
+            const code = inputCode.value.trim();
+            if (!code) {
+                showMessage('Please provide code to transpile', 'error');
+                return;
             }
 
             loading.classList.add('show');
@@ -370,29 +605,37 @@
             try {
                 const response = await fetch('/transpile', {
                     method: 'POST',
-                    body: formData
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
                 });
 
                 const result = await response.json();
-                
                 loading.classList.remove('show');
                 transpileBtn.disabled = false;
 
                 if (result.success) {
-                    outputCode.textContent = result.output;
+                    if (currentPreviewURL) {
+                        URL.revokeObjectURL(currentPreviewURL);
+                    }
+                    
+                    outputSource.textContent = result.output;
                     const blob = new Blob([result.output], { type: 'text/html' });
-                    const url = URL.createObjectURL(blob);
-                    outputPreview.src = url;
-                    showMessage(result.message, 'success');
+                    currentPreviewURL = URL.createObjectURL(blob);
+                    outputPreview.src = currentPreviewURL;
+                    
+                    if (!autoRun) {
+                        showMessage('✨ ' + result.message, 'success');
+                        switchTab('preview');
+                    }
                 } else {
-                    showMessage('Error: ' + result.error + '\n' + (result.details || ''), 'error');
+                    showMessage('❌ ' + result.error + (result.details ? '\n' + result.details : ''), 'error');
                 }
             } catch (error) {
                 loading.classList.remove('show');
                 transpileBtn.disabled = false;
-                showMessage('Network error: ' + error.message, 'error');
+                showMessage('❌ Network error: ' + error.message, 'error');
             }
-        });
+        }
 
         async function loadExample(filename) {
             try {
@@ -401,40 +644,66 @@
                 
                 if (result.content) {
                     inputCode.value = result.content;
-                    const blob = new Blob([result.content], { type: 'text/plain' });
-                    currentFile = new File([blob], filename, { type: 'text/plain' });
+                    currentFile = new File([result.content], filename, { type: 'text/plain' });
                     transpileBtn.disabled = false;
-                    showMessage(`Example "${filename}" loaded successfully!`, 'success');
+                    showMessage(`📄 Example "${filename}" loaded successfully!`, 'success');
+                    
+                    await runTranspilation(true);
                 } else {
-                    showMessage('Error loading example', 'error');
+                    showMessage('❌ Error loading example', 'error');
                 }
             } catch (error) {
-                showMessage('Error loading example: ' + error.message, 'error');
+                showMessage('❌ Error loading example: ' + error.message, 'error');
+            }
+        }
+
+        async function loadHeroExample() {
+            try {
+                const response = await fetch('/example/login_screen.txt');
+                const result = await response.json();
+                
+                if (result.content) {
+                    const transpileResponse = await fetch('/transpile', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ code: result.content })
+                    });
+                    
+                    const transpileResult = await transpileResponse.json();
+                    if (transpileResult.success) {
+                        const blob = new Blob([transpileResult.output], { type: 'text/html' });
+                        const url = URL.createObjectURL(blob);
+                        heroPreview.src = url;
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load hero example:', error);
             }
         }
 
         function showMessage(text, type) {
             message.textContent = text;
             message.className = `message ${type} show`;
-            setTimeout(() => {
-                message.classList.remove('show');
-            }, 5000);
+            setTimeout(() => message.classList.remove('show'), 5000);
         }
 
         function switchTab(tab) {
-            const tabs = document.querySelectorAll('.tab-content');
-            const buttons = document.querySelectorAll('.tab-btn');
-            
+            const tabs = document.querySelectorAll('.tab');
             tabs.forEach(t => t.classList.remove('active'));
-            buttons.forEach(b => b.classList.remove('active'));
             
             if (tab === 'preview') {
-                document.getElementById('previewTab').classList.add('active');
-                buttons[0].classList.add('active');
+                outputPreview.style.display = 'block';
+                outputSource.style.display = 'none';
+                tabs[0].classList.add('active');
             } else {
-                document.getElementById('htmlTab').classList.add('active');
-                buttons[1].classList.add('active');
+                outputPreview.style.display = 'none';
+                outputSource.style.display = 'block';
+                tabs[1].classList.add('active');
             }
+        }
+
+        function scrollToEditor() {
+            document.getElementById('editor-section').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>

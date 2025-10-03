@@ -33,15 +33,28 @@ app.get('/', (req, res) => {
 });
 
 app.post('/transpile', upload.single('file'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'No file uploaded' });
+  let inputFile;
+  let shouldCleanup = true;
+
+  if (req.file) {
+    inputFile = req.file.path;
+  } else if (req.body.code) {
+    const uploadDir = 'uploads';
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    inputFile = path.join(uploadDir, `${Date.now()}-code.txt`);
+    fs.writeFileSync(inputFile, req.body.code);
+  } else {
+    return res.status(400).json({ error: 'No file or code provided' });
   }
 
-  const inputFile = req.file.path;
   const command = `java -cp "lib/*:bin" App.CompilerApp ${inputFile}`;
 
   exec(command, (error, stdout, stderr) => {
-    fs.unlinkSync(inputFile);
+    if (shouldCleanup && fs.existsSync(inputFile)) {
+      fs.unlinkSync(inputFile);
+    }
 
     if (error) {
       console.error('Error:', stderr);
