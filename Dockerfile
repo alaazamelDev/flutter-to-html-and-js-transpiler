@@ -11,9 +11,9 @@ RUN cd src/grammars && \
     java -jar ../../lib/antlr-4.12.0-complete.jar -o ../antlr -package antlr -visitor DartLexer.g4 && \
     java -jar ../../lib/antlr-4.12.0-complete.jar -o ../antlr -package antlr -visitor DartParser.g4
 
-# Compile Java source into bin/
+# Compile Java source into bin/ targeting Java 17 bytecode
 RUN mkdir -p bin && \
-    javac -cp "lib/*:src" -d bin $(find src -name "*.java")
+    javac --release 17 -cp "lib/*:src" -d bin $(find src -name "*.java")
 
 
 # Final image: lightweight Node runtime
